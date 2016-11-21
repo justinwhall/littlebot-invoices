@@ -8,11 +8,11 @@ Stable tag: 0.9.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Easily create and send estimates andinvoices for you business.
+Easily create and send estimates and invoices for you business.
 
 == Description ==
 
-Easily create and send estimates andinvoices for you business.
+Easily create and send estimates and invoices for you business.
 
 == Installation ==
 
