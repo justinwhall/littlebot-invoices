@@ -1,0 +1,14 @@
+/*Invoice Details*/
+#lbi-inovoice-details .inside{
+	padding: 0 0 0 0;
+}
+.lb-submitbox input[type="text"],
+.lb-submitbox select{
+	width: 100%;
+}
+.lb-submitbox input.lb-skinny{
+	width: 40px;
+}
+.lb-submitbox .tax-rate-section label{
+	vertical-align: text-bottom;
+}
