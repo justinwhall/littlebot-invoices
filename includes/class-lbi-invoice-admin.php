@@ -17,15 +17,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class LBI_Admin_Post
 {
-	static $post_type;
+	static $post_type_name;
 
 	public function __construct()
 	{
 
 	}
 
-	static function get_issued_date( $post_id ){
-
-    }
-
+	/**
+	 * Renders invoice & estimate details.
+	 */
+	public function render_details_metabox( $post ) {
+	    // Add nonce for security and authentication.
+	    wp_nonce_field( 'custom_nonce_action', 'custom_nonce' );
+	    require_once LBI_PLUGIN_DIR . 'views/admin-invoice-details.php';
+	}
+	
 }

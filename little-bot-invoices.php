@@ -40,7 +40,6 @@ final class Little_Bot_Invoices {
 
 	public $statuses = array();
 
-
 	/**
 	 * Main Little_Bot_Invoices Instance.
 	 *
@@ -148,9 +147,9 @@ endif; // End if class_exists check.
 
 
 /**
- * The main function for that returns Little_Bot_Invoices
+ * The main function that returns Little_Bot_Invoices
  *
- * @since 1.4
+ * @since 0.9
 * @return object|Little_Bot_Invoices The one true Little_Bot_Invoices Instance.
  */
 function LBI() {

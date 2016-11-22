@@ -2,8 +2,10 @@
 #lbi-inovoice-details .inside{
 	padding: 0 0 0 0;
 }
-.lb-submitbox input[type="text"],
-.lb-submitbox select{
+.lb-submitbox #lb-client,
+.lb-submitbox #lb-invoice-number,
+.lb-submitbox #lb-po-number,
+.lb-submitbox #post-status{
 	width: 100%;
 }
 .lb-submitbox input.lb-skinny{
@@ -11,4 +13,19 @@
 }
 .lb-submitbox .tax-rate-section label{
 	vertical-align: text-bottom;
+}
+#lb-due-date:before{
+	font: 400 20px/1 dashicons;
+	speak: none;
+	display: inline-block;
+	padding: 0 2px 0 0;
+	top: 0;
+	left: -1px;
+	position: relative;
+	vertical-align: top;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-decoration: none!important;
+	content: "\f145";
+	top: -1px;
 }

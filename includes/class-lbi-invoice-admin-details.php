@@ -26,6 +26,26 @@ class LBI_Invoice_Details extends LBI_Admin_Post {
             add_action( 'load-post.php',     array( $this, 'init_metabox' ) );
             add_action( 'load-post-new.php', array( $this, 'init_metabox' ) );
         }
+
+        $this->post_type_name = 'Invoice';
+    }
+
+    /**
+     * Gets the due date of an invoice if stored in the DB, otherwise generates one +30 days 
+     * @param  int $post_id the post ID
+     * @return string unix timestamp
+     */
+    public function get_due_date( $post_id ){
+
+        $saved_date = get_post_meta( $post_id, '_lb_post_datate', true );
+
+        if ( strlen( $saved_date ) ) {
+            $due_date = $saved_date;
+        } else{
+            $due_date = strtotime( '+30 days', current_time('timestamp') );
+        }
+
+        return $due_date;
     }
  
     /**
@@ -42,22 +62,13 @@ class LBI_Invoice_Details extends LBI_Admin_Post {
     public function add_details() {
         add_meta_box(
             'lbi-inovoice-details',
-            __( 'Invoice Details', 'little-bot-invoices' ),
-            array( $this, 'render_metabox' ),
+            __( $this->post_type_name . ' Details', 'little-bot-invoices' ),
+            array( $this, 'render_details_metabox' ),
             'lb_invoice',
             'side',
             'default'
         );
  
-    }
- 
-    /**
-     * Renders the meta box.
-     */
-    public function render_metabox( $post ) {
-        // Add nonce for security and authentication.
-        wp_nonce_field( 'custom_nonce_action', 'custom_nonce' );
-        require_once LBI_PLUGIN_DIR . 'views/admin-invoice-details.php';
     }
  
     /**
@@ -99,19 +110,20 @@ class LBI_Invoice_Details extends LBI_Admin_Post {
         }
 
         // If we make this far sanatize & update
-        if ( isset( $_POST['lb_invoice_number'] ) ) {
-           update_post_meta( $post_id, 'lb_invoice_number', sanitize_text_field( $_POST['lb_invoice_number'] ) );
+        if ( isset( $_POST['_lb_invoice_number'] ) ) {
+           update_post_meta( $post_id, '_lb_invoice_number', sanitize_text_field( $_POST['_lb_invoice_number'] ) );
         }
 
-        if ( isset( $_POST['lb_po_number'] ) ) {
-           update_post_meta( $post_id, 'lb_po_number', sanitize_text_field( $_POST['lb_po_number'] ) );
+        if ( isset( $_POST['_lb_po_number'] ) ) {
+           update_post_meta( $post_id, '_lb_po_number', sanitize_text_field( $_POST['_lb_po_number'] ) );
         }
 
-        if ( isset( $_POST['lb_tax_rate'] ) ) {
-           update_post_meta( $post_id, 'lb_tax_rate', sanitize_text_field( $_POST['lb_tax_rate'] ) );
+        if ( isset( $_POST['_lb_tax_rate'] ) ) {
+           update_post_meta( $post_id, '_lb_tax_rate', sanitize_text_field( $_POST['_lb_tax_rate'] ) );
         }
 
     }
+
 }
  
 new LBI_Invoice_Details();
