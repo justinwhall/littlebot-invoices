@@ -39,7 +39,7 @@ class LBI_Assets {
 	 * Enqueue scripts.
 	 */
 	public function admin_scripts() {
-		wp_enqueue_script( 'little-bot-scripts', LBI_PLUGIN_URL . 'assets/js/littlebot.js', array( 'jquery' ), LBI_VERSION, true );
+		wp_enqueue_script( 'little-bot-scripts', LBI_PLUGIN_URL . 'assets/js/littlebot.js', array( 'jquery', 'wp-util' ), LBI_VERSION, true );
 	}
 
 

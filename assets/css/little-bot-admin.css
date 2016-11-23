@@ -29,3 +29,66 @@
 	content: "\f145";
 	top: -1px;
 }
+
+/*Invoice Line Items*/
+#lbi-line-items .inside{
+	padding: 0 0 0 0;
+	margin-top: 0;
+}
+.items-wrap{
+	padding: 10px 0;
+	background: #F6F6F6;
+	color: #A7A7A7;
+}
+.item-row{
+	clear: both;
+	overflow: hidden;
+	box-sizing: border-box;
+	padding: 0 20px;
+}
+.lb-line-item{
+	margin: 20px 0;
+	position: relative;
+}
+.item-row .dashicons-dismiss,
+.item-row .dashicons-plus-alt{
+	position: absolute;
+	left:14px;
+	top: 4px;
+}
+.item-row .dashicons-plus-alt{
+	top: 34px;
+}
+.item-row .flex-width{
+	float: left;
+	margin-right: -200px;
+	padding-left: 28px;
+	padding-right: 240px;
+	width: 100%;
+	box-sizing: border-box;
+}
+.item-row .fixed-width{
+	float: right;
+	width: 200px;
+	box-sizing: border-box;
+	text-align: right;
+}
+.item-row .item-title{
+	width: 100%;
+}
+.fixed-width > .sub-fixed{
+	width: 40px;
+	text-align: center !important;
+	display: inline-block;
+	margin-right: 0;
+	margin-left: 5px;
+}
+.item-row textarea{
+	width: 100%;
+	min-width: 100%;
+	margin-top: 10px;
+}
+.lb-bottom-controls{
+	padding: 10px 0 10px 47px;
+	background: #FAFAFA; 
+}

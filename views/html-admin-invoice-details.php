@@ -140,7 +140,5 @@
 
 <?php add_thickbox(); ?>
 <div id="lb-add-client" style="display:none;">
-     <p>
-          This is my hidden content! It will appear in ThickBox when the link is clicked.
-     </p>
+
 </div>	

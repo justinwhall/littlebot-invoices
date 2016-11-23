@@ -24,13 +24,37 @@ class LBI_Admin_Post
 
 	}
 
-	/**
-	 * Renders invoice & estimate details.
-	 */
-	public function render_details_metabox( $post ) {
-	    // Add nonce for security and authentication.
-	    wp_nonce_field( 'custom_nonce_action', 'custom_nonce' );
-	    require_once LBI_PLUGIN_DIR . 'views/admin-invoice-details.php';
+	public function validate_save_action( $nonce_name, $nonce_action, $post_id ){
+
+		$save = true;
+
+		// Check if nonce is set.
+		if ( ! isset( $nonce_name ) ) {
+		    $save = false;
+		}
+		
+		// Check if nonce is valid.
+		if ( ! wp_verify_nonce( $nonce_name, $nonce_action ) ) {
+		    $save = false;
+		}
+		
+		// Check if user has permissions to save data.
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+		    $save = false;
+		}
+		
+		// Check if not an autosave.
+		if ( wp_is_post_autosave( $post_id ) ) {
+		    $save = false;
+		}
+		
+		// Check if not a revision.
+		if ( wp_is_post_revision( $post_id ) ) {
+		    $save = false;
+		}
+
+		return $save;
+
 	}
 	
 }
