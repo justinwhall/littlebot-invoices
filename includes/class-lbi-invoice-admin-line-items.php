@@ -78,7 +78,21 @@ class LBI_Line_Items extends LBI_Admin_Post {
 
         if ( !$save ) return;
 
-        var_dump( $_POST );die;
+        $all_line_items = array();
+        foreach ( $_POST['item_title'] as $i => $title ) {
+            $line_item = array();
+
+            $line_item['item_title']   = sanitize_text_field( $title );
+            $line_item['item_desc']    = sanitize_text_field( $_POST['item_desc'][$i] );
+            $line_item['item_qty']     = sanitize_text_field( $_POST['item_qty'][$i] );
+            $line_item['item_rate']    = sanitize_text_field( $_POST['item_rate'][$i] );
+            $line_item['item_percent'] = sanitize_text_field( $_POST['item_percent'][$i] );
+            $line_item['item_amount']  = sanitize_text_field( $_POST['item_amount'][$i] );
+
+            $all_line_items[] = $line_item;
+        }
+
+        update_post_meta( $post_id, '_line_items', $all_line_items );
     }
 }
  

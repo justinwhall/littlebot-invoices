@@ -1,5 +1,47 @@
 ( function( $ ) {
 
+	$(window).bind('beforeunload', function() {} );
+
+	var LineItems = {
+
+		init:function(){
+			this.attachEvents();
+		},
+
+		attachEvents:function(){
+			$('#all-line-items').on('change paste keyup', 'input.sub-fixed', this.updateLineItemTotal);
+		},
+
+		updateLineItemTotal:function(){
+			
+			var qty     = ( isNaN( parseFloat($(this).parents('.line-vals').find('.item-qty').val()) ) ? 0 : parseFloat($(this).parents('.line-vals').find('.item-qty').val()) );
+			var rate    = ( isNaN( parseFloat($(this).parents('.line-vals').find('.item-rate').val()) ) ? 0 : parseFloat($(this).parents('.line-vals').find('.item-rate').val()) );
+			var percent = ( isNaN(parseFloat($(this).parents('.line-vals').find('.item-percent').val()) / 100) ? 0 : parseFloat($(this).parents('.line-vals').find('.item-percent').val()) / 100  );
+			var totalEl = $(this).parents('.line-vals').find('.item-total');
+			var discount = qty * rate * percent;
+			var total = qty * rate - discount;
+
+			// Update line item
+			$(this).parents('.line-vals').find('.line-total').text(total);
+			$(this).parents('.line-vals').find('.line-total-input').val(total);
+
+			// update totals
+			LineItems.updateTotals();
+		},
+
+		updateTotals:function(){
+
+		},
+
+		padInt:function(str, max) {
+		  str = str.toString();
+		  return str.length < max ? LineItems.padInt("0" + str, max) : str;
+		}
+
+	}
+	LineItems.init();
+
+
 	$('#due-date-div').find('.save-due-date').click( function() {
 		updateDueDate(); 
 	});
