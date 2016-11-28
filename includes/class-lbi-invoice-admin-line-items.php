@@ -93,6 +93,8 @@ class LBI_Line_Items extends LBI_Admin_Post {
         }
 
         update_post_meta( $post_id, '_line_items', $all_line_items );
+        update_post_meta( $post_id, '_subtotal', $_POST['_subtotal'] );
+        update_post_meta( $post_id, '_total', $_POST['_total'] );
     }
 }
  

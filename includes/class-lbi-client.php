@@ -1,0 +1,108 @@
+<?php
+/**
+ *
+ * Client Object
+ *
+ * @class     LBI_Client
+ * @version   0.9
+ * @category  Class
+ * @author    Justin W Hall
+ */
+
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
+ * LBI_Client Class.
+ */
+class LBI_Client {
+
+	static $user_data = array();
+
+	static $error = false;
+
+	static $message = '';
+
+	static $data = false;
+
+	static $username_int = 1;
+ 
+    public function init() {
+    	// Ajax add client from estimates/invoices
+    	add_action( 'wp_ajax_create_client', array( __CLASS__, 'create' ), 10 );
+    	// Add meta fields
+    	add_action( 'show_user_profile', array( __CLASS__, 'add_meta_fields' ) );
+    	add_action( 'edit_user_profile', array( __CLASS__, 'add_meta_fields' ) );
+    	// Save meta fields
+    	add_action( 'personal_options_update', array( __CLASS__, 'update_meta' ), 10 );
+    	add_action( 'edit_user_profile_update', array( __CLASS__, 'update_meta' ), 10 );
+    }
+
+    public function create(){
+
+    	check_ajax_referer('lb-invoices', 'nonce');
+
+    	// Make sure email isn't being used already
+    	if ( email_exists( $_POST['email'] ) ){
+    		self::$error = true;
+    		self::$message = 'Email already exists. Please choose a different one.';
+    		self::$data = false;
+    	} else{
+	    	// Generate unique username
+	    	$username = LBI()->clients->generate_username( $_POST['first_name'], $_POST['last_name'] );
+
+    	}
+
+    	// Insert user
+    	$userdata['user_login'] = $username;
+    	$userdata['user_pass'] = wp_generate_password();
+    	$userdata['first_name'] = $_POST['first_name'];
+    	$userdata['last_name'] = $_POST['last_name'];
+    	$userdata['user_email'] = $_POST['email'];
+    	$userdata['user_url'] = $_POST['website'];
+    	$userdata['role'] = 'subscriber';
+    	$user_id = wp_insert_user( $userdata );
+
+    	if ( !is_array( $user_id ) ) {
+    		self::update_meta( $user_id);
+    		self::$data['user_id'] = $user_id;
+    		self::$data['company_name'] = $_POST['company_name'];
+    		self::$data['first_name'] = $_POST['first_name'];
+    		self::$data['last_name'] = $_POST['last_name'];
+    	}
+
+    	// send response object
+    	$response = LBI()->response->build( self::$error, self::$message, self::$data );
+    	wp_send_json( $response );
+    	
+    }
+
+    public function update( $user_id = 0 ){
+
+    }
+
+    /**
+     * update a clients custom metadata
+     * @param  integer $user_id  a user's ID
+     * @return void 
+     */
+    public function update_meta( $user_id ){
+   	
+    	update_usermeta( $user_id, 'company_name', $_POST['company_name'] );
+    	update_usermeta( $user_id, 'phone_number', $_POST['phone_number'] );
+    	update_usermeta( $user_id, 'street_address', $_POST['street_address'] );
+    	update_usermeta( $user_id, 'city', $_POST['city'] );
+    	update_usermeta( $user_id, 'state', $_POST['state'] );
+    	update_usermeta( $user_id, 'zip', $_POST['zip'] );
+    	update_usermeta( $user_id, 'country', $_POST['country'] );
+    	update_usermeta( $user_id, 'client_notes', $_POST['client_notes'] );
+    	update_usermeta( $user_id, 'lb_client', $_POST['lb_client'][0] );
+    }
+
+    public function add_meta_fields( $user ){
+    	require_once LBI_PLUGIN_DIR . 'views/html-user-meta.php';
+    }
+
+}

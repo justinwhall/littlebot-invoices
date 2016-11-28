@@ -1,7 +1,5 @@
 ( function( $ ) {
 
-	$(window).bind('beforeunload', function() {} );
-
 	var LineItems = {
 
 		init:function(){
@@ -9,27 +7,89 @@
 		},
 
 		attachEvents:function(){
-			$('#all-line-items').on('change paste keyup', 'input.sub-fixed', this.updateLineItemTotal);
+			$('.lb-calc-container').on('change paste keyup', 'input.lb-calc-input', this.updateLineItemTotal);
+			$('.lb-calc-container').on('change paste keyup', 'input.lb-calc-input', this.updateTotals);
+			// add client
+			$('.save-client').on('click', this.updateClient);
+		},
+
+		updateClient:function(){
+			var data = {
+				action         : 'create_client',
+				nonce          : ajax_object.ajax_nonce,
+				first_name     : $('.first-name input').val(),
+				last_name      : $('.last-name input').val(),
+				email          : $('.email input').val(),
+				website        : $('.website input').val(),
+				company_name   : $('.company input').val(),
+				phone_number   : $('.phone-number input').val(),
+				street_address : $('.street-address input').val(),
+				city           : $('.city input').val(),
+				state          : $('.state input').val(),
+				zip            : $('.zipcode input').val(),
+				country        : $('.country input').val(),
+				client_notes   : $('#client-notes').val(),
+				lb_client      : 1
+			};
+
+			$.ajax({
+				url     : ajax_object.ajax_url,
+				type    : 'POST',
+				data    : data,
+				success : function( resp ){
+					if (resp.error) {
+						$('.add-user-feedback').append(resp.message);
+					} else{
+						LineItems.appendNewUser(resp.data);
+					}
+				}
+			});
+		},
+
+		appendNewUser:function(user){
+			var optName, option;
+			if (user.company_name.length) {
+				optName = user.company_name;
+			} else {
+				optName = user.first_name + ' ' + user.last_name;
+			}
+			option = '<option value="' + user.user_id + '" selected >' + optName + '</option>';
+			$('#lb-client').append(option);
+
 		},
 
 		updateLineItemTotal:function(){
 			
-			var qty     = ( isNaN( parseFloat($(this).parents('.line-vals').find('.item-qty').val()) ) ? 0 : parseFloat($(this).parents('.line-vals').find('.item-qty').val()) );
-			var rate    = ( isNaN( parseFloat($(this).parents('.line-vals').find('.item-rate').val()) ) ? 0 : parseFloat($(this).parents('.line-vals').find('.item-rate').val()) );
-			var percent = ( isNaN(parseFloat($(this).parents('.line-vals').find('.item-percent').val()) / 100) ? 0 : parseFloat($(this).parents('.line-vals').find('.item-percent').val()) / 100  );
-			var totalEl = $(this).parents('.line-vals').find('.item-total');
-			var discount = qty * rate * percent;
-			var total = qty * rate - discount;
+			var qty      = ( isNaN( parseFloat($(this).parents('.line-vals').find('.item-qty').val()) ) ? 0 : parseFloat($(this).parents('.line-vals').find('.item-qty').val()) );
+			var rate     = ( isNaN( parseFloat($(this).parents('.line-vals').find('.item-rate').val()) ) ? 0 : parseFloat($(this).parents('.line-vals').find('.item-rate').val()) );
+			var percent  = ( isNaN(parseFloat($(this).parents('.line-vals').find('.item-percent').val()) / 100) ? 0 : parseFloat($(this).parents('.line-vals').find('.item-percent').val()) / 100  );
+			var totalEl  = $(this).parents('.line-vals').find('.item-total');
+			var discount = (qty * rate * percent).toFixed(2);
+			var total    = (qty * rate - discount).toFixed(2);
 
 			// Update line item
 			$(this).parents('.line-vals').find('.line-total').text(total);
 			$(this).parents('.line-vals').find('.line-total-input').val(total);
 
-			// update totals
-			LineItems.updateTotals();
 		},
 
 		updateTotals:function(){
+			var tax      = ( isNaN( parseFloat($('#lb-tax-rate').val()) ) ? 0 : parseFloat($('#lb-tax-rate').val()) / 100 );
+			var subTotal = 0;
+			var total    = 0;
+
+			// subtotal
+			$.each($('.line-total-input'), function(index, val) {
+				subTotal += parseFloat($(val).val());
+			});
+
+			$('.subtotal-val').text((subTotal).toFixed(2));
+			$('.subtotal-input').val((subTotal).toFixed(2));
+
+			// And total
+			total += subTotal + (subTotal * tax);
+			$('.total-val').text((total).toFixed(2));
+			$('.total-input').val((total).toFixed(2));
 
 		},
 

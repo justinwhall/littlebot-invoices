@@ -1,10 +1,20 @@
 <?php 
-	$line_items = get_post_meta( $post->ID, '_line_items', true );
+	$line_items = get_post_meta( $post->ID, '_line_items', true ); 
+
+	if ( !is_array( $line_items ) ) {
+		$item = array();
+		$item['item_title'] = '';
+		$item['item_desc'] = '';
+		$item['item_rate'] = '';
+		$item['item_percent'] = '';
+		$item['item_amount'] = '';
+		$line_items[] = $item;
+	}
  ?>
 
- <?php foreach ( $line_items as $item ): ?>
- 	
-	<div id="all-line-items">
+<div id="all-line-items" class="lb-calc-container">
+	
+	<?php foreach ( $line_items as $item ): ?>
 		<div class="single-line-item">
 			<div class="items-wrap">
 				<div class="items-header item-row">
@@ -28,29 +38,31 @@
 					<textarea name="item_desc[]" id="item-desc" ><?php echo $item['item_desc']; ?></textarea>
 				</div> 
 				<div class="fixed-width line-vals">
-					<input type="text" placeholder="0" value="<?php echo $item['item_qty']; ?>" name="item_qty[]" class="sub-fixed item-qty"> 
-					<input type="text" placeholder="0" value="<?php echo $item['item_rate']; ?>" name="item_rate[]" class="sub-fixed item-rate"> 
-					<input type="text" placeholder="0" value="<?php echo $item['item_percent']; ?>" name="item_percent[]" class="sub-fixed item-percent"> 
-					<span class="sub-fixed line-total"><?php echo $item['item_total']; ?></span>
-					<input type="hidden" name="item_amount[]" value="<?php echo $item['item_total']; ?>" class="sub-fixed line-total-input"> 
+					<input type="text" placeholder="0" value="<?php echo $item['item_qty']; ?>" name="item_qty[]" class="lb-calc-input sub-fixed item-qty"> 
+					<input type="text" placeholder="0" value="<?php echo $item['item_rate']; ?>" name="item_rate[]" class="lb-calc-input sub-fixed item-rate"> 
+					<input type="text" placeholder="0" value="<?php echo $item['item_percent']; ?>" name="item_percent[]" class="lb-calc-input sub-fixed item-percent"> 
+					<span class="sub-fixed line-total"><?php echo $item['item_amount']; ?></span>
+					<input type="hidden" name="item_amount[]" value="<?php echo $item['item_amount']; ?>" class="sub-fixed line-total-input"> 
 				</div>
 			</div>
 		</div>
-	</div>
-	<div class="lb-bottom-controls">
-		<button class="add-line-item button">Add Line Item</button>
-		<div class="lb-totals">
-			<div class="subtotal">
-				<span class="label strong">Subtotal</span> <span class="subtotal-val">100</span>
-			</div>
-			<div class="total">
-				<span class="label strong">Total</span> <span class="total-val">100</span>
-			</div>
+	<?php endforeach; ?>
+
+</div>
+
+<div class="lb-bottom-controls">
+	<button class="add-line-item button">Add Line Item</button>
+	<div class="lb-totals">
+		<div class="subtotal">
+			<span class="label strong">Subtotal</span> <span class="subtotal-val"><?php echo get_post_meta( $post->ID, '_subtotal', true ); ?></span>
+			<input type="hidden" name="_subtotal" class="subtotal-input" value="<?php echo get_post_meta( $post->ID, '_subtotal', true ); ?>">
+		</div>
+		<div class="total">
+			<span class="label strong">Total</span> <span class="total-val"><?php echo get_post_meta( $post->ID, '_total', true ); ?></span>
+			<input type="hidden" name="_total" class="total-input" value="<?php echo get_post_meta( $post->ID, '_total', true ); ?>">
 		</div>
 	</div>
-
- <?php endforeach; ?>
-
+</div>
 
 <script type="text/html" id="tmpl-line-item">
 	<div class="single-line-item">
@@ -76,11 +88,11 @@
 				<textarea name="item_desc[]" id="item-desc" ></textarea>
 			</div> 
 			<div class="fixed-width line-vals">
-				<input type="text" placeholder="0" name="item_qty[]" class="sub-fixed item-qty"> 
-				<input type="text" placeholder="0" name="item_rate[]" class="sub-fixed item-rate"> 
-				<input type="text" placeholder="0" name="item_percent[]" class="sub-fixed item-percent"> 
+				<input type="text" placeholder="0" name="item_qty[]" class="lb-calc-input sub-fixed item-qty"> 
+				<input type="text" placeholder="0" name="item_rate[]" class="lb-calc-input sub-fixed item-rate"> 
+				<input type="text" placeholder="0" name="item_percent[]" class="lb-calc-input sub-fixed item-percent"> 
 				<span class="sub-fixed line-total"></span>
-				<input type="hidden" name="item_amount[]" value="" class="sub-fixed line-total-input"> 
+				<input type="hidden" name="item_amount[]" value="" class="lb-calc-input sub-fixed line-total-input"> 
 			</div>
 		</div>
 	</div>

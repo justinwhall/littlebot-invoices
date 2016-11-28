@@ -60,6 +60,8 @@ final class Little_Bot_Invoices {
 			self::$instance = new Little_Bot_Invoices;
 			self::$instance->setup_constants();
 			self::$instance->includes();
+			self::$instance->clients = new LBI_Clients();
+			self::$instance->response = new LBI_Response();
 		}
 		return self::$instance;
 	}
@@ -137,6 +139,11 @@ final class Little_Bot_Invoices {
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-invoice-admin.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-invoice-admin-details.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-invoice-admin-line-items.php';
+		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-clients.php';
+		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-client.php';
+		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-response.php';
+
+		LBI_Client::init();
 
 
 	}

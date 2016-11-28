@@ -1,6 +1,9 @@
-<?php global $post;?>
+<?php 
+	global $post;
+	$clients = LBI()->clients->get_all();
+?>
 
-<div id="submitdiv">
+<div id="submitdiv" class="lb-calc-container">
 	<div class="submitbox lb-submitbox" id="submitpost">
 
 		<div id="minor-publishing">
@@ -8,10 +11,21 @@
 			<!-- Client -->
 			<div class="misc-pub-section">
 				<label for="post_status">Client</label>
-				<select name='lb_client' id='lb-client'>
-					<option>-</option>
+				<select name='_lb_client' id='lb-client'>
+					<option>No Client</option>
+					<?php foreach ( $clients as $client ): ?>
+						<option value="<?php echo $client->ID; ?>" <?php if ( $client->ID == get_post_meta( get_the_ID(), '_lb_client', true ) ) { echo "selected"; } ?>>
+							<?php 
+								if ( get_user_meta( $client->ID, 'company_name', true ) ){ 
+									echo get_user_meta( $client->ID, 'company_name', true );
+								} else {
+									echo get_user_meta( $client->ID, 'first_name', true ) . ' ' . get_user_meta( $client->ID, 'last_name', true );
+								}
+							?>
+						</option>
+					<?php endforeach; ?>
 				</select>
-				<a href="#TB_inline?width=600&height=550&inlineId=lb-add-client" class="thickbox">Add Client</a>		
+				<a href="#TB_inline?width=600&height=550&inlineId=lb-add-client" class="thickbox">+ Client</a>	
 			</div>
 
 			<!-- Status -->
@@ -40,7 +54,7 @@
 			<!-- Tax Rate -->
 			<div class="misc-pub-section tax-rate-section" id="post-status-select">
 				<label for="lb-tax-rate">Tax</label>
-				<input type="text" name="_lb_tax_rate" class="lb-skinny" id="lb-tax-rate" value="<?php echo get_post_meta( get_the_ID(), '_lb_po_number', true ); ?>"> %
+				<input type="text" name="_lb_tax_rate" class="lb-skinny lb-calc-input" id="lb-tax-rate" placeholder="0" value="<?php echo get_post_meta( get_the_ID(), '_lb_po_number', true ); ?>"> %
 			</div>
 
 
@@ -145,5 +159,72 @@
 
 <?php add_thickbox(); ?>
 <div id="lb-add-client" style="display:none;">
+	<div id="add-new-client">
+		<h2>Add a Client</h2>
 
+		<div class="lb-row">
+			<div class="first-name col-6">
+				<label for="first_name">First Name</label>
+				<input type="text"  name="first_name">
+			</div>
+			<div class="last-name col-6">
+				<label for="last_name">Last Name</label>
+				<input type="text"  name="last_name">
+			</div>
+		</div>
+
+		<div class="lb-row">
+			<div class="col-6 email">
+				<label for="email">Email</label>
+				<input type="text" name="email">
+			</div>
+			<div class="col-6 website">
+				<label for="website">Website</label>
+				<input type="text" name="website">
+			</div>
+		</div>
+
+		<div class="lb-row">
+			<div class="col-6 company">
+				<label for="company_name">Company Name</label>
+				<input type="text" name="company_name">
+			</div>
+			<div class="col-6 phone-number">
+				<label for="phone_num">Phone Number</label>
+				<input type="text" name="phone_num">
+			</div>
+		</div>
+
+		<div class="lb-row">
+			<div class="col-6 street-address">
+				<label for="street_address">Street Address</label>
+				<input type="text" name="street_address">
+			</div>
+			<div class="col-6 city">
+				<label for="city">City</label>
+				<input type="text" name="city">
+			</div>
+		</div>
+
+		<div class="lb-row">
+			<div class="col-4 state">
+				<label for="state">State</label>
+				<input type="text" name="state">
+			</div>
+			<div class="col-4 zipcode">
+				<label for="zip_code">Zip</label>
+				<input type="text" name="zip_code">
+			</div>
+			<div class="col-4 country">
+				<label for="country">Country</label>
+				<input type="text" name="country">
+			</div>
+		</div>
+
+		<textarea name="client_notes" id="client-notes" ></textarea>
+
+		<div>
+			<button class="save-client button-primary button-large">Save Client</button>
+		</div>
+	</div>
 </div>	

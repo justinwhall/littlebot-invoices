@@ -118,6 +118,7 @@ class LBI_Invoice_Details extends LBI_Admin_Post {
             return;
         }
 
+
         // If we make this far sanatize & update
         if ( isset( $_POST['_lb_invoice_number'] ) ) {
            update_post_meta( $post_id, '_lb_invoice_number', sanitize_text_field( $_POST['_lb_invoice_number'] ) );
@@ -129,6 +130,10 @@ class LBI_Invoice_Details extends LBI_Admin_Post {
 
         if ( isset( $_POST['_lb_tax_rate'] ) ) {
            update_post_meta( $post_id, '_lb_tax_rate', sanitize_text_field( $_POST['_lb_tax_rate'] ) );
+        }
+
+        if ( isset( $_POST['_lb_client'] ) ) {
+           update_post_meta( $post_id, '_lb_client', $_POST['_lb_client'] );
         }
 
     }
