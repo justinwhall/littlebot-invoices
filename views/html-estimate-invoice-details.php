@@ -48,6 +48,12 @@
 				<input type="text" name="_lb_invoice_number" id="lb-invoice-number" value="<?php echo get_post_meta( get_the_ID(), '_lb_invoice_number', true ); ?>" >
 			</div>
 
+			<!-- Inovice Number -->
+			<div class="misc-pub-section" id="post-status-select">
+				<label for="_lb_estimate_number">Estimate Number</label>
+				<input type="text" name="_lb_estimate_number" id="lb-estimate-number" value="<?php echo get_post_meta( get_the_ID(), '_lb_estimate_number', true ); ?>" >
+			</div>
+
 			<!-- PO number -->
 			<div class="misc-pub-section" id="post-status-select">
 				<label for="lb-po-number">P.O. Number</label>

@@ -93,35 +93,17 @@ class LBI_Invoice_Details extends LBI_Admin_Post {
         $nonce_name   = isset( $_POST['custom_nonce'] ) ? $_POST['custom_nonce'] : '';
         $nonce_action = 'custom_nonce_action';
     
-        // Check if nonce is set.
-        if ( ! isset( $nonce_name ) ) {
-            return;
-        }
-    
-        // Check if nonce is valid.
-        if ( ! wp_verify_nonce( $nonce_name, $nonce_action ) ) {
-            return;
-        }
-    
-        // Check if user has permissions to save data.
-        if ( ! current_user_can( 'edit_post', $post_id ) ) {
-            return;
-        }
-    
-        // Check if not an autosave.
-        if ( wp_is_post_autosave( $post_id ) ) {
-            return;
-        }
-    
-        // Check if not a revision.
-        if ( wp_is_post_revision( $post_id ) ) {
-            return;
-        }
+        $save = $this->validate_save_action( $nonce_name, $nonce_action, $post_id);
 
+        if ( !$save ) return;
 
         // If we make this far sanatize & update
         if ( isset( $_POST['_lb_invoice_number'] ) ) {
            update_post_meta( $post_id, '_lb_invoice_number', sanitize_text_field( $_POST['_lb_invoice_number'] ) );
+        }
+
+        if ( isset( $_POST['_lb_estimate_number'] ) ) {
+           update_post_meta( $post_id, '_lb_estimate_number', sanitize_text_field( $_POST['_lb_estimate_number'] ) );
         }
 
         if ( isset( $_POST['_lb_po_number'] ) ) {
