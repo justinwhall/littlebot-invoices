@@ -31,14 +31,13 @@ class LB_Post_Types {
 	}
 
 	public function remove_publish_metabox() {
-		remove_meta_box( 'submitdiv',  'lb_invoice', 'side' );
+		remove_meta_box( 'submitdiv', array('lb_invoice', 'lb_estimate'), 'side' );
 	}
 
 	/**
 	 * Register core post types.
 	 */
-	public static function register_post_types() {
-
+	public static function register_post_types( $post_slug ) {
 
 		if ( post_type_exists('lb-invoice') ) {
 			return;
@@ -69,7 +68,7 @@ class LB_Post_Types {
 			'show_ui'            => true,
 			'show_in_menu'       => true,
 			'query_var'          => true,
-			'rewrite'            => array( 'slug' => 'littlebot-Invoice' ),
+			'rewrite'            => array( 'slug' => 'littlebot-invoice' ),
 			'capability_type'    => 'post',
 			'has_archive'        => true,
 			'hierarchical'       => false,
@@ -78,6 +77,41 @@ class LB_Post_Types {
 		);
 
 		register_post_type( 'lb_invoice', $args );
+
+		$labels = array(
+			'name'               => _x( 'Estimates', 'post type general name', 'little-bot-invoices' ),
+			'singular_name'      => _x( 'Estimate', 'post type singular name', 'little-bot-invoices' ),
+			'menu_name'          => _x( 'Estimates', 'admin menu', 'little-bot-invoices' ),
+			'name_admin_bar'     => _x( 'Estimate', 'add new on admin bar', 'little-bot-invoices' ),
+			'add_new'            => _x( 'Add New', 'Estimate', 'little-bot-invoices' ),
+			'add_new_item'       => __( 'Add New Estimate', 'little-bot-invoices' ),
+			'new_item'           => __( 'New Estimate', 'little-bot-invoices' ),
+			'edit_item'          => __( 'Edit Estimate', 'little-bot-invoices' ),
+			'view_item'          => __( 'View Estimate', 'little-bot-invoices' ),
+			'all_items'          => __( 'All Estimates', 'little-bot-invoices' ),
+			'search_items'       => __( 'Search Estimates', 'little-bot-invoices' ),
+			'parent_item_colon'  => __( 'Parent Estimates:', 'little-bot-invoices' ),
+			'not_found'          => __( 'No invoices found.', 'little-bot-invoices' ),
+			'not_found_in_trash' => __( 'No invoices found in Trash.', 'little-bot-invoices' )
+		);
+
+		$args = array(
+			'labels'             => $labels,
+            'description'        => __( 'Little Bot Estimates.', 'little-bot-invoices' ),
+			'public'             => true,
+			'publicly_queryable' => true,
+			'show_ui'            => true,
+			'show_in_menu'       => true,
+			'query_var'          => true,
+			'rewrite'            => array( 'slug' => 'littlebot-estimate' ),
+			'capability_type'    => 'post',
+			'has_archive'        => true,
+			'hierarchical'       => false,
+			'menu_position'      => null,
+			'supports'           => array( 'title')
+		);
+
+		register_post_type( 'lb_estimate', $args );
 	}
 
 	/**
@@ -131,6 +165,47 @@ class LB_Post_Types {
 			register_post_status( $status, $values );
 			// add our custom statuses to the singleton
 			LBI()->statuses[$status] = $values;
+		}
+
+		$estimate_statuses = array(
+			'lb-draft' => array(
+				'label'                     => __( 'Draft', 'Estimate status', 'little-bot-invoices' ),
+				'public'                    => true,
+				'exclude_from_search'       => false,
+				'show_in_admin_all_list'    => true,
+				'show_in_admin_status_list' => true,
+				'label_count'               => _n_noop( 'Draft <span class="count">(%s)</span>', 'Draft <span class="count">(%s)</span>', 'little-bot-invoices' )
+			),
+			'lb-pending' => array(
+				'label'                     => __( 'Pending', 'Estimate status', 'little-bot-invoices' ),
+				'public'                    => true,
+				'exclude_from_search'       => false,
+				'show_in_admin_all_list'    => true,
+				'show_in_admin_status_list' => true,
+				'label_count'               => _n_noop( 'Pending <span class="count">(%s)</span>', 'Pending <span class="count">(%s)</span>', 'little-bot-invoices' )
+			),
+			'lb-accepted' => array(
+				'label'                     => __( 'Accepted', 'Estimate status', 'little-bot-invoices' ),
+				'public'                    => true,
+				'exclude_from_search'       => false,
+				'show_in_admin_all_list'    => true,
+				'show_in_admin_status_list' => true,
+				'label_count'               => _n_noop( 'Accepted <span class="count">(%s)</span>', 'Accepted <span class="count">(%s)</span>', 'little-bot-invoices' )
+			),
+			'lb-declined' => array(
+				'label'                     => __( 'declined', 'Invoice status', 'little-bot-invoices' ),
+				'public'                    => true,
+				'exclude_from_search'       => false,
+				'show_in_admin_all_list'    => true,
+				'show_in_admin_status_list' => true,
+				'label_count'               => _n_noop( 'Declined <span class="count">(%s)</span>', 'Declined <span class="count">(%s)</span>', 'little-bot-invoices' )
+			)
+		);
+
+		foreach ( $estimate_statuses as $status => $values ) {
+			register_post_status( $status, $values );
+			// add our custom statuses to the singleton
+			LBI()->estimate_statuses[$status] = $values;
 		}
 	}
 

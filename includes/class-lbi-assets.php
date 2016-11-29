@@ -3,8 +3,8 @@
  * Load assets
  *
  * @author      Justin W Hall
- * @category    Admin
- * @package     LittleBot Invoices/Admin
+ * @category    Assets
+ * @package     LittleBot Invoices/Assets
  * @version     0.9
  */
 
@@ -23,17 +23,24 @@ class LBI_Assets {
 	 * Hook in tabs.
 	 */
 	public function __construct() {
+		add_action( 'wp_enqueue_scripts', array( $this, 'public_styles' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_styles' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 	}
 
 	/**
-	 * Enqueue styles.
+	 * Enqueue admin styles.
 	 */
 	public function admin_styles() {
-		wp_enqueue_style( 'little-bot-styles', LBI_PLUGIN_URL . 'assets/css/little-bot-admin.css', array(), LBI_VERSION, 'all');
+		wp_enqueue_style( 'little-bot-admin-styles', LBI_PLUGIN_URL . 'assets/css/little-bot-admin.css', array(), LBI_VERSION, 'all');
 	}
 
+	/**
+	 * Enqueue public styles.
+	 */
+	public function public_styles() {
+		wp_enqueue_style( 'little-bot-public-styles', LBI_PLUGIN_URL . 'assets/css/little-bot-public.css', array(), LBI_VERSION, 'all');
+	}
 
 	/**
 	 * Enqueue scripts.

@@ -56,5 +56,19 @@ class LBI_Admin_Post
 		return $save;
 
 	}
+
+
+	/**
+	 * Get post meta.
+	 *
+	 * @since   2.0.0
+	 */
+	private static function get_lb_meta( $id = 0, $key, $single = true ) {
+		if ( ! $id ) {
+			$id = self::get_item_id();
+		}
+		$meta = get_post_meta( $id, $key, $single );
+		return $meta;
+	}
 	
 }

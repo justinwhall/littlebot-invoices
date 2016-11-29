@@ -1,6 +1,9 @@
 <?php 
 	global $post;
 	$clients = LBI()->clients->get_all();
+
+	// var_dump( $post );
+	// var_dump( LBI()->estimate_statuses );
 ?>
 
 <div id="submitdiv" class="lb-calc-container">

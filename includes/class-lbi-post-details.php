@@ -64,7 +64,7 @@ class LBI_Invoice_Details extends LBI_Admin_Post {
             'lbi-inovoice-details',
             __( $this->post_type_name . ' Details', 'little-bot-invoices' ),
             array( $this, 'render_details_metabox' ),
-            'lb_invoice',
+            array( 'lb_invoice', 'lb_estimate' ),
             'side',
             'default'
         );
@@ -77,7 +77,7 @@ class LBI_Invoice_Details extends LBI_Admin_Post {
     public function render_details_metabox( $post ) {
         // Add nonce for security and authentication.
         wp_nonce_field( 'custom_nonce_action', 'custom_nonce' );
-        require_once LBI_PLUGIN_DIR . 'views/html-admin-invoice-details.php';
+        require_once LBI_PLUGIN_DIR . 'views/html-estimate-invoice-details.php';
     }
  
     /**

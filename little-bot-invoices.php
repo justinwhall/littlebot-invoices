@@ -36,9 +36,9 @@ final class Little_Bot_Invoices {
 	 */
 	private static $instance;
 
+	public static $statuses = array();
 
-
-	public $statuses = array();
+	public static $estimate_statuses = array();
 
 	/**
 	 * Main Little_Bot_Invoices Instance.
@@ -135,16 +135,19 @@ final class Little_Bot_Invoices {
 		global $LBI_options;
 
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-assets.php';
+		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-page-templates.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-post-types.php';
-		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-invoice-admin.php';
-		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-invoice-admin-details.php';
-		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-invoice-admin-line-items.php';
+		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-post.php';
+		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-post-details.php';
+		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-post-line-items.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-clients.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-client.php';
+		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-estimate.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-response.php';
+		require_once LBI_PLUGIN_DIR . 'includes/lbi-template-tags.php';
 
+		LBI_Page_Templates::init();
 		LBI_Client::init();
-
 
 	}
 

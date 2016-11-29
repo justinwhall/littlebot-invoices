@@ -46,7 +46,7 @@ class LBI_Line_Items extends LBI_Admin_Post {
             'lbi-line-items',
             __( 'Line Items', 'little-bot-invoices' ),
             array( $this, 'render_line_items' ),
-            'lb_invoice',
+            array( 'lb_invoice', 'lb_estimate' ),
             'normal',
             'default'
         );
