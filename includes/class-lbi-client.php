@@ -79,6 +79,27 @@ class LBI_Client {
     	
     }
 
+    /**
+     * gets a single client - get_user_meta wrapper
+     * @param  integer $user_id a user's id
+     * @return object   client object w/ custom meta
+     */
+    public function read( $user_id = 0 ){
+
+        $client     = get_user_by( 'id', $user_id );
+        $saved_meta = get_user_meta( $user_id );
+        $lbi_meta   = LBI()->clients->meta;
+
+        foreach ( $saved_meta as $key => $meta ) {
+            if ( in_array( $key, $lbi_meta ) || $key == 'first_name' || $key == 'last_name' ) {
+                $client->data->$key = $meta[0];
+            }
+        }
+
+
+        return $client;
+    }
+
     public function update( $user_id = 0 ){
 
     }

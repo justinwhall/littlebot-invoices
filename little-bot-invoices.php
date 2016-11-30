@@ -36,7 +36,13 @@ final class Little_Bot_Invoices {
 	 */
 	private static $instance;
 
-	public static $statuses = array();
+	/**
+	 * @var Little_Bot_Invoices Plugin name
+	 * @since 0.9
+	 */
+	public static $plugin_name = 'littlebot-invoices';
+
+	public static $invoice_statuses = array();
 
 	public static $estimate_statuses = array();
 
@@ -134,6 +140,7 @@ final class Little_Bot_Invoices {
 	private function includes() {
 		global $LBI_options;
 
+		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-activate-deactivate.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-assets.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-page-templates.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-post-types.php';
@@ -144,7 +151,10 @@ final class Little_Bot_Invoices {
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-client.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-estimate.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-response.php';
+		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-settings-api.php';
+		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-settings.php';
 		require_once LBI_PLUGIN_DIR . 'includes/lbi-template-tags.php';
+
 
 		LBI_Page_Templates::init();
 		LBI_Client::init();
@@ -154,6 +164,9 @@ final class Little_Bot_Invoices {
 }
 
 endif; // End if class_exists check.
+
+
+register_activation_hook( __FILE__, array( 'LBI_Activate_Deactivate', 'on_activate' ) );
 
 
 /**

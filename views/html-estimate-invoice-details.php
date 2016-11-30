@@ -1,9 +1,8 @@
 <?php 
 	global $post;
 	$clients = LBI()->clients->get_all();
+	$statuses = ( $post->post == 'lb_invoice' ) ? LBI()->invoice_statuses : LBI()->estimate_statuses;
 
-	// var_dump( $post );
-	// var_dump( LBI()->estimate_statuses );
 ?>
 
 <div id="submitdiv" class="lb-calc-container">
@@ -36,7 +35,7 @@
 				<label for="post_status">Status</label>
 				<input type="hidden" name="hidden_post_status" id="hidden_post_status" value="<?php echo esc_attr( ('auto-draft' == $post->post_status ) ? 'draft' : $post->post_status); ?>" />
 				<select name='post_status' id='post-status'>
-					<?php foreach ( LBI()->statuses as $key => $status ): ?>
+					<?php foreach ( $statuses as $key => $status ): ?>
 						<option <?php if ( $post->post_status == $key ) { echo 'selected'; } ?> value="<?php echo $key; ?>"><?php echo $status['label']; ?></option>
 					<?php endforeach; ?>
 				</select>
@@ -49,9 +48,10 @@
 			</div>
 
 			<!-- Inovice Number -->
+
 			<div class="misc-pub-section" id="post-status-select">
 				<label for="_lb_estimate_number">Estimate Number</label>
-				<input type="text" name="_lb_estimate_number" id="lb-estimate-number" value="<?php echo get_post_meta( get_the_ID(), '_lb_estimate_number', true ); ?>" >
+				<input type="text" name="_lb_estimate_number" id="lb-estimate-number" value="<?php echo littlebot_get_estimate_number(); ?>" >
 			</div>
 
 			<!-- PO number -->

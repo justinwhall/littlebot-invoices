@@ -1,11 +1,11 @@
 <?php 
 
 /**
- * Admin Invoice
+ * LittleBot Estimates
  *
- * A class all invoice & estimate classes are derived from.
+ * A class specific to Estimates.
  *
- * @class     LBI_Widgets
+ * @class     LBI_Estimate
  * @version   0.9
  * @category  Class
  * @author    Justin W HAll
@@ -18,8 +18,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 class LBI_Estimate extends LBI_Admin_Post
 {
 
-	public function get_number(){
-		// var_dump( get_the_ID() );
+	public function get_number( $id ){
+		$meta = get_post_meta( get_the_ID(), '_lb_estimate_number', true );
+		$number = strlen( $meta ) ? $meta : get_the_ID();
+		return $number;
+	}
+
+	public function get_status( $id ){
+		$status = get_post_status( $id, '_lb_estimate_number', true );
+		return $status;
 	}
 	
 }

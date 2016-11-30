@@ -164,7 +164,7 @@ class LB_Post_Types {
 		foreach ( $invoice_statuses as $status => $values ) {
 			register_post_status( $status, $values );
 			// add our custom statuses to the singleton
-			LBI()->statuses[$status] = $values;
+			LBI()->invoice_statuses[$status] = $values;
 		}
 
 		$estimate_statuses = array(
@@ -193,7 +193,7 @@ class LB_Post_Types {
 				'label_count'               => _n_noop( 'Accepted <span class="count">(%s)</span>', 'Accepted <span class="count">(%s)</span>', 'little-bot-invoices' )
 			),
 			'lb-declined' => array(
-				'label'                     => __( 'declined', 'Invoice status', 'little-bot-invoices' ),
+				'label'                     => __( 'Declined', 'Invoice status', 'little-bot-invoices' ),
 				'public'                    => true,
 				'exclude_from_search'       => false,
 				'show_in_admin_all_list'    => true,

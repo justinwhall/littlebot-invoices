@@ -10,28 +10,40 @@
 class LBI_Page_Templates {
 
 	public function init(){
+		// proper template path for estimates & Invoices
 		add_action( 'single_template', array( __CLASS__, 'load_post_templates' ) );
+		// remove all the theme CSS & JS for these pages
+		add_action( 'wp_print_styles', array( __CLASS__, 'remove_non_littlebot_styles' ) );
 	}
 
 	public function load_post_templates( $single_template ){
 
 		$object = get_queried_object();
 
-		$single_template = LBI_PLUGIN_DIR . '/templates/template-estimate.php';
+		if ( $object->post_type == 'lb_estimate' ) {
+			$single_template = LBI_PLUGIN_DIR . '/templates/template-estimate.php';
+		} else if ( $object->post_type == 'lb_invoice' ){
+			$single_template = LBI_PLUGIN_DIR . '/templates/template-invoice.php';			
+		}
 
 		return $single_template;
+	
+	}
+
+	public function remove_non_littlebot_styles(){
+		global $wp_styles, $post;
 		
+		// Only on the public side
+		if ( is_admin() ) return;
 
-		// $template_location = locate_template("single-{$object->post_type}-{$object->post_name}.php");
-		// var_dump( $template_location );
-		// if( file_exists( $single_postType_postName_template ) )
-		// {
-		// 	return $single_postType_postName_template;
-		// } else {
-		// 	return $single_template;
-		// }
-
+		// And on littleBot post types.
+		if ( $post->post_type == 'lb_estimate' || $post->post_type == 'lb_invoice' ) {
+			$wp_styles->queue = array(
+				'admin-bar',
+				'little-bot-public-styles',
+			);
+		}
 
 	}
 
-} // end class
+} 

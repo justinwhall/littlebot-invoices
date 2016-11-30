@@ -19,12 +19,34 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 class LBI_Clients {
 
+    /**
+     * Appended to generated usernames and incremented if needed to avoid dupe usernames
+     * @var integer
+     */
     static $username_int = 1;
 
-    public function exists( $email ){
+    /**
+     * custom user meta keys
+     * @var array
+     */
+    public $meta = array(
+        'company_name',
+        'phone_number',
+        'street_address',
+        'city',
+        'state',
+        'zip',
+        'country',
+        'client_notes',
+        'lb_client'
+    );
 
-    }
-
+    /**
+     * generates a clients username
+     * @param  string $first_name user meta first name
+     * @param  string $last_name  user meta last name
+     * @return string             {first_name} + {last_name} + $this->username_int
+     */
     static function generate_username( $first_name, $last_name ){
 
         $username = $first_name . $last_name . self::$username_int;
@@ -37,6 +59,10 @@ class LBI_Clients {
         }
     }
 
+    /**
+     * gets all clients
+     * @return array all clients
+     */
     public function get_all(){
         
         $args = array( 
