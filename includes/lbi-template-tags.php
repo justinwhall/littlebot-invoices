@@ -24,7 +24,7 @@ endif;
 // print the to and from address
 if ( ! function_exists( 'littlebot_print_to_from' ) ) :
 
-	function littlebot_print_to_from( $id = 0 ) {
+	function littlebot_print_to_from() {
 		$options = get_option( 'littlebot_invoices_business', array() );
 		$client_obj = new LBI_Client;
 		$client = $client_obj->read( get_post_meta( get_the_ID(), '_lb_client', true ) );
@@ -39,7 +39,7 @@ if ( ! function_exists( 'littlebot_print_to_from' ) ) :
 			        </td>
 			    </tr>						    
 			    <tr>
-			        <td class="label">Prepared for</td>
+			        <td class="label">To</td>
 			        <td class="address">
 			        	<div class="company"><?php echo $client->data->company_name; ?></div>
 			        	<div class="name"><?php echo $client->data->first_name . ' ' . $client->data->last_name; ?></div>
@@ -70,6 +70,35 @@ if ( ! function_exists( 'littlebot_print_to_from' ) ) :
 		    </tbody>
 		</table>
 		<?php
+	}
+
+endif;
+
+// print line items
+if ( ! function_exists( 'littlebot_print_line_items' ) ) :
+
+	function littlebot_print_line_items() {
+		$line_items = get_post_meta( get_the_ID(), '_line_items', true );
+		include LBI_PLUGIN_DIR . '/templates/template-line-items.php';
+	}
+
+endif;
+
+// print totals
+if ( ! function_exists( 'littlebot_print_totals' ) ) :
+
+	function littlebot_print_totals() {
+		$post_id = get_the_ID();
+		include LBI_PLUGIN_DIR . '/templates/template-totals.php';
+	}
+
+endif;
+
+// print tax amount
+if ( ! function_exists( 'get_tax_amount' ) ) :
+
+	function get_tax_amount( $post_id ) {
+		return get_post_meta( $post_id, '_total', true ) * ( get_post_meta( $post_id, '_lb_tax_rate', true ) / 100 );
 	}
 
 endif;

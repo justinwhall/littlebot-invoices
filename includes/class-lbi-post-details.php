@@ -110,9 +110,13 @@ class LBI_Invoice_Details extends LBI_Admin_Post {
            update_post_meta( $post_id, '_lb_po_number', sanitize_text_field( $_POST['_lb_po_number'] ) );
         }
 
-        if ( isset( $_POST['_lb_tax_rate'] ) ) {
-           update_post_meta( $post_id, '_lb_tax_rate', sanitize_text_field( $_POST['_lb_tax_rate'] ) );
+        if ( strlen( $_POST['_lb_tax_rate'] ) ) {
+           $tax_rate = $_POST['_lb_tax_rate'];
+        } else{
+            $tax_rate = 0;
         }
+        update_post_meta( $post_id, '_lb_tax_rate', sanitize_text_field( $tax_rate ) );
+
 
         if ( isset( $_POST['_lb_client'] ) ) {
            update_post_meta( $post_id, '_lb_client', $_POST['_lb_client'] );

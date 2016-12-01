@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500');
 /*grid*/
 .lb-row { width: 100%; margin:0 auto 20px auto; display:inline-block; position:relative; }
-.col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 { float: left; margin-right: 2%; box-sizing: border-box; }
+.col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 { float: left; margin-right: 2%; box-sizing: border-box; min-height: 1px; }
 .lb-row .col-1:last-child, 
 .lb-row .col-2:last-child, 
 .lb-row .col-3:last-child, 
@@ -73,6 +73,11 @@ body{
 .status .decline{
 	background: #acbcc3;
 }
+.header .doc-num{
+	font-weight: 400;
+	font-size: 1.2em;
+	margin-top: 8px;
+}
 /*doc meta*/
 .doc-meta{
 	margin-top: 30px;
@@ -93,6 +98,7 @@ body{
 }
 .lb-tbl .val{
 	padding-left: 10px;
+	min-height: 1px;
 }
 .lb-tbl .total{
 	padding: 10px;
@@ -142,6 +148,8 @@ body{
 }
 .line-row .small{
 	width: 8%;
+	min-height: 1px;
+	text-align: center;
 }
 /*totals*/
 .lb-totals{

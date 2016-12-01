@@ -22,32 +22,9 @@
 					</div>
 				</div>
 
-				<!-- to/from function -->
 				<div class="doc-meta lb-row">
 					<div class="to-from col-7">
-						<?php echo littlebot_print_to_from(); ?>
-<!-- 						<table>
-						    <tbody>
-							    <tr>
-							        <td class="label">From</td>
-							        <td class="address">
-							        	<div class="company">LittleBot Software</div>
-							        	<div class="name">Justin W Hall</div>
-							        	<div class="street">123, Example Street</div>
-							        	<div class="city-state">Denver, Colorado 80211</div>
-							        </td>
-							    </tr>						    
-							    <tr>
-							        <td class="label">Prepared for</td>
-							        <td class="address">
-							        	<div class="company">LittleBot Software</div>
-							        	<div class="name">Justin W Hall</div>
-							        	<div class="street">123, Example Street</div>
-							        	<div class="city-state">Denver, Colorado 80211</div>
-							        </td>
-							    </tr>
-						    </tbody>
-						</table> -->
+						<?php littlebot_print_to_from(); ?>
 					</div>
 					<div class="lb-tbl head-totals col-5">
 						<span class="label date"><?php esc_html_e( 'Date', 'littebot-invoices' ); ?></span><span class="val"><?php echo get_the_date(); ?></span>
@@ -57,7 +34,7 @@
 					</div>
 				</div>
 
-				<!-- lineitems function -->
+				<!-- line items -->
 				<div class="line-items">
 					
 					<div class="headers line-row">
@@ -67,48 +44,13 @@
 						<div class="small rate">%</div>
 						<div class="small rate">Amount</div>
 					</div>
-					
-					<div class="single-line-item line-row">
-						<div class="title-desc wide">
-							<div class="title">Line Item Title</div>
-							<div class="desc">Desc</div>
-						</div>
-						<div class="small rate">70</div>
-						<div class="small rate">34</div>
-						<div class="small rate">10</div>
-						<div class="small rate">1000</div>
-					</div>
 
-					<div class="single-line-item line-row">
-						<div class="title-desc wide">
-							<div class="title">Line Item Title</div>
-							<div class="desc">Desc</div>
-						</div>
-						<div class="small rate">70</div>
-						<div class="small rate">34</div>
-						<div class="small rate">10</div>
-						<div class="small rate">1000</div>
-					</div>
+					<?php littlebot_print_line_items(); ?>
 
 				</div>
 
-				
-				<!-- totals fuction -->
-				<div class="lb-totals">
-					<div class="vals">
-						<div class="val">9000.89</div>
-						<div class="val">789.45</div>
-						<div class="val">10000.78</div>
-					</div>
-					<div class="labels">
-						<div class="label sub">Sub Total</div>     
-						<div class="label tax">Tax</div>           
-						<div class="label grand-total">Total</div> 
-					</div>
-				</div>
-
-				<div class="clearfix"></div>
-
+				<!-- totals  -->
+				<?php littlebot_print_totals(); ?>
 
 			</div>
 		</div>
