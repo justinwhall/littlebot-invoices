@@ -88,7 +88,8 @@ endif;
 if ( ! function_exists( 'littlebot_print_totals' ) ) :
 
 	function littlebot_print_totals() {
-		$post_id = get_the_ID();
+		// $post_id = get_the_ID();
+		global $post;
 		include LBI_PLUGIN_DIR . '/templates/template-totals.php';
 	}
 
@@ -98,7 +99,7 @@ endif;
 if ( ! function_exists( 'get_tax_amount' ) ) :
 
 	function get_tax_amount( $post_id ) {
-		return get_post_meta( $post_id, '_total', true ) * ( get_post_meta( $post_id, '_lb_tax_rate', true ) / 100 );
+		return get_post_meta( $post_id, '_subtotal', true ) * ( get_post_meta( $post_id, '_lb_tax_rate', true ) / 100 );
 	}
 
 endif;

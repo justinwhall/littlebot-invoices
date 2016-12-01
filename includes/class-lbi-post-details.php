@@ -37,7 +37,7 @@ class LBI_Invoice_Details extends LBI_Admin_Post {
      */
     public function get_due_date( $post_id ){
 
-        $saved_date = get_post_meta( $post_id, '_lb_post_datate', true );
+        $saved_date = get_post_meta( $post_id, '_due_date', true );
 
         if ( strlen( $saved_date ) ) {
             $due_date = $saved_date;
@@ -117,9 +117,13 @@ class LBI_Invoice_Details extends LBI_Admin_Post {
         }
         update_post_meta( $post_id, '_lb_tax_rate', sanitize_text_field( $tax_rate ) );
 
-
         if ( isset( $_POST['_lb_client'] ) ) {
            update_post_meta( $post_id, '_lb_client', $_POST['_lb_client'] );
+        }
+
+        if ( isset( $_POST['due_mm'] ) && isset( $_POST['due_j'] ) && isset( $_POST['due_y'] ) ) {
+            $due_date = strtotime( $_POST['due_mm'] . '/' . $_POST['due_j'] . '/' . $_POST['due_y']  );
+            update_post_meta( $post_id, '_due_date', $due_date );
         }
 
     }

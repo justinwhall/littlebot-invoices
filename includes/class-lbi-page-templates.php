@@ -1,7 +1,7 @@
 <?php
 /**
- * Defines page tempaltes and page template paths for LBI custom post types
- * and allows for template overiding.
+ * Defines page templates and page template paths for LBI custom post types
+ * and allows for template overriding.
  *
  * @package LBI_Page_Templates
  * @version 0.9
@@ -9,6 +9,10 @@
  */
 class LBI_Page_Templates {
 
+	/**
+	 * kick it off
+	 * @return void
+	 */
 	public function init(){
 		// proper template path for estimates & Invoices
 		add_action( 'single_template', array( __CLASS__, 'load_post_templates' ) );
@@ -16,6 +20,11 @@ class LBI_Page_Templates {
 		add_action( 'wp_print_styles', array( __CLASS__, 'remove_non_littlebot_styles' ) );
 	}
 
+	/**
+	 * define page template and directory for lb_estimate & lb_invoice post types
+	 * @param  string $single_template default path to template
+	 * @return string  new path to template
+	 */
 	public function load_post_templates( $single_template ){
 
 		$object = get_queried_object();
@@ -30,6 +39,10 @@ class LBI_Page_Templates {
 	
 	}
 
+	/**
+	 * strip out styles that are not LittleBot styles so estimates and invoices look nice
+	 * @return void
+	 */
 	public function remove_non_littlebot_styles(){
 		global $wp_styles, $post;
 		

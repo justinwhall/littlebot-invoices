@@ -41,14 +41,13 @@
 				</select>
 			</div>
 
-			<!-- Inovice Number -->
+			<!-- Invoice Number -->
 			<div class="misc-pub-section" id="post-status-select">
 				<label for="lb_invoice_number">Invoice Number</label>
 				<input type="text" name="_lb_invoice_number" id="lb-invoice-number" value="<?php echo get_post_meta( get_the_ID(), '_lb_invoice_number', true ); ?>" >
 			</div>
 
-			<!-- Inovice Number -->
-
+			<!-- Invoice Number -->
 			<div class="misc-pub-section" id="post-status-select">
 				<label for="_lb_estimate_number">Estimate Number</label>
 				<input type="text" name="_lb_estimate_number" id="lb-estimate-number" value="<?php echo littlebot_get_estimate_number(); ?>" >
@@ -63,7 +62,7 @@
 			<!-- Tax Rate -->
 			<div class="misc-pub-section tax-rate-section" id="post-status-select">
 				<label for="lb-tax-rate">Tax</label>
-				<input type="text" name="_lb_tax_rate" class="lb-skinny lb-calc-input" id="lb-tax-rate" placeholder="0" value="<?php echo get_post_meta( get_the_ID(), '_lb_po_number', true ); ?>"> %
+				<input type="text" name="_lb_tax_rate" class="lb-skinny lb-calc-input" id="lb-tax-rate" placeholder="0" value="<?php echo get_post_meta( get_the_ID(), '_lb_tax_rate', true ); ?>"> %
 			</div>
 
 
@@ -86,7 +85,7 @@
 			</div>
 
 			<!-- Due date -->
-			<?php $due_date_stamp = LBI_Invoice_Details::get_due_date( $post->ID ); ?>
+			<?php $due_date_stamp = LBI_Invoice_Details::get_due_date( $post->ID );  ?>
 			<div class="misc-pub-section" >
 				<span id="lb-due-date" class="wp-media-buttons-icon"> Due: <b><?php echo date_i18n( 'M j, Y', $due_date_stamp ); ?></b></span>
 
@@ -113,12 +112,12 @@
 
 				<div id="due-date-div" class="control_wrap hide-if-js">
 					<div class="due_date-wrap">
-						<select id="due-mm" name="_due_date">
+						<select id="due-mm" name="due_mm">
 							<?php foreach ( $months as $key => $month ): ?>
 								<option value="<?php echo $key; ?>" data-text="<?php echo $month; ?>"  <?php if( date_i18n( 'm', $due_date_stamp ) == $key ){ echo "selected";} ?> ><?php echo $key . '-' . $month; ?></option>
 							<?php endforeach; ?>
 						</select>
-			 			<input type="text" id="due-jj" name="due_j" value="<?php echo date_i18n( 'd', $due_date_stamp ); ?>" size="2" maxlength="2" autocomplete="off">, <input type="text" id="due-y" name="due_o" value="<?php echo date_i18n( 'Y', $due_date_stamp ); ?>" size="4" maxlength="4" autocomplete="off">
+			 			<input type="text" id="due-jj" name="due_j" value="<?php echo date_i18n( 'd', $due_date_stamp ); ?>" size="2" maxlength="2" autocomplete="off">, <input type="text" id="due-y" name="due_y" value="<?php echo date_i18n( 'Y', $due_date_stamp ); ?>" size="4" maxlength="4" autocomplete="off">
 			 		</div>
 					<p>
 						<a href="#edit_due_date" class="save-due-date hide-if-no-js button">OK</a>
