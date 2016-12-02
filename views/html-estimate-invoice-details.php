@@ -12,10 +12,10 @@
 			<!-- Client -->
 			<div class="misc-pub-section">
 				<label for="post_status">Client</label>
-				<select name='_lb_client' id='lb-client'>
+				<select name='_client' id='lb-client'>
 					<option>No Client</option>
 					<?php foreach ( $clients as $client ): ?>
-						<option value="<?php echo $client->ID; ?>" <?php if ( $client->ID == get_post_meta( get_the_ID(), '_lb_client', true ) ) { echo "selected"; } ?>>
+						<option value="<?php echo $client->ID; ?>" <?php if ( $client->ID == get_post_meta( get_the_ID(), '_client', true ) ) { echo "selected"; } ?>>
 							<?php 
 								if ( get_user_meta( $client->ID, 'company_name', true ) ){ 
 									echo get_user_meta( $client->ID, 'company_name', true );
@@ -44,26 +44,26 @@
 				<!-- Invoice Number -->
 				<div class="misc-pub-section" id="post-status-select">
 					<label for="lb_invoice_number">Invoice Number</label>
-					<input type="text" name="_lb_invoice_number" id="lb-invoice-number" value="<?php echo get_post_meta( get_the_ID(), '_lb_invoice_number', true ); ?>" >
+					<input type="text" name="_invoice_number" id="lb-invoice-number" value="<?php echo get_post_meta( get_the_ID(), '_invoice_number', true ); ?>" >
 				</div>
 
 				<!-- PO number -->
 				<div class="misc-pub-section" id="post-status-select">
 					<label for="lb-po-number">P.O. Number</label>
-					<input type="text" name="_lb_po_number" id="lb-po-number" value="<?php echo get_post_meta( get_the_ID(), '_lb_po_number', true ); ?>">
+					<input type="text" name="_po_number" id="lb-po-number" value="<?php echo get_post_meta( get_the_ID(), '_po_number', true ); ?>">
 				</div>
 
 				<!-- Tax Rate -->
 				<div class="misc-pub-section tax-rate-section" id="post-status-select">
 					<label for="lb-tax-rate">Tax</label>
-					<input type="text" name="_lb_tax_rate" class="lb-skinny lb-calc-input" id="lb-tax-rate" placeholder="0" value="<?php echo get_post_meta( get_the_ID(), '_lb_tax_rate', true ); ?>"> %
+					<input type="text" name="_tax_rate" class="lb-skinny lb-calc-input" id="lb-tax-rate" placeholder="0" value="<?php echo get_post_meta( get_the_ID(), '_tax_rate', true ); ?>"> %
 				</div>
 			<?php else: ?>
 
 			<!-- Estimate Number -->
 			<div class="misc-pub-section" id="post-status-select">
-				<label for="_lb_estimate_number">Estimate Number</label>
-				<input type="text" name="_lb_estimate_number" id="lb-estimate-number" value="<?php echo littlebot_get_estimate_number(); ?>" >
+				<label for="_estimate_number">Estimate Number</label>
+				<input type="text" name="_estimate_number" id="lb-estimate-number" value="<?php echo littlebot_get_estimate_number(); ?>" >
 			</div>
 			<?php endif; ?>
 

@@ -1,15 +1,105 @@
 ( function( $ ) {
 
-	var LittleBot = {
+	var LineItems = {
 
 		init:function(){
+			// make line items sortable
+			$( "#all-line-items" ).sortable({
+				placeholder: "ui-state-highlight"
+			});
+			$( "#all-line-items" ).disableSelection();
 			this.attachEvents();
 		},
 
 		attachEvents:function(){
 			$('.lb-calc-container').on('change paste keyup', 'input.lb-calc-input', this.updateLineItemTotal);
 			$('.lb-calc-container').on('change paste keyup', 'input.lb-calc-input', this.updateTotals);
-			// add client
+			// Add line item
+			$('.add-line-item').on('click', this.addLineItem);
+			// delete line item
+			$('.dashicons-dismiss').on('click', this.removeLineItem);
+			// dupe line item
+			$('.dashicons-plus-alt').on('click', this.dupeLineItem);
+		},
+
+		addLineItem:function(){
+			var template = wp.template( 'line-item' );
+			$('#all-line-items').append( 
+				template( { 
+					test: 'test'
+				} ) 
+			);
+		},
+
+		removeLineItem:function(){
+			var lineItem = $(this).parents('.single-line-item');
+			$(lineItem).slideUp('fast',function(){
+				$(lineItem).remove();
+				// recalculate totals
+				LineItems.updateTotals();
+			});
+		},
+
+		dupeLineItem:function(){
+			var lineItem = $(this).parents('.single-line-item');
+			var dupe = $(lineItem).clone();
+
+			$(dupe).css('display', 'none');
+			$(dupe).insertAfter(lineItem);
+
+			$(dupe).slideDown('fast', function() {
+				// recalculate totals
+				LineItems.updateTotals();
+			});
+		},
+
+		updateLineItemTotal:function(){
+			var qty      = ( isNaN( parseFloat($(this).parents('.line-vals').find('.item-qty').val()) ) ? 0 : parseFloat($(this).parents('.line-vals').find('.item-qty').val()) );
+			var rate     = ( isNaN( parseFloat($(this).parents('.line-vals').find('.item-rate').val()) ) ? 0 : parseFloat($(this).parents('.line-vals').find('.item-rate').val()) );
+			var percent  = ( isNaN(parseFloat($(this).parents('.line-vals').find('.item-percent').val()) / 100) ? 0 : parseFloat($(this).parents('.line-vals').find('.item-percent').val()) / 100  );
+			var totalEl  = $(this).parents('.line-vals').find('.item-total');
+			var discount = (qty * rate * percent).toFixed(2);
+			var total    = (qty * rate - discount).toFixed(2);
+
+			// Update line item
+			$(this).parents('.line-vals').find('.line-total').text(total);
+			$(this).parents('.line-vals').find('.line-total-input').val(total);
+		},
+
+		updateTotals:function(){
+			var tax      = ( isNaN( parseFloat($('#lb-tax-rate').val()) ) ? 0 : parseFloat($('#lb-tax-rate').val()) / 100 );
+			var subTotal = 0;
+			var total    = 0;
+
+			// subtotal
+			$.each($('.line-total-input'), function(index, val) {
+				subTotal += parseFloat($(val).val());
+			});
+
+			$('.subtotal-val').text((subTotal).toFixed(2));
+			$('.subtotal-input').val((subTotal).toFixed(2));
+
+			// And total
+			total += subTotal + (subTotal * tax);
+			$('.total-val').text((total).toFixed(2));
+			$('.total-input').val((total).toFixed(2));
+		},
+
+		padInt:function(str, max) {
+		  str = str.toString();
+		  return str.length < max ? LineItems.padInt("0" + str, max) : str;
+		}
+
+	}
+	LineItems.init();
+
+	var Clients = {
+
+		init:function(){
+			this.attachEvents();
+		},
+
+		attachEvents:function(){
 			$('.save-client').on('click', this.updateClient);
 		},
 
@@ -50,7 +140,6 @@
 				type    : 'POST',
 				data    : data,
 				success : function( resp ){
-					console.log(resp);
 					$('#client-loader').css('opacity', 0);
 					$('#lb-feedback').css('opacity', 1);
 					$('#lb-feedback p').empty();
@@ -63,7 +152,7 @@
 						$('#lb-feedback').removeClass('notice-error');
 						$('#lb-feedback').addClass('notice-success');
 						$('#lb-feedback p').append('Success! Client added.');
-						LittleBot.appendNewUser(resp.data);
+						Clients.appendNewUser(resp.data);
 					}
 				}
 			});
@@ -81,48 +170,8 @@
 
 		},
 
-		updateLineItemTotal:function(){
-			
-			var qty      = ( isNaN( parseFloat($(this).parents('.line-vals').find('.item-qty').val()) ) ? 0 : parseFloat($(this).parents('.line-vals').find('.item-qty').val()) );
-			var rate     = ( isNaN( parseFloat($(this).parents('.line-vals').find('.item-rate').val()) ) ? 0 : parseFloat($(this).parents('.line-vals').find('.item-rate').val()) );
-			var percent  = ( isNaN(parseFloat($(this).parents('.line-vals').find('.item-percent').val()) / 100) ? 0 : parseFloat($(this).parents('.line-vals').find('.item-percent').val()) / 100  );
-			var totalEl  = $(this).parents('.line-vals').find('.item-total');
-			var discount = (qty * rate * percent).toFixed(2);
-			var total    = (qty * rate - discount).toFixed(2);
-
-			// Update line item
-			$(this).parents('.line-vals').find('.line-total').text(total);
-			$(this).parents('.line-vals').find('.line-total-input').val(total);
-
-		},
-
-		updateTotals:function(){
-			var tax      = ( isNaN( parseFloat($('#lb-tax-rate').val()) ) ? 0 : parseFloat($('#lb-tax-rate').val()) / 100 );
-			var subTotal = 0;
-			var total    = 0;
-
-			// subtotal
-			$.each($('.line-total-input'), function(index, val) {
-				subTotal += parseFloat($(val).val());
-			});
-
-			$('.subtotal-val').text((subTotal).toFixed(2));
-			$('.subtotal-input').val((subTotal).toFixed(2));
-
-			// And total
-			total += subTotal + (subTotal * tax);
-			$('.total-val').text((total).toFixed(2));
-			$('.total-input').val((total).toFixed(2));
-
-		},
-
-		padInt:function(str, max) {
-		  str = str.toString();
-		  return str.length < max ? LittleBot.padInt("0" + str, max) : str;
-		}
-
 	}
-	LittleBot.init();
+	Clients.init();
 
 
 	$('#due-date-div').find('.save-due-date').click( function() {
@@ -136,22 +185,6 @@
 	$('.cancel-due-date').on('click', function() {
 		$('#due-date-div').slideUp('fast');
 	});
-
-	// Add line item
-	$('.add-line-item').on('click', function(e) {
-		e.preventDefault();
-		addLineItem();
-	});
-
-	function addLineItem(){
-		var template = wp.template( 'line-item' );
-		console.log(template);
-		$('#all-line-items').append( 
-			template( { 
-				test: 'test'
-			} ) 
-		);
-	}
 
 	function updateDueDate(){
 		var	mm = $('#due-mm'),

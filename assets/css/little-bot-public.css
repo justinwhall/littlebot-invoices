@@ -64,11 +64,13 @@ body{
 	padding: 10px 20px;
 	color: #fff;
 }
-.status > span:hover{
+.status .decline:hover,
+.status .accept:hover{
 	cursor: pointer;
 	opacity: .8;
 }
-.status .accept{
+.status .accept,
+.status .approved{
 	background: #39996D;
 }
 .status .decline{

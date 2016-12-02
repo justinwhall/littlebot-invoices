@@ -19,13 +19,13 @@ class LBI_Estimate extends LBI_Admin_Post
 {
 
 	public function get_number( $id ){
-		$meta = get_post_meta( get_the_ID(), '_lb_estimate_number', true );
+		$meta = get_post_meta( get_the_ID(), '_estimate_number', true );
 		$number = strlen( $meta ) ? $meta : get_the_ID();
 		return $number;
 	}
 
 	public function get_status( $id ){
-		$status = get_post_status( $id, '_lb_estimate_number', true );
+		$status = get_post_status( $id, '_estimate_number', true );
 		return $status;
 	}
 	

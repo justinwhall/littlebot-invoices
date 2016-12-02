@@ -19,6 +19,8 @@
 							<span class="decline"><?php esc_html_e( 'Decline Estimate', 'littebot-invoices' ); ?></span>
 						<?php elseif ( get_post_status( get_the_ID() ) == 'lb-draft' ): ?>
 							<span class="is-draft"><?php esc_html_e( 'Estimate is currently a draft', 'littlebot-invoices' ); ?> </span>
+						<?php elseif ( get_post_status( get_the_ID() ) == 'lb-approved' ): ?>
+							<span class="approved"><?php esc_html_e( 'Approved', 'littebot-invoices' ); ?></span>
 						<?php endif; ?>
 					</div>
 				</div>

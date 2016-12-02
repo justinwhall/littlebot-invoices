@@ -101,27 +101,27 @@ class LBI_Invoice_Details extends LBI_Admin_Post {
         if ( !$save ) return;
 
         // If we make this far sanitize & update
-        if ( isset( $_POST['_lb_invoice_number'] ) ) {
-           update_post_meta( $post_id, '_lb_invoice_number', sanitize_text_field( $_POST['_lb_invoice_number'] ) );
+        if ( isset( $_POST['_invoice_number'] ) ) {
+           update_post_meta( $post_id, '_invoice_number', sanitize_text_field( $_POST['_invoice_number'] ) );
         }
 
-        if ( isset( $_POST['_lb_estimate_number'] ) ) {
-           update_post_meta( $post_id, '_lb_estimate_number', sanitize_text_field( $_POST['_lb_estimate_number'] ) );
+        if ( isset( $_POST['_estimate_number'] ) ) {
+           update_post_meta( $post_id, '_estimate_number', sanitize_text_field( $_POST['_estimate_number'] ) );
         }
 
-        if ( isset( $_POST['_lb_po_number'] ) ) {
-           update_post_meta( $post_id, '_lb_po_number', sanitize_text_field( $_POST['_lb_po_number'] ) );
+        if ( isset( $_POST['_po_number'] ) ) {
+           update_post_meta( $post_id, '_po_number', sanitize_text_field( $_POST['_po_number'] ) );
         }
 
-        if ( strlen( $_POST['_lb_tax_rate'] ) ) {
-           $tax_rate = $_POST['_lb_tax_rate'];
+        if ( strlen( $_POST['_tax_rate'] ) ) {
+           $tax_rate = $_POST['_tax_rate'];
         } else{
             $tax_rate = 0;
         }
-        update_post_meta( $post_id, '_lb_tax_rate', sanitize_text_field( $tax_rate ) );
+        update_post_meta( $post_id, '_tax_rate', sanitize_text_field( $tax_rate ) );
 
-        if ( isset( $_POST['_lb_client'] ) ) {
-           update_post_meta( $post_id, '_lb_client', $_POST['_lb_client'] );
+        if ( isset( $_POST['_client'] ) ) {
+           update_post_meta( $post_id, '_client', $_POST['_client'] );
         }
 
         // Valid Until & Due date

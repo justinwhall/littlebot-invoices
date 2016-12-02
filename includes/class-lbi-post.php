@@ -34,11 +34,10 @@ class LBI_Admin_Post
 	 * @param  object $post       the current post (estimate)
 	 * @return void             
 	 */
-	public function check_for_approved_estimate( $new_status, $old_status, $post ){
+	public function check_for_approved_estimate( $new_status, $old_status, $post ) {
 	
 		// we're only looking for estimates here...
 		if ( $post->post_type != 'lb_estimate') return;
-
 
 		// create invoice
 		if ( $old_status !== $new_status && $new_status == 'lb-approved' ) {
@@ -50,11 +49,18 @@ class LBI_Admin_Post
 			  'post_type'     => 'lb_invoice'
 			);
 
-			$id = wp_insert_post( $invoice );
+			$invoice_id = wp_insert_post( $invoice );
 
+			// Link these two documents
+			self::link_docs( $post->ID, $invoice_id );
 		}
 
 	}
+
+	public function link_docs( $estimate_id, $invoice_id) {
+		update_post_meta( $estimate_id, '_linked_doc', $invoice_id );
+		update_post_meta( $invoice_id, '_linked_doc', $estimate_id );
+	} 
 
 	/**
 	 * security & privlege check before saving posts meta

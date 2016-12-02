@@ -12,10 +12,22 @@
 	}
  ?>
 
+<!-- 
+ <ul id="sortable">
+   <div class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</div>
+   <div class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 2</div>
+   <div class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 3</div>
+   <div class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 4</div>
+   <div class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 5</div>
+   <div class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 6</div>
+   <div class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 7</div>
+ </ul> -->
+  
+
 <div id="all-line-items" class="lb-calc-container">
 	
 	<?php foreach ( $line_items as $item ): ?>
-		<div class="single-line-item">
+		<div class="single-line-item ui-state-default">
 			<div class="items-wrap">
 				<div class="items-header item-row">
 					<div class="flex-width">

@@ -44,8 +44,6 @@ class LBI_Client {
 
     	check_ajax_referer('lb-invoices', 'nonce');
 
-
-
     	// Make sure email isn't being used already
     	if ( email_exists( $_POST['email'] ) ){
     		self::$error = true;
@@ -91,12 +89,17 @@ class LBI_Client {
         $saved_meta = get_user_meta( $user_id );
         $lbi_meta   = LBI()->clients->meta;
 
-        foreach ( $saved_meta as $key => $meta ) {
-            if ( in_array( $key, $lbi_meta ) || $key == 'first_name' || $key == 'last_name' ) {
-                $client->data->$key = $meta[0];
-            }
-        }
+        if ( $saved_meta ) {
 
+            foreach ( $saved_meta as $key => $meta ) {
+                if ( in_array( $key, $lbi_meta ) || $key == 'first_name' || $key == 'last_name' ) {
+                    $client->data->$key = $meta[0];
+                }
+            }
+
+        } else{
+            $client = false;
+        }
 
         return $client;
     }
