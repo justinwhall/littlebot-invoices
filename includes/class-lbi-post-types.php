@@ -184,13 +184,13 @@ class LB_Post_Types {
 				'show_in_admin_status_list' => true,
 				'label_count'               => _n_noop( 'Pending <span class="count">(%s)</span>', 'Pending <span class="count">(%s)</span>', 'little-bot-invoices' )
 			),
-			'lb-accepted' => array(
-				'label'                     => __( 'Accepted', 'Estimate status', 'little-bot-invoices' ),
+			'lb-approved' => array(
+				'label'                     => __( 'Approved', 'Estimate status', 'little-bot-invoices' ),
 				'public'                    => true,
 				'exclude_from_search'       => false,
 				'show_in_admin_all_list'    => true,
 				'show_in_admin_status_list' => true,
-				'label_count'               => _n_noop( 'Accepted <span class="count">(%s)</span>', 'Accepted <span class="count">(%s)</span>', 'little-bot-invoices' )
+				'label_count'               => _n_noop( 'Approved <span class="count">(%s)</span>', 'Approved <span class="count">(%s)</span>', 'little-bot-invoices' )
 			),
 			'lb-declined' => array(
 				'label'                     => __( 'Declined', 'Invoice status', 'little-bot-invoices' ),

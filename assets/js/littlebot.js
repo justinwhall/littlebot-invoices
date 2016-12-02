@@ -1,6 +1,6 @@
 ( function( $ ) {
 
-	var LineItems = {
+	var LittleBot = {
 
 		init:function(){
 			this.attachEvents();
@@ -14,6 +14,19 @@
 		},
 
 		updateClient:function(){
+
+			$('#lb-feedback').css('opacity', 0);
+			$('#client-loader').css('opacity', 1);
+
+			if (!$('#add-new-client .email input').val().length) {
+				$('#lb-feedback p').html('Client must at <em>least</em> an email');
+				$('#lb-feedback').css('opacity', 1);
+				$('#lb-feedback').removeClass('notice-success');
+				$('#lb-feedback').addClass('notice-error');
+
+				return;
+			}
+
 			var data = {
 				action         : 'create_client',
 				nonce          : ajax_object.ajax_nonce,
@@ -37,10 +50,20 @@
 				type    : 'POST',
 				data    : data,
 				success : function( resp ){
+					console.log(resp);
+					$('#client-loader').css('opacity', 0);
+					$('#lb-feedback').css('opacity', 1);
+					$('#lb-feedback p').empty();
 					if (resp.error) {
-						$('.add-user-feedback').append(resp.message);
+						$('#lb-feedback').removeClass('notice-success');
+						$('#lb-feedback').addClass('notice-error');
+						$('#lb-feedback p').append(resp.message);
 					} else{
-						LineItems.appendNewUser(resp.data);
+						// add to select menu
+						$('#lb-feedback').removeClass('notice-error');
+						$('#lb-feedback').addClass('notice-success');
+						$('#lb-feedback p').append('Success! Client added.');
+						LittleBot.appendNewUser(resp.data);
 					}
 				}
 			});
@@ -95,11 +118,11 @@
 
 		padInt:function(str, max) {
 		  str = str.toString();
-		  return str.length < max ? LineItems.padInt("0" + str, max) : str;
+		  return str.length < max ? LittleBot.padInt("0" + str, max) : str;
 		}
 
 	}
-	LineItems.init();
+	LittleBot.init();
 
 
 	$('#due-date-div').find('.save-due-date').click( function() {

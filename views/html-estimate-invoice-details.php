@@ -2,7 +2,6 @@
 	global $post;
 	$clients = LBI()->clients->get_all();
 	$statuses = ( $post->post == 'lb_invoice' ) ? LBI()->invoice_statuses : LBI()->estimate_statuses;
-
 ?>
 
 <div id="submitdiv" class="lb-calc-container">
@@ -41,29 +40,32 @@
 				</select>
 			</div>
 
-			<!-- Invoice Number -->
-			<div class="misc-pub-section" id="post-status-select">
-				<label for="lb_invoice_number">Invoice Number</label>
-				<input type="text" name="_lb_invoice_number" id="lb-invoice-number" value="<?php echo get_post_meta( get_the_ID(), '_lb_invoice_number', true ); ?>" >
-			</div>
+			<?php if ( $post->post_type == 'lb_invoice' ): ?>			
+				<!-- Invoice Number -->
+				<div class="misc-pub-section" id="post-status-select">
+					<label for="lb_invoice_number">Invoice Number</label>
+					<input type="text" name="_lb_invoice_number" id="lb-invoice-number" value="<?php echo get_post_meta( get_the_ID(), '_lb_invoice_number', true ); ?>" >
+				</div>
 
-			<!-- Invoice Number -->
+				<!-- PO number -->
+				<div class="misc-pub-section" id="post-status-select">
+					<label for="lb-po-number">P.O. Number</label>
+					<input type="text" name="_lb_po_number" id="lb-po-number" value="<?php echo get_post_meta( get_the_ID(), '_lb_po_number', true ); ?>">
+				</div>
+
+				<!-- Tax Rate -->
+				<div class="misc-pub-section tax-rate-section" id="post-status-select">
+					<label for="lb-tax-rate">Tax</label>
+					<input type="text" name="_lb_tax_rate" class="lb-skinny lb-calc-input" id="lb-tax-rate" placeholder="0" value="<?php echo get_post_meta( get_the_ID(), '_lb_tax_rate', true ); ?>"> %
+				</div>
+			<?php else: ?>
+
+			<!-- Estimate Number -->
 			<div class="misc-pub-section" id="post-status-select">
 				<label for="_lb_estimate_number">Estimate Number</label>
 				<input type="text" name="_lb_estimate_number" id="lb-estimate-number" value="<?php echo littlebot_get_estimate_number(); ?>" >
 			</div>
-
-			<!-- PO number -->
-			<div class="misc-pub-section" id="post-status-select">
-				<label for="lb-po-number">P.O. Number</label>
-				<input type="text" name="_lb_po_number" id="lb-po-number" value="<?php echo get_post_meta( get_the_ID(), '_lb_po_number', true ); ?>">
-			</div>
-
-			<!-- Tax Rate -->
-			<div class="misc-pub-section tax-rate-section" id="post-status-select">
-				<label for="lb-tax-rate">Tax</label>
-				<input type="text" name="_lb_tax_rate" class="lb-skinny lb-calc-input" id="lb-tax-rate" placeholder="0" value="<?php echo get_post_meta( get_the_ID(), '_lb_tax_rate', true ); ?>"> %
-			</div>
+			<?php endif; ?>
 
 
 			<?php 
@@ -87,7 +89,9 @@
 			<!-- Due date -->
 			<?php $due_date_stamp = LBI_Invoice_Details::get_due_date( $post->ID );  ?>
 			<div class="misc-pub-section" >
-				<span id="lb-due-date" class="wp-media-buttons-icon"> Due: <b><?php echo date_i18n( 'M j, Y', $due_date_stamp ); ?></b></span>
+				<span id="lb-due-date" class="wp-media-buttons-icon">
+				<?php if ( $post->post_type == 'lb_invoice' ){ echo 'Due:';} else {echo 'Valid Until:';} ?> 
+				<b><?php echo date_i18n( 'M j, Y', $due_date_stamp ); ?></b></span>
 
 				<a href="#edit_due_date" class="edit-due-date hide-if-no-js edit_control">
 					<span aria-hidden="true">Edit</span> <span class="screen-reader-text">Edit due date and time</span>
@@ -164,75 +168,3 @@
 		</div>
 	</div>
 </div>
-
-<?php add_thickbox(); ?>
-<div id="lb-add-client" style="display:none;">
-	<div id="add-new-client">
-		<h2>Add a Client</h2>
-
-		<div class="lb-row">
-			<div class="first-name col-6">
-				<label for="first_name">First Name</label>
-				<input type="text"  name="first_name">
-			</div>
-			<div class="last-name col-6">
-				<label for="last_name">Last Name</label>
-				<input type="text"  name="last_name">
-			</div>
-		</div>
-
-		<div class="lb-row">
-			<div class="col-6 email">
-				<label for="email">Email</label>
-				<input type="text" name="email">
-			</div>
-			<div class="col-6 website">
-				<label for="website">Website</label>
-				<input type="text" name="website">
-			</div>
-		</div>
-
-		<div class="lb-row">
-			<div class="col-6 company">
-				<label for="company_name">Company Name</label>
-				<input type="text" name="company_name">
-			</div>
-			<div class="col-6 phone-number">
-				<label for="phone_num">Phone Number</label>
-				<input type="text" name="phone_num">
-			</div>
-		</div>
-
-		<div class="lb-row">
-			<div class="col-6 street-address">
-				<label for="street_address">Street Address</label>
-				<input type="text" name="street_address">
-			</div>
-			<div class="col-6 city">
-				<label for="city">City</label>
-				<input type="text" name="city">
-			</div>
-		</div>
-
-		<div class="lb-row">
-			<div class="col-4 state">
-				<label for="state">State</label>
-				<input type="text" name="state">
-			</div>
-			<div class="col-4 zipcode">
-				<label for="zip_code">Zip</label>
-				<input type="text" name="zip_code">
-			</div>
-			<div class="col-4 country">
-				<label for="country">Country</label>
-				<input type="text" name="country">
-			</div>
-		</div>
-
-		<textarea name="client_notes" id="client-notes" ></textarea>
-
-		<div>
-			<button class="save-client button-primary button-large">Save Client</button>
-		</div>
-	</div>
-</div>	

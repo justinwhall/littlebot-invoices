@@ -47,13 +47,27 @@ class LBI_Clients {
      * @param  string $last_name  user meta last name
      * @return string             {first_name} + {last_name} + $this->username_int
      */
-    static function generate_username( $first_name, $last_name ){
+    static function generate_username( $first_name, $last_name, $company_name, $email ){
 
-        $username = $first_name . $last_name . self::$username_int;
+        // Try company name first
+        $username = trim( $company_name );
+
+        // Try first name, last name
+        if ( !strlen( $username ) ) {
+            $username = trim( $first_name ) . trim( $last_name );
+        }
+
+        // Ok, no company name, first or last name. We'll make one from their email which is required
+        if ( !strlen( $username ) ) {
+            $username = preg_replace( '/@.*/', '', $email );
+        }
+
+        // Lastly append number so there are no dupes
+        $username .= self::$username_int;
 
         if ( username_exists( $username ) ) {
             self::$username_int++;
-            return self::generate_username( $first_name, $last_name );
+            return self::generate_username( $first_name, $last_name, $company_name );
         } else{
             return $username;
         }

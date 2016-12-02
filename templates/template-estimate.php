@@ -10,6 +10,7 @@
 		<div class="lb-container">
 			<div class="lb-wrap">
 
+
 				<div class="header lb-row">
 					<div class="doc-num col-6"><?php printf( esc_html__( 'Estimate %s', 'littlebot-invoices' ), littlebot_get_estimate_number() ); ?></div>
 					<div class="status col-6">

@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Mangages the invoice & estimate details metabox
+ * Manages the invoice & estimate details metabox
  *
  * @class     LBI_Invoice_Details
  * @version   0.9
@@ -77,7 +77,10 @@ class LBI_Invoice_Details extends LBI_Admin_Post {
     public function render_details_metabox( $post ) {
         // Add nonce for security and authentication.
         wp_nonce_field( 'custom_nonce_action', 'custom_nonce' );
+        // details metabox
         require_once LBI_PLUGIN_DIR . 'views/html-estimate-invoice-details.php';
+        // add client modal
+        require_once LBI_PLUGIN_DIR . 'views/html-estimate-invoice-add-client-modal.php';
     }
  
     /**
@@ -97,7 +100,7 @@ class LBI_Invoice_Details extends LBI_Admin_Post {
 
         if ( !$save ) return;
 
-        // If we make this far sanatize & update
+        // If we make this far sanitize & update
         if ( isset( $_POST['_lb_invoice_number'] ) ) {
            update_post_meta( $post_id, '_lb_invoice_number', sanitize_text_field( $_POST['_lb_invoice_number'] ) );
         }
@@ -121,9 +124,11 @@ class LBI_Invoice_Details extends LBI_Admin_Post {
            update_post_meta( $post_id, '_lb_client', $_POST['_lb_client'] );
         }
 
+        // Valid Until & Due date
         if ( isset( $_POST['due_mm'] ) && isset( $_POST['due_j'] ) && isset( $_POST['due_y'] ) ) {
             $due_date = strtotime( $_POST['due_mm'] . '/' . $_POST['due_j'] . '/' . $_POST['due_y']  );
-            update_post_meta( $post_id, '_due_date', $due_date );
+            $option_key = ( $post->post_type == 'lb_invoice' ) ? '_due_date' : '_valid_until';
+            update_post_meta( $post_id, $option_key, $due_date );
         }
 
     }

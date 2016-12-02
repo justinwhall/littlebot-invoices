@@ -19,11 +19,50 @@ class LBI_Admin_Post
 {
 	static $post_type_name;
 
-	public function __construct()
-	{
+	/**
+	 * kick it off
+	 * @return void
+	 */
+	public function init(){
+		add_action( 'transition_post_status', array( __CLASS__, 'check_for_approved_estimate' ), 10, 3 );
+	}
+
+	/**
+	 * fires on post status transition. Creates a invoice from an estimate if change from pending -> approved
+	 * @param  string $new_status the new status
+	 * @param  string $old_status the old status
+	 * @param  object $post       the current post (estimate)
+	 * @return void             
+	 */
+	public function check_for_approved_estimate( $new_status, $old_status, $post ){
+	
+		// we're only looking for estimates here...
+		if ( $post->post_type != 'lb_estimate') return;
+
+
+		// create invoice
+		if ( $old_status !== $new_status && $new_status == 'lb-approved' ) {
+			
+			$invoice = array(
+			  'post_title'    => $post->post_title,
+			  'post_content'  => '',
+			  'post_status'   => 'lb-pending',
+			  'post_type'     => 'lb_invoice'
+			);
+
+			$id = wp_insert_post( $invoice );
+
+		}
 
 	}
 
+	/**
+	 * security & privlege check before saving posts meta
+	 * @param  string $nonce_name   save nonce
+	 * @param  sttring $nonce_action nonce action
+	 * @param  object $post_id      post being saved
+	 * @return boolean               save to save true/false... 
+	 */
 	public function validate_save_action( $nonce_name, $nonce_action, $post_id ){
 
 		$save = true;

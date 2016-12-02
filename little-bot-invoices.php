@@ -158,6 +158,7 @@ final class Little_Bot_Invoices {
 
 		LBI_Page_Templates::init();
 		LBI_Client::init();
+		LBI_Admin_Post::init();
 
 	}
 

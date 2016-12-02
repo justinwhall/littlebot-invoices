@@ -44,6 +44,8 @@ class LBI_Client {
 
     	check_ajax_referer('lb-invoices', 'nonce');
 
+
+
     	// Make sure email isn't being used already
     	if ( email_exists( $_POST['email'] ) ){
     		self::$error = true;
@@ -51,8 +53,7 @@ class LBI_Client {
     		self::$data = false;
     	} else{
 	    	// Generate unique username
-	    	$username = LBI()->clients->generate_username( $_POST['first_name'], $_POST['last_name'] );
-
+	    	$username = LBI()->clients->generate_username( $_POST['first_name'], $_POST['last_name'], $_POST['company_name'], $_POST['email'] );
     	}
 
     	// Insert user

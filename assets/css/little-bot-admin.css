@@ -133,3 +133,25 @@
 	margin-bottom: 20px;
 	display: block;
 }
+.update-message{
+	display: inline-block;
+}
+#add-new-client .update-message p{
+	padding: 0 0 0 0;
+	margin: 3px 0 3px 0;
+}
+#add-new-client #client-loader{
+	height: 28px;
+	vertical-align: middle;
+}
+#add-new-client #client-loader{
+	height: 28px;
+	vertical-align: middle;
+}
+#lb-feedback,
+#client-loader{
+	opacity: 0;
+}
+#lb-feedback{
+	margin-left: -30px;
+}

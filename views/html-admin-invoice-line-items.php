@@ -88,11 +88,11 @@
 				<textarea name="item_desc[]" id="item-desc" ></textarea>
 			</div> 
 			<div class="fixed-width line-vals">
-				<input type="text" placeholder="0" name="item_qty[]" class="lb-calc-input sub-fixed item-qty"> 
-				<input type="text" placeholder="0" name="item_rate[]" class="lb-calc-input sub-fixed item-rate"> 
-				<input type="text" placeholder="0" name="item_percent[]" class="lb-calc-input sub-fixed item-percent"> 
-				<span class="sub-fixed line-total"></span>
-				<input type="hidden" name="item_amount[]" value="" class="lb-calc-input sub-fixed line-total-input"> 
+				<input type="text" placeholder="0" value="" name="item_qty[]" class="lb-calc-input sub-fixed item-qty"> 
+				<input type="text" placeholder="0" value="" name="item_rate[]" class="lb-calc-input sub-fixed item-rate"> 
+				<input type="text" placeholder="0" value="" name="item_percent[]" class="lb-calc-input sub-fixed item-percent"> 
+				<span class="sub-fixed line-total">0</span>
+				<input type="hidden" name="item_amount[]" value="0" class="lb-calc-input sub-fixed line-total-input"> 
 			</div>
 		</div>
 	</div>
