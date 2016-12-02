@@ -1,6 +1,10 @@
 /*Util*/
+
 .strong{
 	font-weight: 500;
+}
+.hide{
+	display: none;
 }
 .lb-row { width: 100%; margin:0 auto 20px auto; display:inline-block; position:relative; }
 .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 { float: left; margin-right: 2%; box-sizing: border-box; }
@@ -67,7 +71,8 @@
 }
 .items-wrap:hover{
 	cursor: move;
-	background: #EAEAEA;
+	// background: #EAEAEA;
+	color: #008ec2;
 }
 .item-row{
 	clear: both;
@@ -116,6 +121,7 @@
 	width: 100%;
 	min-width: 100%;
 	margin-top: 10px;
+	min-height: 90px;
 }
 .lb-bottom-controls{
 	padding: 10px 10px 10px 47px;

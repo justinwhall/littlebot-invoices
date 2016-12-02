@@ -11,17 +11,6 @@
 		$line_items[] = $item;
 	}
  ?>
-
-<!-- 
- <ul id="sortable">
-   <div class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</div>
-   <div class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 2</div>
-   <div class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 3</div>
-   <div class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 4</div>
-   <div class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 5</div>
-   <div class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 6</div>
-   <div class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 7</div>
- </ul> -->
   
 
 <div id="all-line-items" class="lb-calc-container">
@@ -63,7 +52,7 @@
 </div>
 
 <div class="lb-bottom-controls">
-	<button class="add-line-item button">Add Line Item</button>
+	<span class="add-line-item button">Add Line Item</span>
 	<div class="lb-totals">
 		<div class="subtotal">
 			<span class="label strong">Subtotal</span> <span class="subtotal-val"><?php echo get_post_meta( $post->ID, '_subtotal', true ); ?></span>
@@ -77,7 +66,7 @@
 </div>
 
 <script type="text/html" id="tmpl-line-item">
-	<div class="single-line-item">
+	<div class="single-line-item ui-state-default hide" >
 		<div class="items-wrap">
 			<div class="items-header item-row">
 				<div class="flex-width">

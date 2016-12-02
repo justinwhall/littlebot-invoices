@@ -5,7 +5,8 @@
 		init:function(){
 			// make line items sortable
 			$( "#all-line-items" ).sortable({
-				placeholder: "ui-state-highlight"
+				placeholder: "ui-state-highlight",
+				handle: ".items-wrap"
 			});
 			$( "#all-line-items" ).disableSelection();
 			this.attachEvents();
@@ -17,18 +18,15 @@
 			// Add line item
 			$('.add-line-item').on('click', this.addLineItem);
 			// delete line item
-			$('.dashicons-dismiss').on('click', this.removeLineItem);
+			$('.lb-calc-container').on('click', '.dashicons-dismiss', this.removeLineItem);
 			// dupe line item
-			$('.dashicons-plus-alt').on('click', this.dupeLineItem);
+			$('.lb-calc-container').on('click', '.dashicons-plus-alt', this.dupeLineItem);
 		},
 
 		addLineItem:function(){
 			var template = wp.template( 'line-item' );
-			$('#all-line-items').append( 
-				template( { 
-					test: 'test'
-				} ) 
-			);
+			$('#all-line-items').append( template() );
+			$('#all-line-items .single-line-item:last-child').slideDown('fast');
 		},
 
 		removeLineItem:function(){
