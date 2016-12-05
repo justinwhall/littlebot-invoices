@@ -13,10 +13,14 @@
 
 				<div class="header lb-row">
 					<div class="doc-num col-6"><?php printf( esc_html__( 'Estimate %s', 'littlebot-invoices' ), littlebot_get_estimate_number() ); ?></div>
-					<div class="status col-6">
+					<div class="status col-6" data-id="<?php echo get_the_ID(); ?>">
 						<?php if ( get_post_status( get_the_ID() ) == 'lb-pending' ): ?>
-							<span class="accept"><?php esc_html_e( 'Accept Estimate', 'littebot-invoices' ); ?></span>
-							<span class="decline"><?php esc_html_e( 'Decline Estimate', 'littebot-invoices' ); ?></span>
+							<div class="spinner">
+							  <div class="double-bounce1"></div>
+							  <div class="double-bounce2"></div>
+							</div>
+							<span class="accept" data-status="lb-approved"><?php esc_html_e( 'Accept Estimate', 'littebot-invoices' ); ?></span>
+							<span class="decline" data-status="lb-declined"><?php esc_html_e( 'Decline Estimate', 'littebot-invoices' ); ?></span>
 						<?php elseif ( get_post_status( get_the_ID() ) == 'lb-draft' ): ?>
 							<span class="is-draft"><?php esc_html_e( 'Estimate is currently a draft', 'littlebot-invoices' ); ?> </span>
 						<?php elseif ( get_post_status( get_the_ID() ) == 'lb-approved' ): ?>
@@ -57,5 +61,6 @@
 
 			</div>
 		</div>
+		<?php wp_footer(); ?>
 	</body>
 </html>

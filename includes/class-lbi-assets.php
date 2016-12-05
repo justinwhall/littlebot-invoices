@@ -24,6 +24,7 @@ class LBI_Assets {
 	 */
 	public function __construct() {
 		add_action( 'wp_enqueue_scripts', array( $this, 'public_styles' ) );
+		add_action( 'wp_enqueue_scripts', array( $this, 'public_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_styles' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
 	}
@@ -50,6 +51,16 @@ class LBI_Assets {
 		wp_enqueue_script( 'little-bot-scripts', LBI_PLUGIN_URL . 'assets/js/littlebot.js', array( 'jquery', 'wp-util' ), LBI_VERSION, true );
 		wp_localize_script('little-bot-scripts', 'ajax_object', array( 'ajax_url' => admin_url('admin-ajax.php'), 'ajax_nonce' => wp_create_nonce('lb-invoices') ) );
 	}
+
+	/**
+	 * Enqueue public scripts.
+	 */
+	public function public_scripts() {
+		wp_enqueue_script( 'little-bot-public-scripts', LBI_PLUGIN_URL . 'assets/js/littlebot-invoices-public.js', array( 'jquery' ), LBI_VERSION, true );
+		wp_localize_script('little-bot-public-scripts', 'ajax_object', array( 'ajax_url' => admin_url('admin-ajax.php'), 'ajax_nonce' => wp_create_nonce('lb-invoices') ) );
+	}
+
+
 
 
 }

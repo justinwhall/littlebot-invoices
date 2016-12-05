@@ -19,12 +19,44 @@ class LBI_Admin_Post
 {
 	static $post_type_name;
 
+	static $error = false;
+
+	static $message = '';
+
+	static $data = false;
+
 	/**
 	 * kick it off
 	 * @return void
 	 */
 	public function init(){
 		add_action( 'transition_post_status', array( __CLASS__, 'check_for_approved_estimate' ), 10, 3 );
+		add_action( 'wp_ajax__no_priv_update_status', array( __CLASS__, 'update_status' ), 10 );
+		add_action( 'wp_ajax_update_status', array( __CLASS__, 'update_status' ), 10 );
+	}
+
+	public function update_status(){
+
+		$status = sanitize_text_field( $_POST['status'] );
+		$ID = (int)sanitize_text_field( $_POST['ID'] );
+		
+		$post = array(
+		  'ID'           => $ID,
+		  'post_status'   => $status
+		);
+
+		$update = wp_update_post( $post );
+
+		if ( !$update ) {
+			self::$error = true;
+			self::$message = "I'm sorry, there was a problem updating this estimate.";
+		} else{
+			self::$data['new_status'] = $status;
+		}
+
+		$response = LBI()->response->build( self::$error, self::$message, self::$data);
+    	wp_send_json( $response );
+		wp_die();
 	}
 
 	/**
@@ -37,7 +69,7 @@ class LBI_Admin_Post
 	public function check_for_approved_estimate( $new_status, $old_status, $post ) {
 	
 		// we're only looking for estimates here...
-		if ( $post->post_type != 'lb_estimate') return;
+		if ( $post->post_type != 'lb_estimate' ) return;
 
 		// create invoice
 		if ( $old_status !== $new_status && $new_status == 'lb-approved' ) {

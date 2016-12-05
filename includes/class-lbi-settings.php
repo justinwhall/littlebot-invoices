@@ -241,6 +241,14 @@ class LBI_Settings {
 						)
 		        	),
 		        	array(
+		        	    'name'              => 'currency_symbol',
+		        	    'label'             => __( 'Currency Symbol', $plugin_name ),
+		        	    'desc'              => __( 'USD is <code>$</code>', $plugin_name ),
+		        	    'type'              => 'text',
+		        	    'default'           => '$',
+		        	    'sanitize_callback' => 'sanitize_text_field'
+		        	),
+		        	array(
 		        	    'name'    => 'currency_position',
 		        	    'label'   => __( 'Currency Position', $plugin_name ),
 		        	    'desc'    => __( '', $plugin_name ),

@@ -53,7 +53,7 @@ class LBI_Page_Templates {
 		if ( $post->post_type == 'lb_estimate' || $post->post_type == 'lb_invoice' ) {
 			$wp_styles->queue = array(
 				'admin-bar',
-				'little-bot-public-styles',
+				'little-bot-public-styles'
 			);
 		}
 
