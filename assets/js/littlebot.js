@@ -171,6 +171,45 @@
 	}
 	Clients.init();
 
+	var LittleBotInvoices = {
+
+		init:function(){
+			this.attachEvents();
+		},
+
+		attachEvents:function(){
+			$('.send-to-client').on('click', LittleBotInvoices.sendDoc);
+		},
+
+		sendDoc:function(){
+
+			var action = ($('#post_type') == 'lb_invoice') ? 'send_invoice' : 'send_estimate'; 
+			var data = {
+				action  : action,
+				nonce   : ajax_object.ajax_nonce,
+				post_ID : $('#post_ID').val(),
+			};
+
+			$('#send-doc-loader').show();
+			$('#lb-send-doc-feedback').hide();
+
+			$.ajax({
+				url     : ajax_object.ajax_url,
+				type    : 'POST',
+				data    : data,
+				success : function( resp ){
+					$('#send-doc-loader').hide();
+					$('#lb-send-doc-feedback').show();
+				}
+			});
+
+		}
+	}
+
+	LittleBotInvoices.init();
+
+
+	
 
 	$('#due-date-div').find('.save-due-date').click( function() {
 		updateDueDate(); 

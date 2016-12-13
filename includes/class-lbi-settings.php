@@ -55,12 +55,24 @@ class LBI_Settings {
 		public function get_settings_sections() {
 		    $sections = array(
 		        array(
-		            'id'    => 'littlebot_invoices_general',
+		            'id'    => 'lbi_general',
 		            'title' => __( 'General Settings', 'littlebot_invoices' )
 		        ),
 		        array(
-		            'id'    => 'littlebot_invoices_business',
+		            'id'    => 'lbi_business',
 		            'title' => __( 'Business', 'littlebot_invoices' )
+		        ),
+		        array(
+		            'id'    => 'lbi_estimates',
+		            'title' => __( 'Estimates', 'littlebot_invoices' )
+		        ),
+		        array(
+		            'id'    => 'lbi_invoices',
+		            'title' => __( 'Invoices', 'littlebot_invoices' )
+		        ),		        
+		        array(
+		            'id'    => 'lbi_emails',
+		            'title' => __( 'Emails', 'littlebot_invoices' )
 		        )
 		    );
 		    return $sections;
@@ -72,7 +84,7 @@ class LBI_Settings {
 		 */
 		public function get_settings_fields() {
 		    $settings_fields = array(
-		        'littlebot_invoices_general' => array(
+		        'lbi_general' => array(
 		        	array(
 		        	    'name'    => 'currency',
 		        	    'label'   => __( 'Currency', $plugin_name ),
@@ -288,7 +300,7 @@ class LBI_Settings {
 		        	    'sanitize_callback' => 'sanitize_text_field'
 		        	)
 	            ),
-		        'littlebot_invoices_business' => array(
+		        'lbi_business' => array(
 		            array(
 		                'name'              => 'business_name',
 		                'label'             => __( 'Business Name', $plugin_name ),
@@ -305,11 +317,36 @@ class LBI_Settings {
 		                'placeholder'       => __( '', $plugin_name ),
 		                'type'              => 'textarea'
 		            ),
+		            array(
+		                'name'              => 'business_email',
+		                'label'             => __( 'Business Email', $plugin_name ),
+		                'desc'              => __( 'This email will send notification to your clients', $plugin_name ),
+		                'placeholder'       => __( '', $plugin_name ),
+		                'type'              => 'text',
+		                'default'           => '',
+		                'sanitize_callback' => 'sanitize_text_field'
+		            )
 
-
+	            ),
+		        'lbi_emails' => array(
+		            array(
+		                'name'              => 'estimate_new_subject',
+		                'label'             => __( 'New Estimate Subject', $plugin_name ),
+		                'desc'              => __( '', $plugin_name ),
+		                'placeholder'       => __( '', $plugin_name ),
+		                'type'              => 'text',
+		                'default'           => '',
+		                'sanitize_callback' => 'sanitize_text_field'
+		            ),
+		            array(
+		                'name'              => 'estimate_new_body',
+		                'label'             => __( 'New Estimate Body', $plugin_name ),
+		                'desc'              => __( '', $plugin_name ),
+		                'placeholder'       => __( '', $plugin_name ),
+		                'type'              => 'wysiwyg',
+		                'default'           => ''
+		            )
 	            )
-
-
 
 		    );
 		    return $settings_fields;

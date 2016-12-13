@@ -185,3 +185,21 @@
 #lb-feedback{
 	margin-left: -30px;
 }
+/*send to client metabox*/
+#lbi-send-doc input[type="text"]{
+	width: 100%;
+	margin-bottom: 10px;
+}
+#lb-send-doc-feedback{
+	margin-top: 10px;
+	display: none;
+}
+#lbi-send-doc .update-message p{
+	padding: 0 0 0 0;
+	margin: 3px 0 3px 0;
+}
+#lbi-send-doc #send-doc-loader{
+	height: 28px;
+	vertical-align: middle;
+	display: none;
+}

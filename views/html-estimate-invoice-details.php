@@ -1,7 +1,7 @@
 <?php 
 	global $post;
 	$clients = LBI()->clients->get_all();
-	$statuses = ( $post->post == 'lb_invoice' ) ? LBI()->invoice_statuses : LBI()->estimate_statuses;
+	$statuses = ( $post->post_type == 'lb_invoice' ) ? LBI()->invoice_statuses : LBI()->estimate_statuses;
 ?>
 
 <div id="submitdiv" class="lb-calc-container">

@@ -25,7 +25,7 @@ endif;
 if ( ! function_exists( 'littlebot_print_to_from' ) ) :
 
 	function littlebot_print_to_from() {
-		$options = get_option( 'littlebot_invoices_business', array() );
+		$options = get_option( 'lbi_business', array() );
 		$client_obj = new LBI_Client;
 		$client = $client_obj->read( get_post_meta( get_the_ID(), '_client', true ) );
 		?>

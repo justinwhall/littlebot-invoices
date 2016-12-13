@@ -12,7 +12,6 @@
 	}
  ?>
   
-
 <div id="all-line-items" class="lb-calc-container">
 	
 	<?php foreach ( $line_items as $item ): ?>

@@ -34,8 +34,8 @@ class LBI_Activate_Deactivate {
 			'address' => ''
 		);
 		
-		update_option( 'littlebot_invoices_general', $general_options );
-		update_option( 'littlebot_invoices_business', $business_options );
+		update_option( 'lbi_general', $general_options );
+		update_option( 'lbi_business', $business_options );
 	}
 
 

@@ -112,9 +112,11 @@ body{
 	opacity: .8;
 }
 .status .accept,
+.status .paid,
 .status .approved{
 	background: #39996D;
 }
+.status .pending-payment,
 .status .decline{
 	background: #acbcc3;
 }

@@ -68,6 +68,7 @@ final class Little_Bot_Invoices {
 			self::$instance->includes();
 			self::$instance->clients = new LBI_Clients();
 			self::$instance->response = new LBI_Response();
+			self::$instance->emails = new LBI_Emails();
 		}
 		return self::$instance;
 	}
@@ -147,15 +148,19 @@ final class Little_Bot_Invoices {
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-post.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-post-details.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-post-line-items.php';
+		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-send-doc.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-clients.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-client.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-estimate.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-response.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-settings-api.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-settings.php';
+		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-emails.php';
+		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-notifications.php';
+		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-tokens.php';
 		require_once LBI_PLUGIN_DIR . 'includes/lbi-template-tags.php';
 
-
+		LBI_Notifications::init();
 		LBI_Page_Templates::init();
 		LBI_Client::init();
 		LBI_Admin_Post::init();
