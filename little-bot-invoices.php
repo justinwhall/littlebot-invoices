@@ -159,6 +159,8 @@ final class Little_Bot_Invoices {
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-emails.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-notifications.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-tokens.php';
+		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-log.php';
+		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-log-metabox.php';
 		require_once LBI_PLUGIN_DIR . 'includes/lbi-template-tags.php';
 
 		LBI_Notifications::init();

@@ -203,3 +203,31 @@
 	vertical-align: middle;
 	display: none;
 }
+
+/*log metabox*/
+#lbi-log .single-log{
+	margin: 10px 0;
+}
+#lbi-log .message{
+	background: #F3F3F3;
+	padding: 10px;
+}
+#lbi-log .message:first-letter{
+	text-transform: capitalize;
+}
+#lbi-log .log-date,
+#lbi-log .by{
+	font-size: .9em;
+	color: #A7A7A7;
+	font-style: italic;
+}
+#lbi-log .event{
+	font-weight: bold;
+}
+#lbi-log .lbi-arrow{
+	text-align: center;
+	color: #ccc;
+}
+#lbi-log .inside .lbi-arrow:last-child{
+	display: none;
+}
