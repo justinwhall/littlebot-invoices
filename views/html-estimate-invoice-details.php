@@ -44,7 +44,7 @@
 				<!-- Invoice Number -->
 				<div class="misc-pub-section" id="post-status-select">
 					<label for="lb_invoice_number">Invoice Number</label>
-					<input type="text" name="_invoice_number" id="lb-invoice-number" value="<?php echo get_post_meta( get_the_ID(), '_invoice_number', true ); ?>" >
+					<input type="text" name="_invoice_number" id="lb-invoice-number" value="<?php echo littlebot_get_invoice_number(); ?>" >
 				</div>
 
 				<!-- PO number -->

@@ -152,6 +152,7 @@ final class Little_Bot_Invoices {
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-clients.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-client.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-estimate.php';
+		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-invoice.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-response.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-settings-api.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-settings.php';

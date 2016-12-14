@@ -345,6 +345,23 @@ class LBI_Settings {
 		                'placeholder'       => __( '', $plugin_name ),
 		                'type'              => 'wysiwyg',
 		                'default'           => ''
+		            ),
+		            array(
+		                'name'              => 'invoice_new_subject',
+		                'label'             => __( 'New Invoice Subject', $plugin_name ),
+		                'desc'              => __( '', $plugin_name ),
+		                'placeholder'       => __( '', $plugin_name ),
+		                'type'              => 'text',
+		                'default'           => '',
+		                'sanitize_callback' => 'sanitize_text_field'
+		            ),
+		            array(
+		                'name'              => 'invoice_new_body',
+		                'label'             => __( 'New Invoice Body', $plugin_name ),
+		                'desc'              => __( '', $plugin_name ),
+		                'placeholder'       => __( '', $plugin_name ),
+		                'type'              => 'wysiwyg',
+		                'default'           => ''
 		            )
 	            )
 

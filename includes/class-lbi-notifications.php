@@ -17,32 +17,67 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class LBI_Notifications 
 {
-	public function init(){
-		add_action( 'wp_ajax_send_estimate', array( __CLASS__, 'send_estimate' ), 10 );
+	public $tokens;
+
+	public $client;
+
+	public $email_options;
+
+	public $business_options;
+
+	public function __construct( $post_id ){
+		// replaces tokens
+		$this->tokens = new LBI_Tokens( $post_id );
+
+		// Create a client to notify 
+		$client = new LBI_Client;
+		$this->client = $client->read( get_post_meta( $post_id, '_client', true ) );
+
+		$this->email_options = get_option( 'lbi_emails', true );
+		$this->business_options = get_option( 'lbi_business', true );
+
 	}
 
-	static function send_estimate(){
+	public function init(){
+		add_action( 'wp_ajax_send_estimate', array( __CLASS__, 'new_estimate' ), 10 );
+		add_action( 'wp_ajax_send_invoice', array( __CLASS__, 'new_invoice' ), 10 );
+	}
+
+	static function new_invoice(){
+
+		check_ajax_referer( 'lb-invoices', 'nonce' );
+		$post_id = $_POST['post_ID'];
+		$notification = new LBI_Notifications( $post_id );
+		
+		$subject = $notification->tokens->replace_tokens( $notification->email_options['invoice_new_subject'] );
+		$message = $notification->tokens->replace_tokens( $notification->email_options['invoice_new_body'] );
+
+		$notification->send( $notification->client->user_email, $subject, $message );
+
+		wp_die();
+	}
+
+	static function new_estimate(){
 
 		check_ajax_referer('lb-invoices', 'nonce');
 		$post_id = $_POST['post_ID'];
-		// holds associative array of tokens and their replacement
-		$tokens = new LBI_Tokens( $post_id );
-		$client_obj = new LBI_Client;
-		$client = $client_obj->read( get_post_meta( $post_id, '_client', true ) );
+		$notification = new LBI_Notifications( $post_id );
 
-		$email_options = get_option( 'lbi_emails', true );
-		$biz_options = get_option( 'lbi_business', true );
+		$subject = $notification->tokens->replace_tokens( $notification->email_options['estimate_new_subject'] );
+		$message = $notification->tokens->replace_tokens( $notification->email_options['estimate_new_body'] );
 
-		$subject = $tokens->replace_tokens( $email_options['estimate_new_subject'] );
-		$message = $tokens->replace_tokens( $email_options['estimate_new_body'] );
+		$notification->send( $notification->client->user_email, $subject, $message );
+		wp_die();
+	}
+
+	public function send( $to_address, $subject, $message ){
 
 		$emails = LBI()->emails;
-		$emails->__set( 'from_name', $biz_options['business_name'] );
-		$emails->__set( 'from_address', $biz_options['business_email'] );
+		$emails->__set( 'from_name', $this->business_options['business_name'] );
+		$emails->__set( 'from_address', $this->business_options['business_email'] );
 		$headers = $emails->get_headers();
 		$emails->__set( 'headers', $headers );
-		$emails->send( $client->user_email, $subject, $message );
-		wp_die();
+		$emails->send( $to_address, $subject, $message );
 	}
 	
 }

@@ -183,7 +183,7 @@
 
 		sendDoc:function(){
 
-			var action = ($('#post_type') == 'lb_invoice') ? 'send_invoice' : 'send_estimate'; 
+			var action = ($('#post_type').val() == 'lb_invoice') ? 'send_invoice' : 'send_estimate'; 
 			var data = {
 				action  : action,
 				nonce   : ajax_object.ajax_nonce,
@@ -198,6 +198,7 @@
 				type    : 'POST',
 				data    : data,
 				success : function( resp ){
+					console.log(resp);
 					$('#send-doc-loader').hide();
 					$('#lb-send-doc-feedback').show();
 				}

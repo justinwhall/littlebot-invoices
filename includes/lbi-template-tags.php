@@ -15,8 +15,26 @@ if ( ! defined('ABSPATH') ) { exit; }
 if ( ! function_exists( 'littlebot_get_estimate_number' ) ) :
 
 	function littlebot_get_estimate_number( $id = 0 ) {
-		$number = LBI_Estimate::get_number( get_the_ID() );
+		if ( !$id ) {
+			$id = get_the_ID();
+		}
+		$estimate = new LBI_Estimate;
+		$number = $estimate->get_number( $id );
 		return apply_filters( 'littlebot_get_estimate_number', $number, $client );
+	}
+
+endif;
+
+// gets an invoice number
+if ( ! function_exists( 'littlebot_get_invoice_number' ) ) :
+
+	function littlebot_get_invoice_number( $id = 0 ) {
+		if ( !$id ) {
+			$id = get_the_ID();
+		}
+		$invoice = new LBI_invoice;
+		$number = $invoice->get_number( $id );
+		return apply_filters( 'littlebot_get_invoice_number', $number);
 	}
 
 endif;
