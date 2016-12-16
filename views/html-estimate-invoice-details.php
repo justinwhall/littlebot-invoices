@@ -13,7 +13,7 @@
 			<div class="misc-pub-section">
 				<label for="post_status">Client</label>
 				<select name='_client' id='lb-client'>
-					<option>No Client</option>
+					<option value="no_client">No Client</option>
 					<?php foreach ( $clients as $client ): ?>
 						<option value="<?php echo $client->ID; ?>" <?php if ( $client->ID == get_post_meta( get_the_ID(), '_client', true ) ) { echo "selected"; } ?>>
 							<?php 
@@ -87,7 +87,7 @@
 			</div>
 
 			<!-- Due date -->
-			<?php $due_date_stamp = LBI_Invoice_Details::get_due_date( $post->ID );  ?>
+			<?php $due_date_stamp = littlebot_get_invoice_due_date();  ?>
 			<div class="misc-pub-section" >
 				<span id="lb-due-date" class="wp-media-buttons-icon">
 				<?php if ( $post->post_type == 'lb_invoice' ){ echo 'Due:';} else {echo 'Valid Until:';} ?> 

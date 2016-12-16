@@ -46,12 +46,20 @@ class LBI_Tokens
 	public function get_token_values(){
 		$client_obj = new LBI_Client;
 		$client = $client_obj->read( get_post_meta( $this->post_id, '_client', true ) );
+		$permalink = get_permalink( $this->post_id );
+
+		// Replace the link differently depending on what kind of email we are sending
+		if ( 'on' == LBI()->emails->options['html_emails'] ) {
+			$link = '<a href="' . $permalink . '">' . $permalink . '</a>';
+		} else{
+			$link = $permalink;
+		}
 
 		$tokens = array(
 			'%title%'             => get_the_title( $this->post_id ),
 			'%estimate_number%'   => littlebot_get_estimate_number( $this->post_id ),
 			'%invoice_number%'    => littlebot_get_invoice_number( $this->post_id ),
-			'%link%'              => get_permalink( $this->post_id ),
+			'%link%'              => $link,
 			'%client_first_name%' => $client->first_name,
 			'%client_last_name%'  => $client->last_name
 		);

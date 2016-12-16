@@ -29,24 +29,6 @@ class LBI_Invoice_Details extends LBI_Admin_Post {
 
         $this->post_type_name = 'Invoice';
     }
-
-    /**
-     * Gets the due date of an invoice if stored in the DB, otherwise generates one +30 days 
-     * @param  int $post_id the post ID
-     * @return string unix timestamp
-     */
-    public function get_due_date( $post_id ){
-
-        $saved_date = get_post_meta( $post_id, '_due_date', true );
-
-        if ( strlen( $saved_date ) ) {
-            $due_date = $saved_date;
-        } else{
-            $due_date = strtotime( '+30 days', current_time('timestamp') );
-        }
-
-        return $due_date;
-    }
  
     /**
      * Meta box initialization.

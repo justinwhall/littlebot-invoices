@@ -130,4 +130,35 @@ class LBI_Client {
     	require_once LBI_PLUGIN_DIR . 'views/html-user-meta.php';
     }
 
+    /**
+     * Get the client details.
+     *
+     * @since   0.9
+     */
+    public static function get_client_details( $user_id = 0 ) {
+
+        $client = get_userdata( $user_id );
+
+        if ( ! $client ) {
+            return false;
+        }
+
+        $client_details = array(
+            'id'             => (int)$client->data->ID,
+            'first_name'     => isset( $client->first_name ) ? $client->first_name : '',
+            'last_name'      => isset( $client->last_name ) ? $client->last_name : '',
+            'email'          => isset( $client->data->user_email ) ? $client->data->user_email :  $client->user_email,
+            'company_name'   => get_user_meta( $client->data->ID, 'company_name', true ),
+            'street_address' => get_user_meta( $client->data->ID, 'street_address', true ),
+            'city'           => get_user_meta( $client->data->ID, 'city', true ),
+            'state'          => get_user_meta( $client->data->ID, 'state', true ),
+            'zip'            => get_user_meta( $client->data->ID, 'zip', true ),
+            'country'        => get_user_meta( $client->data->ID, 'country', true ),
+            'lb_client'      => get_user_meta( $client->data->ID, 'lb_client', true ),
+        );
+
+        return apply_filters( 'littlebot_client_details', $client_details );
+
+    }
+
 }

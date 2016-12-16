@@ -72,6 +72,8 @@ class LBI_Emails {
 	 */
 	private $heading = '';
 
+	public $options;
+
 	/**
 	 * Get things going
 	 *
@@ -79,12 +81,11 @@ class LBI_Emails {
 	 */
 	public function __construct() {
 
-		if ( 'none' === $this->get_template() ) {
+		$this->options = get_option( 'lbi_emails', true );
+
+		if ( 'off' === $this->options['html_emails'] ) {
 			$this->html = false;
 		}
-
-		add_action( 'lbi_email_send_before', array( $this, 'send_before' ) );
-		add_action( 'lbi_email_send_after', array( $this, 'send_after' ) );
 
 	}
 
@@ -140,7 +141,13 @@ class LBI_Emails {
 	 */
 	public function get_content_type() {
 
-		return 'text/plain';
+		if ( $this->html ) {
+			$content_type = 'text/html';
+		} else {
+			$content_type = 'text/plain';
+		}
+	
+		return $content_type;
 	}
 
 	/**
@@ -160,37 +167,12 @@ class LBI_Emails {
 	}
 
 	/**
-	 * Retrieve email templates
-	 *
-	 * @since 0.9
-	 */
-	public function get_templates() {
-		$templates = array(
-			'default' => __( 'Default Template', 'littlebot-invoices' ),
-			'none'    => __( 'No template, plain text only', 'littlebot-invoices' )
-		);
-
-		return apply_filters( 'edd_email_templates', $templates );
-	}
-
-	/**
-	 * Get the enabled email template
-	 *
-	 * @since 0.9
-	 *
-	 * @return string|null
-	 */
-	public function get_template() {
-
-	}
-
-	/**
 	 * Get the header text for the email
 	 *
 	 * @since 0.9
 	 */
 	public function get_heading() {
-		return apply_filters( 'edd_email_heading', $this->heading );
+		return $this->heading;
 	}
 
 	/**
@@ -203,7 +185,13 @@ class LBI_Emails {
 	 */
 	public function build_email( $message ) {
 
-		// TODO: build HTML email.
+		if ( $this->html ) {
+			$message = wpautop( $message, true );
+			ob_start();
+			require_once LBI_PLUGIN_DIR . 'templates/template-email.php';
+			$message = ob_get_contents();
+			// ob_end_clean();
+		}
 
 		return  $message;
 	}
@@ -247,44 +235,7 @@ class LBI_Emails {
 
 	}
 
-	/**
-	 * Add filters / actions before the email is sent
-	 *
-	 * @since 0.9
-	 */
-	public function send_before() {
-		add_filter( 'wp_mail_from', array( $this, 'get_from_address' ) );
-		add_filter( 'wp_mail_from_name', array( $this, 'get_from_name' ) );
-		add_filter( 'wp_mail_content_type', array( $this, 'get_content_type' ) );
-	}
 
-	/**
-	 * Remove filters / actions after the email is sent
-	 *
-	 * @since 0.9
-	 */
-	public function send_after() {
-		remove_filter( 'wp_mail_from', array( $this, 'get_from_address' ) );
-		remove_filter( 'wp_mail_from_name', array( $this, 'get_from_name' ) );
-		remove_filter( 'wp_mail_content_type', array( $this, 'get_content_type' ) );
-
-		// Reset heading to an empty string
-		$this->heading = '';
-	}
-
-	/**
-	 * Converts text to formatted HTML. This is primarily for turning line breaks into <p> and <br/> tags.
-	 *
-	 * @since 0.9
-	 */
-	public function text_to_html( $message ) {
-
-		// if ( 'text/html' == $this->content_type || true === $this->html ) {
-		// 	$message = apply_filters( 'edd_email_template_wpautop', true ) ? wpautop( $message ) : $message;
-		// }
-
-		return $message;
-	}
 
 }
 

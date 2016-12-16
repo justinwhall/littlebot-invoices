@@ -27,6 +27,7 @@
 				type    : 'POST',
 				data    : data,
 				success : function( resp ){
+					console.log(resp);
 					$('.spinner').css('opacity', 0);
 					if (resp.error) {
 						$('.status').html('<span style="color:#666;">' + resp.message + '</span>');

@@ -103,8 +103,7 @@ class LBI_Log
 
 		$old_status = str_replace( 'lb-', '', $old_status );
 		$new_status = str_replace( 'lb-', '', $new_status );
-
-		$message = 'Status changed from ' . $old_status . ' to ' . $new_status;
+		$message    = 'Status changed from ' . $old_status . ' to ' . $new_status;
 
 		self::write( $post->ID, $message, 'Status Update', $user->data->user_nicename );
 	}
@@ -137,10 +136,10 @@ class LBI_Log
 	 */
 	public function write( $post_ID, $message, $event_name, $user = false ){
 
-		$data = array();
+		$data            = array();
 		$data['message'] = $message;
-		$data['event'] = $event_name;
-		$data['user'] = $user;
+		$data['event']   = $event_name;
+		$data['user']    = $user;
 
 		$log = get_post_meta( $post_ID, '_lbi_log', true );
 		if ( !is_array( $log ) ){

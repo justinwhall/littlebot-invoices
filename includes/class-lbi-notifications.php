@@ -36,11 +36,14 @@ class LBI_Notifications
 		$this->email_options = get_option( 'lbi_emails', true );
 		$this->business_options = get_option( 'lbi_business', true );
 
+
 	}
 
 	public function init(){
 		add_action( 'wp_ajax_send_estimate', array( __CLASS__, 'new_estimate' ), 10 );
 		add_action( 'wp_ajax_send_invoice', array( __CLASS__, 'new_invoice' ), 10 );
+		// estimate approved
+		add_action( 'send_estimate_approved_notification', array( __CLASS__, 'estimate_approved' ), 10, 3 );
 	}
 
 	static function new_invoice(){
@@ -70,11 +73,27 @@ class LBI_Notifications
 		wp_die();
 	}
 
-	public function send( $to_address, $subject, $message ){
+	static function test_estimate(){
+		global $post;
+		$post_id = $post->ID;
+		$notification = new LBI_Notifications( $post_id );
 
+		$subject = $notification->tokens->replace_tokens( $notification->email_options['estimate_new_subject'] );
+		$message = $notification->tokens->replace_tokens( $notification->email_options['estimate_new_body'] );
+
+		$notification->send( $notification->client->user_email, $subject, $message );
+	}
+
+	public function estimate_approved( $post ){
+		$notification = new LBI_Notifications( $post->ID );
+		$notification->send( $this->business_options['business_email'] , 'Invoice approved', 'This is the message');
+	}
+
+	public function send( $to_address, $subject, $message ){
 		$emails = LBI()->emails;
 		$emails->__set( 'from_name', $this->business_options['business_name'] );
 		$emails->__set( 'from_address', $this->business_options['business_email'] );
+		$emails->__set( 'heading', $this->tokens->token_values['%title%'] );
 		$headers = $emails->get_headers();
 		$emails->__set( 'headers', $headers );
 		$emails->send( $to_address, $subject, $message );

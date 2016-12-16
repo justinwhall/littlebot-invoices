@@ -31,7 +31,7 @@ class LBI_Admin_Post
 	 */
 	public function init(){
 		add_action( 'transition_post_status', array( __CLASS__, 'check_for_approved_estimate' ), 10, 3 );
-		add_action( 'wp_ajax__no_priv_update_status', array( __CLASS__, 'update_status' ), 10 );
+		add_action( 'wp_ajax_nopriv_update_status', array( __CLASS__, 'update_status' ), 10 );
 		add_action( 'wp_ajax_update_status', array( __CLASS__, 'update_status' ), 10 );
 	}
 
@@ -85,6 +85,9 @@ class LBI_Admin_Post
 
 			// Link these two documents
 			self::link_docs( $post->ID, $invoice_id );
+
+			// send notification
+			do_action('send_estimate_approved_notification', $post );
 		}
 
 	}

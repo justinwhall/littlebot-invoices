@@ -330,6 +330,12 @@ class LBI_Settings {
 	            ),
 		        'lbi_emails' => array(
 		            array(
+		                'name'              => 'html_emails',
+		                'label'             => __( 'Send HTML emails', $plugin_name ),
+		                'desc'              => __( 'Check to send HTML emails. Otherwise, emails are sent as plain text.', $plugin_name ),
+		                'type'              => 'checkbox'
+		            ),
+		            array(
 		                'name'              => 'estimate_new_subject',
 		                'label'             => __( 'New Estimate Subject', $plugin_name ),
 		                'desc'              => __( '', $plugin_name ),

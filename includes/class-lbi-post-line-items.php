@@ -57,6 +57,7 @@ class LBI_Line_Items extends LBI_Admin_Post {
      * Renders the meta box.
      */
     public function render_line_items( $post ) {
+        LBI_Client::get_client_details(19);
         // Add nonce for security and authentication.
         wp_nonce_field( 'custom_nonce_action', 'custom_nonce' );
         require_once LBI_PLUGIN_DIR . 'views/html-admin-invoice-line-items.php';

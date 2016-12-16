@@ -11,6 +11,20 @@
 // Exit if accessed directly
 if ( ! defined('ABSPATH') ) { exit; }
 
+
+// gets invoice due date
+if ( ! function_exists( 'littlebot_get_invoice_due_date' ) ) :
+
+	function littlebot_get_invoice_due_date( $id = 0 ) {
+		if ( !$id ) {
+			$id = get_the_ID();
+		}
+		$due_date = LBI_Invoice::get_due_date( $id );
+		return apply_filters( 'littlebot_get_invoice_due_date', $due_date );
+	}
+
+endif;
+
 // gets an estimate number
 if ( ! function_exists( 'littlebot_get_estimate_number' ) ) :
 
