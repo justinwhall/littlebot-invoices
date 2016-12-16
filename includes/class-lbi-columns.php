@@ -1,5 +1,4 @@
 <?php 
-
 /**
  * LittleBot Invoices
  *
@@ -67,7 +66,7 @@ class LBI_Columns
 
             case 'amount':
 
-                echo get_post_meta( $post_id, '_total', true );
+                echo littlebot_get_total( $post_id );
 
                 break;
             

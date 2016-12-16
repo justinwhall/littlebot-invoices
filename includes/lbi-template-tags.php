@@ -11,6 +11,16 @@
 // Exit if accessed directly
 if ( ! defined('ABSPATH') ) { exit; }
 
+// gets invoice due date
+if ( ! function_exists( 'littlebot_format_currency' ) ) :
+
+	function littlebot_get_total( $post_id = 0 ) {
+		$meta = get_post_meta( $post_id, '', true );
+		$total = LBI_Admin_Post::get_formatted_currency( $meta['_total'][0] );
+		return apply_filters( 'littlebot_get_total', $total );
+	}
+
+endif;
 
 // gets invoice due date
 if ( ! function_exists( 'littlebot_get_invoice_due_date' ) ) :
@@ -34,7 +44,7 @@ if ( ! function_exists( 'littlebot_get_estimate_number' ) ) :
 		}
 		$estimate = new LBI_Estimate;
 		$number = $estimate->get_number( $id );
-		return apply_filters( 'littlebot_get_estimate_number', $number, $client );
+		return apply_filters( 'littlebot_get_estimate_number', $number );
 	}
 
 endif;

@@ -11,7 +11,7 @@
 			
 			<!-- Client -->
 			<div class="misc-pub-section">
-				<label for="post_status">Client</label>
+				<label for="post_status">Client &#82;</label>
 				<select name='_client' id='lb-client'>
 					<option value="no_client">No Client</option>
 					<?php foreach ( $clients as $client ): ?>

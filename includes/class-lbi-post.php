@@ -150,5 +150,50 @@ class LBI_Admin_Post
 		$meta = get_post_meta( $id, $key, $single );
 		return $meta;
 	}
+
+	/**
+	 * Get the formatted number only.
+	 *
+	 * @since   0.9
+	 */
+	public static function get_formatted_number( $amount ) {
+
+	    $thou_sep 	= LBI_Settings::littlebot_get_option( 'thousand_sep', 'lbi_general');
+	    $dec_sep 	= LBI_Settings::littlebot_get_option( 'decimal_sep', 'lbi_general');;
+	    $decimals 	= LBI_Settings::littlebot_get_option( 'decimal_num', 'lbi_general');
+
+	    $formatted 	= number_format( (float)$amount, (int)$decimals, $dec_sep, $thou_sep );
+
+	    return apply_filters( 'little_get_formatted_number', $formatted );
+	}
+
+	static function get_formatted_currency( $amount ) {
+
+		$symbol 	= LBI_Settings::littlebot_get_option( 'currency_symbol', 'lbi_general');
+		$position 	= LBI_Settings::littlebot_get_option( 'currency_position', 'lbi_general');
+		$amount 	= self::get_formatted_number( $amount );
+
+		switch ($position) {
+			case 'left':
+				$formatted = $symbol . $amount;
+				break;
+			case 'right':
+				$formatted = $amount . $symbol;
+				break;
+			case 'left_space':
+				$formatted = $symbol . ' ' . $amount;
+				break;
+			case 'right_space':
+				$formatted = $amount . ' ' . $symbol;
+				break;
+
+			default:
+				$formatted = $symbol . $amount;
+				break;
+		}
+
+		return apply_filters( 'littlebot_formatted_currency', $formatted );
+
+	}
 	
 }
