@@ -47,8 +47,8 @@ class LBI_Settings {
 
 		}
 
-		static function littlebot_get_option( $option_key, $option_id){
-			$options = get_option( $option_id );
+		static function littlebot_get_option( $option_key, $option_id, $single = true){
+			$options = get_option( $option_id, $single);
 			return $options[$option_key];
 		}
 

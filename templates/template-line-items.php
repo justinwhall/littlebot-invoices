@@ -7,6 +7,6 @@
 		<div class="small rate"><?php echo $item['item_rate']; ?></div>
 		<div class="small qty"><?php echo $item['item_qty']; ?></div>
 		<div class="small percent"><?php echo $item['item_percent']; ?></div>
-		<div class="small amount"><?php echo $item['item_amount']; ?></div>
+		<div class="small amount"><?php echo littlebot_get_formatted_currency( $item['item_amount'] ); ?></div>
 	</div>
 <?php endforeach; ?>

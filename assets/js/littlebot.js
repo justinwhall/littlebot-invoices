@@ -2,6 +2,14 @@
 
 	var LineItems = {
 
+		opt:{
+			symbol: $('#lb_currency_sybmol').val(),
+			symbolPos: $('#lb_currency_position').val(),
+			thouSep: $('#lb_thou_sep').val(),
+			decSep: $('#lb_dec_sep').val(),
+			decNum: parseInt($('#lb_dec_num').val())
+		},
+
 		init:function(){
 			// make line items sortable
 			$( "#all-line-items" ).sortable({
@@ -10,6 +18,7 @@
 			});
 			$( "#all-line-items" ).disableSelection();
 			this.attachEvents();
+
 		},
 
 		attachEvents:function(){
@@ -21,6 +30,61 @@
 			$('.lb-calc-container').on('click', '.dashicons-dismiss', this.removeLineItem);
 			// dupe line item
 			$('.lb-calc-container').on('click', '.dashicons-plus-alt', this.dupeLineItem);
+		},
+
+		numberFormat:function(number, decimals, decPoint, thousandsSep) { // eslint-disable-line camelcase
+		  number = (number + '').replace(/[^0-9+\-Ee.]/g, '')
+		  var n = !isFinite(+number) ? 0 : +number
+		  var prec = !isFinite(+decimals) ? 0 : Math.abs(decimals)
+		  var sep = (typeof thousandsSep === 'undefined') ? ',' : thousandsSep
+		  var dec = (typeof decPoint === 'undefined') ? '.' : decPoint
+		  var s = ''
+
+		  var toFixedFix = function (n, prec) {
+		    var k = Math.pow(10, prec)
+		    return '' + (Math.round(n * k) / k)
+		      .toFixed(prec)
+		  }
+
+		  // @todo: for IE parseFloat(0.55).toFixed(0) = 0;
+		  s = (prec ? toFixedFix(n, prec) : '' + Math.round(n)).split('.')
+		  if (s[0].length > 3) {
+		    s[0] = s[0].replace(/\B(?=(?:\d{3})+(?!\d))/g, sep)
+		  }
+		  if ((s[1] || '').length < prec) {
+		    s[1] = s[1] || ''
+		    s[1] += new Array(prec - s[1].length + 1).join('0')
+		  }
+
+		  return s.join(dec)
+		},
+
+		formatCurrency:function(amount){
+
+			var formatted = '';
+			amount = LineItems.numberFormat(amount, LineItems.opt.decNum, LineItems.opt.decSep, LineItems.opt.thouSep );
+
+			switch (LineItems.opt.symbolPos) {
+				case 'left':
+				console.log(LineItems.opt.symbol);
+					formatted = LineItems.opt.symbol + amount;
+					break;
+				case 'right':
+					formatted = amount + LineItems.opt.symbol;
+					break;
+				case 'left_space':
+					formatted = LineItems.opt.symbol + ' ' + amount;
+					break;
+				case 'right_space':
+					formatted = amount + ' ' + LineItems.opt.symbol;
+					break;
+
+				default:
+					formatted = LineItems.opt.symbol + amount;
+					break;
+			}
+
+			return formatted;
 		},
 
 		addLineItem:function(){
@@ -74,12 +138,14 @@
 				subTotal += parseFloat($(val).val());
 			});
 
-			$('.subtotal-val').text((subTotal).toFixed(2));
+			// update span with formated number
+			// but... update hidden input with decimal value to save to the DB
+			$('.subtotal-val').text(LineItems.formatCurrency(subTotal));
 			$('.subtotal-input').val((subTotal).toFixed(2));
 
-			// And total
+			// Same with the total
 			total += subTotal + (subTotal * tax);
-			$('.total-val').text((total).toFixed(2));
+			$('.total-val').text(LineItems.formatCurrency(total));
 			$('.total-input').val((total).toFixed(2));
 		},
 
@@ -209,8 +275,6 @@
 
 	LittleBotInvoices.init();
 
-
-	
 
 	$('#due-date-div').find('.save-due-date').click( function() {
 		updateDueDate(); 

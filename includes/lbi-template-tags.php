@@ -12,9 +12,42 @@
 if ( ! defined('ABSPATH') ) { exit; }
 
 // gets invoice due date
-if ( ! function_exists( 'littlebot_format_currency' ) ) :
+if ( ! function_exists( 'littlebot_get_option' ) ) :
+
+	function littlebot_get_option( $option_key, $option_id, $single = true ) {
+		$option = LBI_Settings::littlebot_get_option( $option_key, $option_id, $single = true  );
+		return apply_filters( 'littlebot_get_option', $option );
+	}
+
+endif;
+
+// gets invoice due date
+if ( ! function_exists( 'littlebot_get_formatted_currency' ) ) :
+
+	function littlebot_get_formatted_currency( $number) {
+		$formated_number = LBI_Admin_Post::get_formatted_currency( $number );
+		return apply_filters( 'littlebot_get_formatted_currency', $formated_number );
+	}
+
+endif;
+
+// get formatted tax total
+if ( ! function_exists( 'littlebot_get_tax_total' ) ) :
+
+	function littlebot_get_tax_total( $post_id = 0 ) {
+		$post_id = ( ! $post_id ) ? get_the_ID() : $post_id;
+		$tax = get_post_meta( $post_id, '_subtotal', true ) * ( get_post_meta( $post_id, '_tax_rate', true ) / 100 );
+		$taxFormatted = LBI_Admin_Post::get_formatted_currency( $tax );
+		return apply_filters( 'littlebot_get_tax_total', $taxFormatted );
+	}
+
+endif;
+
+// gets invoice due date
+if ( ! function_exists( 'littlebot_get_total' ) ) :
 
 	function littlebot_get_total( $post_id = 0 ) {
+		$post_id = ( ! $post_id ) ? get_the_ID() : $post_id;
 		$meta = get_post_meta( $post_id, '', true );
 		$total = LBI_Admin_Post::get_formatted_currency( $meta['_total'][0] );
 		return apply_filters( 'littlebot_get_total', $total );
@@ -132,7 +165,6 @@ endif;
 if ( ! function_exists( 'littlebot_print_totals' ) ) :
 
 	function littlebot_print_totals() {
-		// $post_id = get_the_ID();
 		global $post;
 		include LBI_PLUGIN_DIR . '/templates/template-totals.php';
 	}

@@ -31,7 +31,7 @@
 						<span class="label valid-until"><?php esc_html_e( 'Due Date', 'littebot-invoices' ); ?></span><span class="val"><?php echo date_i18n( 'F j, Y', get_post_meta( get_the_ID(), '_due_date', true ) ); ?></span>
 						<span class="label date"><?php esc_html_e( 'Issued Date', 'littebot-invoices' ); ?></span><span class="val"><?php echo get_the_date(); ?></span>
 						<span class="label number"><?php esc_html_e( 'Invoice Number', 'littebot-invoices' ); ?></span><span class="val"><?php echo littlebot_get_estimate_number(); ?></span>
-						<div class="total"><?php printf( esc_html__( 'Invoice Total %s', 'littlebot-invoices' ), get_post_meta( get_the_ID(), '_total', true ) ); ?></div>
+						<div class="total"><?php printf( esc_html__( 'Invoice Total %s', 'littlebot-invoices' ), littlebot_get_total() ); ?></div>
 					</div>
 				</div>
 
