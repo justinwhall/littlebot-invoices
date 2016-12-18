@@ -213,6 +213,23 @@ class LBI_Settings {
 		                'placeholder'       => __( '', $plugin_name ),
 		                'type'              => 'wysiwyg',
 		                'default'           => ''
+		            ),
+		            array(
+		                'name'              => 'invoice_overdue_subject',
+		                'label'             => __( 'Invoice Overdue Subject', $plugin_name ),
+		                'desc'              => __( '', $plugin_name ),
+		                'placeholder'       => __( '', $plugin_name ),
+		                'type'              => 'text',
+		                'default'           => '',
+		                'sanitize_callback' => 'sanitize_text_field'
+		            ),
+		            array(
+		                'name'              => 'invoice_overdue_body',
+		                'label'             => __( 'Invoice Overdue Body', $plugin_name ),
+		                'desc'              => __( '', $plugin_name ),
+		                'placeholder'       => __( '', $plugin_name ),
+		                'type'              => 'wysiwyg',
+		                'default'           => ''
 		            )
 	            )
 

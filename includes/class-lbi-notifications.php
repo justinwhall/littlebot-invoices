@@ -36,14 +36,24 @@ class LBI_Notifications
 		$this->email_options = get_option( 'lbi_emails', true );
 		$this->business_options = get_option( 'lbi_business', true );
 
-
 	}
 
 	public function init(){
 		add_action( 'wp_ajax_send_estimate', array( __CLASS__, 'new_estimate' ), 10 );
 		add_action( 'wp_ajax_send_invoice', array( __CLASS__, 'new_invoice' ), 10 );
 		// estimate approved
-		add_action( 'send_estimate_approved_notification', array( __CLASS__, 'estimate_approved' ), 10, 3 );
+		add_action( 'send_estimate_approved_notification', array( __CLASS__, 'invoice_overdue' ), 10, 3 );
+
+		// Doc status changed
+		add_action( 'transition_post_status', array( __CLASS__, 'doc_status_changed' ), 15, 3 );
+		add_action( 'littlebot_send_invoice_overdue_email', array( __CLASS__, 'invoice_overdue' ), 10, 1 );
+	}
+
+	public function doc_status_changed( $new_status, $old_status, $post ){
+		// Overdue invoice
+		if ( $new_status !== $old_status && $new_status == 'lb-overdue' ) {
+			do_action( 'littlebot_send_invoice_overdue_email', $post );
+		}
 	}
 
 	static function new_invoice(){
@@ -73,20 +83,16 @@ class LBI_Notifications
 		wp_die();
 	}
 
-	static function test_estimate(){
-		global $post;
-		$post_id = $post->ID;
-		$notification = new LBI_Notifications( $post_id );
-
-		$subject = $notification->tokens->replace_tokens( $notification->email_options['estimate_new_subject'] );
-		$message = $notification->tokens->replace_tokens( $notification->email_options['estimate_new_body'] );
-
-		$notification->send( $notification->client->user_email, $subject, $message );
-	}
-
 	public function estimate_approved( $post ){
 		$notification = new LBI_Notifications( $post->ID );
-		$notification->send( $this->business_options['business_email'] , 'Invoice approved', 'This is the message');
+		$notification->send( $this->business_options['business_email'] , 'Invoice Approved', 'This is the message');
+	}
+
+	public function invoice_overdue( $post ){
+		$notification = new LBI_Notifications( $post->ID );
+		$subject = $notification->tokens->replace_tokens( $notification->email_options['invoice_overdue_subject'] );
+		$message = $notification->tokens->replace_tokens( $notification->email_options['invoice_overdue_body'] );
+		$notification->send( $notification->client->user_email, $subject, $message );
 	}
 
 	public function send( $to_address, $subject, $message ){
@@ -100,5 +106,3 @@ class LBI_Notifications
 	}
 	
 }
-
-// new LBI_Notifications;

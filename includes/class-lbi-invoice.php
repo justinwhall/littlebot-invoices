@@ -18,6 +18,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 class LBI_Invoice extends LBI_Admin_Post
 {
 
+
+	
+	public function __construct(){
+		add_action( 'littleBotInvoices_cron', array( __CLASS__, 'check_for_overdue_invoices' ), 1 );
+	}
+
 	public function get_number( $id ) {
 		$meta = get_post_meta( $id, '_invoice_number', true );
 		$number = strlen( $meta ) ? $meta : $id;
@@ -45,6 +51,32 @@ class LBI_Invoice extends LBI_Admin_Post
 	    }
 
 	    return $due_date;
+	}
+
+	public function check_for_overdue_invoices(){
+
+		$args = array(
+			'posts_per_page'   => -1,
+			'post_type'        => 'lb_invoice',
+			'post_status'      => 'lb-unpaid'
+		);
+
+		$invoices = get_posts( $args );
+
+		if ( !$invoices ) return;
+
+		foreach ( $invoices as $invoice ) {
+			$due_date = get_post_meta( $invoice->ID, '_due_date', true );
+			if ( current_time( 'timestamp' ) > $due_date ) {
+				$overdue_invoice = array(
+				    'ID'           => $invoice->ID,
+				    'post_status'  => 'lb-overdue'
+				);
+				wp_update_post( $overdue_invoice );
+			}
+		}
+
+
 	}
 	
 }

@@ -242,6 +242,7 @@ class LB_Post_Types {
 			// add our custom statuses to the singleton
 			LBI()->estimate_statuses[$status] = $values;
 		}
+
 	}
 
 }

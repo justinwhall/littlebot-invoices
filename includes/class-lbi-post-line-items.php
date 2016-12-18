@@ -71,6 +71,7 @@ class LBI_Line_Items extends LBI_Admin_Post {
      * @return null
      */
     public function save_line_items( $post_id, $post ) {
+
         // Add nonce for security and authentication.
         $nonce_name   = isset( $_POST['custom_nonce'] ) ? $_POST['custom_nonce'] : '';
         $nonce_action = 'custom_nonce_action';
@@ -81,21 +82,25 @@ class LBI_Line_Items extends LBI_Admin_Post {
 
         $all_line_items = array();
         foreach ( $_POST['item_title'] as $i => $title ) {
-            $line_item = array();
+            // Wait a minute, let's not save empty line items
+            if ( strlen( trim( $title ) ) || strlen( trim( $_POST['item_desc'][$i] ) ) ) {
+                $line_item = array();
 
-            $line_item['item_title']   = sanitize_text_field( $title );
-            $line_item['item_desc']    = sanitize_text_field( $_POST['item_desc'][$i] );
-            $line_item['item_qty']     = sanitize_text_field( $_POST['item_qty'][$i] );
-            $line_item['item_rate']    = sanitize_text_field( $_POST['item_rate'][$i] );
-            $line_item['item_percent'] = sanitize_text_field( $_POST['item_percent'][$i] );
-            $line_item['item_amount']  = sanitize_text_field( $_POST['item_amount'][$i] );
+                $line_item['item_title']   = sanitize_text_field( $title );
+                $line_item['item_desc']    = sanitize_text_field( $_POST['item_desc'][$i] );
+                // no vals for line items saved? Save 0.
+                $line_item['item_qty']     = ( strlen( trim( $_POST['item_qty'][$i] ) ) ) ? sanitize_text_field( (int)$_POST['item_qty'][$i] ) : 0;
+                $line_item['item_rate']    = ( strlen( trim( $_POST['item_rate'][$i] ) ) ) ? sanitize_text_field( (int)$_POST['item_rate'][$i] ) : 0;
+                $line_item['item_percent'] = ( strlen( trim( $_POST['item_percent'][$i] ) ) ) ? sanitize_text_field( (int)$_POST['item_percent'][$i] ) : 0;
+                $line_item['item_amount']  = ( strlen( trim( $_POST['item_amount'][$i] ) ) ) ? sanitize_text_field( (int)$_POST['item_amount'][$i] ) : 0;
 
-            $all_line_items[] = $line_item;
+                $all_line_items[] = $line_item;
+            }
         }
 
         update_post_meta( $post_id, '_line_items', $all_line_items );
-        update_post_meta( $post_id, '_subtotal', $_POST['_subtotal'] );
-        update_post_meta( $post_id, '_total', $_POST['_total'] );
+        update_post_meta( $post_id, '_subtotal', (int)$_POST['_subtotal'] );
+        update_post_meta( $post_id, '_total', (int)$_POST['_total'] );
     }
 }
  

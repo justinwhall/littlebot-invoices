@@ -23,14 +23,18 @@ class LBI_Columns
         // Custom columns
         add_action('manage_lb_invoice_posts_columns', array( $this, 'set_littlebot_columns'), 15, 1);
         add_action('manage_lb_invoice_posts_custom_column', array( $this, 'build_littlebot_columns'), 15, 2);
+        add_action('manage_lb_estimate_posts_columns', array( $this, 'set_littlebot_columns'), 15, 1);
+        add_action('manage_lb_estimate_posts_custom_column', array( $this, 'build_littlebot_columns'), 15, 2);
 
      }
 
 
      function remove_quick_edit( $actions, $post ) {
         global $current_screen;
-        if( $current_screen->post_type != 'lb_invoice' || $current_screen->post_type != 'lb_estimate' ) return $actions;
-        unset( $actions['inline hide-if-no-js'] );
+        
+        if( $current_screen->post_type != 'lb_invoice' || $current_screen->post_type != 'lb_estimate' ) {
+            unset( $actions['inline hide-if-no-js'] );
+        }
 
         return $actions;
      }
@@ -41,7 +45,11 @@ class LBI_Columns
             case 'status':
                 
                 $status_slug = get_post_status( $id );
-                echo LBI()->invoice_statuses[$status_slug]['label'];
+                if ( $current_screen->post_type == 'lb_invoice' ) {
+                    echo LBI()->invoice_statuses[$status_slug]['label'];
+                } else {
+                    echo LBI()->estimate_statuses[$status_slug]['label'];
+                }
 
                 break;
 

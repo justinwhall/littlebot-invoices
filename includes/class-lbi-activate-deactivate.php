@@ -36,8 +36,28 @@ class LBI_Activate_Deactivate {
 		
 		update_option( 'lbi_general', $general_options );
 		update_option( 'lbi_business', $business_options );
+
+		// Cron to check for overdue invoices
+	    if (! wp_next_scheduled ( 'littleBotInvoices_cron' )) {
+			wp_schedule_event(time(), 'every_fifteen_minutes', 'littleBotInvoices_cron');
+		}
+	
 	}
 
+	static public function on_deactivate(){
+		wp_clear_scheduled_hook('littleBotInvoices_cron');
+	}
 
 }
+
+function cron_every_fifteen( $schedules ) {
+
+    $schedules['every_fifteen_minutes'] = array(
+            'interval'  => 900,
+            'display'   => __( 'Every 15 Minutes', 'littlebot-invoices' )
+    );
+     
+    return $schedules;
+}
+add_filter( 'cron_schedules', 'cron_every_fifteen' );
 

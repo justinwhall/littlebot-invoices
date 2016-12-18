@@ -177,6 +177,7 @@ endif; // End if class_exists check.
 
 
 register_activation_hook( __FILE__, array( 'LBI_Activate_Deactivate', 'on_activate' ) );
+register_deactivation_hook( __FILE__, array( 'LBI_Activate_Deactivate', 'on_deactivate' ) );
 
 
 /**
