@@ -31,6 +31,18 @@ if ( ! function_exists( 'littlebot_get_formatted_currency' ) ) :
 
 endif;
 
+// gets invoice due date
+if ( ! function_exists( 'littlebot_getsubtotal' ) ) :
+
+	function littlebot_get_subtotal( $post_id = 0 ) {
+		$post_id = ( ! $post_id ) ? get_the_ID() : $post_id;
+		$meta = get_post_meta( $post_id, '', true );
+		$total = LBI_Admin_Post::get_formatted_currency( $meta['_subtotal'][0] );
+		return apply_filters( 'littlebot_get_sub_total', $total );
+	}
+
+endif;
+
 // get formatted tax total
 if ( ! function_exists( 'littlebot_get_tax_total' ) ) :
 

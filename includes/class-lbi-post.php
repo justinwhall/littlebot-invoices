@@ -136,25 +136,6 @@ class LBI_Admin_Post
 
 	}
 
-
-	/**
-	 * Get post meta.
-	 *
-	 * @since   2.0.0
-	 */
-	private static function get_lb_meta( $id = 0, $key, $single = true ) {
-		if ( ! $id ) {
-			$id = self::get_item_id();
-		}
-		$meta = get_post_meta( $id, $key, $single );
-		return $meta;
-	}
-
-	/**
-	 * Get the formatted number only.
-	 *
-	 * @since   0.9
-	 */
 	public static function get_formatted_number( $amount ) {
 
 	    $thou_sep 	= LBI_Settings::littlebot_get_option( 'thousand_sep', 'lbi_general');

@@ -1,7 +1,7 @@
 <?php $tax = littlebot_get_tax_total(); ?>
 <div class="lb-totals">
 	<div class="vals">
-		<div class="val"><?php echo get_post_meta( $post->ID, '_subtotal', true ); ?></div>
+		<div class="val"><?php echo littlebot_get_subtotal(); ?></div>
 		<?php if ( $post->post_type === 'lb_invoice' && $tax !== 0 ): ?>
 			<div class="val"><?php echo $tax; ?></div>
 		<?php endif; ?>
