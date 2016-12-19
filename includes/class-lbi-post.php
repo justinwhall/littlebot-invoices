@@ -31,8 +31,8 @@ class LBI_Admin_Post
 	 */
 	public function init(){
 		add_action( 'transition_post_status', array( __CLASS__, 'check_for_approved_estimate' ), 10, 3 );
-		add_action( 'wp_ajax_nopriv_update_status', array( __CLASS__, 'update_status' ), 10 );
-		add_action( 'wp_ajax_update_status', array( __CLASS__, 'update_status' ), 10 );
+		add_action( 'wp_ajax_nopriv_update_status', array( __CLASS__, 'update_status' ), 11 );
+		add_action( 'wp_ajax_update_status', array( __CLASS__, 'update_status' ), 20 );
 	}
 
 	public function update_status(){
@@ -53,7 +53,6 @@ class LBI_Admin_Post
 		} else{
 			self::$data['new_status'] = $status;
 		}
-
 		$response = LBI()->response->build( self::$error, self::$message, self::$data);
     	wp_send_json( $response );
 		wp_die();

@@ -190,7 +190,7 @@ class LBI_Emails {
 			ob_start();
 			require_once LBI_PLUGIN_DIR . 'templates/template-email.php';
 			$message = ob_get_contents();
-			// ob_end_clean();
+			ob_end_clean();
 		}
 
 		return  $message;
@@ -224,11 +224,11 @@ class LBI_Emails {
 		$sent  = wp_mail( $to, $subject, $message, $this->get_headers(), $attachments );
 
 
-		/**
-		 * Hooks after the email is sent
-		 *
-		 * @since 0.9
-		 */
+		// /**
+		//  * Hooks after the email is sent
+		//  *
+		//  * @since 0.9
+		//  */
 		do_action( 'lbi_email_send_after', $this );
 
 		return $sent;

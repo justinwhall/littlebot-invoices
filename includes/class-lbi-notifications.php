@@ -39,20 +39,25 @@ class LBI_Notifications
 	}
 
 	public function init(){
+		// ajax requests from post admin
 		add_action( 'wp_ajax_send_estimate', array( __CLASS__, 'new_estimate' ), 10 );
 		add_action( 'wp_ajax_send_invoice', array( __CLASS__, 'new_invoice' ), 10 );
-		// estimate approved
-		add_action( 'send_estimate_approved_notification', array( __CLASS__, 'invoice_overdue' ), 10, 3 );
-
 		// Doc status changed
-		add_action( 'transition_post_status', array( __CLASS__, 'doc_status_changed' ), 15, 3 );
-		add_action( 'littlebot_send_invoice_overdue_email', array( __CLASS__, 'invoice_overdue' ), 10, 1 );
+		add_action( 'transition_post_status', array( __CLASS__, 'doc_status_changed' ),10, 3 );
+		// estimate approved
+		add_action( 'send_estimate_approved_notification', array( __CLASS__, 'estimate_approved' ), 10, 1 );
+		// estimate declined
+		add_action( 'littlebot_estimate_declined', array( __CLASS__, 'estimate_declined' ), 10, 1 );
+		// Invoice overdue
+		add_action( 'littlebot_invoice_overdue', array( __CLASS__, 'invoice_overdue' ), 10, 1 );
 	}
 
 	public function doc_status_changed( $new_status, $old_status, $post ){
 		// Overdue invoice
 		if ( $new_status !== $old_status && $new_status == 'lb-overdue' ) {
-			do_action( 'littlebot_send_invoice_overdue_email', $post );
+			do_action( 'littlebot_invoice_overdue', $post );
+		} else if ( $new_status !== $old_status && $new_status == 'lb-declined' ) {
+			do_action( 'littlebot_estimate_declined', $post );
 		}
 	}
 
@@ -70,6 +75,13 @@ class LBI_Notifications
 		wp_die();
 	}
 
+	public function invoice_overdue( $post ){
+		$notification = new LBI_Notifications( $post->ID );
+		$subject = $notification->tokens->replace_tokens( $notification->email_options['invoice_overdue_subject'] );
+		$message = $notification->tokens->replace_tokens( $notification->email_options['invoice_overdue_body'] );
+		$notification->send( $notification->client->user_email, $subject, $message );
+	}
+
 	static function new_estimate(){
 
 		check_ajax_referer('lb-invoices', 'nonce');
@@ -83,16 +95,25 @@ class LBI_Notifications
 		wp_die();
 	}
 
-	public function estimate_approved( $post ){
+	public function estimate_approved( $post = 0 ){
+		if ( ! $post ) {
+			global $post;
+		} 
 		$notification = new LBI_Notifications( $post->ID );
-		$notification->send( $this->business_options['business_email'] , 'Invoice Approved', 'This is the message');
+		$subject = 'Estimate Approved | ' . $post->post_name;
+		$message = 'Good news. ' . $post->post_name . ' has been approved. A invoice has been created for your convenience!';
+		$notification->send( $notification->business_options['business_email'] , $subject, $message);
 	}
 
-	public function invoice_overdue( $post ){
+	public function estimate_declined( $post = 0 ){
+		if ( ! $post ) {
+			global $post;
+		} 
 		$notification = new LBI_Notifications( $post->ID );
-		$subject = $notification->tokens->replace_tokens( $notification->email_options['invoice_overdue_subject'] );
-		$message = $notification->tokens->replace_tokens( $notification->email_options['invoice_overdue_body'] );
-		$notification->send( $notification->client->user_email, $subject, $message );
+		$subject = 'Estimate Declined | ' . $post->post_name;
+		$message = 'Unfortunately, your estimate ' . $post->post_name . ' has been declined.';
+		$notification->send( $notification->business_options['business_email'] , $subject, $message);
+		return true;
 	}
 
 	public function send( $to_address, $subject, $message ){
@@ -103,6 +124,7 @@ class LBI_Notifications
 		$headers = $emails->get_headers();
 		$emails->__set( 'headers', $headers );
 		$emails->send( $to_address, $subject, $message );
+		return true;
 	}
 	
 }

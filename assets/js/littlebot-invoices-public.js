@@ -4,7 +4,6 @@
 
 		init:function(){
 			this.attachEvents();
-			console.log('var');
 		},
 
 		attachEvents:function(){
