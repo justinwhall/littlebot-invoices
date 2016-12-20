@@ -76,7 +76,7 @@ class LBI_Admin_Post
 			$invoice = array(
 			  'post_title'    => $post->post_title,
 			  'post_content'  => '',
-			  'post_status'   => 'lb-pending',
+			  'post_status'   => 'lb-draft',
 			  'post_type'     => 'lb_invoice'
 			);
 

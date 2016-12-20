@@ -173,6 +173,42 @@ class LBI_Settings {
 		            )
 
 	            ),
+		        'lbi_estimates' => array(
+		        	array(
+		        	    'name'              => 'terms',
+		        	    'label'             => __( 'Terms &amp; Conditions', $plugin_name ),
+		        	    'desc'              => __( '', $plugin_name ),
+		        	    'placeholder'       => __( '', $plugin_name ),
+		        	    'type'              => 'wysiwyg',
+		        	    'default'           => ''
+		        	),
+		        	array(
+		        	    'name'              => 'notes',
+		        	    'label'             => __( 'Notes', $plugin_name ),
+		        	    'desc'              => __( '', $plugin_name ),
+		        	    'placeholder'       => __( '', $plugin_name ),
+		        	    'type'              => 'wysiwyg',
+		        	    'default'           => ''
+		        	)
+	            ),
+		        'lbi_invoices' => array(
+		        	array(
+		        	    'name'              => 'terms',
+		        	    'label'             => __( 'Terms &amp; Conditions', $plugin_name ),
+		        	    'desc'              => __( '', $plugin_name ),
+		        	    'placeholder'       => __( '', $plugin_name ),
+		        	    'type'              => 'wysiwyg',
+		        	    'default'           => ''
+		        	),
+		        	array(
+		        	    'name'              => 'notes',
+		        	    'label'             => __( 'Notes', $plugin_name ),
+		        	    'desc'              => __( '', $plugin_name ),
+		        	    'placeholder'       => __( '', $plugin_name ),
+		        	    'type'              => 'wysiwyg',
+		        	    'default'           => ''
+		        	)
+	            ),
 		        'lbi_emails' => array(
 		            array(
 		                'name'              => 'html_emails',

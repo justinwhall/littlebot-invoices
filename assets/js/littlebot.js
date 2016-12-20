@@ -172,12 +172,12 @@
 			$('#lb-feedback').css('opacity', 0);
 			$('#client-loader').css('opacity', 1);
 
-			if (!$('#add-new-client .email input').val().length) {
-				$('#lb-feedback p').html('Client must at <em>least</em> an email');
+			if (!$('#add-new-client .email input').val().length || !$('#add-new-client .company input').val().length) {
 				$('#lb-feedback').css('opacity', 1);
 				$('#lb-feedback').removeClass('notice-success');
 				$('#lb-feedback').addClass('notice-error');
 
+				$('#lb-feedback p').html('Company name &amp; email required');
 				return;
 			}
 
@@ -204,6 +204,7 @@
 				type    : 'POST',
 				data    : data,
 				success : function( resp ){
+					console.log(resp);
 					$('#client-loader').css('opacity', 0);
 					$('#lb-feedback').css('opacity', 1);
 					$('#lb-feedback p').empty();
@@ -217,6 +218,10 @@
 						$('#lb-feedback').addClass('notice-success');
 						$('#lb-feedback p').append('Success! Client added.');
 						Clients.appendNewUser(resp.data);
+						// Also show the the notification input
+						$('.lb-no-client-add').hide();
+						$('.email-client-wrap').removeClass('lb-hide');
+						$('.email-client-wrap input').val(resp.data.email);
 					}
 				}
 			});
