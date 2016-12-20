@@ -3,9 +3,10 @@
 .strong{
 	font-weight: 500;
 }
-.hide{
+.hide,.lb-hide{
 	display: none;
 }
+
 .lb-row { width: 100%; margin:0 auto 20px auto; display:inline-block; position:relative; }
 .col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 { float: left; margin-right: 2%; box-sizing: border-box; }
 .lb-row .col-1:last-child, .lb-row .col-2:last-child, .row .col-3:last-child, .lb-row .col-4:last-child, .lb-row .col-5:last-child, .lb-row .col-6:last-child, 
@@ -23,6 +24,7 @@
 .col-10 { width: 82.5%; }
 .col-11 { width: 91%; }
 .col-12 { width: 100%;  }
+
 /*Invoice Details*/
 #lbi-inovoice-details .inside{
 	padding: 0 0 0 0;

@@ -69,7 +69,8 @@ class LBI_Client {
     		self::$data['user_id'] = $user_id;
     		self::$data['company_name'] = $_POST['company_name'];
     		self::$data['first_name'] = $_POST['first_name'];
-    		self::$data['last_name'] = $_POST['last_name'];
+            self::$data['last_name'] = $_POST['last_name'];
+    		self::$data['email'] = $_POST['email'];
     	}
 
     	// send response object

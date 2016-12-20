@@ -12,6 +12,18 @@
 if ( ! defined('ABSPATH') ) { exit; }
 
 // gets invoice due date
+if ( ! function_exists( 'littlebot_get_client' ) ) :
+
+	function littlebot_get_client( $post_id = 0 ) {
+		$post_id = ( ! $post_id ) ? get_the_ID() : $post_id;
+		$client = new LBI_Client();
+		$client = $client->read( get_post_meta( $post_id, '_client', true ) );
+		return apply_filters( 'littlebot_get_client', $client );
+	}
+
+endif;
+
+// gets invoice due date
 if ( ! function_exists( 'littlebot_get_option' ) ) :
 
 	function littlebot_get_option( $option_key, $option_id, $single = true ) {

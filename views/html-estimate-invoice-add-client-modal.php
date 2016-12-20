@@ -16,7 +16,7 @@
 
 		<div class="lb-row">
 			<div class="col-6 email">
-				<label for="email">Email</label>
+				<label for="email">Email <em>(required)</em></label>
 				<input type="text" name="email">
 			</div>
 			<div class="col-6 website">
@@ -27,7 +27,7 @@
 
 		<div class="lb-row">
 			<div class="col-6 company">
-				<label for="company_name">Company Name</label>
+				<label for="company_name">Company Name <em>(required)</em></label>
 				<input type="text" name="company_name">
 			</div>
 			<div class="col-6 phone-number">

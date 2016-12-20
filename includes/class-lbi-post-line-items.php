@@ -78,8 +78,8 @@ class LBI_Line_Items extends LBI_Admin_Post {
 
         $save = $this->validate_save_action( $nonce_name, $nonce_action, $post_id);
 
-        if ( !$save ) return;
-
+        if ( !$save || !$_POST['item_title'] ) return; 
+        
         $all_line_items = array();
         foreach ( $_POST['item_title'] as $i => $title ) {
             // Wait a minute, let's not save empty line items
