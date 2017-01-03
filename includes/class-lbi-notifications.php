@@ -83,6 +83,9 @@ class LBI_Notifications
 	 * @return void             
 	 */
 	public function doc_status_changed( $new_status, $old_status, $post ){
+		// if no email is set not notifications...
+		if ( $_POST['no_email'] == 'on') return;
+		
 		// Overdue invoice
 		if ( $new_status !== $old_status && $new_status == 'lb-overdue' ) {
 			do_action( 'littlebot_invoice_overdue', $post );
@@ -148,7 +151,7 @@ class LBI_Notifications
 		} 
 		$notification = new LBI_Notifications( $post->ID );
 		$subject = 'Estimate Approved | ' . $post->post_name;
-		$message = 'Good news. ' . $post->post_name . ' has been approved. A invoice has been created for your convenience!';
+		$message = 'Good news. ' . $post->post_name . ' has been approved. An invoice has been created for your convenience!';
 		$notification->send( $notification->business_options['business_email'] , $subject, $message);
 	}
 

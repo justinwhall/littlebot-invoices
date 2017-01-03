@@ -106,6 +106,9 @@ body{
 	padding: 10px 20px;
 	color: #fff;
 }
+.status .is-draft{
+    color: #ccc;
+}
 .status .decline:hover,
 .status .accept:hover{
 	cursor: pointer;
@@ -214,4 +217,9 @@ body{
 }
 .lb-totals .vals{
 	padding-left: 20px;
+}
+/*notes & terms*/
+.lb-notes,
+.lb-terms{
+    margin-top: 40px;
 }

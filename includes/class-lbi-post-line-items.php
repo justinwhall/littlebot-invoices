@@ -2,7 +2,7 @@
 /**
  * Admin Line Items
  *
- * Mangages the line items metabox
+ * Manages the line items metabox
  *
  * @class     LBI_Line_Items
  * @version   0.9
@@ -57,7 +57,7 @@ class LBI_Line_Items extends LBI_Admin_Post {
      * Renders the meta box.
      */
     public function render_line_items( $post ) {
-        LBI_Client::get_client_details(19);
+        // LBI_Notifications::new_invoice();
         // Add nonce for security and authentication.
         wp_nonce_field( 'custom_nonce_action', 'custom_nonce' );
         require_once LBI_PLUGIN_DIR . 'views/html-admin-invoice-line-items.php';
@@ -87,7 +87,7 @@ class LBI_Line_Items extends LBI_Admin_Post {
                 $line_item = array();
 
                 $line_item['item_title']   = sanitize_text_field( $title );
-                $line_item['item_desc']    = sanitize_text_field( $_POST['item_desc'][$i] );
+                $line_item['item_desc']    = $_POST['item_desc'][$i];
                 // no vals for line items saved? Save 0.
                 $line_item['item_qty']     = ( strlen( trim( $_POST['item_qty'][$i] ) ) ) ? sanitize_text_field( (int)$_POST['item_qty'][$i] ) : 0;
                 $line_item['item_rate']    = ( strlen( trim( $_POST['item_rate'][$i] ) ) ) ? sanitize_text_field( (int)$_POST['item_rate'][$i] ) : 0;

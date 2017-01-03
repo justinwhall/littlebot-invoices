@@ -2,7 +2,7 @@
 	<div class="single-line-item line-row">
 		<div class="title-desc wide">
 			<div class="title"><?php echo $item['item_title']; ?></div>
-			<div class="desc"><?php echo $item['item_desc']; ?></div>
+			<div class="desc"><?php echo wpautop( $item['item_desc'], true ); ?></div>
 		</div>
 		<div class="small rate"><?php echo $item['item_rate']; ?></div>
 		<div class="small qty"><?php echo $item['item_qty']; ?></div>

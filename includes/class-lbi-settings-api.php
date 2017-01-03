@@ -155,6 +155,28 @@ if ( !class_exists( 'WeDevs_Settings_API' ) ):
             $html       .= $this->get_field_description( $args );
             echo $html;
         }
+        function callback_token_html( $args ){
+            $tokens = array( 
+                '%title' => 'The document title',
+                '%client_first_name%' => 'Clients first name',
+                '%client_last_name%' => 'Clients last name',
+                '%company_name%' => 'The company name',
+                '%link%' => 'Link to the document',
+                '%invoice_number%' => 'Invoice Number - invoices only',
+                '%estimate_number%' => 'Estimate Number - estimates only',
+                '%issued%' => 'Date document was issued on',
+                '%valid_until%' => 'Date document is valid until',
+                '%po_numer%' => 'Document purchase order number',
+                '%due_date%' => 'Document due date'
+            );
+            echo '<div class="lb-metabox">';
+            foreach ( $tokens as $key => $value ) {          
+                echo '<div class="lb-single-token">';
+                echo '<span class="lb-key">' . $key . '</span> = <span class="lb-value">' . $value . '</span>';
+                echo '</div>';
+            }
+            echo '</div>';
+        }
         /**
          * Displays a url field for a settings field
          *

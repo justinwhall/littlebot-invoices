@@ -11,7 +11,7 @@
 			
 			<!-- Client -->
 			<div class="misc-pub-section">
-				<label for="post_status">Client &#82;</label>
+				<label for="post_status">Client</label>
 				<select name='_client' id='lb-client'>
 					<option value="no_client">No Client</option>
 					<?php foreach ( $clients as $client ): ?>
@@ -38,6 +38,11 @@
 						<option <?php if ( $post->post_status == $key ) { echo 'selected'; } ?> value="<?php echo $key; ?>"><?php echo $status['label']; ?></option>
 					<?php endforeach; ?>
 				</select>
+				<div class="no-email lb-hide">
+					<label for="no-email">
+						<input type="checkbox" id="no-email" name="no_email"><em><?php _e('Don\'t send overdue email to client', 'littlebot-invoices'); ?></em>
+					</label>
+				</div>
 			</div>
 
 			<?php if ( $post->post_type == 'lb_invoice' ): ?>			
