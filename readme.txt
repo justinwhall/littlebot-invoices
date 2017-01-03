@@ -4,7 +4,7 @@ Donate link:https://littlebot.io/littlebot-invoices/
 Tags: invoice, estimate, payment, ecommerce, ecommerce, bill, billings
 Requires at least: 3.0.1
 Tested up to: 4.42
-Stable tag: 0.9.0
+Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
