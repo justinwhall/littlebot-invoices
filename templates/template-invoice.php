@@ -18,7 +18,7 @@
 						<?php elseif ( get_post_status( get_the_ID() ) == 'lb-paid' ): ?>
 							<span class="paid"><?php esc_html_e( 'Paid', 'littebot-invoices' ); ?></span>
 						<?php elseif ( get_post_status( get_the_ID() ) == 'lb-draft' ): ?>
-							<span class="is-draft"><?php esc_html_e( 'Estimate is currently a draft', 'littlebot-invoices' ); ?> </span>
+							<span class="is-draft"><?php esc_html_e( 'Invoice is currently a draft.', 'littlebot-invoices' ); ?> </span>
 						<?php endif; ?>
 					</div>
 				</div>
@@ -52,6 +52,10 @@
 
 				<!-- totals  -->
 				<?php littlebot_print_totals(); ?>
+
+				<?php littlebot_notes(); ?>
+
+				<?php littlebot_terms(); ?>
 
 			</div>
 		</div>

@@ -250,6 +250,15 @@
 
 		attachEvents:function(){
 			$('.send-to-client').on('click', LittleBotInvoices.sendDoc);
+			$('#lbi-inovoice-details').on('change', '#post-status', LittleBotInvoices.maybeToggleNoEmail);
+		},
+
+		maybeToggleNoEmail:function(){
+			if ($(this).find('option:selected').val() == 'lb-overdue') {
+				$('.no-email').removeClass('lb-hide');
+			} else {
+				$('.no-email').addClass('lb-hide');				
+			}
 		},
 
 		sendDoc:function(){

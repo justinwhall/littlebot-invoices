@@ -24,7 +24,26 @@
 .col-10 { width: 82.5%; }
 .col-11 { width: 91%; }
 .col-12 { width: 100%;  }
-
+/*settings page*/
+.lb-metabox{
+	border: 1px solid #ccc;
+	padding: 10px;
+	background: #f9f9f9;
+	font-size: .9em;
+}
+.lb-key{
+	font-weight: bold;
+}
+.lb-value{
+	font-style: italic;
+}
+#lbi_emails span.lb-key {
+    min-width: 131px;
+    display: inline-block;
+}
+#lbi_emails .lb-metabox{
+	width: 355px;
+}
 /*Invoice Details*/
 #lbi-inovoice-details .inside{
 	padding: 0 0 0 0;
@@ -37,6 +56,9 @@
 }
 .lb-submitbox input.lb-skinny{
 	width: 40px;
+}
+.no-email{
+	margin-top: 10px;
 }
 .lb-submitbox .tax-rate-section label{
 	vertical-align: text-bottom;
@@ -97,7 +119,7 @@
 }
 .item-row .flex-width{
 	float: left;
-	margin-right: -200px;
+	margin-right: -250px;
 	padding-left: 28px;
 	padding-right: 240px;
 	width: 100%;
@@ -105,7 +127,7 @@
 }
 .item-row .fixed-width{
 	float: right;
-	width: 200px;
+	width: 250px;
 	box-sizing: border-box;
 	text-align: right;
 }
@@ -113,7 +135,7 @@
 	width: 100%;
 }
 .fixed-width > .sub-fixed{
-	width: 40px;
+	width: 50px;
 	text-align: center !important;
 	display: inline-block;
 	margin-right: 0;

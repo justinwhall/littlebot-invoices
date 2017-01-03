@@ -11,6 +11,37 @@
 // Exit if accessed directly
 if ( ! defined('ABSPATH') ) { exit; }
 
+
+if ( ! function_exists( 'littlebot_notes' ) ) :
+
+	function littlebot_notes( $post_id = 0 ) {
+		$post_id = ( ! $post_id ) ? get_the_ID() : $post_id;
+		if ( !strlen( get_post_meta( $post_id, '_notes', true ) ) ) return;
+
+		$html = '<div class="lb-notes">';
+		$html .= '<div><strong>Notes:</strong></div>';
+		$html .= get_post_meta( $post_id, '_notes', true );
+		$html .= '</div>';
+		echo apply_filters( 'littlebot_notes', $html );
+	}
+
+endif;
+
+if ( ! function_exists( 'littlebot_terms' ) ) :
+
+	function littlebot_terms( $post_id = 0 ) {
+		$post_id = ( ! $post_id ) ? get_the_ID() : $post_id;
+		if ( !strlen( get_post_meta( $post_id, '_terms', true ) ) ) return;
+
+		$html = '<div class="lb-terms">';
+		$html .= '<div><strong>Terms:</strong></div>';
+		$html .= get_post_meta( $post_id, '_terms', true );
+		$html .= '</div>';
+		echo apply_filters( 'littlebot_terms', $html );
+	}
+
+endif;
+
 // gets invoice due date
 if ( ! function_exists( 'littlebot_get_client' ) ) :
 

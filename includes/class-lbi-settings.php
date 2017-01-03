@@ -58,6 +58,8 @@ class LBI_Settings {
 		    $this->settings_api->set_fields( $this->get_settings_fields() );
 		    //initialize settings
 		    $this->settings_api->admin_init();
+
+		    // var_dump( get_option( 'lbi_business', false ) );die;
 		}
 
 		public function admin_menu() {
@@ -215,6 +217,12 @@ class LBI_Settings {
 		                'label'             => __( 'Send HTML emails', $plugin_name ),
 		                'desc'              => __( 'Check to send HTML emails. Otherwise, emails are sent as plain text.', $plugin_name ),
 		                'type'              => 'checkbox'
+		            ),
+		            array(
+		                'name'        => 'token_html',
+		                'label'		  => __('Token Key'),
+		                'desc'        => '',
+		                'type'        => 'token_html'
 		            ),
 		            array(
 		                'name'              => 'estimate_new_subject',

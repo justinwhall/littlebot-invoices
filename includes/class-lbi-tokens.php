@@ -44,8 +44,10 @@ class LBI_Tokens
 	 * @return array token array used to build email content
 	 */
 	public function get_token_values(){
+
 		$client_obj = new LBI_Client;
 		$client = $client_obj->read( get_post_meta( $this->post_id, '_client', true ) );
+
 		$permalink = get_permalink( $this->post_id );
 
 		// Replace the link differently depending on what kind of email we are sending
@@ -61,7 +63,12 @@ class LBI_Tokens
 			'%invoice_number%'    => littlebot_get_invoice_number( $this->post_id ),
 			'%link%'              => $link,
 			'%client_first_name%' => $client->first_name,
-			'%client_last_name%'  => $client->last_name
+			'%client_last_name%'  => $client->last_name,
+			'%company_name%' => $client->company_name,
+			'%issued%' => get_the_date('l, F j, Y', $this->post_id ),
+			'%valid_until%' => date_i18n( 'l, F j, Y', get_post_meta( $this->post_id, '_valid_until', true ), false ),
+			'%po_numer%' => get_post_meta( $this->post_id, '_po_number', true ),
+			'%due_date%' => date_i18n( 'l, F j, Y', get_post_meta( $this->post_id, '_due_date', true ), false )
 		);
 
 		$this->token_values = $tokens;
