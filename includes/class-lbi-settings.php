@@ -63,7 +63,7 @@ class LBI_Settings {
 		}
 
 		public function admin_menu() {
-		    add_menu_page( 'LittleBot Invoices', 'LittleBot Invoices', 'delete_posts', 'littlebot_invoices', array($this, 'plugin_page') );
+		    add_menu_page( 'LittleBot Invoices', 'LittleBot Invoices', 'delete_posts', 'littlebot_invoices', array($this, 'plugin_page'), 'dashicons-littlebot-icon' );
 		}
 
 		public function get_settings_sections() {
