@@ -234,3 +234,13 @@ if ( ! function_exists( 'get_tax_amount' ) ) :
 	}
 
 endif;
+
+// filters
+add_action( 'lbi_payment_buttons', 'lbi_render_payment_buttons', 10, 1 );
+function lbi_render_payment_buttons(){
+	if ( empty( LBI()->gateways->active ) ) {
+		echo '<span class="pending-payment">' . __( 'Pending Payment', 'littebot-invoices' ) . '</span>';
+	} else{
+		echo '<span class="lb-pay">' . __( 'Pay Invoice', 'littebot-invoices' ) . '</span>';
+	}
+}

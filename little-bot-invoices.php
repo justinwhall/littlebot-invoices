@@ -47,6 +47,13 @@ final class Little_Bot_Invoices {
 	public static $estimate_statuses = array();
 
 	/**
+	 * @var Littlebot_Stripe holds installed add ons 
+	 * @since 0.9 
+	 */
+	public static $extensions = array();
+
+
+	/**
 	 * Main Little_Bot_Invoices Instance.
 	 *
 	 * Insures that only one instance of Little_Bot_Invoices exists in memory at any one
@@ -69,6 +76,8 @@ final class Little_Bot_Invoices {
 			self::$instance->clients = new LBI_Clients();
 			self::$instance->response = new LBI_Response();
 			self::$instance->emails = new LBI_Emails();
+			self::$instance->gateways = new LBI_Gateways();
+			// self::$instance->extentions = new LBI_Extentions();
 		}
 		return self::$instance;
 	}
@@ -160,6 +169,7 @@ final class Little_Bot_Invoices {
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-emails.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-notifications.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-tokens.php';
+		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-gateways.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-log.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-log-metabox.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-notes-metabox.php';

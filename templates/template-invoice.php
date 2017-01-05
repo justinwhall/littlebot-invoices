@@ -13,8 +13,8 @@
 				<div class="header lb-row">
 					<div class="doc-num col-6"><?php printf( esc_html__( 'Invoice %s', 'littlebot-invoices' ), littlebot_get_estimate_number() ); ?></div>
 					<div class="status col-6" data-id="<?php echo get_the_ID(); ?>">
-						<?php if ( get_post_status( get_the_ID() ) == 'lb-pending' ): ?>
-							<span class="pending-payment"><?php esc_html_e( 'Pending Payment', 'littebot-invoices' ); ?></span>
+						<?php if ( get_post_status( get_the_ID() ) == 'lb-unpaid' ): ?>
+							<?php do_action( 'lbi_payment_buttons' ); ?>
 						<?php elseif ( get_post_status( get_the_ID() ) == 'lb-paid' ): ?>
 							<span class="paid"><?php esc_html_e( 'Paid', 'littebot-invoices' ); ?></span>
 						<?php elseif ( get_post_status( get_the_ID() ) == 'lb-draft' ): ?>
