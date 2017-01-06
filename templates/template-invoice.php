@@ -20,6 +20,17 @@
 						<?php elseif ( get_post_status( get_the_ID() ) == 'lb-draft' ): ?>
 							<span class="is-draft"><?php esc_html_e( 'Invoice is currently a draft.', 'littlebot-invoices' ); ?> </span>
 						<?php endif; ?>
+						<form action="https://www.windsorup.com/invoice/db5e47a7a4aa5c158d341be2f3e8faa9/?invoice_payment=stripe&nonce=673ddcdb3b&si_payment_action=payment" method="POST">
+						  <script
+						    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+						    data-key="pk_test_mS0iYJ9r7ygYNQzSpiHlRt04"
+						    data-amount="999"
+						    data-name="Justinwhall"
+						    data-description="Widget"
+						    data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+						    data-locale="auto">
+						  </script>
+						</form>
 					</div>
 				</div>
 

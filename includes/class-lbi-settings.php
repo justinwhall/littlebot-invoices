@@ -33,7 +33,8 @@ class LBI_Settings {
 			'lbi_business',
 			'lbi_estimates',
 			'lbi_invoices',
-			'lbi_emails'
+			'lbi_emails',
+			'lbi_payments'
 		);
 
 
@@ -283,10 +284,20 @@ class LBI_Settings {
 	            ),
     	        'lbi_payments' => array(
     	        	array(
+    	        	    'name'    => 'payment_gateways',
+    	        	    'label'   => __( 'Payment Gateways', $plugin_name ),
+    	        	    'desc'    => __( 'Who should process payments?', $plugin_name ),
+    	        	    'type'    => 'select',
+    	        	    'options' => array(
+    							'' => '--', 
+    					)
+    	        	),
+    	        	array(
     	        	    'name'              => 'upgrade',
     	        	    'type'              => 'html',
     	        	    'desc'           => 'Payment extensions available on <a target="_blank" href="https://littlebot.io">our website</a>'
     	        	)
+
                 )
 
 		    );

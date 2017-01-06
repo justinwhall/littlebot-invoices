@@ -241,6 +241,6 @@ function lbi_render_payment_buttons(){
 	if ( empty( LBI()->gateways->active ) ) {
 		echo '<span class="pending-payment">' . __( 'Pending Payment', 'littebot-invoices' ) . '</span>';
 	} else{
-		echo '<span class="lb-pay">' . __( 'Pay Invoice', 'littebot-invoices' ) . '</span>';
+		echo '<span class="pay">' . __( 'Pay Invoice', 'littebot-invoices' ) . '</span>';
 	}
 }

@@ -151,6 +151,7 @@ final class Little_Bot_Invoices {
 		global $LBI_options;
 
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-activate-deactivate.php';
+		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-controller.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-assets.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-page-templates.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-post-types.php';
@@ -166,6 +167,7 @@ final class Little_Bot_Invoices {
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-response.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-settings-api.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-settings.php';
+		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-checkouts.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-emails.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-notifications.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-tokens.php';
@@ -176,6 +178,7 @@ final class Little_Bot_Invoices {
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-terms-metabox.php';
 		require_once LBI_PLUGIN_DIR . 'includes/lbi-template-tags.php';
 
+		LBI_Controller::init();
 		LBI_Notifications::init();
 		LBI_Page_Templates::init();
 		LBI_Client::init();
