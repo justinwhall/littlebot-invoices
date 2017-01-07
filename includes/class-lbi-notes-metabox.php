@@ -73,7 +73,7 @@ class LBI_Notes_Metabox extends LBI_Admin_Post {
 
         if ( !$save ) return;
 
-        update_post_meta( $post_id, '_notes', sanitize_textarea_field( $_POST['_lbi_notes'] ) );
+        update_post_meta( $post_id, '_notes', sanitize_text_field( $_POST['_lbi_notes'] ) );
     }
  
 }

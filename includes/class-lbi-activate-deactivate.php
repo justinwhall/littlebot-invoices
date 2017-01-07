@@ -64,6 +64,9 @@ class LBI_Activate_Deactivate {
 	    if (!wp_next_scheduled ( 'littleBotInvoices_cron' )) {
 			wp_schedule_event(time(), 'every_fifteen_minutes', 'littleBotInvoices_cron');
 		}
+
+		LB_Post_Types::register_post_types();
+		flush_rewrite_rules();
 	
 	}
 

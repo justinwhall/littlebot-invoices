@@ -5,7 +5,7 @@
  * Description: Easily create and send estimates and invoices for you business.
  * Author: Justin W Hall
  * Author URI: https://littlebot.io
- * Version: 1.0.0
+ * Version: 1.0.1
  * Text Domain: little-bot-invoices
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
