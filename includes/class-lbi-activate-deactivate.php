@@ -76,6 +76,11 @@ class LBI_Activate_Deactivate {
 
 }
 
+/**
+ * Add cron job to check overdue invoices
+ * @param  array $schedules array of already scheduled tasks
+ * @return array            
+ */
 function cron_every_fifteen( $schedules ) {
 
     $schedules['every_fifteen_minutes'] = array(
