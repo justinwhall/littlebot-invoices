@@ -2,7 +2,7 @@
 /**
  * Plugin Name: LittleBot Invoices
  * Plugin URI: https://justinwhall.com
- * Description: Easily create and send estimates andinvoices for you business.
+ * Description: Easily create and send estimates and invoices for you business.
  * Author: Justin W Hall
  * Author URI: https://justinwhall.com
  * Version: 1.0.0

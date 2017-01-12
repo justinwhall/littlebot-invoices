@@ -49,7 +49,7 @@ class LBI_Settings {
 		}
 
 		static function littlebot_get_option( $option_key, $option_id, $single = true){
-			$options = get_option( $option_id, $single);
+			$options = get_option( $option_id, $single );
 			return $options[$option_key];
 		}
 
@@ -284,7 +284,7 @@ class LBI_Settings {
 	            ),
     	        'lbi_payments' => array(
     	        	array(
-    	        	    'name'    => 'payment_gateways',
+    	        	    'name'    => 'payment_gateway',
     	        	    'label'   => __( 'Payment Gateways', $plugin_name ),
     	        	    'desc'    => __( 'Who should process payments?', $plugin_name ),
     	        	    'type'    => 'select',

@@ -66,9 +66,6 @@ class LBI_Controller
      */
     public static function handle_callbacks( WP $wp ) {
 
-        // var_dump( $wp );
-        // var_dump( self::$query_vars );
-
         foreach ( self::$query_vars as $var => $callback ) {
 
             if ( isset( $wp->query_vars[ $var ] ) && $wp->query_vars[ $var ] && $callback && is_callable( $callback ) ) {
@@ -78,7 +75,38 @@ class LBI_Controller
         }
     }
 
+    public static function print_messages(){
 
+        if ( ! isset( $_REQUEST['lbi_messages'] )) return;
+
+        $messages = $_REQUEST['lbi_messages'];
+
+        $args = array( 
+            'status' => $messages['status'],
+            'message' => $messages['message'],
+         );
+
+        self::load_view('html-messages', $args );
+    }
+
+    /**
+     * Display the template for the given view
+     *
+     * @static
+     * @param string  $view
+     * @param bool    $allow_theme_override
+     * @return void
+     */
+    public static function load_view( $view, $args, $allow_theme_override = true, $plugin_root = LBI_PLUGIN_DIR ) {
+        // whether or not .php was added
+        if ( substr( $view, -4 ) != '.php' ) {
+            $view .= '.php';
+        }
+        // TODO: Allow override
+        $file = apply_filters( 'lbi_views_path', $plugin_root . 'views/' . $view );
+        if ( ! empty( $args ) ) { extract( $args ); }
+        include $file;
+    }
 
 
 }

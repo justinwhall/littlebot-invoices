@@ -20,17 +20,20 @@ class LBI_Gateways
 
     public $active = array();
 
+    public $selected = false;
+
     /**
      * Kick it off
      * @param int $post_id the post ID
      */
     public function __construct(){
-        $this->get_all();
+        // $this->get_all();
         add_action( 'plugins_loaded', array( $this, 'get_all' ), 10, 1 );
+        add_action( 'plugins_loaded', array( $this, 'get_selected_gateway' ), 10, 1 );
     }
 
     public function get_all(){
-        // check for active extensions
+        // check for installed and active extensions
         $gateways = array( 
             'Littlebot_Stripe',
             'Littlebot_Paypal',
@@ -45,5 +48,12 @@ class LBI_Gateways
         
     }
 
+    public function get_selected_gateway(){
+        // check if there is setting val for any LittleBot gateway extensions
+        $selected_gateway = LBI_Settings::littlebot_get_option( 'payment_gateway', 'lbi_payments');
+        if ( class_exists( $selected_gateway ) ) {
+            $this->selected = $selected_gateway;
+        }
+    }
 
 }
