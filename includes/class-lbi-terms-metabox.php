@@ -73,7 +73,7 @@ class LBI_Terms_Metabox extends LBI_Admin_Post {
 
         if ( !$save ) return;
 
-        update_post_meta( $post_id, '_terms', sanitize_textarea_field( $_POST['_lbi_terms'] ) );
+        update_post_meta( $post_id, '_terms', sanitize_text_field( $_POST['_lbi_terms'] ) );
 
     }
  

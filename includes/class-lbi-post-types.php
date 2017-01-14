@@ -37,7 +37,7 @@ class LB_Post_Types {
 	/**
 	 * Register core post types.
 	 */
-	public static function register_post_types( $post_slug ) {
+	public static function register_post_types() {
 
 		if ( post_type_exists('lb-invoice') ) {
 			return;
