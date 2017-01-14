@@ -33,7 +33,8 @@ class LBI_Settings {
 			'lbi_business',
 			'lbi_estimates',
 			'lbi_invoices',
-			'lbi_emails'
+			'lbi_emails',
+			'lbi_payments'
 		);
 
 
@@ -48,7 +49,7 @@ class LBI_Settings {
 		}
 
 		static function littlebot_get_option( $option_key, $option_id, $single = true){
-			$options = get_option( $option_id, $single);
+			$options = get_option( $option_id, $single );
 			return $options[$option_key];
 		}
 
@@ -87,9 +88,14 @@ class LBI_Settings {
 		        array(
 		            'id'    => 'lbi_emails',
 		            'title' => __( 'Emails', 'littlebot_invoices' )
+		        ),
+		        array(
+		            'id'    => 'lbi_payments',
+		            'title' => __( 'Payments', 'littlebot_invoices' )
 		        )
 		    );
-		    return $sections;
+
+		    return apply_filters( 'lbi_settings_sections', $sections );
 		}
 		/**
 		 * Returns all the settings fields
@@ -275,10 +281,27 @@ class LBI_Settings {
 		                'type'              => 'wysiwyg',
 		                'default'           => ''
 		            )
-	            )
+	            ),
+    	        'lbi_payments' => array(
+    	        	array(
+    	        	    'name'    => 'payment_gateway',
+    	        	    'label'   => __( 'Payment Gateways', $plugin_name ),
+    	        	    'desc'    => __( 'Who should process payments?', $plugin_name ),
+    	        	    'type'    => 'select',
+    	        	    'options' => array(
+    							'' => '--', 
+    					)
+    	        	),
+    	        	array(
+    	        	    'name'              => 'upgrade',
+    	        	    'type'              => 'html',
+    	        	    'desc'           => 'Payment extensions available on <a target="_blank" href="https://littlebot.io">our website</a>'
+    	        	)
+
+                )
 
 		    );
-		    return $settings_fields;
+			return apply_filters( 'lbi_settings_fields', $settings_fields );
 		}
 		
 		public function plugin_page() {

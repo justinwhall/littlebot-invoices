@@ -12,6 +12,15 @@
 if ( ! defined('ABSPATH') ) { exit; }
 
 
+if ( ! function_exists( 'littlebot_get_selected_gateway' ) ) :
+
+	function littlebot_get_selected_gateway() {
+		$active_gateway = LBI()->gateways->selected;
+		return apply_filters( 'littlebot_get_selected_gateway', $active_gateway );
+	}
+
+endif;
+
 if ( ! function_exists( 'littlebot_notes' ) ) :
 
 	function littlebot_notes( $post_id = 0 ) {
@@ -23,6 +32,14 @@ if ( ! function_exists( 'littlebot_notes' ) ) :
 		$html .= get_post_meta( $post_id, '_notes', true );
 		$html .= '</div>';
 		echo apply_filters( 'littlebot_notes', $html );
+	}
+
+endif;
+
+if ( ! function_exists( 'littlebot_print_messages' ) ) :
+
+	function littlebot_print_messages() {
+		lbi_controller::print_messages();
 	}
 
 endif;
@@ -234,3 +251,13 @@ if ( ! function_exists( 'get_tax_amount' ) ) :
 	}
 
 endif;
+
+// filters
+add_action( 'lbi_payment_buttons', 'lbi_render_payment_buttons', 10, 1 );
+function lbi_render_payment_buttons(){
+	if ( empty( LBI()->gateways->active ) ) {
+		echo '<span class="pending-payment">' . __( 'Pending Payment', 'littebot-invoices' ) . '</span>';
+	} else{
+		echo '<span class="pay">' . __( 'Pay Invoice', 'littebot-invoices' ) . '</span>';
+	}
+}

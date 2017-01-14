@@ -35,10 +35,12 @@ class LBI_Admin_Post
 		add_action( 'wp_ajax_update_status', array( __CLASS__, 'update_status' ), 20 );
 	}
 
-	public function update_status(){
+	public function update_status( $ajax = true, $ID = false, $status = false ){
 
-		$status = sanitize_text_field( $_POST['status'] );
-		$ID = (int)sanitize_text_field( $_POST['ID'] );
+		if ( $ajax ) {
+			$status = sanitize_text_field( $_POST['status'] );
+			$ID = (int)sanitize_text_field( $_POST['ID'] );
+		}
 		
 		$post = array(
 		  'ID'           => $ID,
@@ -49,13 +51,20 @@ class LBI_Admin_Post
 
 		if ( !$update ) {
 			self::$error = true;
-			self::$message = "I'm sorry, there was a problem updating this estimate.";
+			self::$message = "I'm sorry, there was a problem updating this document.";
 		} else{
 			self::$data['new_status'] = $status;
 		}
+
 		$response = LBI()->response->build( self::$error, self::$message, self::$data);
-    	wp_send_json( $response );
-		wp_die();
+
+		if ( $ajax ){
+	    	wp_send_json( $response );
+			wp_die();
+		}
+
+		return $response;
+
 	}
 
 	/**

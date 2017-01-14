@@ -66,7 +66,6 @@
 
 			switch (LineItems.opt.symbolPos) {
 				case 'left':
-				console.log(LineItems.opt.symbol);
 					formatted = LineItems.opt.symbol + amount;
 					break;
 				case 'right':
