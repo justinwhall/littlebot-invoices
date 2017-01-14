@@ -48,7 +48,6 @@ class LBI_Checkouts extends LBI_Controller
     public function __construct(){
         $this->action = $_GET[ self::CHECKOUT_ACTION ];
         $this->get_gateway();
-        $this->get_gateway_form();
         $this->process_action();
     }
 
@@ -57,9 +56,6 @@ class LBI_Checkouts extends LBI_Controller
      * @return void
      */
     static function init(){
-        // Bail if we're not doing anything...
-        if ( ! isset( $_GET[ self::CHECKOUT_ACTION ] ) ) return;
-        // Otherwise, we're checking out. Self instantiate. 
         add_action( 'wp', array( __CLASS__, 'checkout' ) );
     }
 
@@ -68,6 +64,9 @@ class LBI_Checkouts extends LBI_Controller
      * @return void
      */
     public function checkout(){
+        // Bail if we're not doing anything...
+        if ( ! isset( $_GET[ self::CHECKOUT_ACTION ] ) || get_post_type() != 'lb_invoice' ) return;
+        // Otherwise, we're checking out. Self instantiate. 
         self::get_instance();
     }
 
@@ -87,13 +86,16 @@ class LBI_Checkouts extends LBI_Controller
      * @return void
      */
     public function get_gateway(){
-        $active_gateway = LBI_Settings::littlebot_get_option( 'payment_gateways', 'lbi_payments');
+
+        $active_gateway = LBI()->gateways->selected;
+
         switch ( $active_gateway ) {
-            case 'stripe':
+            case 'Littlebot_Stripe':
                 $gateway = new LBS_Controller;
                 break;
             
         }
+
         $this->gateway = $gateway;
     }
 

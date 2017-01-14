@@ -19,6 +19,12 @@
 							<?php else: ?>
 								<span class="pending-payment">Unpaid</span>
 							<?php endif; ?>
+						<?php elseif ( get_post_status( get_the_ID() ) == 'lb-overdue' ): ?>
+							<?php if ( littlebot_get_selected_gateway() ): ?>
+								<?php do_action('littlebot_payment_form'); ?>
+							<?php else: ?>
+								<span class="pending-payment">Overdue</span>
+							<?php endif; ?>
 						<?php elseif ( get_post_status( get_the_ID() ) == 'lb-paid' ): ?>
 							<span class="paid"><?php esc_html_e( 'Paid', 'littebot-invoices' ); ?></span>
 						<?php elseif ( get_post_status( get_the_ID() ) == 'lb-draft' ): ?>
