@@ -13,7 +13,7 @@ class LBI_Page_Templates {
 	 * kick it off
 	 * @return void
 	 */
-	public function init(){
+	public static function init(){
 		// proper template path for estimates & Invoices
 		add_action( 'single_template', array( __CLASS__, 'load_post_templates' ) );
 		// remove all the theme CSS & JS for these pages
@@ -29,7 +29,10 @@ class LBI_Page_Templates {
 
 		$object = get_queried_object();
 
-		if ( $object->post_type == 'lb_estimate' ) {
+		// If it's a draft, show the draft template
+		if( $object->post_status == 'lb-draft' & ! is_user_logged_in() ){
+			$single_template = LBI_PLUGIN_DIR . '/templates/template-doc-draft.php';
+		} else if ( $object->post_type == 'lb_estimate' ) {
 			$single_template = LBI_PLUGIN_DIR . '/templates/template-estimate.php';
 		} else if ( $object->post_type == 'lb_invoice' ){
 			$single_template = LBI_PLUGIN_DIR . '/templates/template-invoice.php';			
@@ -43,7 +46,7 @@ class LBI_Page_Templates {
 	 * strip out styles that are not LittleBot styles so estimates and invoices look nice
 	 * @return void
 	 */
-	public function remove_non_littlebot_styles(){
+	public static function remove_non_littlebot_styles(){
 		global $wp_styles, $post;
 		
 		// Only on the public side

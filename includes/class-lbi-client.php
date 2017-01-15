@@ -29,7 +29,7 @@ class LBI_Client {
 
 	static $username_int = 1;
  
-    public function init() {
+    public static function init() {
     	// Ajax add client from estimates/invoices
     	add_action( 'wp_ajax_create_client', array( __CLASS__, 'create' ), 10 );
     	// Add meta fields

@@ -40,11 +40,11 @@ final class Little_Bot_Invoices {
 	 * @var Little_Bot_Invoices Plugin name
 	 * @since 0.9
 	 */
-	public static $plugin_name = 'littlebot-invoices';
+	public $plugin_name = 'littlebot-invoices';
 
-	public static $invoice_statuses = array();
+	public $invoice_statuses = array();
 
-	public static $estimate_statuses = array();
+	public $estimate_statuses = array();
 
 	/**
 	 * Main Little_Bot_Invoices Instance.
@@ -170,6 +170,21 @@ final class Little_Bot_Invoices {
 		LBI_Page_Templates::init();
 		LBI_Client::init();
 		LBI_Admin_Post::init();
+
+	}
+
+	/**
+	 * Load the plugin text domain for translation.
+	 *
+	 * @since    1.0.2
+	 */
+	public function load_plugin_textdomain() {
+
+		load_plugin_textdomain(
+			'littlebot-invoices',
+			false,
+			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
+		);
 
 	}
 

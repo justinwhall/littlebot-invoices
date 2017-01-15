@@ -61,7 +61,7 @@ class LBI_Notifications
 	 * hooks
 	 * @return void 
 	 */
-	public function init(){
+	public static function init(){
 		// ajax requests from post admin
 		add_action( 'wp_ajax_send_estimate', array( __CLASS__, 'new_estimate' ), 10 );
 		add_action( 'wp_ajax_send_invoice', array( __CLASS__, 'new_invoice' ), 10 );

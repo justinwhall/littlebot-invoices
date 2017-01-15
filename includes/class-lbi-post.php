@@ -17,7 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 class LBI_Admin_Post
 {
-	static $post_type_name;
+	public $post_type_name;
 
 	static $error = false;
 
@@ -29,7 +29,7 @@ class LBI_Admin_Post
 	 * kick it off
 	 * @return void
 	 */
-	public function init(){
+	public static function init(){
 		add_action( 'transition_post_status', array( __CLASS__, 'check_for_approved_estimate' ), 10, 3 );
 		add_action( 'wp_ajax_nopriv_update_status', array( __CLASS__, 'update_status' ), 11 );
 		add_action( 'wp_ajax_update_status', array( __CLASS__, 'update_status' ), 20 );
@@ -175,5 +175,5 @@ class LBI_Admin_Post
 		return apply_filters( 'littlebot_formatted_currency', $formatted );
 
 	}
-	
+
 }

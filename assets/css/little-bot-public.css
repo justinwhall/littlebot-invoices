@@ -36,7 +36,9 @@
 .col-10 { width: 82.5%; }
 .col-11 { width: 91%; }
 .col-12 { width: 100%;  }
-
+.lb-center{
+    text-align: center;
+}
 /*global*/
 body{
 	background: #f1f1f1;
@@ -129,6 +131,13 @@ body{
 	margin-top: 8px;
 }
 /*doc meta*/
+.logo-wrap{
+    text-align: right;
+}
+#lb-logo{
+    max-width: 100%;
+    max-height: 200px;
+}
 .doc-meta{
 	margin-top: 30px;
 }
