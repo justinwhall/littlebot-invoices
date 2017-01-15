@@ -7,7 +7,7 @@
 		},
 
 		attachEvents:function(){
-			$('.status').on('click', 'span', Status.updateStatus);
+			$('.single-lb_estimate .status').on('click', 'span', Status.updateStatus);
 		},
 
 		updateStatus:function(){

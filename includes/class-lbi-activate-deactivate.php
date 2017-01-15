@@ -64,6 +64,9 @@ class LBI_Activate_Deactivate {
 	    if (!wp_next_scheduled ( 'littleBotInvoices_cron' )) {
 			wp_schedule_event(time(), 'every_fifteen_minutes', 'littleBotInvoices_cron');
 		}
+
+		LB_Post_Types::register_post_types();
+		flush_rewrite_rules();
 	
 	}
 
@@ -73,6 +76,11 @@ class LBI_Activate_Deactivate {
 
 }
 
+/**
+ * Add cron job to check overdue invoices
+ * @param  array $schedules array of already scheduled tasks
+ * @return array            
+ */
 function cron_every_fifteen( $schedules ) {
 
     $schedules['every_fifteen_minutes'] = array(

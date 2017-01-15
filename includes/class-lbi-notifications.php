@@ -61,7 +61,7 @@ class LBI_Notifications
 	 * hooks
 	 * @return void 
 	 */
-	public function init(){
+	public static function init(){
 		// ajax requests from post admin
 		add_action( 'wp_ajax_send_estimate', array( __CLASS__, 'new_estimate' ), 10 );
 		add_action( 'wp_ajax_send_invoice', array( __CLASS__, 'new_invoice' ), 10 );
@@ -84,7 +84,7 @@ class LBI_Notifications
 	 */
 	public function doc_status_changed( $new_status, $old_status, $post ){
 		// if no email is set not notifications...
-		if ( $_POST['no_email'] == 'on') return;
+		if ( isset( $_POST['no_email'] ) && $_POST['no_email'] == 'on') return;
 		
 		// Overdue invoice
 		if ( $new_status !== $old_status && $new_status == 'lb-overdue' ) {
@@ -178,7 +178,6 @@ class LBI_Notifications
 	 * @return void             
 	 */
 	public function send( $to_address, $subject, $message ){
-
 		$emails = LBI()->emails;
 		$emails->__set( 'from_name', $this->business_options['business_name'] );
 		$emails->__set( 'from_address', $this->business_options['business_email'] );

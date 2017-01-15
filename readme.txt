@@ -3,8 +3,8 @@ Contributors: jwind
 Donate link:https://littlebot.io/littlebot-invoices/
 Tags: invoice, estimate, payment, ecommerce, ecommerce, bill, billings
 Requires at least: 3.0.1
-Tested up to: 4.42
-Stable tag: 1.0.0
+Tested up to: 4.7
+Stable tag: 1.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -26,9 +26,16 @@ LittleBot values each and every user. We take pride in our code, projects and cu
 == Frequently Asked Questions ==
 
 == Screenshots ==
-
+Visit our [website](https://littlebot.io/littlebot-invoices/) for screenshots.
 
 == Changelog ==
 
+= 1.0.2 =
+* Fixed bug where cents were not being saved
+
+= 1.0.1 =
+* Fixed typo in terms/notes metabox save callback
+
 = 1.0.0 =
 * Initial Release
+

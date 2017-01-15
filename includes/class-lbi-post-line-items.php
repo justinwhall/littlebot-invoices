@@ -57,7 +57,6 @@ class LBI_Line_Items extends LBI_Admin_Post {
      * Renders the meta box.
      */
     public function render_line_items( $post ) {
-        // LBI_Notifications::new_invoice();
         // Add nonce for security and authentication.
         wp_nonce_field( 'custom_nonce_action', 'custom_nonce' );
         require_once LBI_PLUGIN_DIR . 'views/html-admin-invoice-line-items.php';
@@ -89,18 +88,18 @@ class LBI_Line_Items extends LBI_Admin_Post {
                 $line_item['item_title']   = sanitize_text_field( $title );
                 $line_item['item_desc']    = $_POST['item_desc'][$i];
                 // no vals for line items saved? Save 0.
-                $line_item['item_qty']     = ( strlen( trim( $_POST['item_qty'][$i] ) ) ) ? sanitize_text_field( (int)$_POST['item_qty'][$i] ) : 0;
-                $line_item['item_rate']    = ( strlen( trim( $_POST['item_rate'][$i] ) ) ) ? sanitize_text_field( (int)$_POST['item_rate'][$i] ) : 0;
-                $line_item['item_percent'] = ( strlen( trim( $_POST['item_percent'][$i] ) ) ) ? sanitize_text_field( (int)$_POST['item_percent'][$i] ) : 0;
-                $line_item['item_amount']  = ( strlen( trim( $_POST['item_amount'][$i] ) ) ) ? sanitize_text_field( (int)$_POST['item_amount'][$i] ) : 0;
+                $line_item['item_qty']     = ( strlen( trim( $_POST['item_qty'][$i] ) ) ) ? sanitize_text_field( $_POST['item_qty'][$i] ) : 0;
+                $line_item['item_rate']    = ( strlen( trim( $_POST['item_rate'][$i] ) ) ) ? sanitize_text_field( $_POST['item_rate'][$i] ) : 0;
+                $line_item['item_percent'] = ( strlen( trim( $_POST['item_percent'][$i] ) ) ) ? sanitize_text_field( $_POST['item_percent'][$i] ) : 0;
+                $line_item['item_amount']  = ( strlen( trim( $_POST['item_amount'][$i] ) ) ) ? sanitize_text_field( $_POST['item_amount'][$i] ) : 0;
 
                 $all_line_items[] = $line_item;
             }
         }
 
         update_post_meta( $post_id, '_line_items', $all_line_items );
-        update_post_meta( $post_id, '_subtotal', (int)$_POST['_subtotal'] );
-        update_post_meta( $post_id, '_total', (int)$_POST['_total'] );
+        update_post_meta( $post_id, '_subtotal', $_POST['_subtotal'] );
+        update_post_meta( $post_id, '_total', $_POST['_total'] );
     }
 }
  

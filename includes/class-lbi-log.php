@@ -99,7 +99,7 @@ class LBI_Log
 	 * @param  object $user       user object of the current user if available
 	 * @return void              
 	 */
-	public function doc_status_changed( $post, $old_status, $new_status, $user = false ){
+	public static function doc_status_changed( $post, $old_status, $new_status, $user = false ){
 
 		$old_status = str_replace( 'lb-', '', $old_status );
 		$new_status = str_replace( 'lb-', '', $new_status );

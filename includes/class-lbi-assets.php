@@ -60,9 +60,6 @@ class LBI_Assets {
 		wp_localize_script('little-bot-public-scripts', 'ajax_object', array( 'ajax_url' => admin_url('admin-ajax.php'), 'ajax_nonce' => wp_create_nonce('lb-invoices') ) );
 	}
 
-
-
-
 }
 
 endif;

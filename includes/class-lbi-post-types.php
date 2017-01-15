@@ -30,14 +30,14 @@ class LB_Post_Types {
 		add_action( 'add_meta_boxes', array( __CLASS__, 'remove_publish_metabox' ) );
 	}
 
-	public function remove_publish_metabox() {
+	public static function remove_publish_metabox() {
 		remove_meta_box( 'submitdiv', array('lb_invoice', 'lb_estimate'), 'side' );
 	}
 
 	/**
 	 * Register core post types.
 	 */
-	public static function register_post_types( $post_slug ) {
+	public static function register_post_types() {
 
 		if ( post_type_exists('lb-invoice') ) {
 			return;
@@ -77,41 +77,6 @@ class LB_Post_Types {
 		);
 
 		register_post_type( 'lb_invoice', $args );		
-
-		$labels = array(
-			'name'               => _x( 'Notification', 'post type general name', 'little-bot-invoices' ),
-			'singular_name'      => _x( 'Notification', 'post type singular name', 'little-bot-invoices' ),
-			'menu_name'          => _x( 'Notification', 'admin menu', 'little-bot-invoices' ),
-			'name_admin_bar'     => _x( 'Notification', 'add new on admin bar', 'little-bot-invoices' ),
-			'add_new'            => _x( 'Add New', 'notification', 'little-bot-invoices' ),
-			'add_new_item'       => __( 'Add New notification', 'little-bot-invoices' ),
-			'new_item'           => __( 'New Notification', 'little-bot-invoices' ),
-			'edit_item'          => __( 'Edit Notification', 'little-bot-invoices' ),
-			'view_item'          => __( 'View Notification', 'little-bot-invoices' ),
-			'all_items'          => __( 'All Notification', 'little-bot-invoices' ),
-			'search_items'       => __( 'Search Notification', 'little-bot-invoices' ),
-			'parent_item_colon'  => __( 'Parent Notification:', 'little-bot-invoices' ),
-			'not_found'          => __( 'No invoices found.', 'little-bot-invoices' ),
-			'not_found_in_trash' => __( 'No invoices found in Trash.', 'little-bot-invoices' )
-		);
-
-		$args = array(
-			'labels'             => $labels,
-            'description'        => __( 'Little Bot Notification.', 'little-bot-invoices' ),
-			'public'             => true,
-			'publicly_queryable' => true,
-			'show_ui'            => true,
-			'show_in_menu'       => true,
-			'query_var'          => true,
-			'rewrite'            => array( 'slug' => 'littlebot-notification' ),
-			'capability_type'    => 'post',
-			'has_archive'        => true,
-			'hierarchical'       => false,
-			'menu_position'      => null,
-			'supports'           => array( 'title', 'editor')
-		);
-
-		register_post_type( 'lb_notification', $args );
 
 		$labels = array(
 			'name'               => _x( 'Estimates', 'post type general name', 'little-bot-invoices' ),

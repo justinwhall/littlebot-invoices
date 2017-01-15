@@ -66,10 +66,14 @@ class LBI_Tokens
 			'%client_last_name%'  => $client->last_name,
 			'%company_name%' => $client->company_name,
 			'%issued%' => get_the_date('l, F j, Y', $this->post_id ),
-			'%valid_until%' => date_i18n( 'l, F j, Y', get_post_meta( $this->post_id, '_valid_until', true ), false ),
-			'%po_numer%' => get_post_meta( $this->post_id, '_po_number', true ),
-			'%due_date%' => date_i18n( 'l, F j, Y', get_post_meta( $this->post_id, '_due_date', true ), false )
+			'%po_numer%' => get_post_meta( $this->post_id, '_po_number', true )
 		);
+
+		if ( get_post_type() == 'lb_estimate' ) {
+			$tokens['%valid_until%'] = date_i18n( 'l, F j, Y', get_post_meta( $this->post_id, '_valid_until', true ), false );
+		} else{
+			$tokens['%due_date%'] = date_i18n( 'l, F j, Y', get_post_meta( $this->post_id, '_due_date', true ), false );
+		}
 
 		$this->token_values = $tokens;
 	}
