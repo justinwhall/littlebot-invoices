@@ -34,13 +34,12 @@ class LBI_Checkouts extends LBI_Controller
      */
     public $action;
 
-<<<<<<< HEAD
+
     /**
      * The payment form
      * @var string
      */
-=======
->>>>>>> logo-support
+
     public $payment_form;
 
     /**
@@ -70,11 +69,8 @@ class LBI_Checkouts extends LBI_Controller
      * Called on WP hook if we're performing a checkout action
      * @return void
      */
-<<<<<<< HEAD
+
     public static function checkout(){
-=======
-    public function checkout(){
->>>>>>> logo-support
         // Bail if we're not doing anything...
         if ( ! isset( $_GET[ self::CHECKOUT_ACTION ] ) || get_post_type() != 'lb_invoice' ) return;
         // Otherwise, we're checking out. Self instantiate. 
@@ -93,11 +89,7 @@ class LBI_Checkouts extends LBI_Controller
     }
 
     /**
-<<<<<<< HEAD
-     * Gets the selected gateway & sets the $gateway var
-=======
      * Gets the active & sets the $gateway var
->>>>>>> logo-support
      * @return void
      */
     public function get_gateway(){
@@ -114,13 +106,10 @@ class LBI_Checkouts extends LBI_Controller
         $this->gateway = $gateway;
     }
 
-<<<<<<< HEAD
     /**
      * gets the selected gateway payment form/button
      * @return void
      */
-=======
->>>>>>> logo-support
     public function get_gateway_from(){
         $this->payment_form = $this->gateway->get_payment_form();
     }

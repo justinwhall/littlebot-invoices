@@ -84,7 +84,7 @@ class LBI_Notifications
 	 */
 	public function doc_status_changed( $new_status, $old_status, $post ){
 		// if no email is set not notifications...
-		if ( $_POST['no_email'] == 'on') return;
+		if ( isset( $_POST['no_email'] ) && $_POST['no_email'] == 'on') return;
 		
 		// Overdue invoice
 		if ( $new_status !== $old_status && $new_status == 'lb-overdue' ) {

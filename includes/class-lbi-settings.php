@@ -26,7 +26,6 @@ class LBI_Settings {
 		 */
 		private $settings_api;
 
-		private $plugin_name;
 
 		static $options = array(
 			'lbi_general',
@@ -40,7 +39,6 @@ class LBI_Settings {
 
 		public function __construct() {
 
-			$this->plugin_name = LBI()->plugin_name;
 			$this->settings_api = new WeDevs_Settings_API;
 
 			add_action( 'admin_init', array($this, 'admin_init') );
@@ -107,16 +105,16 @@ class LBI_Settings {
 		        'lbi_general' => array(
 		        	array(
 		        	    'name'              => 'currency_symbol',
-		        	    'label'             => __( 'Currency Symbol', $plugin_name ),
-		        	    'desc'              => __( 'USD is <code>$</code>', $plugin_name ),
+		        	    'label'             => __( 'Currency Symbol', 'littlebot-invoices' ),
+		        	    'desc'              => __( 'USD is <code>$</code>', 'littlebot-invoices' ),
 		        	    'type'              => 'text',
 		        	    'default'           => '$',
 		        	    'sanitize_callback' => 'sanitize_text_field'
 		        	),
 		        	array(
 		        	    'name'    => 'currency_position',
-		        	    'label'   => __( 'Currency Position', $plugin_name ),
-		        	    'desc'    => __( '', $plugin_name ),
+		        	    'label'   => __( 'Currency Position', 'littlebot-invoices' ),
+		        	    'desc'    => __( '', 'littlebot-invoices' ),
 		        	    'type'    => 'select',
 		        	    'options' => array(
 								'left' => 'Left ($99.99)', 
@@ -127,27 +125,27 @@ class LBI_Settings {
 		        	),
 		        	array(
 		        	    'name'              => 'thousand_sep',
-		        	    'label'             => __( 'Thousand Separator', $plugin_name ),
-		        	    'desc'              => __( 'The character that\'s used to separate displayed prices ex: <code>100,000</code>', $plugin_name ),
-		        	    'placeholder'       => __( '', $plugin_name ),
+		        	    'label'             => __( 'Thousand Separator', 'littlebot-invoices' ),
+		        	    'desc'              => __( 'The character that\'s used to separate displayed prices ex: <code>100,000</code>', 'littlebot-invoices' ),
+		        	    'placeholder'       => __( '', 'littlebot-invoices' ),
 		        	    'type'              => 'text',
 		        	    'default'           => ',',
 		        	    'sanitize_callback' => 'sanitize_text_field'
 		        	),
 		        	array(
 		        	    'name'              => 'decimal_sep',
-		        	    'label'             => __( 'Decimal Separator', $plugin_name ),
-		        	    'desc'              => __( 'The decimal that\'s used to separate displayed prices ex: <code>1000.00</code>', $plugin_name ),
-		        	    'placeholder'       => __( '', $plugin_name ),
+		        	    'label'             => __( 'Decimal Separator', 'littlebot-invoices' ),
+		        	    'desc'              => __( 'The decimal that\'s used to separate displayed prices ex: <code>1000.00</code>', 'littlebot-invoices' ),
+		        	    'placeholder'       => __( '', 'littlebot-invoices' ),
 		        	    'type'              => 'text',
 		        	    'default'           => '.',
 		        	    'sanitize_callback' => 'sanitize_text_field'
 		        	),
 		        	array(
 		        	    'name'              => 'decimal_num',
-		        	    'label'             => __( 'Number of Decimals', $plugin_name ),
-		        	    'desc'              => __( 'The number of decimals to use when displaying prices ex: 2 = <code>100.00</code>', $plugin_name ),
-		        	    'placeholder'       => __( '', $plugin_name ),
+		        	    'label'             => __( 'Number of Decimals', 'littlebot-invoices' ),
+		        	    'desc'              => __( 'The number of decimals to use when displaying prices ex: 2 = <code>100.00</code>', 'littlebot-invoices' ),
+		        	    'placeholder'       => __( '', 'littlebot-invoices' ),
 		        	    'type'              => 'text',
 		        	    'default'           => 2,
 		        	    'sanitize_callback' => 'sanitize_text_field'
@@ -156,25 +154,25 @@ class LBI_Settings {
 		        'lbi_business' => array(
 		            array(
 		                'name'              => 'business_name',
-		                'label'             => __( 'Business Name', $plugin_name ),
-		                'desc'              => __( '', $plugin_name ),
-		                'placeholder'       => __( '', $plugin_name ),
+		                'label'             => __( 'Business Name', 'littlebot-invoices' ),
+		                'desc'              => __( '', 'littlebot-invoices' ),
+		                'placeholder'       => __( '', 'littlebot-invoices' ),
 		                'type'              => 'text',
 		                'default'           => get_bloginfo( 'name' ),
 		                'sanitize_callback' => 'sanitize_text_field'
 		            ),
 		            array(
 		                'name'              => 'address',
-		                'label'             => __( 'Address', $plugin_name ),
-		                'desc'              => __( '', $plugin_name ),
-		                'placeholder'       => __( '', $plugin_name ),
+		                'label'             => __( 'Address', 'littlebot-invoices' ),
+		                'desc'              => __( '', 'littlebot-invoices' ),
+		                'placeholder'       => __( '', 'littlebot-invoices' ),
 		                'type'              => 'textarea'
 		            ),
 		            array(
 		                'name'              => 'business_email',
-		                'label'             => __( 'Business Email', $plugin_name ),
-		                'desc'              => __( 'This email will send notification to your clients', $plugin_name ),
-		                'placeholder'       => __( '', $plugin_name ),
+		                'label'             => __( 'Business Email', 'littlebot-invoices' ),
+		                'desc'              => __( 'This email will send notification to your clients', 'littlebot-invoices' ),
+		                'placeholder'       => __( '', 'littlebot-invoices' ),
 		                'type'              => 'text',
 		                'default'           => '',
 		                'sanitize_callback' => 'sanitize_text_field'
@@ -184,17 +182,17 @@ class LBI_Settings {
 		        'lbi_estimates' => array(
 		        	array(
 		        	    'name'              => 'terms',
-		        	    'label'             => __( 'Terms &amp; Conditions', $plugin_name ),
-		        	    'desc'              => __( '', $plugin_name ),
-		        	    'placeholder'       => __( '', $plugin_name ),
+		        	    'label'             => __( 'Terms &amp; Conditions', 'littlebot-invoices' ),
+		        	    'desc'              => __( '', 'littlebot-invoices' ),
+		        	    'placeholder'       => __( '', 'littlebot-invoices' ),
 		        	    'type'              => 'wysiwyg',
 		        	    'default'           => ''
 		        	),
 		        	array(
 		        	    'name'              => 'notes',
-		        	    'label'             => __( 'Notes', $plugin_name ),
-		        	    'desc'              => __( '', $plugin_name ),
-		        	    'placeholder'       => __( '', $plugin_name ),
+		        	    'label'             => __( 'Notes', 'littlebot-invoices' ),
+		        	    'desc'              => __( '', 'littlebot-invoices' ),
+		        	    'placeholder'       => __( '', 'littlebot-invoices' ),
 		        	    'type'              => 'wysiwyg',
 		        	    'default'           => ''
 		        	)
@@ -202,17 +200,17 @@ class LBI_Settings {
 		        'lbi_invoices' => array(
 		        	array(
 		        	    'name'              => 'terms',
-		        	    'label'             => __( 'Terms &amp; Conditions', $plugin_name ),
-		        	    'desc'              => __( '', $plugin_name ),
-		        	    'placeholder'       => __( '', $plugin_name ),
+		        	    'label'             => __( 'Terms &amp; Conditions', 'littlebot-invoices' ),
+		        	    'desc'              => __( '', 'littlebot-invoices' ),
+		        	    'placeholder'       => __( '', 'littlebot-invoices' ),
 		        	    'type'              => 'wysiwyg',
 		        	    'default'           => ''
 		        	),
 		        	array(
 		        	    'name'              => 'notes',
-		        	    'label'             => __( 'Notes', $plugin_name ),
-		        	    'desc'              => __( '', $plugin_name ),
-		        	    'placeholder'       => __( '', $plugin_name ),
+		        	    'label'             => __( 'Notes', 'littlebot-invoices' ),
+		        	    'desc'              => __( '', 'littlebot-invoices' ),
+		        	    'placeholder'       => __( '', 'littlebot-invoices' ),
 		        	    'type'              => 'wysiwyg',
 		        	    'default'           => ''
 		        	)
@@ -220,8 +218,8 @@ class LBI_Settings {
 		        'lbi_emails' => array(
 		            array(
 		                'name'              => 'html_emails',
-		                'label'             => __( 'Send HTML emails', $plugin_name ),
-		                'desc'              => __( 'Check to send HTML emails. Otherwise, emails are sent as plain text.', $plugin_name ),
+		                'label'             => __( 'Send HTML emails', 'littlebot-invoices' ),
+		                'desc'              => __( 'Check to send HTML emails. Otherwise, emails are sent as plain text.', 'littlebot-invoices' ),
 		                'type'              => 'checkbox'
 		            ),
 		            array(
@@ -232,52 +230,52 @@ class LBI_Settings {
 		            ),
 		            array(
 		                'name'              => 'estimate_new_subject',
-		                'label'             => __( 'New Estimate Subject', $plugin_name ),
-		                'desc'              => __( '', $plugin_name ),
-		                'placeholder'       => __( '', $plugin_name ),
+		                'label'             => __( 'New Estimate Subject', 'littlebot-invoices' ),
+		                'desc'              => __( '', 'littlebot-invoices' ),
+		                'placeholder'       => __( '', 'littlebot-invoices' ),
 		                'type'              => 'text',
 		                'default'           => '',
 		                'sanitize_callback' => 'sanitize_text_field'
 		            ),
 		            array(
 		                'name'              => 'estimate_new_body',
-		                'label'             => __( 'New Estimate Body', $plugin_name ),
-		                'desc'              => __( '', $plugin_name ),
-		                'placeholder'       => __( '', $plugin_name ),
+		                'label'             => __( 'New Estimate Body', 'littlebot-invoices' ),
+		                'desc'              => __( '', 'littlebot-invoices' ),
+		                'placeholder'       => __( '', 'littlebot-invoices' ),
 		                'type'              => 'wysiwyg',
 		                'default'           => ''
 		            ),
 		            array(
 		                'name'              => 'invoice_new_subject',
-		                'label'             => __( 'New Invoice Subject', $plugin_name ),
-		                'desc'              => __( '', $plugin_name ),
-		                'placeholder'       => __( '', $plugin_name ),
+		                'label'             => __( 'New Invoice Subject', 'littlebot-invoices' ),
+		                'desc'              => __( '', 'littlebot-invoices' ),
+		                'placeholder'       => __( '', 'littlebot-invoices' ),
 		                'type'              => 'text',
 		                'default'           => '',
 		                'sanitize_callback' => 'sanitize_text_field'
 		            ),
 		            array(
 		                'name'              => 'invoice_new_body',
-		                'label'             => __( 'New Invoice Body', $plugin_name ),
-		                'desc'              => __( '', $plugin_name ),
-		                'placeholder'       => __( '', $plugin_name ),
+		                'label'             => __( 'New Invoice Body', 'littlebot-invoices' ),
+		                'desc'              => __( '', 'littlebot-invoices' ),
+		                'placeholder'       => __( '', 'littlebot-invoices' ),
 		                'type'              => 'wysiwyg',
 		                'default'           => ''
 		            ),
 		            array(
 		                'name'              => 'invoice_overdue_subject',
-		                'label'             => __( 'Invoice Overdue Subject', $plugin_name ),
-		                'desc'              => __( '', $plugin_name ),
-		                'placeholder'       => __( '', $plugin_name ),
+		                'label'             => __( 'Invoice Overdue Subject', 'littlebot-invoices' ),
+		                'desc'              => __( '', 'littlebot-invoices' ),
+		                'placeholder'       => __( '', 'littlebot-invoices' ),
 		                'type'              => 'text',
 		                'default'           => '',
 		                'sanitize_callback' => 'sanitize_text_field'
 		            ),
 		            array(
 		                'name'              => 'invoice_overdue_body',
-		                'label'             => __( 'Invoice Overdue Body', $plugin_name ),
-		                'desc'              => __( '', $plugin_name ),
-		                'placeholder'       => __( '', $plugin_name ),
+		                'label'             => __( 'Invoice Overdue Body', 'littlebot-invoices' ),
+		                'desc'              => __( '', 'littlebot-invoices' ),
+		                'placeholder'       => __( '', 'littlebot-invoices' ),
 		                'type'              => 'wysiwyg',
 		                'default'           => ''
 		            )
@@ -285,8 +283,8 @@ class LBI_Settings {
     	        'lbi_payments' => array(
     	        	array(
     	        	    'name'    => 'payment_gateway',
-    	        	    'label'   => __( 'Payment Gateways', $plugin_name ),
-    	        	    'desc'    => __( 'Who should process payments?', $plugin_name ),
+    	        	    'label'   => __( 'Payment Gateways', 'littlebot-invoices' ),
+    	        	    'desc'    => __( 'Who should process payments?', 'littlebot-invoices' ),
     	        	    'type'    => 'select',
     	        	    'options' => array(
     							'' => '--', 

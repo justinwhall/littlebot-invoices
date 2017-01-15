@@ -74,7 +74,7 @@ class LBI_Admin_Post
 	 * @param  object $post       the current post (estimate)
 	 * @return void             
 	 */
-	public function check_for_approved_estimate( $new_status, $old_status, $post ) {
+	public static function check_for_approved_estimate( $new_status, $old_status, $post ) {
 	
 		// we're only looking for estimates here...
 		if ( $post->post_type != 'lb_estimate' ) return;

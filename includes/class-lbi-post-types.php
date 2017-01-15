@@ -30,7 +30,7 @@ class LB_Post_Types {
 		add_action( 'add_meta_boxes', array( __CLASS__, 'remove_publish_metabox' ) );
 	}
 
-	public function remove_publish_metabox() {
+	public static function remove_publish_metabox() {
 		remove_meta_box( 'submitdiv', array('lb_invoice', 'lb_estimate'), 'side' );
 	}
 

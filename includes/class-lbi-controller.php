@@ -97,11 +97,7 @@ class LBI_Controller
      * @param bool    $allow_theme_override
      * @return void
      */
-<<<<<<< HEAD
     public static function load_view( $view, $args = array(), $allow_theme_override = true, $plugin_root = LBI_PLUGIN_DIR ) {
-=======
-    public static function load_view( $view, $args, $allow_theme_override = true, $plugin_root = LBI_PLUGIN_DIR ) {
->>>>>>> logo-support
         // whether or not .php was added
         if ( substr( $view, -4 ) != '.php' ) {
             $view .= '.php';
