@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: LittleBot Invoices
- * Plugin URI: https://littlebot.io/littlebiot-invoices
+ * Plugin URI: https://justinwhall.com
  * Description: Easily create and send estimates and invoices for you business.
  * Author: Justin W Hall
- * Author URI: https://littlebot.io
- * Version: 1.0.1
+ * Author URI: https://justinwhall.com
+ * Version: 1.0.0
  * Text Domain: little-bot-invoices
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
@@ -47,6 +47,13 @@ final class Little_Bot_Invoices {
 	public $estimate_statuses = array();
 
 	/**
+	 * @var Littlebot_Stripe holds installed add ons 
+	 * @since 0.9 
+	 */
+	public static $extensions = array();
+
+
+	/**
 	 * Main Little_Bot_Invoices Instance.
 	 *
 	 * Insures that only one instance of Little_Bot_Invoices exists in memory at any one
@@ -69,6 +76,8 @@ final class Little_Bot_Invoices {
 			self::$instance->clients = new LBI_Clients();
 			self::$instance->response = new LBI_Response();
 			self::$instance->emails = new LBI_Emails();
+			self::$instance->gateways = new LBI_Gateways();
+			// self::$instance->extentions = new LBI_Extentions();
 		}
 		return self::$instance;
 	}
@@ -142,6 +151,7 @@ final class Little_Bot_Invoices {
 		global $LBI_options;
 
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-activate-deactivate.php';
+		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-controller.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-assets.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-page-templates.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-post-types.php';
@@ -157,15 +167,18 @@ final class Little_Bot_Invoices {
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-response.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-settings-api.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-settings.php';
+		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-checkouts.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-emails.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-notifications.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-tokens.php';
+		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-gateways.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-log.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-log-metabox.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-notes-metabox.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-terms-metabox.php';
 		require_once LBI_PLUGIN_DIR . 'includes/lbi-template-tags.php';
 
+		LBI_Controller::init();
 		LBI_Notifications::init();
 		LBI_Page_Templates::init();
 		LBI_Client::init();

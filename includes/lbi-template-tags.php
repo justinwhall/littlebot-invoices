@@ -21,16 +21,6 @@ if ( ! function_exists( 'littlebot_get_selected_gateway' ) ) :
 
 endif;
 
-if ( ! function_exists( 'littlebot_get_logo' ) ) :
-
-	function littlebot_get_logo() {
-		$img_url = LBI_Settings::littlebot_get_option('logo', 'lbi_business');
-		$img = '<img id="lb-logo" src="'. $img_url . '" />';
-		return apply_filters( 'littlebot_get_logo', $img );
-	}
-
-endif;
-
 if ( ! function_exists( 'littlebot_notes' ) ) :
 
 	function littlebot_notes( $post_id = 0 ) {

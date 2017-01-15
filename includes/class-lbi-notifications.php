@@ -178,7 +178,6 @@ class LBI_Notifications
 	 * @return void             
 	 */
 	public function send( $to_address, $subject, $message ){
-
 		$emails = LBI()->emails;
 		$emails->__set( 'from_name', $this->business_options['business_name'] );
 		$emails->__set( 'from_address', $this->business_options['business_email'] );
