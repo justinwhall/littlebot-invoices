@@ -172,6 +172,8 @@ final class Little_Bot_Invoices {
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-notifications.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-tokens.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-gateways.php';
+		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-paypal-ipn.php';
+		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-paypal.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-log.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-log-metabox.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-notes-metabox.php';
