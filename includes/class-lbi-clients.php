@@ -26,13 +26,15 @@ class LBI_Clients {
     static $username_int = 1;
 
     /**
-     * custom user meta keys
+     * user meta keys
      * @var array
      */
     public $meta = array(
         'company_name',
         'phone_number',
         'street_address',
+        'first_name',
+        'last_name',
         'city',
         'state',
         'zip',

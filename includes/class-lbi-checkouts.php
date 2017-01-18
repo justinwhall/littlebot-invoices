@@ -3,7 +3,8 @@
 /**
  * LittleBot Checkouts
  *
- * A controller class that handles checkout actions
+ * A controller class that handles gateway checkout actions.
+ * PayPal & 3rd party offsite processors are not handled here.
  *
  * @class     LBI_Checkouts
  * @version   1.0.1
@@ -69,7 +70,6 @@ class LBI_Checkouts extends LBI_Controller
      * Called on WP hook if we're performing a checkout action
      * @return void
      */
-
     public static function checkout(){
         // Bail if we're not doing anything...
         if ( ! isset( $_GET[ self::CHECKOUT_ACTION ] ) || get_post_type() != 'lb_invoice' ) return;
@@ -106,13 +106,13 @@ class LBI_Checkouts extends LBI_Controller
         $this->gateway = $gateway;
     }
 
-    /**
-     * gets the selected gateway payment form/button
-     * @return void
-     */
-    public function get_gateway_from(){
-        $this->payment_form = $this->gateway->get_payment_form();
-    }
+    // /**
+    //  * gets the selected gateway payment form/button
+    //  * @return void
+    //  */
+    // public function get_gateway_from(){
+    //     $this->payment_form = $this->gateway->get_payment_form();
+    // }
 
     /**
      * Process the user action

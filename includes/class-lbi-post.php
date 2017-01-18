@@ -35,7 +35,7 @@ class LBI_Admin_Post
 		add_action( 'wp_ajax_update_status', array( __CLASS__, 'update_status' ), 20 );
 	}
 
-	public function update_status( $ajax = true, $ID = false, $status = false ){
+	public static function update_status( $ajax = true, $ID = false, $status = false ){
 
 		if ( $ajax ) {
 			$status = sanitize_text_field( $_POST['status'] );

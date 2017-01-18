@@ -82,7 +82,7 @@ class LBI_Notifications
 	 * @param  object $post       post being changed
 	 * @return void             
 	 */
-	public function doc_status_changed( $new_status, $old_status, $post ){
+	public static function doc_status_changed( $new_status, $old_status, $post ){
 		// if no email is set not notifications...
 		if ( isset( $_POST['no_email'] ) && $_POST['no_email'] == 'on') return;
 		

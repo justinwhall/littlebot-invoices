@@ -88,7 +88,7 @@
 		        <span id="timestamp">
 		        <?php printf($stamp, $date); ?></span>
 		        <a href="#edit_timestamp" class="edit-timestamp hide-if-no-js"><?php _e('Edit') ?></a>
-		        <div id="timestampdiv" class="hide-if-js"><?php touch_time(($action == 'edit'), 1); ?></div>
+		        <div id="timestampdiv" class="hide-if-js"><?php touch_time(1, 1); ?></div>
 			</div>
 
 			<!-- Due date -->

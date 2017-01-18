@@ -43,8 +43,8 @@ class LBI_Columns
         
         switch ( $columns ) {
             case 'status':
-                
-                $status_slug = get_post_status( $id );
+                global $current_screen;
+                $status_slug = get_post_status( $post_id );
                 if ( $current_screen->post_type == 'lb_invoice' ) {
                     echo LBI()->invoice_statuses[$status_slug]['label'];
                 } else {
@@ -55,7 +55,7 @@ class LBI_Columns
 
             case 'issued':
 
-                echo '<span class="lb-cal"></span>' . get_the_date( 'M j, Y', $id );
+                echo '<span class="lb-cal"></span>' . get_the_date( 'M j, Y', $post_id );
 
                 break;
 

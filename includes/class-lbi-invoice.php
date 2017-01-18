@@ -53,7 +53,7 @@ class LBI_Invoice extends LBI_Admin_Post
 	    return $due_date;
 	}
 
-	public function check_for_overdue_invoices(){
+	public static function check_for_overdue_invoices(){
 
 		$args = array(
 			'posts_per_page'   => -1,

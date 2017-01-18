@@ -12,6 +12,15 @@
 if ( ! defined('ABSPATH') ) { exit; }
 
 
+if ( ! function_exists( 'littlebot_get_option') ) :
+
+	function littlebot_get_option( $option_key, $option_id, $single = true ) {
+		$option = LBI_Settings::littlebot_get_option( $option_key, $option_id, $single = true);
+		return apply_filters( 'littlebot_get_option', $option );
+	}
+
+endif;
+
 if ( ! function_exists( 'littlebot_get_selected_gateway' ) ) :
 
 	function littlebot_get_selected_gateway() {

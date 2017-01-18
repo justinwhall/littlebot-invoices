@@ -14,17 +14,17 @@
 					<div class="doc-num col-6"><?php printf( esc_html__( 'Invoice %s', 'littlebot-invoices' ), littlebot_get_estimate_number() ); ?></div>
 					<div class="status col-6" data-id="<?php echo get_the_ID(); ?>">
 						<?php if ( get_post_status( get_the_ID() ) == 'lb-unpaid' ): ?>
-							<?php if ( littlebot_get_selected_gateway() ): ?>
+							<?php //if ( littlebot_get_selected_gateway() ): ?>
 								<?php do_action('littlebot_payment_form'); ?>
-							<?php else: ?>
+							<?php //else: ?>
 								<span class="pending-payment">Unpaid</span>
-							<?php endif; ?>
+							<?php //endif; ?>
 						<?php elseif ( get_post_status( get_the_ID() ) == 'lb-overdue' ): ?>
-							<?php if ( littlebot_get_selected_gateway() ): ?>
+							<?php //if //( littlebot_get_selected_gateway() ): ?>
 								<?php do_action('littlebot_payment_form'); ?>
-							<?php else: ?>
+							<?php //else: ?>
 								<span class="pending-payment">Overdue</span>
-							<?php endif; ?>
+							<?php //endif; ?>
 						<?php elseif ( get_post_status( get_the_ID() ) == 'lb-paid' ): ?>
 							<span class="paid"><?php esc_html_e( 'Paid', 'littebot-invoices' ); ?></span>
 						<?php elseif ( get_post_status( get_the_ID() ) == 'lb-draft' ): ?>
