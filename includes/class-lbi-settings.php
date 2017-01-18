@@ -282,6 +282,29 @@ class LBI_Settings {
 	            ),
     	        'lbi_payments' => array(
     	        	array(
+    	        	    'name'              => 'enable_paypal_standard',
+    	        	    'label'             => __( 'Enable PayPal Standard', 'littlebot-invoices' ),
+    	        	    'desc'              => __( 'Enables offsite credit card checkout by PayPal. Can be used in conjunction with payment gateways.', 'littlebot-invoices' ),
+    	        	    'type'              => 'checkbox'
+    	        	),
+    	        	array(
+    	        	    'name'              => 'paypal_email',
+    	        	    'label'             => __( 'Paypal Email', 'littlebot-invoices' ),
+    	        	    'desc'              => __( 'Email you would like money sent to', 'littlebot-invoices' ),
+    	        	    'placeholder'       => __( '', 'littlebot-invoices' ),
+    	        	    'type'              => 'text',
+    	        	    'default'           => '',
+    	        	    'sanitize_callback' => 'sanitize_text_field'
+    	        	),
+		        	array(
+	        	            'name'              => 'paypal_environment',
+	        	            'label'             => __( 'PayPal Environment', 'littlebot-invoices' ),
+	        	            'desc'              => __( 'Live or Test mode?', 'littlebot-invoices' ),
+	        	            'placeholder'       => __( '', 'littlebot-invoices' ),
+	        	            'type'              => 'radio',
+	        	            'options'           => array( 'live' => 'Live', 'test' => 'Test')
+	            	),
+    	        	array(
     	        	    'name'    => 'payment_gateway',
     	        	    'label'   => __( 'Payment Gateways', 'littlebot-invoices' ),
     	        	    'desc'    => __( 'Who should process payments?', 'littlebot-invoices' ),

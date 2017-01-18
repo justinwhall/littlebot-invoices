@@ -25,7 +25,7 @@ class LBI_Page_Templates {
 	 * @param  string $single_template default path to template
 	 * @return string  new path to template
 	 */
-	public function load_post_templates( $single_template ){
+	public static function load_post_templates( $single_template ){
 
 		$object = get_queried_object();
 

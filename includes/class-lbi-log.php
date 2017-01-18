@@ -1,9 +1,9 @@
 <?php 
 
 /**
- * LittleBot Estimates
+ * LittleBot Invoices Log
  *
- * A class that handles replacing email tokens with proper values.
+ * A class that handles logging events of invoices and estimates.
  *
  * @class     LBI_Log
  * @version   0.9
@@ -105,7 +105,13 @@ class LBI_Log
 		$new_status = str_replace( 'lb-', '', $new_status );
 		$message    = 'Status changed from ' . $old_status . ' to ' . $new_status;
 
-		self::write( $post->ID, $message, 'Status Update', $user->data->user_nicename );
+		if ( $user ) {
+			$user_name = $user->data->user_nicename;
+		} else {
+			$user = __( 'Client Payment' );
+		}
+
+		self::write( $post->ID, $message, 'Status Update', $user );
 	}
 
 	/**
@@ -134,7 +140,7 @@ class LBI_Log
 	 * @param  object $user       user object of the user who performed an action if available
 	 * @return void
 	 */
-	public function write( $post_ID, $message, $event_name, $user = false ){
+	public static function write( $post_ID, $message, $event_name, $user = false ){
 
 		$data            = array();
 		$data['message'] = $message;
