@@ -34,7 +34,12 @@ class LBI_Paypal extends LBI_Controller
     }
 
     public static function paypal_ipn_endpoint(){
-        if($_SERVER["REQUEST_URI"] == '/littlebot-paypal-endpoint' && isset( $_POST )) {
+
+        // check nonce
+        if ( ! isset($_GET['paypal_checkout']) || ! wp_verify_nonce($_GET['paypal_checkout'], 'ipn_val')) 
+            return;
+
+        if($_SERVER["REQUEST_URI"] == '/littlebot-paypal-endpoint?paypal_checkout=' . $_GET['paypal_checkout'] && isset( $_POST )) {
             
             // use PaypalIPN;
             $ipn = new PaypalIPN();
@@ -44,13 +49,12 @@ class LBI_Paypal extends LBI_Controller
             $verified = $ipn->verifyIPN();
             
             if ($verified) {
-                
                  // * Process IPN
                  // * A list of variables is available here:
                  // * https://developer.paypal.com/webapps/developer/docs/classic/ipn/integration-guide/IPNandPDTVariables/
                 LBI_Admin_Post::update_status( false, $_POST['invoice'], 'lb-paid');
             }
-            exit();
+
         }
     }
 

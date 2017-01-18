@@ -5,7 +5,8 @@
     <input type="hidden" name="item_name" value="Item-name">
     <input type="hidden" name="currency_code" value="USD">
     <input type="hidden" name="amount" value="<?php echo get_post_meta( get_the_ID(), '_total', true );?>">
-    <input type="hidden" name="notify_url" value="<?php echo get_site_url(); ?>/littlebot-paypal-endpoint">
+    <!-- <input type="hidden" name="notify_url" value="<?php echo get_site_url(); ?>/littlebot-paypal-endpoint"> -->
+    <input type="hidden" name="notify_url" value="<?php echo wp_nonce_url(  get_site_url() . '/littlebot-paypal-endpoint', 'ipn_val', 'paypal_checkout' ); ?>">
     <input type="hidden" name="invoice" value="<?php echo get_the_ID(); ?>">
     <input type="hidden" name="lc" value="EN_US">
     <input type="hidden" name="no_note" value="">

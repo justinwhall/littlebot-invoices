@@ -105,13 +105,13 @@ class LBI_Log
 		$new_status = str_replace( 'lb-', '', $new_status );
 		$message    = 'Status changed from ' . $old_status . ' to ' . $new_status;
 
-		if ( $user ) {
+		if ( $user->ID ) {
 			$user_name = $user->data->user_nicename;
 		} else {
-			$user = __( 'Client Payment' );
+			$user_name = __( 'Client Payment' );
 		}
 
-		self::write( $post->ID, $message, 'Status Update', $user );
+		self::write( $post->ID, $message, 'Status Update', $user_name );
 	}
 
 	/**
