@@ -48,7 +48,12 @@ class LBI_Settings {
 
 		static function littlebot_get_option( $option_key, $option_id, $single = true){
 			$options = get_option( $option_id, $single );
-			return $options[$option_key];
+			if ( is_array( $options ) ) {
+				$val = $options[$option_key];
+			} else{
+				$val = false;
+			}
+			return $val;
 		}
 
 		public function admin_init() {
@@ -58,7 +63,6 @@ class LBI_Settings {
 		    //initialize settings
 		    $this->settings_api->admin_init();
 
-		    // var_dump( get_option( 'lbi_business', false ) );die;
 		}
 
 		public function admin_menu() {

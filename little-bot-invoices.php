@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: LittleBot Invoices
- * Plugin URI: https://justinwhall.com
+ * Plugin URI: https://littlebot.io
  * Description: Easily create and send estimates and invoices for you business.
  * Author: Justin W Hall
- * Author URI: https://justinwhall.com
- * Version: 1.0.0
+ * Author URI: https://littlebot.io
+ * Version: 2.0.0
  * Text Domain: little-bot-invoices
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt

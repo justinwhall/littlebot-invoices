@@ -6,7 +6,8 @@
     <input type="hidden" name="currency_code" value="<?php echo $currency_code; ?>">
     <input type="hidden" name="amount" value="<?php echo get_post_meta( get_the_ID(), '_total', true );?>">
     <input type="hidden" name="notify_url" value="<?php echo wp_nonce_url(  get_site_url() . '/littlebot-paypal-endpoint', 'ipn_val', 'paypal_checkout' ); ?>">
-    <input type="hidden" name="invoice" value="<?php echo get_the_ID(); ?>">
+    <input type="hidden" name="invoice" value="<?php echo get_bloginfo( 'name' ) . ' | ' . get_the_ID(); ?>">
+    <input type="hidden" name="custom" value="<?php echo get_the_ID(); ?>">
     <input type="hidden" name="lc" value="EN_US">
     <input type="hidden" name="no_note" value="">
     <input type="hidden" name="paymentaction" value="sale">

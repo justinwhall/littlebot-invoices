@@ -44,6 +44,10 @@ class LBI_Activate_Deactivate {
 			'notes' => ''
 		);
 
+		$payment_options = array( 
+			'paypal_environment' => 'test'
+		);
+
 		$email_options = array( 
 			'html_emails' => 'on',
 			'estimate_new_subject' => 'New estimate | %title%',
@@ -59,6 +63,7 @@ class LBI_Activate_Deactivate {
 		update_option( 'lbi_estimates', $estimate_options );
 		update_option( 'lbi_invoices', $invoice_options );
 		update_option( 'lbi_emails', $email_options );
+		update_option( 'lbi_payments', $payment_options );
 
 		// Cron to check for overdue invoices
 	    if (!wp_next_scheduled ( 'littleBotInvoices_cron' )) {
@@ -91,4 +96,3 @@ function cron_every_fifteen( $schedules ) {
     return $schedules;
 }
 add_filter( 'cron_schedules', 'cron_every_fifteen' );
-
