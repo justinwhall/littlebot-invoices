@@ -5,6 +5,7 @@
 		$item = array();
 		$item['item_title'] = '';
 		$item['item_desc'] = '';
+		$item['item_qty'] = '';
 		$item['item_rate'] = '';
 		$item['item_percent'] = '';
 		$item['item_amount'] = '';
@@ -19,7 +20,6 @@
 <input id="lb_dec_num" type="hidden" name="_lb_dec_num" value="<?php echo littlebot_get_option('decimal_num', 'lbi_general'); ?>">
   
 <div id="all-line-items" class="lb-calc-container">
-	
 	<?php foreach ( $line_items as $item ): ?>
 		<div class="single-line-item ui-state-default">
 			<div class="items-wrap">

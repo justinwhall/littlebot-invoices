@@ -12,6 +12,36 @@
 if ( ! defined('ABSPATH') ) { exit; }
 
 
+if ( ! function_exists( 'littlebot_print_logo') ) :
+
+	function littlebot_print_logo() {
+		$logo_src = littlebot_get_option( 'logo', 'lbi_business');
+		if ( strlen( trim( $logo_src ) ) ) {
+			$img = '<img src="' . $logo_src .'" id="lb-logo" />';
+			echo apply_filters( 'littlebot_print_logo', $img );
+		}
+	}
+
+endif;
+
+if ( ! function_exists( 'littlebot_get_option') ) :
+
+	function littlebot_get_option( $option_key, $option_id, $single = true ) {
+		$option = LBI_Settings::littlebot_get_option( $option_key, $option_id, $single = true);
+		return apply_filters( 'littlebot_get_option', $option );
+	}
+
+endif;
+
+if ( ! function_exists( 'littlebot_get_selected_gateway' ) ) :
+
+	function littlebot_get_selected_gateway() {
+		$active_gateway = LBI()->gateways->selected;
+		return apply_filters( 'littlebot_get_selected_gateway', $active_gateway );
+	}
+
+endif;
+
 if ( ! function_exists( 'littlebot_notes' ) ) :
 
 	function littlebot_notes( $post_id = 0 ) {
@@ -23,6 +53,14 @@ if ( ! function_exists( 'littlebot_notes' ) ) :
 		$html .= get_post_meta( $post_id, '_notes', true );
 		$html .= '</div>';
 		echo apply_filters( 'littlebot_notes', $html );
+	}
+
+endif;
+
+if ( ! function_exists( 'littlebot_print_messages' ) ) :
+
+	function littlebot_print_messages() {
+		lbi_controller::print_messages();
 	}
 
 endif;
@@ -234,3 +272,13 @@ if ( ! function_exists( 'get_tax_amount' ) ) :
 	}
 
 endif;
+
+// filters
+add_action( 'lbi_payment_buttons', 'lbi_render_payment_buttons', 10, 1 );
+function lbi_render_payment_buttons(){
+	if ( empty( LBI()->gateways->active ) ) {
+		echo '<span class="pending-payment">' . __( 'Pending Payment', 'littebot-invoices' ) . '</span>';
+	} else{
+		echo '<span class="pay">' . __( 'Pay Invoice', 'littebot-invoices' ) . '</span>';
+	}
+}

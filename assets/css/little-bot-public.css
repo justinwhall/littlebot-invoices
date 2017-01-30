@@ -36,7 +36,9 @@
 .col-10 { width: 82.5%; }
 .col-11 { width: 91%; }
 .col-12 { width: 100%;  }
-
+.lb-center{
+    text-align: center;
+}
 /*global*/
 body{
 	background: #f1f1f1;
@@ -116,7 +118,8 @@ body{
 }
 .status .accept,
 .status .paid,
-.status .approved{
+.status .approved,
+.status .pay{
 	background: #39996D;
 }
 .status .pending-payment,
@@ -129,6 +132,18 @@ body{
 	margin-top: 8px;
 }
 /*doc meta*/
+.doc-title{
+    font-size: 30px;
+    margin-bottom: 10px;
+    color: #666;
+}
+.logo-wrap{
+    text-align: right;
+}
+#lb-logo{
+    max-width: 100%;
+    max-height: 200px;
+}
 .doc-meta{
 	margin-top: 30px;
 }
@@ -173,6 +188,15 @@ body{
 }
 .to-from td.address p{
 	margin: 0 0 0 0;
+}
+.lb-logo{
+    text-align: center;
+    margin-bottom: 5px;
+}
+#lb-logo{
+    max-width: 100%;
+    max-height: 150px;
+    height: auto;
 }
 /*line items*/
 .line-row.headers{

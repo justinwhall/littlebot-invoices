@@ -1,7 +1,7 @@
 <html <?php language_attributes(); ?> class="no-js">
 	<head>
 		<meta charset="<?php bloginfo( 'charset' ); ?>">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="robots" content="noindex, nofollow">
 		<link rel="profile" href="http://gmpg.org/xfn/11">
 		<?php wp_head(); ?>
 	</head>
@@ -29,9 +29,15 @@
 
 				<div class="doc-meta lb-row">
 					<div class="to-from col-7">
+						<div class="doc-title">
+							<?php echo get_the_title(); ?>
+						</div>
 						<?php littlebot_print_to_from(); ?>
 					</div>
 					<div class="lb-tbl head-totals col-5">
+						<div class="lb-logo">
+							<?php littlebot_print_logo(); ?>
+						</div>
 						<span class="label date"><?php esc_html_e( 'Date', 'littebot-invoices' ); ?></span><span class="val"><?php echo get_the_date(); ?></span>
 						<span class="label valid-until"><?php esc_html_e( 'Valid Until', 'littebot-invoices' ); ?></span><span class="val"><?php echo get_the_date(); ?></span>
 						<span class="label number"><?php esc_html_e( 'Estimate Number', 'littebot-invoices' ); ?></span><span class="val"><?php echo littlebot_get_estimate_number(); ?></span>

@@ -29,15 +29,15 @@ class LBI_Client {
 
 	static $username_int = 1;
  
-    public function init() {
+    public static function init() {
     	// Ajax add client from estimates/invoices
     	add_action( 'wp_ajax_create_client', array( __CLASS__, 'create' ), 10 );
     	// Add meta fields
     	add_action( 'show_user_profile', array( __CLASS__, 'add_meta_fields' ) );
     	add_action( 'edit_user_profile', array( __CLASS__, 'add_meta_fields' ) );
     	// Save meta fields
-    	add_action( 'personal_options_update', array( __CLASS__, 'update_meta' ), 10 );
-    	add_action( 'edit_user_profile_update', array( __CLASS__, 'update_meta' ), 10 );
+    	add_action( 'personal_options_update', array( __CLASS__, 'update_meta' ), 10, 1 );
+    	add_action( 'edit_user_profile_update', array( __CLASS__, 'update_meta' ), 10, 1 );
     }
 
     public function create(){
@@ -91,10 +91,12 @@ class LBI_Client {
         $lbi_meta   = LBI()->clients->meta;
 
         if ( $saved_meta ) {
-
-            foreach ( $saved_meta as $key => $meta ) {
-                if ( in_array( $key, $lbi_meta ) || $key == 'first_name' || $key == 'last_name' ) {
-                    $client->data->$key = $meta[0];
+            
+            foreach ( $lbi_meta as $key => $value ) {
+                if ( array_key_exists( $value, $saved_meta ) ) {
+                    $client->data->$value = $saved_meta[$value][0];
+                } else {
+                    $client->data->$value = false;
                 }
             }
 
@@ -114,20 +116,20 @@ class LBI_Client {
      * @param  integer $user_id  a user's ID
      * @return void 
      */
-    public function update_meta( $user_id ){
+    public static function update_meta( $user_id ){
    	
-    	update_usermeta( $user_id, 'company_name', $_POST['company_name'] );
-    	update_usermeta( $user_id, 'phone_number', $_POST['phone_number'] );
-    	update_usermeta( $user_id, 'street_address', $_POST['street_address'] );
-    	update_usermeta( $user_id, 'city', $_POST['city'] );
-    	update_usermeta( $user_id, 'state', $_POST['state'] );
-    	update_usermeta( $user_id, 'zip', $_POST['zip'] );
-    	update_usermeta( $user_id, 'country', $_POST['country'] );
-    	update_usermeta( $user_id, 'client_notes', $_POST['client_notes'] );
-    	update_usermeta( $user_id, 'lb_client', $_POST['lb_client'][0] );
+    	update_user_meta( $user_id, 'company_name', $_POST['company_name'] );
+    	update_user_meta( $user_id, 'phone_number', $_POST['phone_number'] );
+    	update_user_meta( $user_id, 'street_address', $_POST['street_address'] );
+    	update_user_meta( $user_id, 'city', $_POST['city'] );
+    	update_user_meta( $user_id, 'state', $_POST['state'] );
+    	update_user_meta( $user_id, 'zip', $_POST['zip'] );
+    	update_user_meta( $user_id, 'country', $_POST['country'] );
+    	update_user_meta( $user_id, 'client_notes', $_POST['client_notes'] );
+    	update_user_meta( $user_id, 'lb_client', $_POST['lb_client'][0] );
     }
 
-    public function add_meta_fields( $user ){
+    public static function add_meta_fields( $user ){
     	require_once LBI_PLUGIN_DIR . 'views/html-user-meta.php';
     }
 

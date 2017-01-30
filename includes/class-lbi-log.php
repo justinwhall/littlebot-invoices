@@ -1,9 +1,9 @@
 <?php 
 
 /**
- * LittleBot Estimates
+ * LittleBot Invoices Log
  *
- * A class that handles replacing email tokens with proper values.
+ * A class that handles logging events of invoices and estimates.
  *
  * @class     LBI_Log
  * @version   0.9
@@ -73,7 +73,6 @@ class LBI_Log
 	 * @return void              
 	 */
 	public function doc_new( $post, $old_status, $new_status, $user = false ){
-
 		$message = str_replace( 'lb_', '', $post->post_type ) .  ' created';
 		self::write( $post->ID, $message,  'Created', $user->data->user_nicename );
 	}
@@ -87,6 +86,9 @@ class LBI_Log
 	 * @return void              
 	 */
 	public function doc_updated( $post, $old_status, $new_status, $user = false ){
+		if ( ! $user->ID)
+			return;
+
 		$message = str_replace( 'lb_', '', $post->post_type ) . ' updated';
 		self::write( $post->ID, $message,  'Updated', $user->data->user_nicename );
 	}
@@ -99,13 +101,19 @@ class LBI_Log
 	 * @param  object $user       user object of the current user if available
 	 * @return void              
 	 */
-	public function doc_status_changed( $post, $old_status, $new_status, $user = false ){
+	public static function doc_status_changed( $post, $old_status, $new_status, $user = false ){
 
 		$old_status = str_replace( 'lb-', '', $old_status );
 		$new_status = str_replace( 'lb-', '', $new_status );
 		$message    = 'Status changed from ' . $old_status . ' to ' . $new_status;
 
-		self::write( $post->ID, $message, 'Status Update', $user->data->user_nicename );
+		if ( $user->ID ) {
+			$user_name = $user->data->user_nicename;
+		} else {
+			$user_name = __( 'Client Payment' );
+		}
+
+		self::write( $post->ID, $message, 'Status Update', $user_name );
 	}
 
 	/**
@@ -134,7 +142,7 @@ class LBI_Log
 	 * @param  object $user       user object of the user who performed an action if available
 	 * @return void
 	 */
-	public function write( $post_ID, $message, $event_name, $user = false ){
+	public static function write( $post_ID, $message, $event_name, $user = false ){
 
 		$data            = array();
 		$data['message'] = $message;
