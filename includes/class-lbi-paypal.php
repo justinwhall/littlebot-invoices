@@ -28,8 +28,22 @@ class LBI_Paypal extends LBI_Controller
     }
 
     public static function maybe_get_paypal_standard_form(){
+        global $post;
+
+        $args = array();
+        $args['environment'] = littlebot_get_option( 'paypal_environment', 'lbi_payments');
+        $args['paypal_email'] = littlebot_get_option( 'paypal_email', 'lbi_payments');
+        $args['currency_code'] = littlebot_get_option( 'currency_code', 'lbi_general');
+        $args['item_name'] = $post->post_name;
+
+        if ( 'test' == $args['environment'] ) {
+            $args['endpoint'] = 'https://www.sandbox.paypal.com/cgi-bin/webscr';
+        } else{
+            $args['endpoint'] = 'https://www.paypal.com/cgi-bin/webscr';
+        }
+
         if ( littlebot_get_option( 'enable_paypal_standard', 'lbi_payments') ) {
-            LBI_Controller::load_view('html-paypal-form', array());
+            LBI_Controller::load_view( 'html-paypal-form', $args );
         }
     }
 
@@ -45,7 +59,9 @@ class LBI_Paypal extends LBI_Controller
             $ipn = new PaypalIPN();
             
             // Use the sandbox endpoint during testing.
-            $ipn->useSandbox();
+            if ( 'test' == littlebot_get_option( 'paypal_environment', 'lbi_payments') ) {
+                $ipn->useSandbox();
+            }
             $verified = $ipn->verifyIPN();
             
             if ($verified) {

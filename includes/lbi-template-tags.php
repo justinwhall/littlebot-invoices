@@ -12,6 +12,18 @@
 if ( ! defined('ABSPATH') ) { exit; }
 
 
+if ( ! function_exists( 'littlebot_print_logo') ) :
+
+	function littlebot_print_logo() {
+		$logo_src = littlebot_get_option( 'logo', 'lbi_business');
+		if ( strlen( trim( $logo_src ) ) ) {
+			$img = '<img src="' . $logo_src .'" id="lb-logo" />';
+			echo apply_filters( 'littlebot_print_logo', $img );
+		}
+	}
+
+endif;
+
 if ( ! function_exists( 'littlebot_get_option') ) :
 
 	function littlebot_get_option( $option_key, $option_id, $single = true ) {

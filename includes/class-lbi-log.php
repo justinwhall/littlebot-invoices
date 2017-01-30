@@ -73,7 +73,6 @@ class LBI_Log
 	 * @return void              
 	 */
 	public function doc_new( $post, $old_status, $new_status, $user = false ){
-
 		$message = str_replace( 'lb_', '', $post->post_type ) .  ' created';
 		self::write( $post->ID, $message,  'Created', $user->data->user_nicename );
 	}
@@ -87,6 +86,9 @@ class LBI_Log
 	 * @return void              
 	 */
 	public function doc_updated( $post, $old_status, $new_status, $user = false ){
+		if ( ! $user->ID)
+			return;
+
 		$message = str_replace( 'lb_', '', $post->post_type ) . ' updated';
 		self::write( $post->ID, $message,  'Updated', $user->data->user_nicename );
 	}

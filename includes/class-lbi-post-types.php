@@ -73,6 +73,7 @@ class LB_Post_Types {
 			'has_archive'        => true,
 			'hierarchical'       => false,
 			'menu_position'      => null,
+			'menu_icon'			 => 'dashicons-littlebot-icon',
 			'supports'           => array( 'title')
 		);
 
@@ -108,6 +109,7 @@ class LB_Post_Types {
 			'has_archive'        => true,
 			'hierarchical'       => false,
 			'menu_position'      => null,
+			'menu_icon'			 => 'dashicons-littlebot-icon',
 			'supports'           => array( 'title')
 		);
 

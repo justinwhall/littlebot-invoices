@@ -112,6 +112,14 @@ class LBI_Settings {
 		        	    'sanitize_callback' => 'sanitize_text_field'
 		        	),
 		        	array(
+		        	    'name'              => 'currency_code',
+		        	    'label'             => __( 'Currency Code', 'littlebot-invoices' ),
+		        	    'desc'              => __( '', 'littlebot-invoices' ),
+		        	    'type'              => 'text',
+		        	    'default'           => 'USD',
+		        	    'sanitize_callback' => 'sanitize_text_field'
+		        	),
+		        	array(
 		        	    'name'    => 'currency_position',
 		        	    'label'   => __( 'Currency Position', 'littlebot-invoices' ),
 		        	    'desc'    => __( '', 'littlebot-invoices' ),
@@ -152,6 +160,13 @@ class LBI_Settings {
 		        	)
 	            ),
 		        'lbi_business' => array(
+		            array(
+		                'name'              => 'logo',
+		                'label'             => __( 'Business Logo', 'littlebot-invoices' ),
+		                'desc'              => __( '', 'littlebot-invoices' ),
+		                'placeholder'       => __( '', 'littlebot-invoices' ),
+		                'type'              => 'file'
+		            ),
 		            array(
 		                'name'              => 'business_name',
 		                'label'             => __( 'Business Name', 'littlebot-invoices' ),
@@ -316,7 +331,7 @@ class LBI_Settings {
     	        	array(
     	        	    'name'              => 'upgrade',
     	        	    'type'              => 'html',
-    	        	    'desc'           => 'Payment extensions available on <a target="_blank" href="https://littlebot.io">our website</a>'
+    	        	    'desc'           => 'More payment extensions coming soon from <a target="_blank" href="https://littlebot.io">LittleBot</a>'
     	        	)
 
                 )
