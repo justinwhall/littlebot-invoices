@@ -77,6 +77,15 @@ class LB_Post_Types {
 			'supports'           => array( 'title')
 		);
 
+		/**
+		 * Hook to filter post type args 
+		 * 
+		 * @since  2.1.0
+		 *
+		 * @param   $args the post type arguments
+		 */
+		$args = apply_filters( 'lb_register_invoice_post_type', $args );
+
 		register_post_type( 'lb_invoice', $args );		
 
 		$labels = array(
@@ -112,6 +121,15 @@ class LB_Post_Types {
 			'menu_icon'			 => 'dashicons-littlebot-icon',
 			'supports'           => array( 'title')
 		);
+
+		/**
+		 * Hook to filter post type args 
+		 * 
+		 * @since  2.1.0
+		 *
+		 * @param   $args the post type arguments
+		 */
+		$args = apply_filters( 'lb_register_estimate_post_type', $args );
 
 		register_post_type( 'lb_estimate', $args );
 	}

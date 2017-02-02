@@ -47,13 +47,13 @@ class LBI_Page_Templates {
 	 * @return void
 	 */
 	public static function remove_non_littlebot_styles(){
-		global $wp_styles, $post;
+		global $wp_styles, $post, $wp_query;
 		
-		// Only on the public side. Bail if not actually a page.
-		if ( is_admin() || ! isset( $post ) ) return;
+		// Only on the public side. Bail if not actually a page or it's a 404
+		if ( is_admin() || ! isset( $post ) || is_404() ) return;
 
 		// And on littleBot post types.
-		if ( $post->post_type == 'lb_estimate' || $post->post_type == 'lb_invoice' ) {
+		if ( $post->post_type == 'lb_estimate' || $post->post_type == 'lb_invoice'  ) {
 			$wp_styles->queue = array(
 				'admin-bar',
 				'little-bot-public-styles'
