@@ -62,12 +62,18 @@ class LBI_Tokens
 			'%estimate_number%'   => littlebot_get_estimate_number( $this->post_id ),
 			'%invoice_number%'    => littlebot_get_invoice_number( $this->post_id ),
 			'%link%'              => $link,
-			'%client_first_name%' => $client->first_name,
-			'%client_last_name%'  => $client->last_name,
-			'%company_name%' => $client->company_name,
+			'%client_first_name%' => false,
+			'%client_last_name%'  => false,
+			'%company_name%' => false,
 			'%issued%' => get_the_date('l, F j, Y', $this->post_id ),
 			'%po_numer%' => get_post_meta( $this->post_id, '_po_number', true )
 		);
+
+		if ( $client ) {
+			$tokens['%client_first_name%'] = $client->first_name;
+			$tokens['%client_last_name%']  = $client->last_name;
+			$tokens['%company_name%'] = $client->company_name;
+		}
 
 		if ( get_post_type() == 'lb_estimate' ) {
 			$tokens['%valid_until%'] = date_i18n( 'l, F j, Y', get_post_meta( $this->post_id, '_valid_until', true ), false );

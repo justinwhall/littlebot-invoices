@@ -3,8 +3,8 @@ Contributors: jwind
 Donate link:https://littlebot.io/littlebot-invoices/
 Tags: invoice, estimate, payment, ecommerce, ecommerce, bill, billings
 Requires at least: 3.0.1
-Tested up to: 4.7
-Stable tag: 2.0.0
+Tested up to: 4.8
+Stable tag: 2.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -13,7 +13,7 @@ LittleBot Invoices makes it easy to create and send estimates and invoices for y
 == Description ==
 
 **Native Estimating & Invoicing**
-Easily create and send estimates and invoices for you business without leaving your WordPress site. LittleBot invoices is a plug-and-play _stand alone_ application. No third party plugin or integrations are required. No need to learn a new piece of software to send estimates & invoices. 
+Easily create and send estimates and invoices for your business without leaving your WordPress site. LittleBot invoices is a plug-and-play _stand alone_ application. No third party plugin or integrations are required. No need to learn a new piece of software to send estimates & invoices.
 
 **Awesome Support & Documentation**
 LittleBot values each and every user. We take pride in our code, projects and customer service. Our documentation can be found [on our website](https://littlebot.io/docs/littlebot-invoices/getting-started/). Support requests can also be submitted on our [support page](http://littlebot.io/support/).
@@ -31,6 +31,18 @@ Or [ask us a question](https://littlebot.io/support/).
 Visit our [website](https://littlebot.io/littlebot-invoices/) for screenshots.
 
 == Changelog ==
+
+= 2.0.3 =
+* FIX - Invoices showing post ID instead invoice number
+
+= 2.0.2 =
+* Fix - Business information no longer resets on plugin REactivation
+* Fix - php warning when saving estimate without client
+* Fix - some instances where estimate approval ajax call failed and or post was not properly copied as invoice
+* New - various changes to support PHP 7.1.4
+
+= 2.0.1 =
+* FIX - Minor UI changes
 
 = 2.0.0 =
 * New - logo support for estimates and invoices
@@ -50,4 +62,3 @@ Visit our [website](https://littlebot.io/littlebot-invoices/) for screenshots.
 
 = 1.0.0 =
 * Initial Release
-

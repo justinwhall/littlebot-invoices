@@ -2,11 +2,11 @@
 /**
  * Plugin Name: LittleBot Invoices
  * Plugin URI: https://littlebot.io
- * Description: Easily create and send estimates and invoices for you business.
+ * Description: Easily create and send estimates and invoices for your business.
  * Author: Justin W Hall
  * Author URI: https://littlebot.io
- * Version: 2.0.0
- * Text Domain: little-bot-invoices
+ * Version: 2.0.3
+ * Text Domain: littlebot-invoices
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Domain Path: languages
@@ -47,8 +47,8 @@ final class Little_Bot_Invoices {
 	public $estimate_statuses = array();
 
 	/**
-	 * @var Littlebot_Stripe holds installed add ons 
-	 * @since 0.9 
+	 * @var Littlebot_Stripe holds installed add ons
+	 * @since 0.9
 	 */
 	public static $extensions = array();
 

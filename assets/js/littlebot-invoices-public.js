@@ -17,9 +17,12 @@
 			var data = {
 				action : 'update_status',
 				nonce  : ajax_object.ajax_nonce,
+				ajax   : true,
 				status : $(this).data('status'),
 				ID: $(this).parent().data('id')
 			};
+
+			console.log(data);
 
 			$.ajax({
 				url     : ajax_object.ajax_url,

@@ -18,6 +18,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 class LBI_Activate_Deactivate {
 
 	static public function on_activate(){
+
+		// If we already have options, don't create defaults
+		if ( get_option('lbi_general') ) return;
 		
 		// set general defaults 
 		$general_options = array( 

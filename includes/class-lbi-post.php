@@ -35,9 +35,10 @@ class LBI_Admin_Post
 		add_action( 'wp_ajax_update_status', array( __CLASS__, 'update_status' ), 20 );
 	}
 
-	public static function update_status( $ajax = true, $ID = false, $status = false ){
+	public static function update_status( $ID = false, $status = false ){
 
-		if ( $ajax ) {
+
+		if ( isset( $_POST ) && array_key_exists( 'ajax', $_POST ) )  {
 			$status = sanitize_text_field( $_POST['status'] );
 			$ID = (int)sanitize_text_field( $_POST['ID'] );
 		}
@@ -58,7 +59,7 @@ class LBI_Admin_Post
 
 		$response = LBI()->response->build( self::$error, self::$message, self::$data);
 
-		if ( $ajax ){
+		if ( isset( $_POST ) && array_key_exists( 'ajax', $_POST ) )  {
 	    	wp_send_json( $response );
 			wp_die();
 		}
@@ -91,6 +92,12 @@ class LBI_Admin_Post
 
 			$invoice_id = wp_insert_post( $invoice );
 
+			update_post_meta( $invoice_id, '_client', get_post_meta( $post->ID, '_client', true ) );
+			update_post_meta( $invoice_id, '_due_date', strtotime("+1 month") );
+			update_post_meta( $invoice_id, '_line_items', get_post_meta( $post->ID, '_line_items', true ) );
+			update_post_meta( $invoice_id, '_subtotal', get_post_meta( $post->ID, '_subtotal', true ) );
+			update_post_meta( $invoice_id, '_total', get_post_meta( $post->ID, '_total', true ) );
+
 			// Link these two documents
 			self::link_docs( $post->ID, $invoice_id );
 
@@ -100,7 +107,7 @@ class LBI_Admin_Post
 
 	}
 
-	public function link_docs( $estimate_id, $invoice_id) {
+	public static function link_docs( $estimate_id, $invoice_id) {
 		update_post_meta( $estimate_id, '_linked_doc', $invoice_id );
 		update_post_meta( $invoice_id, '_linked_doc', $estimate_id );
 	} 

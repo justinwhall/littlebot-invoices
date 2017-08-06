@@ -1,6 +1,10 @@
 <?php 
 	$line_items = get_post_meta( $post->ID, '_line_items', true ); 
 
+	if ( ! is_array( $line_items ) ) {
+		$line_items = array();
+	}
+
 	if ( !is_array( $line_items ) ) {
 		$item = array();
 		$item['item_title'] = '';

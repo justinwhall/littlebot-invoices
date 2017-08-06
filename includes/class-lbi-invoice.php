@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * LittleBot Invoices
@@ -18,14 +18,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 class LBI_Invoice extends LBI_Admin_Post
 {
 
-
-	
 	public function __construct(){
 		add_action( 'littleBotInvoices_cron', array( __CLASS__, 'check_for_overdue_invoices' ), 1 );
 	}
 
 	public function get_number( $id ) {
-		$meta = get_post_meta( $id, '_invoice_number', true );
+		$meta = get_post_meta( $id, '_invoice_number', true );		
 		$number = strlen( $meta ) ? $meta : $id;
 		return $number;
 	}
@@ -36,7 +34,7 @@ class LBI_Invoice extends LBI_Admin_Post
 	}
 
 	/**
-	 * Gets the due date of an invoice if stored in the DB, otherwise generates one +30 days 
+	 * Gets the due date of an invoice if stored in the DB, otherwise generates one +30 days
 	 * @param  int $post_id the post ID
 	 * @return string unix timestamp
 	 */

@@ -11,7 +11,7 @@
 			<?php littlebot_print_messages(); ?>
 			<div class="lb-wrap">
 				<div class="header lb-row">
-					<div class="doc-num col-6"><?php printf( esc_html__( 'Invoice %s', 'littlebot-invoices' ), littlebot_get_estimate_number() ); ?></div>
+					<div class="doc-num col-6"><?php printf( esc_html__( 'Invoice %s', 'littlebot-invoices' ), littlebot_get_invoice_number() ); ?></div>
 					<div class="status col-6" data-id="<?php echo get_the_ID(); ?>">
 						<?php if ( get_post_status( get_the_ID() ) == 'lb-unpaid' ): ?>
 							<?php //if ( littlebot_get_selected_gateway() ): ?>
@@ -49,7 +49,7 @@
 							<?php esc_html_e( 'Due Date', 'littebot-invoices' ); ?></span><span class="val"><?php echo date_i18n( 'F j, Y', get_post_meta( get_the_ID(), '_due_date', true ) ); ?>
 						</span>
 						<span class="label date"><?php esc_html_e( 'Issued Date', 'littebot-invoices' ); ?></span><span class="val"><?php echo get_the_date(); ?></span>
-						<span class="label number"><?php esc_html_e( 'Invoice Number', 'littebot-invoices' ); ?></span><span class="val"><?php echo littlebot_get_estimate_number(); ?></span>
+						<span class="label number"><?php esc_html_e( 'Invoice Number', 'littebot-invoices' ); ?></span><span class="val"><?php echo littlebot_get_invoice_number(); ?></span>
 						<div class="total"><?php printf( esc_html__( 'Invoice Total %s', 'littlebot-invoices' ), littlebot_get_total() ); ?></div>
 					</div>
 				</div>

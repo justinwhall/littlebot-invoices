@@ -145,7 +145,7 @@ class LBI_Notifications
 	 * @param  object $post the estimate object
 	 * @return void
 	 */
-	public function estimate_approved( $post = 0 ){
+	public static function estimate_approved( $post = 0 ){
 		if ( ! $post ) {
 			global $post;
 		} 

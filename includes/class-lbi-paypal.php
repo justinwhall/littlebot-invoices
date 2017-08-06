@@ -68,7 +68,7 @@ class LBI_Paypal extends LBI_Controller
                  // * Process IPN
                  // * A list of variables is available here:
                  // * https://developer.paypal.com/webapps/developer/docs/classic/ipn/integration-guide/IPNandPDTVariables/
-               LBI_Admin_Post::update_status( false, $_POST['custom'], 'lb-paid');
+               LBI_Admin_Post::update_status( $_POST['custom'], 'lb-paid');
             }
 
         }

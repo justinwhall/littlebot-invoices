@@ -95,7 +95,7 @@ class LBI_Invoice_Details extends LBI_Admin_Post {
            update_post_meta( $post_id, '_po_number', sanitize_text_field( $_POST['_po_number'] ) );
         }
 
-        if ( strlen( $_POST['_tax_rate'] ) ) {
+        if ( isset( $_POST['_tax_rate'] ) ) {
            $tax_rate = $_POST['_tax_rate'];
         } else{
             $tax_rate = 0;

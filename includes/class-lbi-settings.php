@@ -46,9 +46,9 @@ class LBI_Settings {
 
 		}
 
-		static function littlebot_get_option( $option_key, $option_id, $single = true){
+		static function littlebot_get_option( $option_key, $option_id, $single = true ){
 			$options = get_option( $option_id, $single );
-			if ( is_array( $options ) ) {
+			if ( is_array( $options ) && array_key_exists( $option_key, $options ) ) {
 				$val = $options[$option_key];
 			} else{
 				$val = false;
