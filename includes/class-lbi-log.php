@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * LittleBot Invoices Log
@@ -15,9 +15,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class LBI_Log 
+class LBI_Log
 {
-
+  
 	/**
 	 * Kick it off
 	 * @param
@@ -31,7 +31,39 @@ class LBI_Log
 		add_action( 'littlebot_doc_updated', array( $this, 'doc_updated' ), 10, 4 );
 		// Doc status changed
 		add_action( 'littlebot_changed_status', array( $this, 'doc_status_changed' ), 10, 4 );
+		// Email sent
+		add_action( 'lbi_email_send_after', array( $this, 'email_sent' ), 10, 1 );
+    // Doc viewed
+		add_action( 'littlebot_doc_viewed', array( $this, 'doc_viewed' ), 10, 1 );
 	}
+  
+  /**
+   * logs a view to a doc. Ommits logged in users
+   * @param  object $post post object of viewed doc
+   * @return void
+   */
+  public function doc_viewed( $post ){
+    if ( !is_user_logged_in() ) {
+      self::write( $post->ID, 'Viewed from <strong><a target="_blank" href="https://community.spiceworks.com/tools/ip-lookup/results?hostname=' . $_SERVER['REMOTE_ADDR'] . '">' . $_SERVER['REMOTE_ADDR'] . '</a></strong>', 'Viewed' );
+    }
+  }
+  
+  /**
+   * logs an email sent from a doc admin
+   * @param  string $to email address doc is being sent to
+   * @return void
+   */
+  public function email_sent( $to ){
+    $post_id = intVal( $_POST['post_ID'] );
+        
+    if ( (string)$post_id == $_POST['post_ID'] ) {
+      // get user
+      $user = wp_get_current_user();
+      // write to log
+      self::write( $_POST['post_ID'], 'Emailed to <strong>' . $to . '</strong>', 'Emailed', $user->user_login );
+    }
+
+  }
 
 	/**
 	 * Fires on all LBI post updates. Fires correct do_action depending on post change action
@@ -58,7 +90,7 @@ class LBI_Log
 		}
 
 		// status change
-		else if ( $old_status != $new_status && $old_status != 'new' ) {	
+		else if ( $old_status != $new_status && $old_status != 'new' ) {
 			do_action( 'littlebot_changed_status', $post, $old_status, $new_status, $user );
 		}
 
@@ -70,7 +102,7 @@ class LBI_Log
 	 * @param  string  $old_status old post status
 	 * @param  string  $new_status new post status
 	 * @param  object $user       user object of the current user if available
-	 * @return void              
+	 * @return void
 	 */
 	public function doc_new( $post, $old_status, $new_status, $user = false ){
 		$message = str_replace( 'lb_', '', $post->post_type ) .  ' created';
@@ -83,7 +115,7 @@ class LBI_Log
 	 * @param  string  $old_status old post status
 	 * @param  string  $new_status new post status
 	 * @param  object $user       user object of the current user if available
-	 * @return void              
+	 * @return void
 	 */
 	public function doc_updated( $post, $old_status, $new_status, $user = false ){
 		if ( ! $user->ID)
@@ -99,7 +131,7 @@ class LBI_Log
 	 * @param  string  $old_status old post status
 	 * @param  string  $new_status new post status
 	 * @param  object $user       user object of the current user if available
-	 * @return void              
+	 * @return void
 	 */
 	public static function doc_status_changed( $post, $old_status, $new_status, $user = false ){
 

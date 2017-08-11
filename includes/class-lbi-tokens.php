@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * LittleBot Estimates
@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class LBI_Tokens 
+class LBI_Tokens
 {
 
 	/**
@@ -68,7 +68,7 @@ class LBI_Tokens
 			'%issued%' => get_the_date('l, F j, Y', $this->post_id ),
 			'%po_numer%' => get_post_meta( $this->post_id, '_po_number', true )
 		);
-
+    
 		if ( $client ) {
 			$tokens['%client_first_name%'] = $client->first_name;
 			$tokens['%client_last_name%']  = $client->last_name;

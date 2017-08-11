@@ -221,15 +221,14 @@ class LBI_Emails {
 
 		$message = $this->build_email( $message );
 
-		$sent  = wp_mail( $to, $subject, $message, $this->get_headers(), $attachments );
+		$sent = wp_mail( $to, $subject, $message, $this->get_headers(), $attachments );
 
-
-		// /**
-		//  * Hooks after the email is sent
-		//  *
-		//  * @since 0.9
-		//  */
-		do_action( 'lbi_email_send_after', $this );
+		/**
+		 * Hooks after the email is sent
+		 *
+		 * @since 0.9
+		 */
+		do_action( 'lbi_email_send_after', $to );
 
 		return $sent;
 
@@ -238,4 +237,3 @@ class LBI_Emails {
 
 
 }
-

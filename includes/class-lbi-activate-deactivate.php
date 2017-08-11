@@ -22,8 +22,8 @@ class LBI_Activate_Deactivate {
 		// If we already have options, don't create defaults
 		if ( get_option('lbi_general') ) return;
 		
-		// set general defaults 
-		$general_options = array( 
+		// set general defaults
+		$general_options = array(
 			'currency_symbol' => '$',
 			'currency_position' => 'left',
 			'thousand_sep' => ',',
@@ -32,33 +32,33 @@ class LBI_Activate_Deactivate {
 		);
 
 		// set business defaults
-		$business_options = array( 
+		$business_options = array(
 			'business_name' => get_bloginfo( 'name' ),
 			'business_email' => get_bloginfo('admin_email')
 		);
 
-		$estimate_options = array( 
+		$estimate_options = array(
 			'terms' => 'Payment is due within 30 days from date of invoice. Late payments are subject to fees of 3% per month.',
 			'notes' => ''
 		);
 
-		$invoice_options = array( 
+		$invoice_options = array(
 			'terms' => 'Payment is due within 30 days from date of invoice. Late payments are subject to fees of 3% per month.',
 			'notes' => ''
 		);
 
-		$payment_options = array( 
+		$payment_options = array(
 			'paypal_environment' => 'test'
 		);
 
-		$email_options = array( 
+		$email_options = array(
 			'html_emails' => 'on',
 			'estimate_new_subject' => 'New estimate | %title%',
 			'estimate_new_body' => "Hello %client_first_name% %client_last_name%,\rYou have a new estimate available %title% ( %estimate_number% ) which can be viewed here %link%.",
 			'invoice_new_subject' => 'New invoice | %title%',
-			'invoice_new_body' => "Hello %client_first_name% %client_last_name%,\rYou have a new invoice available %title% ( %estimate_number% ) which can be viewed here %link%.",
+			'invoice_new_body' => "Hello %client_first_name% %client_last_name%,\rYou have a new invoice available %title% ( %invoice_number% ) which can be viewed here %link%.",
 			'invoice_overdue_subject' => 'Invoice overdue | %title%',
-			'invoice_overdue_body' => "Hello %client_first_name% %client_last_name%,\rYou have an overdue %title% ( %estimate_number% ) which can be viewed here %link%."
+			'invoice_overdue_body' => "Hello %client_first_name% %client_last_name%,\rYou have an overdue %title% ( %invoice_number% ) which can be viewed here %link%."
 		);
 		
 		update_option( 'lbi_general', $general_options );
@@ -87,7 +87,7 @@ class LBI_Activate_Deactivate {
 /**
  * Add cron job to check overdue invoices
  * @param  array $schedules array of already scheduled tasks
- * @return array            
+ * @return array
  */
 function cron_every_fifteen( $schedules ) {
 

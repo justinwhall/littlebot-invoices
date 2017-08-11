@@ -203,9 +203,9 @@ if ( ! function_exists( 'littlebot_print_to_from' ) ) :
 			        <td class="label">From</td>
 			        <td class="address">
 			        	<div class="company"><?php echo $options['business_name']; ?></div>
-			        	<?php echo wpautop( $options['address'] ); ?>
+			        	<?php if (isset($options['address'])){ echo wpautop( $options['address'] ); }?>
 			        </td>
-			    </tr>						    
+			    </tr>
 	        	<?php if ( $client ): ?>
 			    <tr>
 			        <td class="label">To</td>
@@ -214,7 +214,7 @@ if ( ! function_exists( 'littlebot_print_to_from' ) ) :
 				        	<div class="name"><?php echo $client->data->first_name . ' ' . $client->data->last_name; ?></div>
 				        	<div class="street"><?php echo $client->data->street_address; ?></div>
 				        	<div class="city-state">
-					        	<?php 
+					        	<?php
 						        	$city_state_zip = $client->data->city;
 						        	// should we output a comma
 						        	if ( strlen( $city_state_zip ) ) {

@@ -1,4 +1,5 @@
 <html <?php language_attributes(); ?> class="no-js">
+  <?php do_action( 'littlebot_doc_viewed', $post ); ?>
 	<head>
 		<meta charset="<?php bloginfo( 'charset' ); ?>">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
