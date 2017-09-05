@@ -1,3 +1,4 @@
+<?php do_action('littlebot_before_invoice_template', $post); ?>
 <html <?php language_attributes(); ?> class="no-js">
   <?php do_action( 'littlebot_doc_viewed', $post ); ?>
 	<head>
@@ -57,7 +58,7 @@
 
 				<!-- line items -->
 				<div class="line-items">
-					
+
 					<div class="headers line-row">
 						<div class="wide">Line Item</div>
 						<div class="small rate">Rate</div>
