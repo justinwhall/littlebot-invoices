@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * LittleBot Estimates
@@ -28,7 +28,12 @@ class LBI_Estimate extends LBI_Admin_Post
 		$status = get_post_status( $id, '_estimate_number', true );
 		return $status;
 	}
-	
+
+	public static function get_valid_until( $id ){
+		$valid_until = (int) get_post_meta( $id, '_valid_until', true );
+		return $valid_until;
+	}
+
 }
 
 new LBI_Estimate();

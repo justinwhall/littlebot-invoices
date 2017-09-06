@@ -15,15 +15,14 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class LBI_Invoice extends LBI_Admin_Post
-{
+class LBI_Invoice extends LBI_Admin_Post {
 
-	public function __construct(){
+	public function __construct() {
 		add_action( 'littleBotInvoices_cron', array( __CLASS__, 'check_for_overdue_invoices' ), 1 );
 	}
 
 	public function get_number( $id ) {
-		$meta = get_post_meta( $id, '_invoice_number', true );		
+		$meta = get_post_meta( $id, '_invoice_number', true );
 		$number = strlen( $meta ) ? $meta : $id;
 		return $number;
 	}
@@ -40,15 +39,15 @@ class LBI_Invoice extends LBI_Admin_Post
 	 */
 	static function get_due_date( $post_id ) {
 
-	    $saved_date = get_post_meta( $post_id, '_due_date', true );
+		$saved_date = get_post_meta( $post_id, '_due_date', true );
 
-	    if ( strlen( $saved_date ) ) {
-	        $due_date = $saved_date;
-	    } else{
-	        $due_date = strtotime( '+30 days', current_time('timestamp') );
-	    }
+		if ( strlen( $saved_date ) ) {
+			$due_date = $saved_date;
+		} else{
+			$due_date = strtotime( '+30 days', current_time('timestamp') );
+		}
 
-	    return $due_date;
+		return $due_date;
 	}
 
 	public static function check_for_overdue_invoices(){
@@ -67,8 +66,8 @@ class LBI_Invoice extends LBI_Admin_Post
 			$due_date = get_post_meta( $invoice->ID, '_due_date', true );
 			if ( current_time( 'timestamp' ) > $due_date ) {
 				$overdue_invoice = array(
-				    'ID'           => $invoice->ID,
-				    'post_status'  => 'lb-overdue'
+					'ID'           => $invoice->ID,
+					'post_status'  => 'lb-overdue'
 				);
 				wp_update_post( $overdue_invoice );
 			}
@@ -76,7 +75,7 @@ class LBI_Invoice extends LBI_Admin_Post
 
 
 	}
-	
+
 }
 
 new LBI_Invoice();
