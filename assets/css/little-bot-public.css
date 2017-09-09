@@ -39,7 +39,7 @@
 .lb-center{
     text-align: center;
 }
-.lb-right{text-align: right;}
+.lb-right{text-align: right; }
 .lb-left{text-align: left;}
 .lb-top{vertical-align: top;}
 /*global*/
@@ -222,10 +222,10 @@ body{
 }
 
 #line-items .title-desc {
-	width: 100%;
+	width: 450px;
 }
 #line-items td {
-	min-width: 50px;
+	min-width: 90px;
 	font-weight: 200;
 }
 #line-items td {
@@ -233,6 +233,10 @@ body{
 	min-width: 50px;
 	font-weight: 200;
 	border-bottom: 5px solid #fff;
+}
+#line-tems td .title{
+	font-weight: bold !important;
+	background: red;
 }
 #line-items .right {
 	text-align: right
@@ -250,9 +254,6 @@ body{
 	background: #F9F9F9;
 	padding: 10px;
 	margin-bottom: 10px;
-}
-.line-row .title{
-	font-weight: 400;
 }
 .line-row > div{
 	display: block;
