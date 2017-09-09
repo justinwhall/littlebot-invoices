@@ -5,7 +5,8 @@
  * Description: Easily create and send estimates and invoices for your business.
  * Author: Justin W Hall
  * Author URI: https://littlebot.io
- * Version: 2.1.4
+
+ * Version: 2.2.0
  * Text Domain: littlebot-invoices
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
@@ -178,8 +179,10 @@ final class Little_Bot_Invoices {
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-log-metabox.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-notes-metabox.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-terms-metabox.php';
+		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-pdf.php';
 		require_once LBI_PLUGIN_DIR . 'includes/lbi-template-tags.php';
 
+		LBI_PDF::init();
 		LBI_Controller::init();
 		LBI_Notifications::init();
 		LBI_Page_Templates::init();

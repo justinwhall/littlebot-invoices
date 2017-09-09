@@ -21,7 +21,7 @@ class LBI_Activate_Deactivate {
 
 		// If we already have options, don't create defaults
 		if ( get_option('lbi_general') ) return;
-		
+
 		// set general defaults
 		$general_options = array(
 			'currency_symbol' => '$',
@@ -44,7 +44,8 @@ class LBI_Activate_Deactivate {
 
 		$invoice_options = array(
 			'terms' => 'Payment is due within 30 days from date of invoice. Late payments are subject to fees of 3% per month.',
-			'notes' => ''
+			'notes' => '',
+			'hide_pdf' => false,
 		);
 
 		$payment_options = array(
@@ -60,7 +61,7 @@ class LBI_Activate_Deactivate {
 			'invoice_overdue_subject' => 'Invoice overdue | %title%',
 			'invoice_overdue_body' => "Hello %client_first_name% %client_last_name%,\rYou have an overdue %title% ( %invoice_number% ) which can be viewed here %link%."
 		);
-		
+
 		update_option( 'lbi_general', $general_options );
 		update_option( 'lbi_business', $business_options );
 		update_option( 'lbi_estimates', $estimate_options );
@@ -75,7 +76,7 @@ class LBI_Activate_Deactivate {
 
 		LB_Post_Types::register_post_types();
 		flush_rewrite_rules();
-	
+
 	}
 
 	static public function on_deactivate(){
@@ -95,7 +96,7 @@ function cron_every_fifteen( $schedules ) {
             'interval'  => 900,
             'display'   => __( 'Every 15 Minutes', 'littlebot-invoices' )
     );
-     
+
     return $schedules;
 }
 add_filter( 'cron_schedules', 'cron_every_fifteen' );
