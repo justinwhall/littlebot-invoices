@@ -13,7 +13,7 @@
 	foreach ( $line_items as $item ) : $count++;?>
 		<tr <?php if ($count % 2 == 0): ?> class="alt" <?php endif; ?>>
 			<td class="left title-desc wide">
-			<div class="title"><?php echo $item['item_title']; ?></div>
+				<div class="title"><strong><?php echo $item['item_title']; ?></strong></div>
 				<div class="desc"><?php echo wpautop( $item['item_desc'], true ); ?></div>
 			</td>
 			<td class="lb-top lb-center rate"><?php echo $item['item_rate']; ?></td>

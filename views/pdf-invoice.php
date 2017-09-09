@@ -11,39 +11,6 @@
 				background: #fff;
 				font-family: 'roboto', sans-serif !important;
 			}
-			table,td,tr {
-				font-weight: 200;
-			}
-
-			#line-items {
-				font-size: 16pt;
-			}
-
-			#line-items td {
-				padding: 10px 5px;
-				background: #f9f9f9;
-			}
-
-			#lb-tbl-head td.a-right {
-			    border-right: 1px solid #acbcc3;
-			}
-
-			#lb-tbl-head td {
-				padding: 5px 10px;
-			}
-
-			.col-5 {
-				width: 42.5%;
-			}
-
-			.a-left {
-				text-align: left;
-			}
-
-			.a-right {
-				text-align: right;
-			}
-
 		</style>
 	</head>
 	<body>
