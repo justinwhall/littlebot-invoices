@@ -1,7 +1,7 @@
 === Plugin Name ===
 Contributors: jwind
 Donate link:https://littlebot.io/littlebot-invoices/
-Tags: invoice, estimate, payment, ecommerce, ecommerce, bill, billings
+Tags: invoice, estimate, payment, ecommerce, ecommerce, bill, billings, PDF, PDF Invoices
 Requires at least: 3.0.1
 Tested up to: 4.8.1
 Stable tag: 2.2.0
