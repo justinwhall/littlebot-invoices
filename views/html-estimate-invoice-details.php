@@ -1,4 +1,4 @@
-<?php 
+<?php
 	global $post;
 	$clients = LBI()->clients->get_all();
 	$statuses = ( $post->post_type == 'lb_invoice' ) ? LBI()->invoice_statuses : LBI()->estimate_statuses;
@@ -8,7 +8,7 @@
 	<div class="submitbox lb-submitbox" id="submitpost">
 
 		<div id="minor-publishing">
-			
+
 			<!-- Client -->
 			<div class="misc-pub-section">
 				<label for="post_status">Client</label>
@@ -16,8 +16,8 @@
 					<option value="no_client">No Client</option>
 					<?php foreach ( $clients as $client ): ?>
 						<option value="<?php echo $client->ID; ?>" <?php if ( $client->ID == get_post_meta( get_the_ID(), '_client', true ) ) { echo "selected"; } ?>>
-							<?php 
-								if ( get_user_meta( $client->ID, 'company_name', true ) ){ 
+							<?php
+								if ( get_user_meta( $client->ID, 'company_name', true ) ){
 									echo get_user_meta( $client->ID, 'company_name', true );
 								} else {
 									echo get_user_meta( $client->ID, 'first_name', true ) . ' ' . get_user_meta( $client->ID, 'last_name', true );
@@ -26,7 +26,7 @@
 						</option>
 					<?php endforeach; ?>
 				</select>
-				<a href="#TB_inline?width=600&height=550&inlineId=lb-add-client" class="thickbox">+ Client</a>	
+				<a href="#TB_inline?width=600&height=550&inlineId=lb-add-client" class="thickbox">+ Client</a>
 			</div>
 
 			<!-- Status -->
@@ -45,7 +45,7 @@
 				</div>
 			</div>
 
-			<?php if ( $post->post_type == 'lb_invoice' ): ?>			
+			<?php if ( $post->post_type == 'lb_invoice' ): ?>
 				<!-- Invoice Number -->
 				<div class="misc-pub-section" id="post-status-select">
 					<label for="lb_invoice_number">Invoice Number</label>
@@ -73,7 +73,7 @@
 			<?php endif; ?>
 
 
-			<?php 
+			<?php
 				// translators: Publish box date format, see http://php.net/date
 				$datef = __( 'M j, Y @ G:i' );
 				if ( 0 != $post->ID ) {
@@ -91,18 +91,27 @@
 		        <div id="timestampdiv" class="hide-if-js"><?php touch_time(1, 1); ?></div>
 			</div>
 
-			<!-- Due date -->
-			<?php $due_date_stamp = littlebot_get_invoice_due_date();  ?>
+			<!-- Due/valid until date -->
+			<?php
+
+				if ( $post->post_type == 'lb_invoice' ) {
+					$date_stamp = littlebot_get_invoice_due_date();
+				} else {
+					$date_stamp = littlebot_get_estimate_valid_until();
+				}
+
+			?>
+
 			<div class="misc-pub-section" >
 				<span id="lb-due-date" class="wp-media-buttons-icon">
-				<?php if ( $post->post_type == 'lb_invoice' ){ echo 'Due:';} else {echo 'Valid Until:';} ?> 
-				<b><?php echo date_i18n( 'M j, Y', $due_date_stamp ); ?></b></span>
+				<?php if ( $post->post_type == 'lb_invoice' ){ echo 'Due:';} else {echo 'Valid Until:';} ?>
+				<b><?php echo date_i18n( 'M j, Y', $date_stamp ); ?></b></span>
 
 				<a href="#edit_due_date" class="edit-due-date hide-if-no-js edit_control">
 					<span aria-hidden="true">Edit</span> <span class="screen-reader-text">Edit due date and time</span>
 				</a>
 
-				<?php 
+				<?php
 					$months = array(
 					  '01' => 'Jan',
 					  '02' => 'Feb',
@@ -123,10 +132,10 @@
 					<div class="due_date-wrap">
 						<select id="due-mm" name="due_mm">
 							<?php foreach ( $months as $key => $month ): ?>
-								<option value="<?php echo $key; ?>" data-text="<?php echo $month; ?>"  <?php if( date_i18n( 'm', $due_date_stamp ) == $key ){ echo "selected";} ?> ><?php echo $key . '-' . $month; ?></option>
+								<option value="<?php echo $key; ?>" data-text="<?php echo $month; ?>"  <?php if( date_i18n( 'm', $date_stamp ) == $key ){ echo "selected";} ?> ><?php echo $key . '-' . $month; ?></option>
 							<?php endforeach; ?>
 						</select>
-			 			<input type="text" id="due-jj" name="due_j" value="<?php echo date_i18n( 'd', $due_date_stamp ); ?>" size="2" maxlength="2" autocomplete="off">, <input type="text" id="due-y" name="due_y" value="<?php echo date_i18n( 'Y', $due_date_stamp ); ?>" size="4" maxlength="4" autocomplete="off">
+			 			<input type="text" id="due-jj" name="due_j" value="<?php echo date_i18n( 'd', $date_stamp ); ?>" size="2" maxlength="2" autocomplete="off">, <input type="text" id="due-y" name="due_y" value="<?php echo date_i18n( 'Y', $date_stamp ); ?>" size="4" maxlength="4" autocomplete="off">
 			 		</div>
 					<p>
 						<a href="#edit_due_date" class="save-due-date hide-if-no-js button">OK</a>
@@ -136,13 +145,13 @@
 
 			</div>
 
-		
+
 		</div>
 
 		<div class="clear"></div>
 
 		<div id="major-publishing-actions">
-			
+
 			<div id="delete-action">
 				<?php
 				if ( current_user_can( "delete_post", $post->ID ) ) {
@@ -154,7 +163,7 @@
 				<a class="submitdelete deletion" href="<?php echo get_delete_post_link($post->ID); ?>"><?php echo $delete_text; ?></a><?php
 				} ?>
 			</div>
-		
+
 			<div id="publishing-action">
 				<span class="spinner"></span>
 				<?php if ( $post->post_status == 'auto-draft' ): ?>

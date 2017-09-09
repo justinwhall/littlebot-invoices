@@ -35,6 +35,9 @@ Visit our [website](https://littlebot.io/littlebot-invoices/) for screenshots.
 = 2.2.0 =
 * NEW - Add support for download PDFs for invoices
 
+= 2.1.4 =
+FIX - Valid until date not saving correctly under certain circumstances.
+
 = 2.1.3 =
 * FIX - Changed activation template for invoice emails to use %invoice_number% rather than %estimate_number%. Current users will have to visit the options page and change the placeholder manually.
 * NEW - Emails sent from admin to clients now show up in logs.

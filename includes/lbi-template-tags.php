@@ -136,7 +136,7 @@ if ( ! function_exists( 'littlebot_get_tax_total' ) ) :
 
 endif;
 
-// gets invoice due date
+// gets invoice total
 if ( ! function_exists( 'littlebot_get_total' ) ) :
 
 	function littlebot_get_total( $post_id = 0 ) {
@@ -157,6 +157,19 @@ if ( ! function_exists( 'littlebot_get_invoice_due_date' ) ) :
 		}
 		$due_date = LBI_Invoice::get_due_date( $id );
 		return apply_filters( 'littlebot_get_invoice_due_date', $due_date );
+	}
+
+endif;
+
+// gets invoice valid until date
+if ( ! function_exists( 'littlebot_get_estimate_valid_until' ) ) :
+
+	function littlebot_get_estimate_valid_until( $id = 0 ) {
+		if ( !$id ) {
+			$id = get_the_ID();
+		}
+		$valid_until = LBI_Estimate::get_valid_until( $id );
+		return apply_filters( 'littlebot_get_estimate_valid_until', $valid_until );
 	}
 
 endif;
