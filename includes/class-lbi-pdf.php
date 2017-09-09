@@ -1,16 +1,35 @@
 <?php
+/**
+ *
+ * PDF generation object
+ *
+ * @class     LBI_PDF
+ * @since   2.2.0
+ * @category  Class
+ * @author    Justin W Hall
+ */
+
 
 class LBI_PDF {
 
+	/**
+	 * kick if off
+	 * @return void
+	 */
 	public static function init() {
 		add_action( 'wp', array( __CLASS__, 'build_pdf' ), 1 );
 		// Require composer autoload
 		require_once LBI_PLUGIN_DIR . '/vendor/autoload.php';
 	}
 
+	/**
+	 * Generates a PDF
+	 * @param  object $post post query object
+	 * @return void
+	 */
 	public static function build_pdf( $post ) {
 
-		if ( '1' != $_GET['pdf'] ) {
+		if ( ! isset( $_GET['pdf'] ) || 'lb_invoice' != get_query_var( 'post_type' ) ) {
 			return;
 		}
 
@@ -26,7 +45,7 @@ class LBI_PDF {
 		$mpdf->SetHTMLFooter( $footer );
 		$mpdf->WriteHTML( $html );
 		$mpdf->Output();
-		//
+
 		exit;
 	}
 }

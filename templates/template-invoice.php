@@ -1,4 +1,7 @@
-<?php do_action('littlebot_before_invoice_template', $post); ?>
+<?php
+	do_action('littlebot_before_invoice_template', $post);
+	$hide_pdf = littlebot_get_option( 'hide_pdf', 'lbi_invoices' );
+?>
 <html <?php language_attributes(); ?> class="no-js">
   <?php do_action( 'littlebot_doc_viewed', $post ); ?>
 	<head>
@@ -15,21 +18,26 @@
 				<div class="header lb-row">
 					<div class="doc-num col-6"><?php printf( esc_html__( 'Invoice %s', 'littlebot-invoices' ), littlebot_get_invoice_number() ); ?></div>
 					<div class="status col-6" data-id="<?php echo get_the_ID(); ?>">
-						<?php if ( get_post_status( get_the_ID() ) == 'lb-unpaid' ): ?>
-							<?php //if ( littlebot_get_selected_gateway() ): ?>
-								<?php do_action('littlebot_payment_form'); ?>
-							<?php //else: ?>
-								<span class="pending-payment">Unpaid</span>
-							<?php //endif; ?>
-						<?php elseif ( get_post_status( get_the_ID() ) == 'lb-overdue' ): ?>
-							<?php //if //( littlebot_get_selected_gateway() ): ?>
-								<?php do_action('littlebot_payment_form'); ?>
-							<?php //else: ?>
-								<span class="pending-payment">Overdue</span>
-							<?php //endif; ?>
-						<?php elseif ( get_post_status( get_the_ID() ) == 'lb-paid' ): ?>
-							<span class="paid"><?php esc_html_e( 'Paid', 'littebot-invoices' ); ?></span>
-						<?php elseif ( get_post_status( get_the_ID() ) == 'lb-draft' ): ?>
+
+						<?php if ( 'off' == $hide_pdf || ! $hide_pdf ) : ?>
+							<a class="pdf" href="<?php echo get_the_permalink( get_the_id() ); ?>/?pdf=1" target="_blank"><?php _e( 'PDF', 'littebot-invoices' ); ?></a>
+						<?php endif; ?>
+
+						<?php if ( get_post_status( get_the_ID() ) == 'lb-unpaid' ) : ?>
+
+							<?php do_action('littlebot_payment_form'); ?>
+
+							<span class="pending-payment">Unpaid</span>
+
+						<?php elseif ( get_post_status( get_the_ID() ) == 'lb-overdue' ) : ?>
+
+							<?php do_action('littlebot_payment_form'); ?>
+
+							<span class="pending-payment">Overdue</span>
+
+						<?php elseif ( get_post_status( get_the_ID() ) == 'lb-paid' ) : ?>
+							<span class="paid"><?php esc_html_e( 'Paid', 'littebot-invoices' ) ; ?></span>
+						<?php elseif ( get_post_status( get_the_ID() ) == 'lb-draft' ) : ?>
 							<span class="is-draft"><?php esc_html_e( 'Invoice is currently a draft.', 'littlebot-invoices' ); ?> </span>
 						<?php endif; ?>
 					</div>
@@ -58,14 +66,6 @@
 
 				<!-- line items -->
 				<div class="line-items">
-
-					<div class="headers line-row">
-						<div class="wide">Line Item</div>
-						<div class="small rate">Rate</div>
-						<div class="small rate">Qty</div>
-						<div class="small rate">%</div>
-						<div class="small rate">Amount</div>
-					</div>
 
 					<?php littlebot_print_line_items(); ?>
 

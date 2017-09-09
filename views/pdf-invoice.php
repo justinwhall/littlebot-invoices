@@ -14,13 +14,14 @@
 			table,td,tr {
 				font-weight: 200;
 			}
+
+			#line-items {
+				font-size: 16pt;
+			}
+
 			#line-items td {
 				padding: 10px 5px;
 				background: #f9f9f9;
-			}
-
-			#line-items .alt td {
-				background: #e3e3e3;
 			}
 
 			#lb-tbl-head td.a-right {
@@ -87,49 +88,6 @@
 
 <?php littlebot_print_line_items(); ?>
 
-<table id="line-items" style="width:100%; margin-top:40px;">
-  <tr>
-	<th align="left">Line Item</th>
-	<th align="left">Rate</th>
-	<th align="left">Qty</th>
-	<th align="left">%</th>
-	<th align="left">Amount</th>
-  </tr>
-
-  <tr>
-	<td>Line item Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</td>
-	<td>90</td>
-	<td>100</td>
-	<td>10</td>
-	<td>1090</td>
-  </tr>
-
-  <tr class="alt">
-	<td>Line item</td>
-	<td>90</td>
-	<td>100</td>
-	<td>10</td>
-	<td>1090</td>
-  </tr>
-  <tr>
-	<td>Line item</td>
-	<td>90</td>
-	<td>100</td>
-	<td>10</td>
-	<td>1090</td>
-  </tr>
-
-  <tr class="alt">
-	<td>Line item</td>
-	<td>90</td>
-	<td>100</td>
-	<td>10</td>
-	<td>1090</td>
-  </tr>
-
-</table>
-
-<div class="clearfix"></div>
 <!-- totals  -->
 <div>
 <?php //littlebot_print_totals(); ?>
