@@ -11,6 +11,24 @@
 				background: #fff;
 				font-family: 'roboto', sans-serif !important;
 			}
+			#totals .sub {
+				font-weight: bold;
+			}
+			#lb-tbl-head td.a-right {
+			    border-right: 1px solid #acbcc3;
+			}
+			#lb-tbl-head td {
+				padding: 5px 10px;
+			}
+			.col-5 {
+				width: 42.5%;
+			}
+			.a-left {
+				text-align: left;
+			}
+			.a-right {
+				text-align: right;
+			}
 		</style>
 	</head>
 	<body>
@@ -56,8 +74,24 @@
 <?php littlebot_print_line_items(); ?>
 
 <!-- totals  -->
-<div>
-<?php //littlebot_print_totals(); ?>
+<div id="totals" style="text-align:right;">
+
+		<div class="sub-total">
+			<span class="label sub"><?php esc_html_e( 'Sub Total', 'littebot-invoices' ); ?>:</span>
+			<span class="val"><?php echo littlebot_get_subtotal(); ?></span>
+		</div>
+
+		<div class="tax">
+			<span class="label sub"><?php esc_html_e( 'Tax', 'littebot-invoices' ); ?>:</span>
+			<span class="val"><?php echo littlebot_get_tax_total(); ?></span>
+		</div>
+
+		<div class="total">
+			<span class="label sub"><?php esc_html_e( 'Total', 'littebot-invoices' ); ?>:</span>
+			<span class="val"><?php echo littlebot_get_total(); ?></span>
+		</div>
+
+
 </div>
 
 <?php littlebot_notes(); ?>
