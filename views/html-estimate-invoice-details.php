@@ -9,7 +9,7 @@
 
 		<div id="minor-publishing">
 
-			<?php if ( 'auto-draft' != get_post_status() ) : ?>
+			<?php if ( 'auto-draft' != get_post_status() && 'lb_invoice' == get_post_type() ) : ?>
 				<div class="misc-pub-section">
 					<a target="_blank" href="<?php echo get_the_permalink( get_the_ID() ); ?>?pdf=1" class="add-line-item button"><?php _e( 'Download PDF', 'littlebot-invoices' ); ?></a>
 				</div>
