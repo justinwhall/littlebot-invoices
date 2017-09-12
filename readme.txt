@@ -32,7 +32,7 @@ Visit our [website](https://littlebot.io/littlebot-invoices/) for screenshots.
 
 == Changelog ==
 
-= 2.3.1 =
+= 2.4.0 =
 * NEW - Estimates support tax
 * FIX - More translations strings
 

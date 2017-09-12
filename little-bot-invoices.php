@@ -21,6 +21,39 @@
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+// Create a helper function for easy SDK access.
+function li_fs() {
+	global $li_fs;
+
+	if ( ! isset( $li_fs ) ) {
+		// Include Freemius SDK.
+		require_once dirname(__FILE__) . '/freemius/start.php';
+
+		$li_fs = fs_dynamic_init( array(
+			'id'                  => '1366',
+			'slug'                => 'littlebot-invoices',
+			'type'                => 'plugin',
+			'public_key'          => 'pk_f66e8f2a97d560af341c41d6ff5cb',
+			'is_premium'          => false,
+			'has_addons'          => false,
+			'has_paid_plans'      => false,
+			'menu'                => array(
+				'slug'           => 'littlebot_invoices',
+				// 'account'        => false,
+				// 'support'        => false,
+			),
+		) );
+	}
+
+	return $li_fs;
+}
+
+// Init Freemius.
+li_fs();
+// Signal that SDK was initiated.
+do_action( 'li_fs_loaded' );
+
+
 if ( ! class_exists( 'Little_Bot_Invoices' ) ) :
 
 /**
