@@ -6,7 +6,7 @@
  * Author: Justin W Hall
  * Author URI: https://littlebot.io
 
- * Version: 2.4.0
+ * Version: 2.4.1
  * Text Domain: littlebot-invoices
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
@@ -111,6 +111,7 @@ final class Little_Bot_Invoices {
 			self::$instance->response = new LBI_Response();
 			self::$instance->emails = new LBI_Emails();
 			self::$instance->gateways = new LBI_Gateways();
+			self::$instance->load_plugin_textdomain();
 			// self::$instance->extentions = new LBI_Extentions();
 		}
 		return self::$instance;
@@ -234,7 +235,7 @@ final class Little_Bot_Invoices {
 		load_plugin_textdomain(
 			'littlebot-invoices',
 			false,
-			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
+			dirname( plugin_basename( __FILE__ ) ) . '/languages/'
 		);
 
 	}

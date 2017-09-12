@@ -44,25 +44,25 @@ class LB_Post_Types {
 		}
 
 		$labels = array(
-			'name'               => _x( 'Invoices', 'post type general name', 'little-bot-invoices' ),
-			'singular_name'      => _x( 'Invoice', 'post type singular name', 'little-bot-invoices' ),
-			'menu_name'          => _x( 'Invoices', 'admin menu', 'little-bot-invoices' ),
-			'name_admin_bar'     => _x( 'Invoice', 'add new on admin bar', 'little-bot-invoices' ),
-			'add_new'            => _x( 'Add New', 'invoice', 'little-bot-invoices' ),
-			'add_new_item'       => __( 'Add New invoice', 'little-bot-invoices' ),
-			'new_item'           => __( 'New Invoice', 'little-bot-invoices' ),
-			'edit_item'          => __( 'Edit Invoice', 'little-bot-invoices' ),
-			'view_item'          => __( 'View Invoice', 'little-bot-invoices' ),
-			'all_items'          => __( 'All Invoices', 'little-bot-invoices' ),
-			'search_items'       => __( 'Search Invoices', 'little-bot-invoices' ),
-			'parent_item_colon'  => __( 'Parent Invoices:', 'little-bot-invoices' ),
-			'not_found'          => __( 'No invoices found.', 'little-bot-invoices' ),
-			'not_found_in_trash' => __( 'No invoices found in Trash.', 'little-bot-invoices' )
+			'name'               => _x( 'Invoices', 'post type general name', 'littlebot-invoices' ),
+			'singular_name'      => _x( 'Invoice', 'post type singular name', 'littlebot-invoices' ),
+			'menu_name'          => _x( 'Invoices', 'admin menu', 'littlebot-invoices' ),
+			'name_admin_bar'     => _x( 'Invoice', 'add new on admin bar', 'littlebot-invoices' ),
+			'add_new'            => _x( 'Add New', 'invoice', 'littlebot-invoices' ),
+			'add_new_item'       => __( 'Add New invoice', 'littlebot-invoices' ),
+			'new_item'           => __( 'New Invoice', 'littlebot-invoices' ),
+			'edit_item'          => __( 'Edit Invoice', 'littlebot-invoices' ),
+			'view_item'          => __( 'View Invoice', 'littlebot-invoices' ),
+			'all_items'          => __( 'All Invoices', 'littlebot-invoices' ),
+			'search_items'       => __( 'Search Invoices', 'littlebot-invoices' ),
+			'parent_item_colon'  => __( 'Parent Invoices:', 'littlebot-invoices' ),
+			'not_found'          => __( 'No invoices found.', 'littlebot-invoices' ),
+			'not_found_in_trash' => __( 'No invoices found in Trash.', 'littlebot-invoices' )
 		);
 
 		$args = array(
 			'labels'             => $labels,
-            'description'        => __( 'Little Bot Invoices.', 'little-bot-invoices' ),
+            'description'        => __( 'Little Bot Invoices.', 'littlebot-invoices' ),
 			'public'             => true,
 			'publicly_queryable' => true,
 			'show_ui'            => true,
@@ -77,28 +77,28 @@ class LB_Post_Types {
 			'supports'           => array( 'title')
 		);
 
-		register_post_type( 'lb_invoice', $args );		
+		register_post_type( 'lb_invoice', $args );
 
 		$labels = array(
-			'name'               => _x( 'Estimates', 'post type general name', 'little-bot-invoices' ),
-			'singular_name'      => _x( 'Estimate', 'post type singular name', 'little-bot-invoices' ),
-			'menu_name'          => _x( 'Estimates', 'admin menu', 'little-bot-invoices' ),
-			'name_admin_bar'     => _x( 'Estimate', 'add new on admin bar', 'little-bot-invoices' ),
-			'add_new'            => _x( 'Add New', 'Estimate', 'little-bot-invoices' ),
-			'add_new_item'       => __( 'Add New Estimate', 'little-bot-invoices' ),
-			'new_item'           => __( 'New Estimate', 'little-bot-invoices' ),
-			'edit_item'          => __( 'Edit Estimate', 'little-bot-invoices' ),
-			'view_item'          => __( 'View Estimate', 'little-bot-invoices' ),
-			'all_items'          => __( 'All Estimates', 'little-bot-invoices' ),
-			'search_items'       => __( 'Search Estimates', 'little-bot-invoices' ),
-			'parent_item_colon'  => __( 'Parent Estimates:', 'little-bot-invoices' ),
-			'not_found'          => __( 'No invoices found.', 'little-bot-invoices' ),
-			'not_found_in_trash' => __( 'No invoices found in Trash.', 'little-bot-invoices' )
+			'name'               => _x( 'Estimates', 'post type general name', 'littlebot-invoices' ),
+			'singular_name'      => _x( 'Estimate', 'post type singular name', 'littlebot-invoices' ),
+			'menu_name'          => _x( 'Estimates', 'admin menu', 'littlebot-invoices' ),
+			'name_admin_bar'     => _x( 'Estimate', 'add new on admin bar', 'littlebot-invoices' ),
+			'add_new'            => _x( 'Add New', 'Estimate', 'littlebot-invoices' ),
+			'add_new_item'       => __( 'Add New Estimate', 'littlebot-invoices' ),
+			'new_item'           => __( 'New Estimate', 'littlebot-invoices' ),
+			'edit_item'          => __( 'Edit Estimate', 'littlebot-invoices' ),
+			'view_item'          => __( 'View Estimate', 'littlebot-invoices' ),
+			'all_items'          => __( 'All Estimates', 'littlebot-invoices' ),
+			'search_items'       => __( 'Search Estimates', 'littlebot-invoices' ),
+			'parent_item_colon'  => __( 'Parent Estimates:', 'littlebot-invoices' ),
+			'not_found'          => __( 'No invoices found.', 'littlebot-invoices' ),
+			'not_found_in_trash' => __( 'No invoices found in Trash.', 'littlebot-invoices' )
 		);
 
 		$args = array(
 			'labels'             => $labels,
-            'description'        => __( 'Little Bot Estimates.', 'little-bot-invoices' ),
+            'description'        => __( 'LittleBot Estimates.', 'littlebot-invoices' ),
 			'public'             => true,
 			'publicly_queryable' => true,
 			'show_ui'            => true,
@@ -122,44 +122,44 @@ class LB_Post_Types {
 	public static function register_post_status() {
 		$invoice_statuses = array(
 			'lb-draft' => array(
-				'label'                     => __( 'Draft', 'Invoice status', 'little-bot-invoices' ),
+				'label'                     => __( 'Draft', 'Invoice status', 'littlebot-invoices' ),
 				'public'                    => true,
 				'exclude_from_search'       => false,
 				'show_in_admin_all_list'    => true,
 				'show_in_admin_status_list' => true,
-				'label_count'               => _n_noop( 'Unpaid <span class="count">(%s)</span>', 'Unpaid <span class="count">(%s)</span>', 'little-bot-invoices' )
+				'label_count'               => _n_noop( 'Unpaid <span class="count">(%s)</span>', 'Unpaid <span class="count">(%s)</span>', 'littlebot-invoices' )
 			),
 			'lb-unpaid' => array(
-				'label'                     => __( 'Unpaid', 'Invoice status', 'little-bot-invoices' ),
+				'label'                     => __( 'Unpaid', 'Invoice status', 'littlebot-invoices' ),
 				'public'                    => true,
 				'exclude_from_search'       => false,
 				'show_in_admin_all_list'    => true,
 				'show_in_admin_status_list' => true,
-				'label_count'               => _n_noop( 'Unpaid <span class="count">(%s)</span>', 'Unpaid <span class="count">(%s)</span>', 'little-bot-invoices' )
-			),			
+				'label_count'               => _n_noop( 'Unpaid <span class="count">(%s)</span>', 'Unpaid <span class="count">(%s)</span>', 'littlebot-invoices' )
+			),
 			'lb-paid' => array(
-				'label'                     => __( 'Paid', 'Invoice status', 'little-bot-invoices' ),
+				'label'                     => __( 'Paid', 'Invoice status', 'littlebot-invoices' ),
 				'public'                    => true,
 				'exclude_from_search'       => false,
 				'show_in_admin_all_list'    => true,
 				'show_in_admin_status_list' => true,
-				'label_count'               => _n_noop( 'Paid <span class="count">(%s)</span>', 'Paid <span class="count">(%s)</span>', 'little-bot-invoices' )
+				'label_count'               => _n_noop( 'Paid <span class="count">(%s)</span>', 'Paid <span class="count">(%s)</span>', 'littlebot-invoices' )
 			),
 			'lb-overdue' => array(
-				'label'                     => __( 'Overdue', 'Invoice status', 'little-bot-invoices' ),
+				'label'                     => __( 'Overdue', 'Invoice status', 'littlebot-invoices' ),
 				'public'                    => true,
 				'exclude_from_search'       => false,
 				'show_in_admin_all_list'    => true,
 				'show_in_admin_status_list' => true,
-				'label_count'               => _n_noop( 'Overdue <span class="count">(%s)</span>', 'Overdue <span class="count">(%s)</span>', 'little-bot-invoices' )
+				'label_count'               => _n_noop( 'Overdue <span class="count">(%s)</span>', 'Overdue <span class="count">(%s)</span>', 'littlebot-invoices' )
 			),
 			'lb-voided' => array(
-				'label'                     => __( 'Voided', 'Invoice status', 'little-bot-invoices' ),
+				'label'                     => __( 'Voided', 'Invoice status', 'littlebot-invoices' ),
 				'public'                    => true,
 				'exclude_from_search'       => false,
 				'show_in_admin_all_list'    => true,
 				'show_in_admin_status_list' => true,
-				'label_count'               => _n_noop( 'Voided <span class="count">(%s)</span>', 'Voided <span class="count">(%s)</span>', 'little-bot-invoices' )
+				'label_count'               => _n_noop( 'Voided <span class="count">(%s)</span>', 'Voided <span class="count">(%s)</span>', 'littlebot-invoices' )
 			)
 		);
 
@@ -171,36 +171,36 @@ class LB_Post_Types {
 
 		$estimate_statuses = array(
 			'lb-draft' => array(
-				'label'                     => __( 'Draft', 'Estimate status', 'little-bot-invoices' ),
+				'label'                     => __( 'Draft', 'Estimate status', 'littlebot-invoices' ),
 				'public'                    => true,
 				'exclude_from_search'       => false,
 				'show_in_admin_all_list'    => true,
 				'show_in_admin_status_list' => true,
-				'label_count'               => _n_noop( 'Draft <span class="count">(%s)</span>', 'Draft <span class="count">(%s)</span>', 'little-bot-invoices' )
+				'label_count'               => _n_noop( 'Draft <span class="count">(%s)</span>', 'Draft <span class="count">(%s)</span>', 'littlebot-invoices' )
 			),
 			'lb-pending' => array(
-				'label'                     => __( 'Pending', 'Estimate status', 'little-bot-invoices' ),
+				'label'                     => __( 'Pending', 'Estimate status', 'littlebot-invoices' ),
 				'public'                    => true,
 				'exclude_from_search'       => false,
 				'show_in_admin_all_list'    => true,
 				'show_in_admin_status_list' => true,
-				'label_count'               => _n_noop( 'Pending <span class="count">(%s)</span>', 'Pending <span class="count">(%s)</span>', 'little-bot-invoices' )
+				'label_count'               => _n_noop( 'Pending <span class="count">(%s)</span>', 'Pending <span class="count">(%s)</span>', 'littlebot-invoices' )
 			),
 			'lb-approved' => array(
-				'label'                     => __( 'Approved', 'Estimate status', 'little-bot-invoices' ),
+				'label'                     => __( 'Approved', 'Estimate status', 'littlebot-invoices' ),
 				'public'                    => true,
 				'exclude_from_search'       => false,
 				'show_in_admin_all_list'    => true,
 				'show_in_admin_status_list' => true,
-				'label_count'               => _n_noop( 'Approved <span class="count">(%s)</span>', 'Approved <span class="count">(%s)</span>', 'little-bot-invoices' )
+				'label_count'               => _n_noop( 'Approved <span class="count">(%s)</span>', 'Approved <span class="count">(%s)</span>', 'littlebot-invoices' )
 			),
 			'lb-declined' => array(
-				'label'                     => __( 'Declined', 'Invoice status', 'little-bot-invoices' ),
+				'label'                     => __( 'Declined', 'Invoice status', 'littlebot-invoices' ),
 				'public'                    => true,
 				'exclude_from_search'       => false,
 				'show_in_admin_all_list'    => true,
 				'show_in_admin_status_list' => true,
-				'label_count'               => _n_noop( 'Declined <span class="count">(%s)</span>', 'Declined <span class="count">(%s)</span>', 'little-bot-invoices' )
+				'label_count'               => _n_noop( 'Declined <span class="count">(%s)</span>', 'Declined <span class="count">(%s)</span>', 'littlebot-invoices' )
 			)
 		);
 
