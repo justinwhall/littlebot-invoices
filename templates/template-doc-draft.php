@@ -9,8 +9,8 @@
     <body <?php body_class(); ?>>
         <div class="lb-container">
             <div class="lb-wrap lb-center">
-                <h1><?php _e( 'Oops.', 'littlebot-invoices'); ?></h1>
-                <div class="lb-is-draft">This document is currently a draft.</div>
+                <h1><?php esc_html_e( 'Oops.', 'littlebot-invoices'); ?></h1>
+                <div class="lb-is-draft"><?php esc_html_e( 'This document is currently a draft.', 'littlebot-invoices' ); ?></div>
             </div>
         </div>
         <?php wp_footer(); ?>

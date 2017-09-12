@@ -47,14 +47,6 @@
 
 				<!-- line items -->
 				<div class="line-items">
-					
-					<div class="headers line-row">
-						<div class="wide">Line Item</div>
-						<div class="small rate">Rate</div>
-						<div class="small rate">Qty</div>
-						<div class="small rate">%</div>
-						<div class="small rate">Amount</div>
-					</div>
 
 					<?php littlebot_print_line_items(); ?>
 

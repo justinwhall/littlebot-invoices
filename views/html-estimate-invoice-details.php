@@ -11,7 +11,7 @@
 
 			<?php if ( 'auto-draft' != get_post_status() && 'lb_invoice' == get_post_type() ) : ?>
 				<div class="misc-pub-section">
-					<a target="_blank" href="<?php echo get_the_permalink( get_the_ID() ); ?>?pdf=1" class="add-line-item button"><?php _e( 'Download PDF', 'littlebot-invoices' ); ?></a>
+					<a target="_blank" href="<?php echo get_the_permalink( get_the_ID() ); ?>?pdf=1" class="add-line-item button"><?php esc_html_e( 'Download PDF', 'littlebot-invoices' ); ?></a>
 				</div>
 			<?php endif; ?>
 
@@ -32,7 +32,7 @@
 						</option>
 					<?php endforeach; ?>
 				</select>
-				<a href="#TB_inline?width=600&height=550&inlineId=lb-add-client" class="thickbox">+ <?php _e( 'Client', 'littlebot-onvoices'); ?></a>
+				<a href="#TB_inline?width=600&height=550&inlineId=lb-add-client" class="thickbox">+ <?php esc_html_e( 'Client', 'littlebot-onvoices'); ?></a>
 			</div>
 
 			<!-- Status -->
@@ -46,7 +46,7 @@
 				</select>
 				<div class="no-email lb-hide">
 					<label for="no-email">
-						<input type="checkbox" id="no-email" name="no_email"><em><?php _e('Don\'t send overdue email to client', 'littlebot-invoices'); ?></em>
+						<input type="checkbox" id="no-email" name="no_email"><em><?php esc_html_e('Don\'t send overdue email to client', 'littlebot-invoices'); ?></em>
 					</label>
 				</div>
 			</div>
@@ -54,30 +54,30 @@
 			<?php if ( $post->post_type == 'lb_invoice' ): ?>
 				<!-- Invoice Number -->
 				<div class="misc-pub-section" id="post-status-select">
-					<label for="lb_invoice_number"><? _e('Invoice Number', 'littlebot-invoices'); ?></label>
+					<label for="lb_invoice_number"><?php esc_html_e('Invoice Number', 'littlebot-invoices'); ?></label>
 					<input type="text" name="_invoice_number" id="lb-invoice-number" value="<?php echo littlebot_get_invoice_number(); ?>" >
 				</div>
 
 				<!-- PO number -->
 				<div class="misc-pub-section" id="post-status-select">
-					<label for="lb-po-number"><? _e('P.O. Number', 'littlebot-invoices'); ?></label>
+					<label for="lb-po-number"><?php esc_html_e('P.O. Number', 'littlebot-invoices'); ?></label>
 					<input type="text" name="_po_number" id="lb-po-number" value="<?php echo get_post_meta( get_the_ID(), '_po_number', true ); ?>">
 				</div>
 
-				<!-- Tax Rate -->
-				<div class="misc-pub-section tax-rate-section" id="post-status-select">
-					<label for="lb-tax-rate"><? _e('Tax', 'littlebot-invoices'); ?></label>
-					<input type="text" name="_tax_rate" class="lb-skinny lb-calc-input" id="lb-tax-rate" placeholder="0" value="<?php echo get_post_meta( get_the_ID(), '_tax_rate', true ); ?>"> %
-				</div>
 			<?php else: ?>
 
 			<!-- Estimate Number -->
 			<div class="misc-pub-section" id="post-status-select">
-				<label for="_estimate_number"><? _e('Estimate Number', 'littlebot-invoices'); ?></label>
+				<label for="_estimate_number"><?php esc_html_e('Estimate Number', 'littlebot-invoices'); ?></label>
 				<input type="text" name="_estimate_number" id="lb-estimate-number" value="<?php echo littlebot_get_estimate_number(); ?>" >
 			</div>
 			<?php endif; ?>
 
+			<!-- Tax Rate -->
+			<div class="misc-pub-section tax-rate-section" id="post-status-select">
+				<label for="lb-tax-rate"><?php esc_html_e('Tax', 'littlebot-invoices'); ?></label>
+				<input type="text" name="_tax_rate" class="lb-skinny lb-calc-input" id="lb-tax-rate" placeholder="0" value="<?php echo get_post_meta( get_the_ID(), '_tax_rate', true ); ?>"> %
+			</div>
 
 			<?php
 				// translators: Publish box date format, see http://php.net/date
@@ -93,7 +93,7 @@
 			<div class="misc-pub-section curtime">
 				<span id="timestamp">
 				<?php printf($stamp, $date); ?></span>
-				<a href="#edit_timestamp" class="edit-timestamp hide-if-no-js"><?php _e('Edit') ?></a>
+				<a href="#edit_timestamp" class="edit-timestamp hide-if-no-js"><?php esc_html_e('Edit') ?></a>
 				<div id="timestampdiv" class="hide-if-js"><?php touch_time(1, 1); ?></div>
 			</div>
 
@@ -114,7 +114,7 @@
 				<b><?php echo date_i18n( 'M j, Y', $date_stamp ); ?></b></span>
 
 				<a href="#edit_due_date" class="edit-due-date hide-if-no-js edit_control">
-					<span aria-hidden="true"><?php _e( 'Edit', 'littlebot-invoices' ); ?></span> <span class="screen-reader-text"><?php _e( 'Edit due date and time', 'littlebot-invoices' ); ?></span>
+					<span aria-hidden="true"><?php esc_html_e( 'Edit', 'littlebot-invoices' ); ?></span> <span class="screen-reader-text"><?php esc_html_e( 'Edit due date and time', 'littlebot-invoices' ); ?></span>
 				</a>
 
 				<?php
@@ -144,8 +144,8 @@
 						 <input type="text" id="due-jj" name="due_j" value="<?php echo date_i18n( 'd', $date_stamp ); ?>" size="2" maxlength="2" autocomplete="off">, <input type="text" id="due-y" name="due_y" value="<?php echo date_i18n( 'Y', $date_stamp ); ?>" size="4" maxlength="4" autocomplete="off">
 					 </div>
 					<p>
-						<a href="#edit_due_date" class="save-due-date hide-if-no-js button"><?php _e( 'OK', 'littlebot-invoices' ); ?></a>
-						<a href="#edit_due_date" class="cancel-due-date hide-if-no-js button-cancel"><?php _e( 'Cancel', 'littlebot-invoices' ); ?></a>
+						<a href="#edit_due_date" class="save-due-date hide-if-no-js button"><?php esc_html_e( 'OK', 'littlebot-invoices' ); ?></a>
+						<a href="#edit_due_date" class="cancel-due-date hide-if-no-js button-cancel"><?php esc_html_e( 'Cancel', 'littlebot-invoices' ); ?></a>
 					</p>
 				 </div>
 

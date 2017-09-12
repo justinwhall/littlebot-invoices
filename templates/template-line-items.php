@@ -1,11 +1,11 @@
 <table id="line-items" class="lb-tbl" style="width:100%; margin-top:40px;">
 
 <tr class="headers">
-	<th align="left">Line Item</th>
-	<th>Rate</th>
-	<th>Qty</th>
+	<th align="left"><?php esc_html_e( 'Line Items', 'littlebot-invoices' ); ?></th>
+	<th><?php esc_html_e( 'Rate', 'littlebot-invoices' ); ?></th>
+	<th><?php esc_html_e( 'Qty', 'littlebot-invoices' ); ?></th>
 	<th>%</th>
-	<th class="lb-right">Amount</th>
+	<th class="lb-right"><?php esc_html_e( 'Amount', 'littlebot-invoices' ); ?></th>
   </tr>
 
 	 <?php
