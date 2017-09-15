@@ -4,7 +4,7 @@ Donate link:https://littlebot.io/littlebot-invoices/
 Tags: invoice, estimate, payment, ecommerce, ecommerce, bill, billings, PDF, PDF Invoices
 Requires at least: 3.0.1
 Tested up to: 4.8.1
-Stable tag: 2.4.1
+Stable tag: 2.4.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,6 +31,12 @@ Or [ask us a question](https://littlebot.io/support/).
 Visit our [website](https://littlebot.io/littlebot-invoices/) for screenshots.
 
 == Changelog ==
+
+= 2.4.3 =
+* FIX - Estimate valid until defaults to 30 days from creation
+
+= 2.4.2 =
+* CHANGE - Remove Freemius Menu Item
 
 = 2.4.1 =
 * NEW - Localization

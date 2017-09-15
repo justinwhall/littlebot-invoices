@@ -15,22 +15,28 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-class LBI_Estimate extends LBI_Admin_Post
-{
+class LBI_Estimate extends LBI_Admin_Post {
 
-	public function get_number( $id ){
+	public function get_number( $id ) {
 		$meta = get_post_meta( $id, '_estimate_number', true );
 		$number = strlen( $meta ) ? $meta : $id;
 		return $number;
 	}
 
-	public function get_status( $id ){
+	public function get_status( $id ) {
 		$status = get_post_status( $id, '_estimate_number', true );
 		return $status;
 	}
 
-	public static function get_valid_until( $id ){
-		$valid_until = (int) get_post_meta( $id, '_valid_until', true );
+	public static function get_valid_until( $id ) {
+		$saved_date = get_post_meta( $id, '_valid_until', true );
+
+		if ( strlen( $saved_date ) ) {
+			$valid_until = $saved_date;
+		} else {
+			$valid_until = strtotime( '+30 days', current_time( 'timestamp' ) );
+		}
+
 		return $valid_until;
 	}
 

@@ -1,0 +1,579 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/littlebot-"
+"invoices\n"
+"POT-Creation-Date: 2017-09-12 06:06+0200\n"
+"PO-Revision-Date: 2017-09-13 07:28+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: sv_SE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0\n"
+"X-Poedit-Basepath: .\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: includes/class-lbi-activate-deactivate.php:93
+msgid "Every 15 Minutes"
+msgstr "Var 15:e minut"
+
+#: includes/class-lbi-columns.php:89
+msgid "Status"
+msgstr "Status"
+
+#: includes/class-lbi-columns.php:90
+msgid "Issued"
+msgstr "Utfärdad"
+
+#: includes/class-lbi-columns.php:91
+msgid "Client"
+msgstr "Kund"
+
+#: includes/class-lbi-columns.php:92
+msgid "Amount"
+msgstr "Belopp"
+
+#: includes/class-lbi-emails.php:211
+msgid ""
+"You cannot send email with LBI_Emails until init/admin_init has been reached"
+msgstr ""
+"Du kan inte skicka email med LBI_Emails tills init / admin_init har uppnåtts"
+
+#: includes/class-lbi-log-metabox.php:46
+msgid "Log"
+msgstr "Logg"
+
+#: includes/class-lbi-log.php:113
+msgid "Client Payment"
+msgstr "Klient betalning"
+
+#: includes/class-lbi-notes-metabox.php:47 includes/class-lbi-settings.php:212
+#: includes/class-lbi-settings.php:230
+msgid "Notes"
+msgstr "Anteckningar"
+
+#: includes/class-lbi-post-line-items.php:47
+msgid "Line Items"
+msgstr "Artikel rader"
+
+#: includes/class-lbi-post-types.php:47
+msgctxt "post type general name"
+msgid "Invoices"
+msgstr "Fakturor"
+
+#: includes/class-lbi-post-types.php:48
+msgctxt "post type singular name"
+msgid "Invoice"
+msgstr "Faktura"
+
+#: includes/class-lbi-post-types.php:49
+msgctxt "admin menu"
+msgid "Invoices"
+msgstr "Fakturor"
+
+#: includes/class-lbi-post-types.php:50
+msgctxt "add new on admin bar"
+msgid "Invoice"
+msgstr "Faktura"
+
+#: includes/class-lbi-post-types.php:51
+msgctxt "invoice"
+msgid "Add New"
+msgstr "Lägg till ny"
+
+#: includes/class-lbi-post-types.php:52
+msgid "Add New invoice"
+msgstr "Lägg till ny faktura"
+
+#: includes/class-lbi-post-types.php:53
+msgid "New Invoice"
+msgstr "Ny faktura"
+
+#: includes/class-lbi-post-types.php:54
+msgid "Edit Invoice"
+msgstr "Redigera faktura"
+
+#: includes/class-lbi-post-types.php:55
+msgid "View Invoice"
+msgstr "Visa faktura"
+
+#: includes/class-lbi-post-types.php:56
+msgid "All Invoices"
+msgstr "Alla fakturor"
+
+#: includes/class-lbi-post-types.php:57
+msgid "Search Invoices"
+msgstr "Sök fakturor"
+
+#: includes/class-lbi-post-types.php:58
+msgid "Parent Invoices:"
+msgstr "Överordnade fakturor:"
+
+#: includes/class-lbi-post-types.php:59 includes/class-lbi-post-types.php:95
+msgid "No invoices found."
+msgstr "Inga fakturor hittades."
+
+#: includes/class-lbi-post-types.php:60 includes/class-lbi-post-types.php:96
+msgid "No invoices found in Trash."
+msgstr "Inga fakturor funna i papperskorgen."
+
+#: includes/class-lbi-post-types.php:65
+msgid "Little Bot Invoices."
+msgstr "Little Bot Fakturor."
+
+#: includes/class-lbi-post-types.php:83
+msgctxt "post type general name"
+msgid "Estimates"
+msgstr "Offerter"
+
+#: includes/class-lbi-post-types.php:84
+msgctxt "post type singular name"
+msgid "Estimate"
+msgstr "Beräknad"
+
+#: includes/class-lbi-post-types.php:85
+msgctxt "admin menu"
+msgid "Estimates"
+msgstr "Offerter"
+
+#: includes/class-lbi-post-types.php:86
+msgctxt "add new on admin bar"
+msgid "Estimate"
+msgstr "Beräknade"
+
+#: includes/class-lbi-post-types.php:87
+msgctxt "Estimate"
+msgid "Add New"
+msgstr "Lägg till ny"
+
+#: includes/class-lbi-post-types.php:88
+msgid "Add New Estimate"
+msgstr "Lägg till ny offert"
+
+#: includes/class-lbi-post-types.php:89
+msgid "New Estimate"
+msgstr "Ny offert"
+
+#: includes/class-lbi-post-types.php:90
+msgid "Edit Estimate"
+msgstr "Ändra offert"
+
+#: includes/class-lbi-post-types.php:91
+msgid "View Estimate"
+msgstr "Visa offert"
+
+#: includes/class-lbi-post-types.php:92
+msgid "All Estimates"
+msgstr "Alla  offerter"
+
+#: includes/class-lbi-post-types.php:93
+msgid "Search Estimates"
+msgstr "Sök offerter"
+
+#: includes/class-lbi-post-types.php:94
+msgid "Parent Estimates:"
+msgstr "Överordnad offert:"
+
+#: includes/class-lbi-post-types.php:101
+msgid "Little Bot Estimates."
+msgstr "Little Bot Offerter."
+
+#: includes/class-lbi-post-types.php:125 includes/class-lbi-post-types.php:174
+msgid "Draft"
+msgstr "Utkast"
+
+#: includes/class-lbi-post-types.php:130 includes/class-lbi-post-types.php:138
+msgid "Unpaid <span class=\"count\">(%s)</span>"
+msgid_plural "Unpaid <span class=\"count\">(%s)</span>"
+msgstr[0] "Obetald <span class=\"count\">(%s)</span>"
+msgstr[1] "Obetalda <span class=\"count\">(%s)</span>"
+
+#: includes/class-lbi-post-types.php:133
+msgid "Unpaid"
+msgstr "Obetald"
+
+#: includes/class-lbi-post-types.php:141 templates/template-invoice.php:29
+msgid "Paid"
+msgstr "Betald"
+
+#: includes/class-lbi-post-types.php:146
+msgid "Paid <span class=\"count\">(%s)</span>"
+msgid_plural "Paid <span class=\"count\">(%s)</span>"
+msgstr[0] "Betald <span class=\"count\">(%s)</span>"
+msgstr[1] "Obetalda <span class=\"count\">(%s)</span>"
+
+#: includes/class-lbi-post-types.php:149
+msgid "Overdue"
+msgstr "Förfallen"
+
+#: includes/class-lbi-post-types.php:154
+msgid "Overdue <span class=\"count\">(%s)</span>"
+msgid_plural "Overdue <span class=\"count\">(%s)</span>"
+msgstr[0] "Försenad <span class=\"count\">(%s)</span>"
+msgstr[1] "Försenade <span class=\"count\">(%s)</span>"
+
+#: includes/class-lbi-post-types.php:157
+msgid "Voided"
+msgstr "Ogiltigförklarad"
+
+#: includes/class-lbi-post-types.php:162
+msgid "Voided <span class=\"count\">(%s)</span>"
+msgid_plural "Voided <span class=\"count\">(%s)</span>"
+msgstr[0] "Ogiltig <span class=\"count\">(%s)</span>"
+msgstr[1] "Ogiltiga <span class=\"count\">(%s)</span>"
+
+#: includes/class-lbi-post-types.php:179
+msgid "Draft <span class=\"count\">(%s)</span>"
+msgid_plural "Draft <span class=\"count\">(%s)</span>"
+msgstr[0] "Utkast<span class=\"count\">(%s)</span>"
+msgstr[1] "Utkast <span class=\"count\">(%s)</span>"
+
+#: includes/class-lbi-post-types.php:182
+msgid "Pending"
+msgstr "Inväntar"
+
+#: includes/class-lbi-post-types.php:187
+msgid "Pending <span class=\"count\">(%s)</span>"
+msgid_plural "Pending <span class=\"count\">(%s)</span>"
+msgstr[0] "Väntar <span class=\"count\">(%s)</span>"
+msgstr[1] "Väntar <span class=\"count\">(%s)</span>"
+
+#: includes/class-lbi-post-types.php:190 templates/template-estimate.php:25
+msgid "Approved"
+msgstr "Godkänd"
+
+#: includes/class-lbi-post-types.php:195
+msgid "Approved <span class=\"count\">(%s)</span>"
+msgid_plural "Approved <span class=\"count\">(%s)</span>"
+msgstr[0] "Godkänd <span class=\"count\">(%s)</span>"
+msgstr[1] "Godkänd <span class=\"count\">(%s)</span>"
+
+#: includes/class-lbi-post-types.php:198
+msgid "Declined"
+msgstr "Avböjt"
+
+#: includes/class-lbi-post-types.php:203
+msgid "Declined <span class=\"count\">(%s)</span>"
+msgid_plural "Declined <span class=\"count\">(%s)</span>"
+msgstr[0] "Nekad <span class=\"count\">(%s)</span>"
+msgstr[1] "Nekad <span class=\"count\">(%s)</span>"
+
+#: includes/class-lbi-send-doc.php:46
+msgid "Send to Client"
+msgstr "Skicka till klienten"
+
+#: includes/class-lbi-settings-api.php:325
+msgid "Choose File"
+msgstr "Välj en fil"
+
+#: includes/class-lbi-settings.php:76
+msgid "General Settings"
+msgstr "Allmänna inställningar"
+
+#: includes/class-lbi-settings.php:80
+msgid "Business"
+msgstr "Företag"
+
+#: includes/class-lbi-settings.php:84
+msgid "Estimates"
+msgstr "Offerter"
+
+#: includes/class-lbi-settings.php:88
+msgid "Invoices"
+msgstr "Fakturor"
+
+#: includes/class-lbi-settings.php:92
+msgid "Emails"
+msgstr "E-post meddelanden"
+
+#: includes/class-lbi-settings.php:96
+msgid "Payments"
+msgstr "Betalningar"
+
+#: includes/class-lbi-settings.php:112
+msgid "Currency Symbol"
+msgstr "Valutasymbol"
+
+#: includes/class-lbi-settings.php:113
+msgid "USD is <code>$</code>"
+msgstr "USD är <code>$</code>"
+
+#: includes/class-lbi-settings.php:120
+msgid "Currency Code"
+msgstr "Valutakod"
+
+#: includes/class-lbi-settings.php:128
+msgid "Currency Position"
+msgstr "Valutaposition"
+
+#: includes/class-lbi-settings.php:140
+msgid "Thousand Separator"
+msgstr "Avgränsare för tusental"
+
+#: includes/class-lbi-settings.php:141
+msgid ""
+"The character that's used to separate displayed prices ex: <code>100,000</"
+"code>"
+msgstr ""
+"Tecken som används för att separera visade priser tex: <code>100,000</code>"
+
+#: includes/class-lbi-settings.php:149
+msgid "Decimal Separator"
+msgstr "Avgränsare för decimal"
+
+#: includes/class-lbi-settings.php:150
+msgid ""
+"The decimal that's used to separate displayed prices ex: <code>1000.00</code>"
+msgstr ""
+"Decimalen som används för att separera visade priser tex: <code>100.000</"
+"code>"
+
+#: includes/class-lbi-settings.php:158
+msgid "Number of Decimals"
+msgstr "Antal decimaler"
+
+#: includes/class-lbi-settings.php:159
+msgid ""
+"The number of decimals to use when displaying prices ex: 2 = <code>100.00</"
+"code>"
+msgstr ""
+"Antal decimaler som ska användas vid visning av priser tex: 2 = "
+"<code>100.00</code>"
+
+#: includes/class-lbi-settings.php:169
+msgid "Business Logo"
+msgstr "Företags logotyp"
+
+#: includes/class-lbi-settings.php:176
+msgid "Business Name"
+msgstr "Företagsnamn"
+
+#: includes/class-lbi-settings.php:185
+msgid "Address"
+msgstr "Adress"
+
+#: includes/class-lbi-settings.php:192
+msgid "Business Email"
+msgstr "Företagets e-postadress"
+
+#: includes/class-lbi-settings.php:193
+msgid "This email will send notification to your clients"
+msgstr "Detta mail kommer att skicka  en notis till dina kunder"
+
+#: includes/class-lbi-settings.php:204 includes/class-lbi-settings.php:222
+#: includes/class-lbi-terms-metabox.php:46
+msgid "Terms &amp; Conditions"
+msgstr "Regler &amp; villkor"
+
+#: includes/class-lbi-settings.php:240
+msgid "Send HTML emails"
+msgstr "Skicka HTML-epost"
+
+#: includes/class-lbi-settings.php:241
+msgid "Check to send HTML emails. Otherwise, emails are sent as plain text."
+msgstr ""
+"Kryssa i för att skicka e-post i HTML format. Annars skickas de som ren text."
+
+#: includes/class-lbi-settings.php:246
+msgid "Token Key"
+msgstr "Token nyckel"
+
+#: includes/class-lbi-settings.php:252
+msgid "New Estimate Subject"
+msgstr "Ny offert rubruk"
+
+#: includes/class-lbi-settings.php:261
+msgid "New Estimate Body"
+msgstr "Ny offert innehåll"
+
+#: includes/class-lbi-settings.php:269
+msgid "New Invoice Subject"
+msgstr "Ny faktura rubrik"
+
+#: includes/class-lbi-settings.php:278
+msgid "New Invoice Body"
+msgstr "Ny faktura innehåll"
+
+#: includes/class-lbi-settings.php:286
+msgid "Invoice Overdue Subject"
+msgstr "Förfallen faktura rubrik"
+
+#: includes/class-lbi-settings.php:295
+msgid "Invoice Overdue Body"
+msgstr "Förfallen faktura innehåll"
+
+#: includes/class-lbi-settings.php:305
+msgid "Enable PayPal Standard"
+msgstr "Aktivera Paypal Standard"
+
+#: includes/class-lbi-settings.php:306
+msgid ""
+"Enables offsite credit card checkout by PayPal. Can be used in conjunction "
+"with payment gateways."
+msgstr ""
+"Aktiverar extern betalning med kontokort via Paypal. Kan användas "
+"tillsammans med betalningsmoduler."
+
+#: includes/class-lbi-settings.php:311
+msgid "Paypal Email"
+msgstr "Paypal e-postadress"
+
+#: includes/class-lbi-settings.php:312
+msgid "Email you would like money sent to"
+msgstr "E-post adress som du vill ha pengarna skickade till"
+
+#: includes/class-lbi-settings.php:320
+msgid "PayPal Environment"
+msgstr "Paypal-miljö"
+
+#: includes/class-lbi-settings.php:321
+msgid "Live or Test mode?"
+msgstr "Live eller test läge?"
+
+#: includes/class-lbi-settings.php:328
+msgid "Payment Gateways"
+msgstr "Betalmoduler"
+
+#: includes/class-lbi-settings.php:329
+msgid "Who should process payments?"
+msgstr "Vem  ska bearbeta betalningar?"
+
+#: includes/lbi-template-tags.php:280
+msgid "Pending Payment"
+msgstr "Väntar på betalning"
+
+#: includes/lbi-template-tags.php:282
+msgid "Pay Invoice"
+msgstr "Betala faktura"
+
+#: little-bot-invoices.php:97 little-bot-invoices.php:109
+msgid "Cheatin&#8217; huh?"
+msgstr "Fuskar du, va?"
+
+#: templates/template-doc-draft.php:12
+msgid "Oops."
+msgstr "Oops."
+
+#: templates/template-estimate.php:13
+msgid "Estimate %s"
+msgstr "Offert  %s"
+
+#: templates/template-estimate.php:20
+msgid "Accept Estimate"
+msgstr "Acceptera offert"
+
+#: templates/template-estimate.php:21
+msgid "Decline Estimate"
+msgstr "Neka offert"
+
+#: templates/template-estimate.php:23
+msgid ""
+"Estimate is currently a draft. Change to pending to show approve & decline "
+"actions."
+msgstr ""
+"Offerten är för närvarande i utkast. Byt till väntar för  visa godkänn & "
+"avvisa åtgärder."
+
+#: templates/template-estimate.php:41
+msgid "Date"
+msgstr "Datum"
+
+#: templates/template-estimate.php:42
+msgid "Valid Until"
+msgstr "Gäller tom"
+
+#: templates/template-estimate.php:43
+msgid "Estimate Number"
+msgstr "Offert nummer"
+
+#: templates/template-estimate.php:44
+msgid "Estimate Total %s"
+msgstr "Offert summa %s"
+
+#: templates/template-invoice.php:14
+msgid "Invoice %s"
+msgstr "Faktura: %s"
+
+#: templates/template-invoice.php:31
+msgid "Invoice is currently a draft."
+msgstr "Fakturan är för närvarande ett utkast."
+
+#: templates/template-invoice.php:49
+msgid "Due Date"
+msgstr "Förfallodag"
+
+#: templates/template-invoice.php:51
+msgid "Issued Date"
+msgstr "Utfärdat datum"
+
+#: templates/template-invoice.php:52
+msgid "Invoice Number"
+msgstr "Fakturanummer"
+
+#: templates/template-invoice.php:53
+msgid "Invoice Total %s"
+msgstr "Faktura summa %s"
+
+#: views/html-estimate-invoice-details.php:43
+msgid "Don't send overdue email to client"
+msgstr "Skicka inte förfallo mail till klienten"
+
+#. translators: Publish box date format, see http://php.net/date
+#: views/html-estimate-invoice-details.php:78
+msgid "M j, Y @ G:i"
+msgstr "M j, Y @ G:i"
+
+#: views/html-estimate-invoice-details.php:80
+msgid "Issued: <b>%1$s</b>"
+msgstr "Utfärdat: <b>%1$s</b>"
+
+#: views/html-estimate-invoice-details.php:83
+msgid "issue <b>add date here</b>"
+msgstr "utfärda <blLägg till datum här</b>"
+
+#: views/html-estimate-invoice-details.php:90
+msgid "Edit"
+msgstr "Ändra"
+
+#: views/html-estimate-invoice-details.php:150
+msgid "Delete Permanently"
+msgstr "Ta bort permanent"
+
+#: views/html-estimate-invoice-details.php:152
+msgid "Move to Trash"
+msgstr "Flytta till papperskorgen"
+
+#: views/html-estimate-invoice-details.php:161
+msgid "Submit for Review"
+msgstr "Skicka för genomgång"
+
+#: views/html-estimate-invoice-details.php:162
+msgid "Save Invoice"
+msgstr "Spara fakturan"
+
+#: views/html-estimate-invoice-details.php:164
+msgid "Update"
+msgstr "Uppdatera"
+
+#: views/html-estimate-invoice-details.php:165
+msgid "Update Invoice"
+msgstr "Uppdatera fakturan"
+
+#. Plugin Name of the plugin/theme
+msgid "LittleBot Invoices"
+msgstr "LittleBot fakturor"
+
+#. Plugin URI of the plugin/theme
+#. Author URI of the plugin/theme
+msgid "https://littlebot.io"
+msgstr "https://littlebot.io"
+
+#. Description of the plugin/theme
+msgid "Easily create and send estimates and invoices for your business."
+msgstr "Skapa och skicka offerter och fakturor enkelt för ditt företag."
+
+#. Author of the plugin/theme
+msgid "Justin W Hall"
+msgstr "Justin W Hall"

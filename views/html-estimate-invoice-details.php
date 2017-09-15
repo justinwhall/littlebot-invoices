@@ -100,11 +100,11 @@
 			<!-- Due/valid until date -->
 			<?php
 
-				if ( $post->post_type == 'lb_invoice' ) {
-					$date_stamp = littlebot_get_invoice_due_date();
-				} else {
-					$date_stamp = littlebot_get_estimate_valid_until();
-				}
+			if ( $post->post_type == 'lb_invoice' ) {
+				$date_stamp = littlebot_get_invoice_due_date();
+			} else {
+				$date_stamp = littlebot_get_estimate_valid_until();
+			}
 
 			?>
 
