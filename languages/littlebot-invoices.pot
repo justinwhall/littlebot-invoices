@@ -1,35 +1,43 @@
-# Copyright (C) 2017 LittleBot Invoices
-# This file is distributed under the same license as the LittleBot Invoices package.
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: LittleBot Invoices 2.0.0\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/littlebot-"
-"invoices\n"
-"POT-Creation-Date: 2017-03-02 15:53:00+00:00\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: LittleBot Invoices\n"
+"POT-Creation-Date: 2017-09-14 21:53-0600\n"
+"PO-Revision-Date: 2017-09-14 21:50-0600\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2017-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"X-Generator: Poedit 2.0.3\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: little-bot-invoices.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
 
-#: includes/class-lbi-activate-deactivate.php:93
+#: includes/class-lbi-activate-deactivate.php:97
 msgid "Every 15 Minutes"
 msgstr ""
 
-#: includes/class-lbi-columns.php:89
+#: includes/class-lbi-columns.php:88
 msgid "Status"
 msgstr ""
 
-#: includes/class-lbi-columns.php:90
+#: includes/class-lbi-columns.php:89
 msgid "Issued"
 msgstr ""
 
-#: includes/class-lbi-columns.php:91
+#: includes/class-lbi-columns.php:90 views/html-estimate-invoice-details.php:35
 msgid "Client"
 msgstr ""
 
-#: includes/class-lbi-columns.php:92
+#: includes/class-lbi-columns.php:91 templates/template-line-items.php:8
 msgid "Amount"
 msgstr ""
 
@@ -42,16 +50,21 @@ msgstr ""
 msgid "Log"
 msgstr ""
 
-#: includes/class-lbi-log.php:113
+#: includes/class-lbi-log.php:145
 msgid "Client Payment"
 msgstr ""
 
 #: includes/class-lbi-notes-metabox.php:47 includes/class-lbi-settings.php:212
-#: includes/class-lbi-settings.php:230
+#: includes/class-lbi-settings.php:236
 msgid "Notes"
 msgstr ""
 
+#: includes/class-lbi-post-details.php:47
+msgid " Details"
+msgstr ""
+
 #: includes/class-lbi-post-line-items.php:47
+#: templates/template-line-items.php:4
 msgid "Line Items"
 msgstr ""
 
@@ -174,7 +187,7 @@ msgid "Parent Estimates:"
 msgstr ""
 
 #: includes/class-lbi-post-types.php:101
-msgid "Little Bot Estimates."
+msgid "LittleBot Estimates."
 msgstr ""
 
 #: includes/class-lbi-post-types.php:125 includes/class-lbi-post-types.php:174
@@ -182,20 +195,22 @@ msgid "Draft"
 msgstr ""
 
 #: includes/class-lbi-post-types.php:130 includes/class-lbi-post-types.php:138
+#, php-format
 msgid "Unpaid <span class=\"count\">(%s)</span>"
 msgid_plural "Unpaid <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
-#: includes/class-lbi-post-types.php:133
+#: includes/class-lbi-post-types.php:133 templates/template-invoice.php:30
 msgid "Unpaid"
 msgstr ""
 
-#: includes/class-lbi-post-types.php:141 templates/template-invoice.php:29
+#: includes/class-lbi-post-types.php:141 templates/template-invoice.php:39
 msgid "Paid"
 msgstr ""
 
 #: includes/class-lbi-post-types.php:146
+#, php-format
 msgid "Paid <span class=\"count\">(%s)</span>"
 msgid_plural "Paid <span class=\"count\">(%s)</span>"
 msgstr[0] ""
@@ -206,6 +221,7 @@ msgid "Overdue"
 msgstr ""
 
 #: includes/class-lbi-post-types.php:154
+#, php-format
 msgid "Overdue <span class=\"count\">(%s)</span>"
 msgid_plural "Overdue <span class=\"count\">(%s)</span>"
 msgstr[0] ""
@@ -216,12 +232,14 @@ msgid "Voided"
 msgstr ""
 
 #: includes/class-lbi-post-types.php:162
+#, php-format
 msgid "Voided <span class=\"count\">(%s)</span>"
 msgid_plural "Voided <span class=\"count\">(%s)</span>"
 msgstr[0] ""
 msgstr[1] ""
 
 #: includes/class-lbi-post-types.php:179
+#, php-format
 msgid "Draft <span class=\"count\">(%s)</span>"
 msgid_plural "Draft <span class=\"count\">(%s)</span>"
 msgstr[0] ""
@@ -232,6 +250,7 @@ msgid "Pending"
 msgstr ""
 
 #: includes/class-lbi-post-types.php:187
+#, php-format
 msgid "Pending <span class=\"count\">(%s)</span>"
 msgid_plural "Pending <span class=\"count\">(%s)</span>"
 msgstr[0] ""
@@ -242,6 +261,7 @@ msgid "Approved"
 msgstr ""
 
 #: includes/class-lbi-post-types.php:195
+#, php-format
 msgid "Approved <span class=\"count\">(%s)</span>"
 msgid_plural "Approved <span class=\"count\">(%s)</span>"
 msgstr[0] ""
@@ -252,6 +272,7 @@ msgid "Declined"
 msgstr ""
 
 #: includes/class-lbi-post-types.php:203
+#, php-format
 msgid "Declined <span class=\"count\">(%s)</span>"
 msgid_plural "Declined <span class=\"count\">(%s)</span>"
 msgstr[0] ""
@@ -354,90 +375,98 @@ msgstr ""
 msgid "This email will send notification to your clients"
 msgstr ""
 
-#: includes/class-lbi-settings.php:204 includes/class-lbi-settings.php:222
+#: includes/class-lbi-settings.php:204 includes/class-lbi-settings.php:228
 #: includes/class-lbi-terms-metabox.php:46
 msgid "Terms &amp; Conditions"
 msgstr ""
 
-#: includes/class-lbi-settings.php:240
-msgid "Send HTML emails"
+#: includes/class-lbi-settings.php:222
+msgid "Hide PDF"
 msgstr ""
 
-#: includes/class-lbi-settings.php:241
-msgid "Check to send HTML emails. Otherwise, emails are sent as plain text."
+#: includes/class-lbi-settings.php:223
+msgid "Hides the PDF download button on invoices if checked."
 msgstr ""
 
 #: includes/class-lbi-settings.php:246
-msgid "Token Key"
+msgid "Send HTML emails"
+msgstr ""
+
+#: includes/class-lbi-settings.php:247
+msgid "Check to send HTML emails. Otherwise, emails are sent as plain text."
 msgstr ""
 
 #: includes/class-lbi-settings.php:252
+msgid "Token Key"
+msgstr ""
+
+#: includes/class-lbi-settings.php:258
 msgid "New Estimate Subject"
 msgstr ""
 
-#: includes/class-lbi-settings.php:261
+#: includes/class-lbi-settings.php:267
 msgid "New Estimate Body"
 msgstr ""
 
-#: includes/class-lbi-settings.php:269
+#: includes/class-lbi-settings.php:275
 msgid "New Invoice Subject"
 msgstr ""
 
-#: includes/class-lbi-settings.php:278
+#: includes/class-lbi-settings.php:284
 msgid "New Invoice Body"
 msgstr ""
 
-#: includes/class-lbi-settings.php:286
+#: includes/class-lbi-settings.php:292
 msgid "Invoice Overdue Subject"
 msgstr ""
 
-#: includes/class-lbi-settings.php:295
+#: includes/class-lbi-settings.php:301
 msgid "Invoice Overdue Body"
 msgstr ""
 
-#: includes/class-lbi-settings.php:305
+#: includes/class-lbi-settings.php:311
 msgid "Enable PayPal Standard"
 msgstr ""
 
-#: includes/class-lbi-settings.php:306
+#: includes/class-lbi-settings.php:312
 msgid ""
 "Enables offsite credit card checkout by PayPal. Can be used in conjunction "
 "with payment gateways."
 msgstr ""
 
-#: includes/class-lbi-settings.php:311
+#: includes/class-lbi-settings.php:317
 msgid "Paypal Email"
 msgstr ""
 
-#: includes/class-lbi-settings.php:312
+#: includes/class-lbi-settings.php:318
 msgid "Email you would like money sent to"
 msgstr ""
 
-#: includes/class-lbi-settings.php:320
+#: includes/class-lbi-settings.php:326
 msgid "PayPal Environment"
 msgstr ""
 
-#: includes/class-lbi-settings.php:321
+#: includes/class-lbi-settings.php:327
 msgid "Live or Test mode?"
 msgstr ""
 
-#: includes/class-lbi-settings.php:328
+#: includes/class-lbi-settings.php:334
 msgid "Payment Gateways"
 msgstr ""
 
-#: includes/class-lbi-settings.php:329
+#: includes/class-lbi-settings.php:335
 msgid "Who should process payments?"
 msgstr ""
 
-#: includes/lbi-template-tags.php:280
+#: includes/lbi-template-tags.php:293
 msgid "Pending Payment"
 msgstr ""
 
-#: includes/lbi-template-tags.php:282
+#: includes/lbi-template-tags.php:295
 msgid "Pay Invoice"
 msgstr ""
 
-#: little-bot-invoices.php:97 little-bot-invoices.php:109
+#: little-bot-invoices.php:132 little-bot-invoices.php:144
 msgid "Cheatin&#8217; huh?"
 msgstr ""
 
@@ -445,7 +474,12 @@ msgstr ""
 msgid "Oops."
 msgstr ""
 
+#: templates/template-doc-draft.php:13
+msgid "This document is currently a draft."
+msgstr ""
+
 #: templates/template-estimate.php:13
+#, php-format
 msgid "Estimate %s"
 msgstr ""
 
@@ -472,79 +506,135 @@ msgid "Valid Until"
 msgstr ""
 
 #: templates/template-estimate.php:43
+#: views/html-estimate-invoice-details.php:71
 msgid "Estimate Number"
 msgstr ""
 
 #: templates/template-estimate.php:44
+#, php-format
 msgid "Estimate Total %s"
 msgstr ""
 
-#: templates/template-invoice.php:14
+#: templates/template-invoice.php:19
+#, php-format
 msgid "Invoice %s"
 msgstr ""
 
-#: templates/template-invoice.php:31
+#: templates/template-invoice.php:23
+msgid "PDF"
+msgstr ""
+
+#: templates/template-invoice.php:36
+msgid "Over Due"
+msgstr ""
+
+#: templates/template-invoice.php:41
 msgid "Invoice is currently a draft."
 msgstr ""
 
-#: templates/template-invoice.php:49
+#: templates/template-invoice.php:59 views/pdf-invoice.php:54
 msgid "Due Date"
 msgstr ""
 
-#: templates/template-invoice.php:51
+#: templates/template-invoice.php:61 views/pdf-invoice.php:59
 msgid "Issued Date"
 msgstr ""
 
-#: templates/template-invoice.php:52
+#: templates/template-invoice.php:62 views/html-estimate-invoice-details.php:57
+#: views/pdf-invoice.php:64
 msgid "Invoice Number"
 msgstr ""
 
-#: templates/template-invoice.php:53
+#: templates/template-invoice.php:63 views/pdf-invoice.php:70
+#, php-format
 msgid "Invoice Total %s"
 msgstr ""
 
-#: views/html-estimate-invoice-details.php:43
+#: templates/template-line-items.php:5
+msgid "Rate"
+msgstr ""
+
+#: templates/template-line-items.php:6
+msgid "Qty"
+msgstr ""
+
+#: templates/template-totals.php:11 views/pdf-invoice.php:80
+msgid "Sub Total"
+msgstr ""
+
+#: templates/template-totals.php:13 views/html-estimate-invoice-details.php:78
+#: views/pdf-invoice.php:85
+msgid "Tax"
+msgstr ""
+
+#: templates/template-totals.php:15 views/pdf-invoice.php:90
+msgid "Total"
+msgstr ""
+
+#: views/html-estimate-invoice-details.php:14
+msgid "Download PDF"
+msgstr ""
+
+#: views/html-estimate-invoice-details.php:49
 msgid "Don't send overdue email to client"
 msgstr ""
 
+#: views/html-estimate-invoice-details.php:63
+msgid "P.O. Number"
+msgstr ""
+
 #. translators: Publish box date format, see http://php.net/date
-#: views/html-estimate-invoice-details.php:78
+#: views/html-estimate-invoice-details.php:84
 msgid "M j, Y @ G:i"
 msgstr ""
 
-#: views/html-estimate-invoice-details.php:80
+#: views/html-estimate-invoice-details.php:86
+#, php-format
 msgid "Issued: <b>%1$s</b>"
 msgstr ""
 
-#: views/html-estimate-invoice-details.php:83
+#: views/html-estimate-invoice-details.php:89
 msgid "issue <b>add date here</b>"
 msgstr ""
 
-#: views/html-estimate-invoice-details.php:90
+#: views/html-estimate-invoice-details.php:96
+#: views/html-estimate-invoice-details.php:117
 msgid "Edit"
 msgstr ""
 
-#: views/html-estimate-invoice-details.php:150
-msgid "Delete Permanently"
+#: views/html-estimate-invoice-details.php:117
+msgid "Edit due date and time"
 msgstr ""
 
-#: views/html-estimate-invoice-details.php:152
-msgid "Move to Trash"
+#: views/html-estimate-invoice-details.php:147
+msgid "OK"
 msgstr ""
 
-#: views/html-estimate-invoice-details.php:161
-msgid "Submit for Review"
-msgstr ""
-
-#: views/html-estimate-invoice-details.php:162
-msgid "Save Invoice"
-msgstr ""
-
-#: views/html-estimate-invoice-details.php:164
-msgid "Update"
+#: views/html-estimate-invoice-details.php:148
+msgid "Cancel"
 msgstr ""
 
 #: views/html-estimate-invoice-details.php:165
+msgid "Delete Permanently"
+msgstr ""
+
+#: views/html-estimate-invoice-details.php:167
+msgid "Move to Trash"
+msgstr ""
+
+#: views/html-estimate-invoice-details.php:176
+msgid "Submit for Review"
+msgstr ""
+
+#: views/html-estimate-invoice-details.php:177
+msgid "Save Invoice"
+msgstr ""
+
+#: views/html-estimate-invoice-details.php:179
+msgid "Update"
+msgstr ""
+
+#: views/html-estimate-invoice-details.php:180
 msgid "Update Invoice"
 msgstr ""
 
@@ -552,9 +642,7 @@ msgstr ""
 msgid "LittleBot Invoices"
 msgstr ""
 
-#. #-#-#-#-#  plugin.pot (LittleBot Invoices 2.0.0)  #-#-#-#-#
 #. Plugin URI of the plugin/theme
-#. #-#-#-#-#  plugin.pot (LittleBot Invoices 2.0.0)  #-#-#-#-#
 #. Author URI of the plugin/theme
 msgid "https://littlebot.io"
 msgstr ""

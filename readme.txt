@@ -34,6 +34,7 @@ Visit our [website](https://littlebot.io/littlebot-invoices/) for screenshots.
 
 = 2.4.3 =
 * FIX - Estimate valid until defaults to 30 days from creation
+* NEW - updated POT file
 
 = 2.4.2 =
 * CHANGE - Remove Freemius Menu Item

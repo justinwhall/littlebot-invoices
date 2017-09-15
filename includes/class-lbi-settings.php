@@ -118,7 +118,7 @@ class LBI_Settings {
 					array(
 						'name'              => 'currency_code',
 						'label'             => __( 'Currency Code', 'littlebot-invoices' ),
-						'desc'              => __( '', 'littlebot-invoices' ),
+						'desc'              => '',
 						'type'              => 'text',
 						'default'           => 'USD',
 						'sanitize_callback' => 'sanitize_text_field'
@@ -126,7 +126,7 @@ class LBI_Settings {
 					array(
 						'name'    => 'currency_position',
 						'label'   => __( 'Currency Position', 'littlebot-invoices' ),
-						'desc'    => __( '', 'littlebot-invoices' ),
+						'desc'    => '',
 						'type'    => 'select',
 						'options' => array(
 								'left' => 'Left ($99.99)',
@@ -139,7 +139,7 @@ class LBI_Settings {
 						'name'              => 'thousand_sep',
 						'label'             => __( 'Thousand Separator', 'littlebot-invoices' ),
 						'desc'              => __( 'The character that\'s used to separate displayed prices ex: <code>100,000</code>', 'littlebot-invoices' ),
-						'placeholder'       => __( '', 'littlebot-invoices' ),
+						'placeholder'       => '',
 						'type'              => 'text',
 						'default'           => ',',
 						'sanitize_callback' => 'sanitize_text_field'
@@ -148,7 +148,7 @@ class LBI_Settings {
 						'name'              => 'decimal_sep',
 						'label'             => __( 'Decimal Separator', 'littlebot-invoices' ),
 						'desc'              => __( 'The decimal that\'s used to separate displayed prices ex: <code>1000.00</code>', 'littlebot-invoices' ),
-						'placeholder'       => __( '', 'littlebot-invoices' ),
+						'placeholder'       => '',
 						'type'              => 'text',
 						'default'           => '.',
 						'sanitize_callback' => 'sanitize_text_field'
@@ -157,7 +157,7 @@ class LBI_Settings {
 						'name'              => 'decimal_num',
 						'label'             => __( 'Number of Decimals', 'littlebot-invoices' ),
 						'desc'              => __( 'The number of decimals to use when displaying prices ex: 2 = <code>100.00</code>', 'littlebot-invoices' ),
-						'placeholder'       => __( '', 'littlebot-invoices' ),
+						'placeholder'       => '',
 						'type'              => 'text',
 						'default'           => 2,
 						'sanitize_callback' => 'sanitize_text_field'
@@ -167,15 +167,15 @@ class LBI_Settings {
 					array(
 						'name'              => 'logo',
 						'label'             => __( 'Business Logo', 'littlebot-invoices' ),
-						'desc'              => __( '', 'littlebot-invoices' ),
-						'placeholder'       => __( '', 'littlebot-invoices' ),
+						'desc'              => '',
+						'placeholder'       => '',
 						'type'              => 'file'
 					),
 					array(
 						'name'              => 'business_name',
 						'label'             => __( 'Business Name', 'littlebot-invoices' ),
-						'desc'              => __( '', 'littlebot-invoices' ),
-						'placeholder'       => __( '', 'littlebot-invoices' ),
+						'desc'              => '',
+						'placeholder'       => '',
 						'type'              => 'text',
 						'default'           => get_bloginfo( 'name' ),
 						'sanitize_callback' => 'sanitize_text_field'
@@ -183,15 +183,15 @@ class LBI_Settings {
 					array(
 						'name'              => 'address',
 						'label'             => __( 'Address', 'littlebot-invoices' ),
-						'desc'              => __( '', 'littlebot-invoices' ),
-						'placeholder'       => __( '', 'littlebot-invoices' ),
+						'desc'              => '',
+						'placeholder'       => '',
 						'type'              => 'textarea'
 					),
 					array(
 						'name'              => 'business_email',
 						'label'             => __( 'Business Email', 'littlebot-invoices' ),
 						'desc'              => __( 'This email will send notification to your clients', 'littlebot-invoices' ),
-						'placeholder'       => __( '', 'littlebot-invoices' ),
+						'placeholder'       => '',
 						'type'              => 'text',
 						'default'           => '',
 						'sanitize_callback' => 'sanitize_text_field'
@@ -202,16 +202,16 @@ class LBI_Settings {
 					array(
 						'name'              => 'terms',
 						'label'             => __( 'Terms &amp; Conditions', 'littlebot-invoices' ),
-						'desc'              => __( '', 'littlebot-invoices' ),
-						'placeholder'       => __( '', 'littlebot-invoices' ),
+						'desc'              => '',
+						'placeholder'       => '',
 						'type'              => 'wysiwyg',
 						'default'           => ''
 					),
 					array(
 						'name'              => 'notes',
 						'label'             => __( 'Notes', 'littlebot-invoices' ),
-						'desc'              => __( '', 'littlebot-invoices' ),
-						'placeholder'       => __( '', 'littlebot-invoices' ),
+						'desc'              => '',
+						'placeholder'       => '',
 						'type'              => 'wysiwyg',
 						'default'           => ''
 					)
@@ -226,16 +226,16 @@ class LBI_Settings {
 					array(
 						'name'              => 'terms',
 						'label'             => __( 'Terms &amp; Conditions', 'littlebot-invoices' ),
-						'desc'              => __( '', 'littlebot-invoices' ),
-						'placeholder'       => __( '', 'littlebot-invoices' ),
+						'desc'              => '',
+						'placeholder'       => '',
 						'type'              => 'wysiwyg',
 						'default'           => ''
 					),
 					array(
 						'name'              => 'notes',
 						'label'             => __( 'Notes', 'littlebot-invoices' ),
-						'desc'              => __( '', 'littlebot-invoices' ),
-						'placeholder'       => __( '', 'littlebot-invoices' ),
+						'desc'              => '',
+						'placeholder'       => '',
 						'type'              => 'wysiwyg',
 						'default'           => ''
 					)
@@ -256,8 +256,8 @@ class LBI_Settings {
 					array(
 						'name'              => 'estimate_new_subject',
 						'label'             => __( 'New Estimate Subject', 'littlebot-invoices' ),
-						'desc'              => __( '', 'littlebot-invoices' ),
-						'placeholder'       => __( '', 'littlebot-invoices' ),
+						'desc'              => '',
+						'placeholder'       => '',
 						'type'              => 'text',
 						'default'           => '',
 						'sanitize_callback' => 'sanitize_text_field'
@@ -265,16 +265,16 @@ class LBI_Settings {
 					array(
 						'name'              => 'estimate_new_body',
 						'label'             => __( 'New Estimate Body', 'littlebot-invoices' ),
-						'desc'              => __( '', 'littlebot-invoices' ),
-						'placeholder'       => __( '', 'littlebot-invoices' ),
+						'desc'              => '',
+						'placeholder'       => '',
 						'type'              => 'wysiwyg',
 						'default'           => ''
 					),
 					array(
 						'name'              => 'invoice_new_subject',
 						'label'             => __( 'New Invoice Subject', 'littlebot-invoices' ),
-						'desc'              => __( '', 'littlebot-invoices' ),
-						'placeholder'       => __( '', 'littlebot-invoices' ),
+						'desc'              => '',
+						'placeholder'       => '',
 						'type'              => 'text',
 						'default'           => '',
 						'sanitize_callback' => 'sanitize_text_field'
@@ -282,16 +282,16 @@ class LBI_Settings {
 					array(
 						'name'              => 'invoice_new_body',
 						'label'             => __( 'New Invoice Body', 'littlebot-invoices' ),
-						'desc'              => __( '', 'littlebot-invoices' ),
-						'placeholder'       => __( '', 'littlebot-invoices' ),
+						'desc'              => '',
+						'placeholder'       => '',
 						'type'              => 'wysiwyg',
 						'default'           => ''
 					),
 					array(
 						'name'              => 'invoice_overdue_subject',
 						'label'             => __( 'Invoice Overdue Subject', 'littlebot-invoices' ),
-						'desc'              => __( '', 'littlebot-invoices' ),
-						'placeholder'       => __( '', 'littlebot-invoices' ),
+						'desc'              => '',
+						'placeholder'       => '',
 						'type'              => 'text',
 						'default'           => '',
 						'sanitize_callback' => 'sanitize_text_field'
@@ -299,8 +299,8 @@ class LBI_Settings {
 					array(
 						'name'              => 'invoice_overdue_body',
 						'label'             => __( 'Invoice Overdue Body', 'littlebot-invoices' ),
-						'desc'              => __( '', 'littlebot-invoices' ),
-						'placeholder'       => __( '', 'littlebot-invoices' ),
+						'desc'              => '',
+						'placeholder'       => '',
 						'type'              => 'wysiwyg',
 						'default'           => ''
 					)
@@ -316,7 +316,7 @@ class LBI_Settings {
 						'name'              => 'paypal_email',
 						'label'             => __( 'Paypal Email', 'littlebot-invoices' ),
 						'desc'              => __( 'Email you would like money sent to', 'littlebot-invoices' ),
-						'placeholder'       => __( '', 'littlebot-invoices' ),
+						'placeholder'       => '',
 						'type'              => 'text',
 						'default'           => '',
 						'sanitize_callback' => 'sanitize_text_field'
@@ -325,7 +325,7 @@ class LBI_Settings {
 							'name'              => 'paypal_environment',
 							'label'             => __( 'PayPal Environment', 'littlebot-invoices' ),
 							'desc'              => __( 'Live or Test mode?', 'littlebot-invoices' ),
-							'placeholder'       => __( '', 'littlebot-invoices' ),
+							'placeholder'       => '',
 							'type'              => 'radio',
 							'options'           => array( 'live' => 'Live', 'test' => 'Test')
 					),

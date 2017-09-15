@@ -27,13 +27,13 @@
 
 							<?php do_action('littlebot_payment_form'); ?>
 
-							<span class="pending-payment">Unpaid</span>
+							<span class="pending-payment"><?php esc_html_e( 'Unpaid', 'littebot-invoices' ); ?></span>
 
 						<?php elseif ( get_post_status( get_the_ID() ) == 'lb-overdue' ) : ?>
 
 							<?php do_action('littlebot_payment_form'); ?>
 
-							<span class="pending-payment">Overdue</span>
+							<span class="pending-payment"><?php esc_html_e( 'Over Due', 'littebot-invoices' ); ?></span>
 
 						<?php elseif ( get_post_status( get_the_ID() ) == 'lb-paid' ) : ?>
 							<span class="paid"><?php esc_html_e( 'Paid', 'littebot-invoices' ) ; ?></span>

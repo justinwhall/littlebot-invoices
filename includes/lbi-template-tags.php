@@ -49,7 +49,7 @@ if ( ! function_exists( 'littlebot_notes' ) ) :
 		if ( !strlen( get_post_meta( $post_id, '_notes', true ) ) ) return;
 
 		$html = '<div class="lb-notes">';
-		$html .= '<div><strong>Notes:</strong></div>';
+		$html .= '<div><strong>' . __('Notes', 'littlebot-invoices') . ':</strong></div>';
 		$html .= get_post_meta( $post_id, '_notes', true );
 		$html .= '</div>';
 		echo apply_filters( 'littlebot_notes', $html );
