@@ -32,6 +32,9 @@ Visit our [website](https://littlebot.io/littlebot-invoices/) for screenshots.
 
 == Changelog ==
 
+= 2.5.0 =
+* NEW - Turn payment buttons off/on per invoice
+
 = 2.4.3 =
 * FIX - Estimate valid until defaults to 30 days from creation
 * NEW - updated POT file

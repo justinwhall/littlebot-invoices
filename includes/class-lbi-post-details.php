@@ -78,37 +78,40 @@ class LBI_Invoice_Details extends LBI_Admin_Post {
 		$nonce_name   = isset( $_POST['custom_nonce'] ) ? $_POST['custom_nonce'] : '';
 		$nonce_action = 'custom_nonce_action';
 
-		$save = $this->validate_save_action( $nonce_name, $nonce_action, $post_id);
+		$save = $this->validate_save_action( $nonce_name, $nonce_action, $post_id );
 
 		if ( ! $save ) return;
 
 		// If we make this far sanitize & update
 		if ( isset( $_POST['_invoice_number'] ) ) {
-		   update_post_meta( $post_id, '_invoice_number', sanitize_text_field( $_POST['_invoice_number'] ) );
+			update_post_meta( $post_id, '_invoice_number', sanitize_text_field( $_POST['_invoice_number'] ) );
 		}
 
 		if ( isset( $_POST['_estimate_number'] ) ) {
-		   update_post_meta( $post_id, '_estimate_number', sanitize_text_field( $_POST['_estimate_number'] ) );
+			update_post_meta( $post_id, '_estimate_number', sanitize_text_field( $_POST['_estimate_number'] ) );
 		}
 
 		if ( isset( $_POST['_po_number'] ) ) {
-		   update_post_meta( $post_id, '_po_number', sanitize_text_field( $_POST['_po_number'] ) );
+			update_post_meta( $post_id, '_po_number', sanitize_text_field( $_POST['_po_number'] ) );
 		}
 
 		if ( isset( $_POST['_tax_rate'] ) ) {
-		   $tax_rate = $_POST['_tax_rate'];
-		} else{
+			$tax_rate = $_POST['_tax_rate'];
+		} else {
 			$tax_rate = 0;
 		}
 		update_post_meta( $post_id, '_tax_rate', sanitize_text_field( $tax_rate ) );
 
 		if ( isset( $_POST['_client'] ) ) {
-		   update_post_meta( $post_id, '_client', $_POST['_client'] );
+			update_post_meta( $post_id, '_client', $_POST['_client'] );
+		}
+		if ( 'lb_invoice' == get_post_type( $post_id ) ) {
+			update_post_meta( $post_id, '_hide_payment_buttons', $_POST['_hide_payment_buttons'] );
 		}
 
 		// Valid Until & Due date
 		if ( isset( $_POST['due_mm'] ) && isset( $_POST['due_j'] ) && isset( $_POST['due_y'] ) ) {
-			$due_date = strtotime( $_POST['due_mm'] . '/' . $_POST['due_j'] . '/' . $_POST['due_y']  );
+			$due_date = strtotime( $_POST['due_mm'] . '/' . $_POST['due_j'] . '/' . $_POST['due_y'] );
 			$option_key = ( $post->post_type == 'lb_invoice' ) ? '_due_date' : '_valid_until';
 			update_post_meta( $post_id, $option_key, $due_date );
 		}

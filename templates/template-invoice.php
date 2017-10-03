@@ -25,13 +25,13 @@
 
 						<?php if ( get_post_status( get_the_ID() ) == 'lb-unpaid' ) : ?>
 
-							<?php do_action('littlebot_payment_form'); ?>
+							<?php if ( 'on' != get_post_meta( get_the_id(), '_hide_payment_buttons') ) { do_action( 'littlebot_payment_form' ); } ?>
 
 							<span class="pending-payment"><?php esc_html_e( 'Unpaid', 'littebot-invoices' ); ?></span>
 
 						<?php elseif ( get_post_status( get_the_ID() ) == 'lb-overdue' ) : ?>
 
-							<?php do_action('littlebot_payment_form'); ?>
+							<?php if ( 'on' != get_post_meta( get_the_id(), '_hide_payment_buttons') ) { do_action( 'littlebot_payment_form' ); } ?>
 
 							<span class="pending-payment"><?php esc_html_e( 'Over Due', 'littebot-invoices' ); ?></span>
 

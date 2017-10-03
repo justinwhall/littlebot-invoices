@@ -64,6 +64,13 @@
 					<input type="text" name="_po_number" id="lb-po-number" value="<?php echo get_post_meta( get_the_ID(), '_po_number', true ); ?>">
 				</div>
 
+				<div class="misc-pub-section" >
+					<label for="b-hide-payment-buttons">
+						<input type="checkbox" name="_hide_payment_buttons" id="lb-hide-payment-buttons" <?php if ( 'on' == get_post_meta( get_the_ID(), '_hide_payment_buttons', true ) ) { echo 'checked'; } ?>>
+						<?php esc_html_e('Disable Online Payment', 'littlebot-invoices'); ?>
+					</label>
+				</div>
+
 			<?php else: ?>
 
 			<!-- Estimate Number -->
