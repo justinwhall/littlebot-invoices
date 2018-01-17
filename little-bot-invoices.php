@@ -39,7 +39,7 @@ function li_fs() {
 			'has_paid_plans'      => false,
 			'menu'                => array(
 				'slug'           => 'littlebot_invoices',
-				// 'account'        => false,
+				'contact'        => false,
 				'support'        => false,
 			),
 		) );
