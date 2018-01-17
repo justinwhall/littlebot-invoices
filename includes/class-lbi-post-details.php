@@ -105,8 +105,10 @@ class LBI_Invoice_Details extends LBI_Admin_Post {
 		if ( isset( $_POST['_client'] ) ) {
 			update_post_meta( $post_id, '_client', $_POST['_client'] );
 		}
+
 		if ( 'lb_invoice' == get_post_type( $post_id ) ) {
-			update_post_meta( $post_id, '_hide_payment_buttons', $_POST['_hide_payment_buttons'] );
+			$hide_payment = ( isset( $_POST['_hide_payment_buttons'] ) ) ? $_POST['_hide_payment_buttons'] : false;
+			update_post_meta( $post_id, '_hide_payment_buttons', $hide_payment );
 		}
 
 		// Valid Until & Due date

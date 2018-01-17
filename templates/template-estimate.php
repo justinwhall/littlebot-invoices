@@ -17,8 +17,8 @@
 							  <div class="double-bounce1"></div>
 							  <div class="double-bounce2"></div>
 							</div>
-							<span class="accept" data-status="lb-approved"><?php esc_html_e( 'Accept Estimate', 'littebot-invoices' ); ?></span>
-							<span class="decline" data-status="lb-declined"><?php esc_html_e( 'Decline Estimate', 'littebot-invoices' ); ?></span>
+							<span class="accept" data-status="lb-approved"><?php esc_html_e( 'Accept Estimate', 'littlebot-invoices' ); ?></span>
+							<span class="decline" data-status="lb-declined"><?php esc_html_e( 'Decline Estimate', 'littlebot-invoices' ); ?></span>
 						<?php elseif ( get_post_status( get_the_ID() ) == 'lb-draft' ): ?>
 							<span class="is-draft"><?php esc_html_e( 'Estimate is currently a draft. Change to pending to show approve & decline actions.', 'littlebot-invoices' ); ?> </span>
 						<?php elseif ( get_post_status( get_the_ID() ) == 'lb-approved' ): ?>
@@ -38,9 +38,9 @@
 						<div class="lb-logo">
 							<?php littlebot_print_logo(); ?>
 						</div>
-						<span class="label date"><?php esc_html_e( 'Date', 'littebot-invoices' ); ?></span><span class="val"><?php echo get_the_date(); ?></span>
-						<span class="label valid-until"><?php esc_html_e( 'Valid Until', 'littebot-invoices' ); ?></span><span class="val"><?php echo get_the_date(); ?></span>
-						<span class="label number"><?php esc_html_e( 'Estimate Number', 'littebot-invoices' ); ?></span><span class="val"><?php echo littlebot_get_estimate_number(); ?></span>
+						<span class="label date"><?php esc_html_e( 'Date', 'littlebot-invoices' ); ?></span><span class="val"><?php echo get_the_date(); ?></span>
+						<span class="label valid-until"><?php esc_html_e( 'Valid Until', 'littlebot-invoices' ); ?></span><span class="val"><?php echo get_the_date(); ?></span>
+						<span class="label number"><?php esc_html_e( 'Estimate Number', 'littlebot-invoices' ); ?></span><span class="val"><?php echo littlebot_get_estimate_number(); ?></span>
 						<div class="total"><?php printf( esc_html__( 'Estimate Total %s', 'littlebot-invoices' ), littlebot_get_total() ); ?></div>
 					</div>
 				</div>

@@ -20,23 +20,23 @@
 					<div class="status col-6" data-id="<?php echo get_the_ID(); ?>">
 
 						<?php if ( 'off' == $hide_pdf || ! $hide_pdf ) : ?>
-							<a class="pdf" href="<?php echo get_the_permalink( get_the_id() ); ?>/?pdf=1" target="_blank"><?php _e( 'PDF', 'littebot-invoices' ); ?></a>
+							<a class="pdf" href="<?php echo get_the_permalink( get_the_id() ); ?>/?pdf=1" target="_blank"><?php _e( 'PDF', 'littlebot-invoices' ); ?></a>
 						<?php endif; ?>
 
 						<?php if ( get_post_status( get_the_ID() ) == 'lb-unpaid' ) : ?>
 
-							<?php if ( 'on' != get_post_meta( get_the_id(), '_hide_payment_buttons') ) { do_action( 'littlebot_payment_form' ); } ?>
+							<?php if ( 'on' != get_post_meta( get_the_id(), '_hide_payment_buttons', true ) ) { do_action( 'littlebot_payment_form' ); } ?>
 
-							<span class="pending-payment"><?php esc_html_e( 'Unpaid', 'littebot-invoices' ); ?></span>
+							<span class="pending-payment"><?php esc_html_e( 'Unpaid', 'littlebot-invoices' ); ?></span>
 
 						<?php elseif ( get_post_status( get_the_ID() ) == 'lb-overdue' ) : ?>
 
-							<?php if ( 'on' != get_post_meta( get_the_id(), '_hide_payment_buttons') ) { do_action( 'littlebot_payment_form' ); } ?>
+							<?php if ( 'on' != get_post_meta( get_the_id(), '_hide_payment_buttons', true ) ) { do_action( 'littlebot_payment_form' ); } ?>
 
-							<span class="pending-payment"><?php esc_html_e( 'Over Due', 'littebot-invoices' ); ?></span>
+							<span class="pending-payment"><?php esc_html_e( 'Over Due', 'littlebot-invoices' ); ?></span>
 
 						<?php elseif ( get_post_status( get_the_ID() ) == 'lb-paid' ) : ?>
-							<span class="paid"><?php esc_html_e( 'Paid', 'littebot-invoices' ) ; ?></span>
+							<span class="paid"><?php esc_html_e( 'Paid', 'littlebot-invoices' ) ; ?></span>
 						<?php elseif ( get_post_status( get_the_ID() ) == 'lb-draft' ) : ?>
 							<span class="is-draft"><?php esc_html_e( 'Invoice is currently a draft.', 'littlebot-invoices' ); ?> </span>
 						<?php endif; ?>
@@ -56,10 +56,10 @@
 							<?php littlebot_print_logo(); ?>
 						</div>
 						<span class="label valid-until">
-							<?php esc_html_e( 'Due Date', 'littebot-invoices' ); ?></span><span class="val"><?php echo date_i18n( 'F j, Y', get_post_meta( get_the_ID(), '_due_date', true ) ); ?>
+							<?php esc_html_e( 'Due Date', 'littlebot-invoices' ); ?></span><span class="val"><?php echo date_i18n( 'F j, Y', get_post_meta( get_the_ID(), '_due_date', true ) ); ?>
 						</span>
-						<span class="label date"><?php esc_html_e( 'Issued Date', 'littebot-invoices' ); ?></span><span class="val"><?php echo get_the_date(); ?></span>
-						<span class="label number"><?php esc_html_e( 'Invoice Number', 'littebot-invoices' ); ?></span><span class="val"><?php echo littlebot_get_invoice_number(); ?></span>
+						<span class="label date"><?php esc_html_e( 'Issued Date', 'littlebot-invoices' ); ?></span><span class="val"><?php echo get_the_date(); ?></span>
+						<span class="label number"><?php esc_html_e( 'Invoice Number', 'littlebot-invoices' ); ?></span><span class="val"><?php echo littlebot_get_invoice_number(); ?></span>
 						<div class="total"><?php printf( esc_html__( 'Invoice Total %s', 'littlebot-invoices' ), littlebot_get_total() ); ?></div>
 					</div>
 				</div>
