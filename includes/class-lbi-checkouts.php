@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * LittleBot Checkouts
@@ -22,7 +22,7 @@ class LBI_Checkouts extends LBI_Controller
      * GET param
      */
     const CHECKOUT_ACTION = 'lbi_payment_action';
-    
+
     /**
      * The active payment gateway
      * @var string
@@ -73,7 +73,7 @@ class LBI_Checkouts extends LBI_Controller
     public static function checkout(){
         // Bail if we're not doing anything...
         if ( ! isset( $_GET[ self::CHECKOUT_ACTION ] ) || get_post_type() != 'lb_invoice' ) return;
-        // Otherwise, we're checking out. Self instantiate. 
+        // Otherwise, we're checking out. Self instantiate.
         self::get_instance();
     }
 
@@ -100,7 +100,7 @@ class LBI_Checkouts extends LBI_Controller
             case 'Littlebot_Stripe':
                 $gateway = new LBS_Controller;
                 break;
-            
+
         }
 
         $this->gateway = $gateway;

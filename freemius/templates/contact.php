@@ -43,6 +43,10 @@
 	fs_enqueue_local_script( 'fs-postmessage', 'postmessage.js' );
 	fs_enqueue_local_style( 'fs_checkout', '/admin/common.css' );
 
+	/**
+	 * @var array    $VARS
+	 * @var Freemius $fs
+	 */
 	$fs   = freemius( $VARS['id'] );
 	$slug = $fs->get_slug();
 
@@ -71,7 +75,7 @@
 
 	$view_params = array(
 		'id'   => $VARS['id'],
-		'page' => strtolower( $fs->get_text( 'contact' ) ),
+		'page' => strtolower( $fs->get_text_inline( 'Contact', 'contact' ) ),
 	);
 	fs_require_once_template('secure-https-header.php', $view_params);
 
@@ -82,7 +86,7 @@
 	}
 ?>
 	<div id="fs_contact" class="wrap fs-section fs-full-size-wrapper">
-		<div id="frame"></div>
+		<div id="fs_frame"></div>
 		<script type="text/javascript">
 			(function ($) {
 				$(function () {
@@ -94,15 +98,15 @@
 					src = base_url + '/contact/?<?php echo http_build_query($query_params) ?>#' + encodeURIComponent(document.location.href),
 
 					// Append the i-frame into the DOM.
-					frame = $('<i' + 'frame " src="' + src + '" width="100%" height="' + frame_height + 'px" scrolling="no" frameborder="0" style="background: transparent;"><\/i' + 'frame>')
-						.appendTo('#frame');
+					frame = $('<i' + 'frame " src="' + src + '" width="100%" height="' + frame_height + 'px" scrolling="no" frameborder="0" style="background: transparent; width: 1px; min-width: 100%;"><\/i' + 'frame>')
+						.appendTo('#fs_frame');
 
 					FS.PostMessage.init(base_url);
 					FS.PostMessage.receive('height', function (data) {
 						var h = data.height;
 						if (!isNaN(h) && h > 0 && h != frame_height) {
 							frame_height = h;
-							$('#frame i' + 'frame').height(frame_height + 'px');
+							$('#fs_frame i' + 'frame').height(frame_height + 'px');
 						}
 					});
 				});

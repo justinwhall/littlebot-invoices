@@ -121,7 +121,7 @@
 
 		$fs_user = Freemius::_get_user_by_email( $current_user->user_email );
 
-		if ( is_object( $fs_user ) ) {
+		if ( is_object( $fs_user ) && $fs_user->is_verified() ) {
 			$context_params = array_merge( $context_params, FS_Security::instance()->get_context_params(
 				$fs_user,
 				$timestamp,
@@ -148,14 +148,18 @@
 
 	$return_url = $fs->_get_sync_license_url( $plugin_id );
 
+	$can_user_install = (
+		( $fs->is_plugin() && current_user_can( 'install_plugins' ) ) ||
+		( $fs->is_theme() && current_user_can( 'install_themes' ) )
+	);
+
 	$query_params = array_merge( $context_params, $_GET, array(
 		// Current plugin version.
 		'plugin_version' => $fs->get_plugin_version(),
 		'sdk_version'    => WP_FS__SDK_VERSION,
 		'is_premium'     => $is_premium ? 'true' : 'false',
+		'can_install'    => $can_user_install ? 'true' : 'false',
 		'return_url'     => $return_url,
-		// Admin CSS URL for style/design competability.
-//		'wp_admin_css'   => get_bloginfo('wpurl') . "/wp-admin/load-styles.php?c=1&load=buttons,wp-admin,dashicons",
 	) );
 
 	$xdebug_session = fs_request_get( 'XDEBUG_SESSION' );
@@ -165,12 +169,12 @@
 
 	$view_params = array(
 		'id'   => $VARS['id'],
-		'page' => strtolower( $fs->get_text( 'checkout' ) ) . ' ' . $fs->get_text( 'pci-compliant' ),
+		'page' => strtolower( $fs->get_text_inline( 'Checkout', 'checkout' ) ) . ' ' . $fs->get_text_inline( 'PCI compliant', 'pci-compliant' ),
 	);
 	fs_require_once_template('secure-https-header.php', $view_params);
 ?>
 	<div id="fs_checkout" class="wrap fs-section fs-full-size-wrapper">
-		<div id="frame"></div>
+		<div id="fs_frame"></div>
 		<script type="text/javascript">
 			// http://stackoverflow.com/questions/4583703/jquery-post-request-not-ajax
 			jQuery(function ($) {
@@ -229,8 +233,8 @@
 						// passed via query string or hard coded into the child page, it depends on your needs).
 						src          = base_url + '/?<?php echo http_build_query( $query_params ) ?>#' + encodeURIComponent(document.location.href),
 						// Append the i-frame into the DOM.
-						frame        = $('<i' + 'frame " src="' + src + '" width="100%" height="' + frame_height + 'px" scrolling="no" frameborder="0" style="background: transparent;"><\/i' + 'frame>')
-							.appendTo('#frame');
+						frame        = $('<i' + 'frame " src="' + src + '" width="100%" height="' + frame_height + 'px" scrolling="no" frameborder="0" style="background: transparent; width: 1px; min-width: 100%;"><\/i' + 'frame>')
+							.appendTo('#fs_frame');
 
 					FS.PostMessage.init(base_url, [frame[0]]);
 					FS.PostMessage.receiveOnce('height', function (data) {
@@ -298,6 +302,10 @@
 						) ) ?>
 						FS.PostMessage.post('context', <?php echo json_encode( $install_data ) ?>, frame[0]);
 					});
+
+					FS.PostMessage.receiveOnce('purchaseCompleted', <?php echo $fs->apply_filters('checkout/purchaseCompleted', 'function (data) {
+						console.log("checkout", "purchaseCompleted");
+					}') ?>);
 
 					FS.PostMessage.receiveOnce('get_dimensions', function (data) {
 						console.debug('receiveOnce', 'get_dimensions');

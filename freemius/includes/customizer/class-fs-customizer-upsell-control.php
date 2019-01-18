@@ -49,7 +49,7 @@
 		 * Json conversion
 		 */
 		public function to_json() {
-			$pricing_cta = esc_html( $this->fs->get_text( $this->fs->get_pricing_cta_label() ) ) . '&nbsp;&nbsp;' . ( is_rtl() ? '&#x2190;' : '&#x27a4;' );
+			$pricing_cta = esc_html( $this->fs->get_pricing_cta_label() ) . '&nbsp;&nbsp;' . ( is_rtl() ? '&#x2190;' : '&#x27a4;' );
 
 			parent::to_json();
 
@@ -59,7 +59,7 @@
 				$this->fs->get_upgrade_url();
 
 			// Load features.
-			$pricing = $this->fs->get_api_plugin_scope()->get( 'pricing.json' );
+			$pricing = $this->fs->get_api_plugin_scope()->get( $this->fs->add_show_pending( "pricing.json" ) );
 
 			if ( $this->fs->is_api_result_object( $pricing, 'plans' ) ) {
 				// Add support features.
@@ -103,7 +103,7 @@
 			$this->json['plans'] = $pricing->plans;
 
 			$this->json['strings'] = array(
-				'plan' => $this->fs->get_text( 'plan' ),
+				'plan' => $this->fs->get_text_x_inline( 'Plan', 'as product pricing plan', 'plan' ),
 			);
 		}
 

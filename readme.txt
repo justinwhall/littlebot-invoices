@@ -1,9 +1,9 @@
 === Plugin Name ===
 Contributors: jwind
 Donate link:https://littlebot.io/littlebot-invoices/
-Tags: invoice, estimate, payment, ecommerce, ecommerce, bill, billings, PDF, PDF Invoices
+Tags: invoice, estimate, payment, ecommerce, ecommerce, bill, billings, PDF, PDF invoices, invoices, invoicing, estimating, paypal, stripe
 Requires at least: 3.0.1
-Tested up to: 4.9.2
+Tested up to: 5.0.3
 Stable tag: 2.5.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -31,12 +31,16 @@ Or [ask us a question](https://littlebot.io/support/).
 Visit our [website](https://littlebot.io/littlebot-invoices/) for screenshots.
 
 == Changelog ==
+= 2.6.0 =
+* NEW: Support for Stripe Payment Gateway Addon
+* FIX: Edge case where it was not possible to turn off PayPal
+
 = 2.5.3 =
 * FIX - translation strings
-* FIX - PHP warning when viewing trahsed posts
+* FIX - PHP warning when viewing trashed posts
 
 = 2.5.2 =
-* NEW - Portegues do Brasil po/mo translation files
+* NEW - Portuguese do Brasil po/mo translation files
 * FIX - translation strings
 
 = 2.5.1 =

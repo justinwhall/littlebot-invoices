@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * LittleBot Invoices Controller
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 
-class LBI_Controller 
+class LBI_Controller
 {
 
     private static $query_vars = array();
@@ -81,7 +81,7 @@ class LBI_Controller
 
         $messages = $_REQUEST['lbi_messages'];
 
-        $args = array( 
+        $args = array(
             'status' => $messages['status'],
             'message' => $messages['message'],
          );
