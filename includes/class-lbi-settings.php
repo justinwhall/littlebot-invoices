@@ -332,19 +332,13 @@ class LBI_Settings {
 					array(
 						'name'    => 'payment_gateway',
 						'label'   => __( 'Payment Gateways', 'littlebot-invoices' ),
-						'desc'    => __( 'Who should process payments?', 'littlebot-invoices' ),
+						'desc'    => 'Try the <a href="/wp-admin/admin.php?page=littlebot_invoices-addons">Stripe Addon</a>',
 						'type'    => 'select',
 						'options' => array(
 								'' => '--',
-						)
+						),
 					),
-					array(
-						'name'              => 'upgrade',
-						'type'              => 'html',
-						'desc'           => 'More payment extensions coming soon from <a target="_blank" href="https://littlebot.io">LittleBot</a>'
-					)
-
-				)
+				),
 
 			);
 			return apply_filters( 'lbi_settings_fields', $settings_fields );
