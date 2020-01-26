@@ -129,7 +129,9 @@ if ( ! function_exists( 'littlebot_get_tax_total' ) ) :
 
 	function littlebot_get_tax_total( $post_id = 0 ) {
 		$post_id = ( ! $post_id ) ? get_the_ID() : $post_id;
-		$tax = get_post_meta( $post_id, '_subtotal', true ) * ( get_post_meta( $post_id, '_tax_rate', true ) / 100 );
+		$sub = get_post_meta( $post_id, '_subtotal', true );
+		$tax_rate = get_post_meta( $post_id, '_tax_rate', true ) || 0;
+		$tax = $sub * intVal($tax_rate);
 		$tax_formatted = ( $tax ) ? LBI_Admin_Post::get_formatted_currency( $tax ) : false;
 		return apply_filters( 'littlebot_get_tax_total', $tax_formatted );
 	}

@@ -25,6 +25,7 @@ class LBI_Activate_Deactivate {
 		// set general defaults
 		$general_options = array(
 			'currency_symbol' => '$',
+			'currency_code' => 'USD',
 			'currency_position' => 'left',
 			'thousand_sep' => ',',
 			'decimal_sep' => '.',
