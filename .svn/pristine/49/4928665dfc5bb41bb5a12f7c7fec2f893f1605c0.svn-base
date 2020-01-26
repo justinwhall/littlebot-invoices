@@ -1,0 +1,314 @@
+@font-face {
+  font-family: 'icomoon';
+  src:  url('../fonts/icomoon.eot?unb0c3');
+  src:  url('../fonts/icomoon.eot?unb0c3#iefix') format('embedded-opentype'),
+    url('../fonts/icomoon.ttf?unb0c3') format('truetype'),
+    url('../fonts/icomoon.woff?unb0c3') format('woff'),
+    url('../fonts/icomoon.svg?unb0c3#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="dashicons-littlebot"], [class*=" dashicons-littlebot"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.dashicons-littlebot-icon {
+	font-family: 'icomoon' !important;
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+
+	/* Better Font Rendering =========== */
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.dashicons-littlebot-icon:before {
+  content: "\e900";
+  font-family: 'icomoon' !important;
+}
+
+/*Util*/
+.strong{
+	font-weight: 500;
+}
+.hide,.lb-hide{
+	display: none;
+}
+
+.lb-row { width: 100%; margin:0 auto 20px auto; display:inline-block; position:relative; }
+.col-1, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9, .col-10, .col-11, .col-12 { float: left; margin-right: 2%; box-sizing: border-box; }
+.lb-row .col-1:last-child, .lb-row .col-2:last-child, .row .col-3:last-child, .lb-row .col-4:last-child, .lb-row .col-5:last-child, .lb-row .col-6:last-child, 
+.lb-row .col-7:last-child, .lb-row .col-8:last-child, .lb-row .col-9:last-child, .lb-row .col-10:last-child, .lb-row .col-11:last-child, .lb-row .col-12:last-child { margin-right: 0; }
+.lb-row:after, .clearfix:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; }
+.col-1  { width: 6%; }
+.col-2  { width: 15%; }
+.col-3  { width: 23.5%; }
+.col-4  { width: 32%; }
+.col-5  { width: 40%; }
+.col-6  { width: 49%; }
+.col-7  { width: 56.5%; }
+.col-8  { width: 66%; }
+.col-9  { width: 74%; }
+.col-10 { width: 82.5%; }
+.col-11 { width: 91%; }
+.col-12 { width: 100%;  }
+/*settings page*/
+.lb-metabox{
+	border: 1px solid #ccc;
+	padding: 10px;
+	background: #f9f9f9;
+	font-size: .9em;
+}
+.lb-key{
+	font-weight: bold;
+}
+.lb-value{
+	font-style: italic;
+}
+#lbi_emails span.lb-key {
+    min-width: 131px;
+    display: inline-block;
+}
+#lbi_emails .lb-metabox{
+	width: 355px;
+}
+/*Invoice Details*/
+#lbi-inovoice-details .inside{
+	padding: 0 0 0 0;
+}
+.lb-submitbox #lb-client,
+.lb-submitbox #lb-invoice-number,
+.lb-submitbox #lb-po-number,
+.lb-submitbox #post-status{
+	width: 100%;
+}
+.lb-submitbox input.lb-skinny{
+	width: 40px;
+}
+.no-email{
+	margin-top: 10px;
+}
+.lb-submitbox .tax-rate-section label{
+	vertical-align: text-bottom;
+}
+#lb-due-date:before{
+	font: 400 20px/1 dashicons;
+	speak: none;
+	display: inline-block;
+	padding: 0 2px 0 0;
+	top: 0;
+	left: -1px;
+	position: relative;
+	vertical-align: top;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-decoration: none!important;
+	content: "\f145";
+	top: -1px;
+}
+
+/*Invoice Line Items*/
+.single-line-item {
+	overflow: hidden;
+	background: #fff;
+}
+#lbi-line-items .inside{
+	padding: 0 0 0 0;
+	margin-top: 0;
+}
+.items-wrap{
+	padding: 10px 0;
+	background: #F6F6F6;
+	color: #A7A7A7;
+}
+.items-wrap:hover{
+	cursor: move;
+	// background: #EAEAEA;
+	color: #008ec2;
+}
+.item-row{
+	clear: both;
+	overflow: hidden;
+	box-sizing: border-box;
+	padding: 0 20px;
+}
+.lb-line-item{
+	margin: 20px 0;
+	position: relative;
+}
+.item-row .dashicons-dismiss,
+.item-row .dashicons-plus-alt{
+	position: absolute;
+	left:14px;
+	top: 4px;
+}
+.item-row .dashicons-plus-alt{
+	top: 34px;
+}
+.item-row .flex-width{
+	float: left;
+	margin-right: -250px;
+	padding-left: 28px;
+	padding-right: 240px;
+	width: 100%;
+	box-sizing: border-box;
+}
+.item-row .fixed-width{
+	float: right;
+	width: 250px;
+	box-sizing: border-box;
+	text-align: right;
+}
+.item-row .item-title{
+	width: 100%;
+}
+.fixed-width > .sub-fixed{
+	width: 50px;
+	text-align: center !important;
+	display: inline-block;
+	margin-right: 0;
+	margin-left: 5px;
+}
+.item-row textarea{
+	width: 100%;
+	min-width: 100%;
+	margin-top: 10px;
+	min-height: 90px;
+}
+.lb-bottom-controls{
+	padding: 10px 10px 10px 47px;
+	background: #FAFAFA; 
+	overflow: hidden;
+}
+.lb-totals{
+	float: right;
+}
+.lb-totals .label{
+	text-align: right;
+	width: 100px;
+	display: inline-block;
+	margin-right: 10px;
+}
+.lb-line-item .dashicons{
+	color: #ccc;
+}
+.lb-line-item .dashicons-dismiss:hover{
+	color: #a00;
+	cursor: not-allowed;
+}
+.lb-line-item .dashicons-plus-alt:hover{
+	color: #46b450;
+	cursor: copy;
+}
+.ui-state-highlight{
+	background: #0085ba;
+	height: 150px;
+}
+/*Add client thickbox*/
+#add-new-client input[type="text"]{
+	width: 100%;
+	display: inline-block;
+}
+#add-new-client textarea{
+	width: 100%;
+	height: 75px;
+	margin-bottom: 20px;
+	display: block;
+}
+.update-message{
+	display: inline-block;
+}
+#add-new-client .update-message p{
+	padding: 0 0 0 0;
+	margin: 3px 0 3px 0;
+}
+#add-new-client #client-loader{
+	height: 28px;
+	vertical-align: middle;
+}
+#add-new-client #client-loader{
+	height: 28px;
+	vertical-align: middle;
+}
+#lb-feedback,
+#client-loader{
+	opacity: 0;
+}
+#lb-feedback{
+	margin-left: -30px;
+}
+/*send to client metabox*/
+#lbi-send-doc input[type="text"]{
+	width: 100%;
+	margin-bottom: 10px;
+}
+#lb-send-doc-feedback{
+	margin-top: 10px;
+	display: none;
+}
+#lbi-send-doc .update-message p{
+	padding: 0 0 0 0;
+	margin: 3px 0 3px 0;
+}
+#lbi-send-doc #send-doc-loader{
+	height: 28px;
+	vertical-align: middle;
+	display: none;
+}
+
+/*log metabox*/
+#lbi-log .single-log{
+	margin: 10px 0;
+}
+#lbi-log .message{
+	background: #F3F3F3;
+	padding: 10px;
+}
+#lbi-log .message:first-letter{
+	text-transform: capitalize;
+}
+#lbi-log .log-date,
+#lbi-log .by{
+	font-size: .9em;
+	color: #A7A7A7;
+	font-style: italic;
+}
+#lbi-log .event{
+	font-weight: bold;
+}
+#lbi-log .lbi-arrow{
+	text-align: center;
+	color: #ccc;
+}
+#lbi-log .inside .lbi-arrow:last-child{
+	display: none;
+}
+/*post.php*/
+.lb-cal:before{
+	font: 400 20px/1 dashicons;
+	speak: none;
+	display: inline-block;
+	margin-left: -1px;
+	padding-right: 3px;
+	vertical-align: top;
+	-webkit-font-smoothing: antialiased;
+	content: "\f145";
+    position: relative;
+    top: -1px;
+}
