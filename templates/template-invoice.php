@@ -1,6 +1,8 @@
 <?php
 	do_action('littlebot_before_invoice_template', $post);
 	$hide_pdf = littlebot_get_option( 'hide_pdf', 'lbi_invoices' );
+	$business_name = littlebot_get_option( 'business_name', 'lbi_business' );
+	$payment_options = get_option('lbi_payments');
 ?>
 <html <?php language_attributes(); ?> class="no-js">
   <?php do_action( 'littlebot_doc_viewed', $post ); ?>
@@ -18,6 +20,13 @@
 				<div class="header lb-row">
 					<div class="doc-num col-6"><?php printf( esc_html__( 'Invoice %s', 'littlebot-invoices' ), littlebot_get_invoice_number() ); ?></div>
 					<div class="status col-6" data-id="<?php echo get_the_ID(); ?>">
+						<button 
+							id='linkButton'
+							data-site-name="<?php echo esc_attr( $business_name ); ?>"
+							data-plaid-key="<?php echo esc_attr( $payment_options['plaid_public_key'] ); ?>"
+						>
+						Open Plaid Link
+						</button>
 
 						<?php if ( 'off' == $hide_pdf || ! $hide_pdf ) : ?>
 							<a class="pdf" href="<?php echo get_the_permalink( get_the_id() ); ?>/?pdf=1" target="_blank"><?php _e( 'PDF', 'littlebot-invoices' ); ?></a>
@@ -80,6 +89,7 @@
 
 			</div>
 		</div>
+
 		<?php wp_footer(); ?>
 	</body>
 </html>
