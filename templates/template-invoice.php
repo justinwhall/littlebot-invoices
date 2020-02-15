@@ -1,6 +1,8 @@
 <?php
 	do_action('littlebot_before_invoice_template', $post);
 	$hide_pdf = littlebot_get_option( 'hide_pdf', 'lbi_invoices' );
+	$business_name = littlebot_get_option( 'business_name', 'lbi_business' );
+	$payment_options = get_option('lbi_payments');
 ?>
 <html <?php language_attributes(); ?> class="no-js">
   <?php do_action( 'littlebot_doc_viewed', $post ); ?>
@@ -80,6 +82,7 @@
 
 			</div>
 		</div>
+
 		<?php wp_footer(); ?>
 	</body>
 </html>

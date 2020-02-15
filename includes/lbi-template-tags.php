@@ -118,7 +118,7 @@ if ( ! function_exists( 'littlebot_getsubtotal' ) ) :
 	function littlebot_get_subtotal( $post_id = 0 ) {
 		$post_id = ( ! $post_id ) ? get_the_ID() : $post_id;
 		$meta = get_post_meta( $post_id, '', true );
-		$total = LBI_Admin_Post::get_formatted_currency( $meta['_subtotal'][0] );
+		$total = isset( $meta['_subtotal'] ) ? LBI_Admin_Post::get_formatted_currency( $meta['_subtotal'][0] ) : 0;
 		return apply_filters( 'littlebot_get_sub_total', $total );
 	}
 
@@ -130,8 +130,8 @@ if ( ! function_exists( 'littlebot_get_tax_total' ) ) :
 	function littlebot_get_tax_total( $post_id = 0 ) {
 		$post_id = ( ! $post_id ) ? get_the_ID() : $post_id;
 		$sub = get_post_meta( $post_id, '_subtotal', true );
-		$tax_rate = get_post_meta( $post_id, '_tax_rate', true ) || 0;
-		$tax = $sub * intVal($tax_rate);
+		$tax_rate = intval( get_post_meta( $post_id, '_tax_rate', true ) ) / 100;
+		$tax = intVal( $sub ) * $tax_rate;
 		$tax_formatted = ( $tax ) ? LBI_Admin_Post::get_formatted_currency( $tax ) : false;
 		return apply_filters( 'littlebot_get_tax_total', $tax_formatted );
 	}
@@ -144,7 +144,7 @@ if ( ! function_exists( 'littlebot_get_total' ) ) :
 	function littlebot_get_total( $post_id = 0 ) {
 		$post_id = ( ! $post_id ) ? get_the_ID() : $post_id;
 		$meta = get_post_meta( $post_id, '', true );
-		$total = LBI_Admin_Post::get_formatted_currency( $meta['_total'][0] );
+		$total = isset( $meta['_total'] ) ? LBI_Admin_Post::get_formatted_currency( $meta['_total'][0] ) : 0;
 		return apply_filters( 'littlebot_get_total', $total );
 	}
 
