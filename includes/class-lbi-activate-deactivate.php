@@ -19,6 +19,9 @@ class LBI_Activate_Deactivate {
 
 	static public function on_activate(){
 
+		update_option( 'littlebot_invoices_version', LBI_VERSION, 'no' );
+
+		
 		// If we already have options, don't create defaults
 		if ( get_option('lbi_general') ) return;
 
