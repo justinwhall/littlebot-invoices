@@ -288,8 +288,36 @@ if ( ! function_exists( 'get_tax_amount' ) ) :
 
 endif;
 
+
+if ( ! function_exists( 'littlebot_print_doc_js' ) ) :
+
+	function littlebot_print_doc_js() {
+		global $post;
+
+		$inline_js = [
+			'postId'        => get_the_ID(),
+			'docTitle'      => get_the_title(),
+			'ajaxUrl'       => admin_url('admin-ajax.php'),
+			'nonce'         => wp_create_nonce('lb-invoices'),
+			'invoiceNumber' => get_post_meta( $post->ID , '_invoice_number', true ),
+		];
+		
+		$inline_js_filtered = apply_filters('littlebot_print_doc_js', $inline_js );
+
+		?>
+
+			<script>
+				var littlebotConfig = <?php echo json_encode( $inline_js_filtered ) ?>;
+			</script>
+
+		<?php
+	}
+
+endif;
+
 // filters
 add_action( 'lbi_payment_buttons', 'lbi_render_payment_buttons', 10, 1 );
+
 function lbi_render_payment_buttons(){
 	if ( empty( LBI()->gateways->active ) ) {
 		echo '<span class="pending-payment">' . __( 'Pending Payment', 'littebot-invoices' ) . '</span>';

@@ -19,7 +19,7 @@
 			<div class="lb-wrap">
 				<div class="header lb-row">
 					<div class="doc-num col-6"><?php printf( esc_html__( 'Invoice %s', 'littlebot-invoices' ), littlebot_get_invoice_number() ); ?></div>
-					<div class="status col-6" data-id="<?php echo get_the_ID(); ?>">
+					<div class="status col-6">
 
 						<?php if ( 'off' == $hide_pdf || ! $hide_pdf ) : ?>
 							<a class="pdf" href="<?php echo get_the_permalink( get_the_id() ); ?>/?pdf=1" target="_blank"><?php _e( 'PDF', 'littlebot-invoices' ); ?></a>
@@ -82,7 +82,7 @@
 
 			</div>
 		</div>
-
+		<?php littlebot_print_doc_js(); ?> 
 		<?php wp_footer(); ?>
 	</body>
 </html>
