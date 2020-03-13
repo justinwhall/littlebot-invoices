@@ -294,12 +294,15 @@ if ( ! function_exists( 'littlebot_print_doc_js' ) ) :
 	function littlebot_print_doc_js() {
 		global $post;
 
+		$business_name = littlebot_get_option( 'business_name', 'lbi_business' );
+
 		$inline_js = [
 			'postId'        => get_the_ID(),
 			'docTitle'      => get_the_title(),
 			'ajaxUrl'       => admin_url('admin-ajax.php'),
 			'nonce'         => wp_create_nonce('lb-invoices'),
 			'invoiceNumber' => get_post_meta( $post->ID , '_invoice_number', true ),
+			'businessName'  => $business_name,
 		];
 		
 		$inline_js_filtered = apply_filters('littlebot_print_doc_js', $inline_js );

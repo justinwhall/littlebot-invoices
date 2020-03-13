@@ -1,4 +1,4 @@
-<span class="lb-pay-button">
+<span class="lb-pay-button is-payment-button" role="button">
   <form action="<?php echo $endpoint; ?>" method="post">
     <input type="hidden" name="cmd" value="_xclick">
     <input type="hidden" name="business" value="<?php echo $paypal_email; ?>">
@@ -14,7 +14,7 @@
     <input type="hidden" name="return" value="<?php echo get_permalink( get_the_ID() ); ?>">
     <input type="hidden" name="bn" value="WPPlugin_SP">
     <input type="hidden" name="cancel_return" value="<?php echo get_permalink( get_the_ID() ); ?>">
-    <input style="border: none;margin-bottom: -8px; margin-right: -15px;" class="paypalbuttonimage" type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_paynow_LG.gif" border="0" name="submit" alt="Make your payments with PayPal. It is free, secure, effective.">
+    <input style="border: none;margin-bottom: -8px; margin-right: -15px;" class="paypalbuttonimage" type="image" src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/PP_logo_h_100x26.png" border="0" name="submit" alt="Make your payments with PayPal. It is free, secure, effective.">
     <img alt="" border="0" style="border:none;display:none;" src="https://www.paypal.com/EN_US/i/scr/pixel.gif" width="1" height="1">
   </form>
 </span>
