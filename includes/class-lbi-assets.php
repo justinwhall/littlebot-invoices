@@ -56,6 +56,18 @@ class LBI_Assets {
 	 * Enqueue public scripts.
 	 */
 	public function public_scripts() {
+		global $post;
+
+		$post_type = get_post_type($post);
+		$allow_post_types = ['lb_invoice', 'lb_estimate'];
+
+		/**
+		 * Only load on Littlebot post types. 
+		 */
+		if ( ! in_array( $post_type, $allow_post_types ) ) {
+			return;
+		}
+
 		wp_enqueue_script( 'little-bot-public-scripts', LBI_PLUGIN_URL . 'assets/js/littlebot-invoices-public.js', array( 'jquery' ), LBI_VERSION, true );
 		wp_localize_script('little-bot-public-scripts', 'ajax_object', array( 'ajax_url' => admin_url('admin-ajax.php'), 'ajax_nonce' => wp_create_nonce('lb-invoices') ) );
 	}

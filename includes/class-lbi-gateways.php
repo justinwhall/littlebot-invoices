@@ -22,6 +22,10 @@ class LBI_Gateways
 
     public $selected = false;
 
+    static $supported_gateways = array( 
+        'Littlebot_Stripe' => 'LB_STRIPE_VERSION',
+    );
+
     /**
      * Kick it off
      * @param int $post_id the post ID
@@ -34,12 +38,8 @@ class LBI_Gateways
 
     public function get_all(){
         // check for installed and active extensions
-        $gateways = array( 
-            'LB_STRIPE_VERSION',
-            'LITTLEBOT_INVOICES_ACH_VERSION',
-        );
 
-        foreach ( $gateways as $gateway ) {
+        foreach ( self::$supported_gateways as $gateway ) {
             if ( defined( $gateway ) ) {
                 $this->active[] = $gateway;
             }
@@ -50,7 +50,8 @@ class LBI_Gateways
     public function get_selected_gateway(){
         // check if there is setting val for any LittleBot gateway extensions
         $selected_gateway = LBI_Settings::littlebot_get_option( 'payment_gateway', 'lbi_payments');
-        if ( defined( $selected_gateway ) ) {
+
+        if ( defined( self::$supported_gateways[ $selected_gateway ] ) ) {
             $this->selected = $selected_gateway;
         }
     }

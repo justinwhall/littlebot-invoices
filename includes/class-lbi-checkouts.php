@@ -106,14 +106,6 @@ class LBI_Checkouts extends LBI_Controller
         $this->gateway = $gateway;
     }
 
-    // /**
-    //  * gets the selected gateway payment form/button
-    //  * @return void
-    //  */
-    // public function get_gateway_from(){
-    //     $this->payment_form = $this->gateway->get_payment_form();
-    // }
-
     /**
      * Process the user action
      * @return void
