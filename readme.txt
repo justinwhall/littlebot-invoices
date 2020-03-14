@@ -3,7 +3,7 @@ Contributors: jwind
 Donate link:https://littlebot.io/littlebot-invoices/
 Tags: invoice, estimate, payment, ecommerce, ecommerce, bill, billings, PDF, PDF invoices, invoices, invoicing, estimating, paypal, stripe
 Requires at least: 3.0.1
-Tested up to: 5.4.2
+Tested up to: 5.3.2
 Stable tag: 2.6.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -31,6 +31,9 @@ Or [ask us a question](https://littlebot.io/support/).
 Visit our [website](https://littlebot.io/littlebot-invoices/) for screenshots.
 
 == Changelog ==
+= 2.6.5 =
+* Support for ACH payment (bank transfer)
+
 = 2.6.5 =
 * Fix tax bug edge case
 
