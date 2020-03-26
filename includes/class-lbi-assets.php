@@ -49,6 +49,7 @@ class LBI_Assets {
 	public function admin_scripts() {
 		wp_enqueue_script( 'jquery-ui-sortable' );
 		wp_enqueue_script( 'little-bot-scripts', LBI_PLUGIN_URL . 'assets/js/littlebot.js', array( 'jquery', 'wp-util' ), LBI_VERSION, true );
+		wp_enqueue_script( 'little-report-scripts', LBI_PLUGIN_URL . 'dist/index.js', array('wp-api-request'), LBI_VERSION, true );
 		wp_localize_script('little-bot-scripts', 'ajax_object', array( 'ajax_url' => admin_url('admin-ajax.php'), 'ajax_nonce' => wp_create_nonce('lb-invoices') ) );
 	}
 

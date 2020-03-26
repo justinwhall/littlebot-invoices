@@ -66,7 +66,8 @@ class LBI_Settings {
 		}
 
 		public function admin_menu() {
-			add_menu_page( 'LittleBot Invoices', 'LittleBot Invoices', 'delete_posts', 'littlebot_invoices', array($this, 'plugin_page'), 'dashicons-littlebot-icon' );
+			add_menu_page( 'LittleBot Invoices', 'LittleBot Invoices', 'manage_options', 'littlebot_invoices', array($this, 'plugin_page'), 'dashicons-littlebot-icon' );
+			add_submenu_page( 'littlebot_invoices', 'Reports', 'Reports', 'manage_options', 'littlebot_reports', function() { echo '<div id="reports-root"></div>'; } ); 
 		}
 
 		public function get_settings_sections() {

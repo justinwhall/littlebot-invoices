@@ -1,0 +1,32 @@
+{
+  "name": "littlebot-invoices",
+  "version": "2.7.0",
+  "repository": "git@github.com:justinwhall/littlebot-invoices.git",
+  "author": "justinwhall <justinwhall@me.com>",
+  "license": "MIT",
+  "main": "assets/js/reports/index.js",
+  "source": {
+    "src/**/*.css": "dist/styles"
+  },
+  "scripts": {
+    "start": "parcel assets/js/reports/index.js",
+    "watch": "parcel watch assets/js/reports/index.js",
+    "build": "parcel build assets/js/reports/index.js --no-content-hash"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "parcel-bundler": "^1.12.4"
+  },
+  "dependencies": {
+    "@chakra-ui/core": "^0.6.1",
+    "@emotion/core": "^10.0.28",
+    "@emotion/styled": "^10.0.27",
+    "babel-plugin-styled-components": "^1.10.7",
+    "emotion-theming": "^10.0.27",
+    "moment": "^2.24.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "recharts": "^1.8.5",
+    "styled-components": "^5.0.1"
+  }
+}

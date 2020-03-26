@@ -68,6 +68,7 @@ class LB_Post_Types {
 			'show_ui'            => true,
 			'show_in_menu'       => true,
 			'query_var'          => true,
+			'show_in_rest'       => true,
 			'rewrite'            => array( 'slug' => 'littlebot-invoice' ),
 			'capability_type'    => 'post',
 			'has_archive'        => true,

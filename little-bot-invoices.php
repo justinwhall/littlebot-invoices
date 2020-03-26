@@ -214,6 +214,8 @@ final class Little_Bot_Invoices {
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-notes-metabox.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-terms-metabox.php';
 		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-pdf.php';
+		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-rest-endpoints.php';
+		require_once LBI_PLUGIN_DIR . 'includes/class-lbi-rest-fields.php';
 		require_once LBI_PLUGIN_DIR . 'includes/lbi-template-tags.php';
 
 		LBI_PDF::init();
