@@ -9,7 +9,7 @@
     "src/**/*.css": "dist/styles"
   },
   "scripts": {
-    "start": "parcel assets/js/reports/index.js",
+    "start": "parcel assets/js/reports/index.js --public-url /wp-content/plugins/littlebot-invoices/dist/",
     "watch": "parcel watch assets/js/reports/index.js",
     "build": "parcel build assets/js/reports/index.js --no-content-hash"
   },
@@ -18,7 +18,7 @@
     "parcel-bundler": "^1.12.4"
   },
   "dependencies": {
-    "@chakra-ui/core": "^0.6.1",
+    "@chakra-ui/core": "^0.7.0",
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
     "babel-plugin-styled-components": "^1.10.7",

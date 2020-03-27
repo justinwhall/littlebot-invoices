@@ -63,6 +63,32 @@ class LBI_Settings {
 			//initialize settings
 			$this->settings_api->admin_init();
 
+				// $x = 52;
+				// while($x <= 252) {
+				// 	$x = $x + 1;
+				// 	$this->duplicate(8, $x);
+				// }
+			
+		}
+
+		  function duplicate($post_id, $num) {
+			$title   = get_the_title($post_id);
+			$oldpost = get_post($post_id);
+			$post    = array(
+			'post_title' => 'Invoice' . $num,
+			'post_status' => 'lb-paid',
+			'post_type' => $oldpost->post_type,
+			'post_author' => 1
+			);
+			$new_post_id = wp_insert_post($post);
+			// Copy post metadata
+			$data = get_post_custom($post_id);
+			foreach ( $data as $key => $values) {
+				foreach ($values as $value) {
+					add_post_meta( $new_post_id, $key, $value );
+				}
+			}
+			return $new_post_id;
 		}
 
 		public function admin_menu() {

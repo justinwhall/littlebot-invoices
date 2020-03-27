@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { makeRequest } from '../../../util';
-import { Box, Heading, Spinner, Grid, useTheme } from '@chakra-ui/core';
+import { Box, Spinner, Grid } from '@chakra-ui/core';
 import { PieChart, Pie, Tooltip, Cell } from 'recharts';
 import { useStatusColors } from '../../../hooks';
 

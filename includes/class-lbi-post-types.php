@@ -99,7 +99,7 @@ class LB_Post_Types {
 
 		$args = array(
 			'labels'             => $labels,
-            'description'        => __( 'LittleBot Estimates.', 'littlebot-invoices' ),
+			'description'        => __( 'LittleBot Estimates.', 'littlebot-invoices' ),
 			'public'             => true,
 			'publicly_queryable' => true,
 			'show_ui'            => true,
@@ -110,8 +110,9 @@ class LB_Post_Types {
 			'has_archive'        => true,
 			'hierarchical'       => false,
 			'menu_position'      => null,
-			'menu_icon'			 => 'dashicons-littlebot-icon',
-			'supports'           => array( 'title')
+			'menu_icon'          => 'dashicons-littlebot-icon',
+			'supports'           => array( 'title'),
+			'show_in_rest'       => true,
 		);
 
 		register_post_type( 'lb_estimate', $args );

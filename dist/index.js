@@ -30279,7 +30279,804 @@ var ClassNames = withEmotionCache(function (props, context) {
   });
 });
 exports.ClassNames = ClassNames;
-},{"@babel/runtime/helpers/inheritsLoose":"../../../node_modules/@babel/runtime/helpers/inheritsLoose.js","react":"../../../node_modules/react/index.js","@emotion/cache":"../../../node_modules/@emotion/cache/dist/cache.browser.esm.js","@emotion/utils":"../../../node_modules/@emotion/utils/dist/utils.browser.esm.js","@emotion/serialize":"../../../node_modules/@emotion/serialize/dist/serialize.browser.esm.js","@emotion/sheet":"../../../node_modules/@emotion/sheet/dist/sheet.browser.esm.js","@emotion/css":"../../../node_modules/@emotion/css/dist/css.browser.esm.js"}],"../../../node_modules/@reach/auto-id/es/index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/inheritsLoose":"../../../node_modules/@babel/runtime/helpers/inheritsLoose.js","react":"../../../node_modules/react/index.js","@emotion/cache":"../../../node_modules/@emotion/cache/dist/cache.browser.esm.js","@emotion/utils":"../../../node_modules/@emotion/utils/dist/utils.browser.esm.js","@emotion/serialize":"../../../node_modules/@emotion/serialize/dist/serialize.browser.esm.js","@emotion/sheet":"../../../node_modules/@emotion/sheet/dist/sheet.browser.esm.js","@emotion/css":"../../../node_modules/@emotion/css/dist/css.browser.esm.js"}],"../../../node_modules/warning/warning.js":[function(require,module,exports) {
+/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+'use strict';
+/**
+ * Similar to invariant but only logs a warning if the condition is not met.
+ * This can be used to log issues in development environments in critical
+ * paths. Removing the logging code for production environments will keep the
+ * same logic and follow the same code paths.
+ */
+
+var __DEV__ = "development" !== 'production';
+
+var warning = function () {};
+
+if (__DEV__) {
+  var printWarning = function printWarning(format, args) {
+    var len = arguments.length;
+    args = new Array(len > 1 ? len - 1 : 0);
+
+    for (var key = 1; key < len; key++) {
+      args[key - 1] = arguments[key];
+    }
+
+    var argIndex = 0;
+    var message = 'Warning: ' + format.replace(/%s/g, function () {
+      return args[argIndex++];
+    });
+
+    if (typeof console !== 'undefined') {
+      console.error(message);
+    }
+
+    try {
+      // --- Welcome to debugging React ---
+      // This error was thrown as a convenience so that you can use this stack
+      // to find the callsite that caused this warning to fire.
+      throw new Error(message);
+    } catch (x) {}
+  };
+
+  warning = function (condition, format, args) {
+    var len = arguments.length;
+    args = new Array(len > 2 ? len - 2 : 0);
+
+    for (var key = 2; key < len; key++) {
+      args[key - 2] = arguments[key];
+    }
+
+    if (format === undefined) {
+      throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
+    }
+
+    if (!condition) {
+      printWarning.apply(null, [format].concat(args));
+    }
+  };
+}
+
+module.exports = warning;
+},{}],"../../../node_modules/process/browser.js":[function(require,module,exports) {
+
+// shim for using process in browser
+var process = module.exports = {}; // cached from whatever global is present so that test runners that stub it
+// don't break things.  But we need to wrap it in a try catch in case it is
+// wrapped in strict mode code which doesn't define any globals.  It's inside a
+// function because try/catches deoptimize in certain engines.
+
+var cachedSetTimeout;
+var cachedClearTimeout;
+
+function defaultSetTimout() {
+  throw new Error('setTimeout has not been defined');
+}
+
+function defaultClearTimeout() {
+  throw new Error('clearTimeout has not been defined');
+}
+
+(function () {
+  try {
+    if (typeof setTimeout === 'function') {
+      cachedSetTimeout = setTimeout;
+    } else {
+      cachedSetTimeout = defaultSetTimout;
+    }
+  } catch (e) {
+    cachedSetTimeout = defaultSetTimout;
+  }
+
+  try {
+    if (typeof clearTimeout === 'function') {
+      cachedClearTimeout = clearTimeout;
+    } else {
+      cachedClearTimeout = defaultClearTimeout;
+    }
+  } catch (e) {
+    cachedClearTimeout = defaultClearTimeout;
+  }
+})();
+
+function runTimeout(fun) {
+  if (cachedSetTimeout === setTimeout) {
+    //normal enviroments in sane situations
+    return setTimeout(fun, 0);
+  } // if setTimeout wasn't available but was latter defined
+
+
+  if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
+    cachedSetTimeout = setTimeout;
+    return setTimeout(fun, 0);
+  }
+
+  try {
+    // when when somebody has screwed with setTimeout but no I.E. maddness
+    return cachedSetTimeout(fun, 0);
+  } catch (e) {
+    try {
+      // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
+      return cachedSetTimeout.call(null, fun, 0);
+    } catch (e) {
+      // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
+      return cachedSetTimeout.call(this, fun, 0);
+    }
+  }
+}
+
+function runClearTimeout(marker) {
+  if (cachedClearTimeout === clearTimeout) {
+    //normal enviroments in sane situations
+    return clearTimeout(marker);
+  } // if clearTimeout wasn't available but was latter defined
+
+
+  if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
+    cachedClearTimeout = clearTimeout;
+    return clearTimeout(marker);
+  }
+
+  try {
+    // when when somebody has screwed with setTimeout but no I.E. maddness
+    return cachedClearTimeout(marker);
+  } catch (e) {
+    try {
+      // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
+      return cachedClearTimeout.call(null, marker);
+    } catch (e) {
+      // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
+      // Some versions of I.E. have different rules for clearTimeout vs setTimeout
+      return cachedClearTimeout.call(this, marker);
+    }
+  }
+}
+
+var queue = [];
+var draining = false;
+var currentQueue;
+var queueIndex = -1;
+
+function cleanUpNextTick() {
+  if (!draining || !currentQueue) {
+    return;
+  }
+
+  draining = false;
+
+  if (currentQueue.length) {
+    queue = currentQueue.concat(queue);
+  } else {
+    queueIndex = -1;
+  }
+
+  if (queue.length) {
+    drainQueue();
+  }
+}
+
+function drainQueue() {
+  if (draining) {
+    return;
+  }
+
+  var timeout = runTimeout(cleanUpNextTick);
+  draining = true;
+  var len = queue.length;
+
+  while (len) {
+    currentQueue = queue;
+    queue = [];
+
+    while (++queueIndex < len) {
+      if (currentQueue) {
+        currentQueue[queueIndex].run();
+      }
+    }
+
+    queueIndex = -1;
+    len = queue.length;
+  }
+
+  currentQueue = null;
+  draining = false;
+  runClearTimeout(timeout);
+}
+
+process.nextTick = function (fun) {
+  var args = new Array(arguments.length - 1);
+
+  if (arguments.length > 1) {
+    for (var i = 1; i < arguments.length; i++) {
+      args[i - 1] = arguments[i];
+    }
+  }
+
+  queue.push(new Item(fun, args));
+
+  if (queue.length === 1 && !draining) {
+    runTimeout(drainQueue);
+  }
+}; // v8 likes predictible objects
+
+
+function Item(fun, array) {
+  this.fun = fun;
+  this.array = array;
+}
+
+Item.prototype.run = function () {
+  this.fun.apply(null, this.array);
+};
+
+process.title = 'browser';
+process.env = {};
+process.argv = [];
+process.version = ''; // empty string to avoid regexp issues
+
+process.versions = {};
+
+function noop() {}
+
+process.on = noop;
+process.addListener = noop;
+process.once = noop;
+process.off = noop;
+process.removeListener = noop;
+process.removeAllListeners = noop;
+process.emit = noop;
+process.prependListener = noop;
+process.prependOnceListener = noop;
+
+process.listeners = function (name) {
+  return [];
+};
+
+process.binding = function (name) {
+  throw new Error('process.binding is not supported');
+};
+
+process.cwd = function () {
+  return '/';
+};
+
+process.chdir = function (dir) {
+  throw new Error('process.chdir is not supported');
+};
+
+process.umask = function () {
+  return 0;
+};
+},{}],"../../../node_modules/@reach/utils/dist/utils.esm.js":[function(require,module,exports) {
+var process = require("process");
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.assignRef = assignRef;
+exports.boolOrBoolString = boolOrBoolString;
+exports.canUseDOM = canUseDOM;
+exports.cloneValidElement = cloneValidElement;
+exports.createNamedContext = createNamedContext;
+exports.forwardRefWithAs = forwardRefWithAs;
+exports.getElementComputedStyle = getElementComputedStyle;
+exports.getOwnerDocument = getOwnerDocument;
+exports.getScrollbarOffset = getScrollbarOffset;
+exports.isBoolean = isBoolean;
+exports.isFunction = isFunction;
+exports.isNumber = isNumber;
+exports.isRightClick = isRightClick;
+exports.isString = isString;
+exports.makeId = makeId;
+exports.noop = noop;
+exports.stateToAttributeString = stateToAttributeString;
+exports.useConstant = useConstant;
+exports.useControlledSwitchWarning = useControlledSwitchWarning;
+exports.useFocusChange = useFocusChange;
+exports.useForkedRef = useForkedRef;
+exports.usePrevious = usePrevious;
+exports.useStateLogger = useStateLogger;
+exports.useUpdateEffect = useUpdateEffect;
+exports.wrapEvent = wrapEvent;
+exports.useIsomorphicLayoutEffect = exports.ponyfillGlobal = exports.checkStyles = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _warning = _interopRequireDefault(require("warning"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+/* eslint-disable no-restricted-globals, eqeqeq,  */
+
+/**
+ * React currently throws a warning when using useLayoutEffect on the server.
+ * To get around it, we can conditionally useEffect on the server (no-op) and
+ * useLayoutEffect in the browser. We occasionally need useLayoutEffect to
+ * ensure we don't get a render flash for certain operations, but we may also
+ * need affected components to render on the server. One example is when setting
+ * a component's descendants to retrieve their index values.
+ *
+ * Important to note that using this hook as an escape hatch will break the
+ * eslint dependency warnings unless you rename the import to `useLayoutEffect`.
+ * Use sparingly only when the effect won't effect the rendered HTML to avoid
+ * any server/client mismatch.
+ *
+ * If a useLayoutEffect is needed and the result would create a mismatch, it's
+ * likely that the component in question shouldn't be rendered on the server at
+ * all, so a better approach would be to lazily render those in a parent
+ * component after client-side hydration.
+ *
+ * TODO: We are calling useLayoutEffect in a couple of places that will likely
+ * cause some issues for SSR users, whether the warning shows or not. Audit and
+ * fix these.
+ *
+ * https://gist.github.com/gaearon/e7d97cdf38a2907924ea12e4ebdf3c85
+ * https://github.com/reduxjs/react-redux/blob/master/src/utils/useIsomorphicLayoutEffect.js
+ *
+ * @param effect
+ * @param deps
+ */
+var useIsomorphicLayoutEffect = /*#__PURE__*/canUseDOM() ? _react.default.useLayoutEffect : _react.default.useEffect;
+exports.useIsomorphicLayoutEffect = useIsomorphicLayoutEffect;
+var checkedPkgs = {};
+/**
+ * When in dev mode, checks that styles for a given @reach package are loaded.
+ *
+ * @param packageName Name of the package to check.
+ * @example checkStyles("dialog") will check for styles for @reach/dialog
+ */
+// @ts-ignore
+
+var checkStyles = function checkStyles(packageName) {
+  return void packageName;
+};
+
+exports.checkStyles = checkStyles;
+
+if ("development" !== "production") {
+  // In CJS files, process.env.NODE_ENV is stripped from our build, but we need
+  // it to prevent style checks from clogging up user logs while testing.
+  // This is a workaround until we can tweak the build a bit to accommodate.
+  var _ref = typeof process !== "undefined" ? process : {
+    env: {
+      NODE_ENV: "development"
+    }
+  },
+      env = _ref.env;
+
+  exports.checkStyles = checkStyles = function checkStyles(packageName) {
+    // only check once per package
+    if (checkedPkgs[packageName]) return;
+    checkedPkgs[packageName] = true;
+
+    if (env.NODE_ENV !== "test" && parseInt(window.getComputedStyle(document.body).getPropertyValue("--reach-" + packageName), 10) !== 1) {
+      console.warn("@reach/" + packageName + " styles not found. If you are using a bundler like webpack or parcel include this in the entry file of your app before any of your own styles:\n\n    import \"@reach/" + packageName + "/styles.css\";\n\n  Otherwise you'll need to include them some other way:\n\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"node_modules/@reach/" + packageName + "/styles.css\" />\n\n  For more information visit https://ui.reach.tech/styling.\n  ");
+    }
+  };
+}
+/**
+ * Ponyfill for the global object in some environments.
+ *
+ * @link https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
+ */
+
+
+var ponyfillGlobal = typeof window != "undefined" && window.Math == Math ? window : typeof self != "undefined" && self.Math == Math ? self :
+/*#__PURE__*/
+// eslint-disable-next-line no-new-func
+Function("return this")();
+/**
+ * Passes or assigns an arbitrary value to a ref function or object.
+ *
+ * @param ref
+ * @param value
+ */
+
+exports.ponyfillGlobal = ponyfillGlobal;
+
+function assignRef(ref, value) {
+  if (ref == null) return;
+
+  if (isFunction(ref)) {
+    ref(value);
+  } else {
+    try {
+      ref.current = value;
+    } catch (error) {
+      throw new Error("Cannot assign value \"" + value + "\" to ref \"" + ref + "\"");
+    }
+  }
+}
+/**
+ * Checks true|"true" vs false|"false"
+ *
+ * @param value
+ */
+
+
+function boolOrBoolString(value) {
+  return value === "true" ? true : isBoolean(value) ? value : false;
+}
+
+function canUseDOM() {
+  return typeof window !== "undefined" && typeof window.document !== "undefined" && typeof window.document.createElement !== "undefined";
+}
+/**
+ * Type-safe clone element
+ *
+ * @param element
+ * @param props
+ * @param children
+ */
+
+
+function cloneValidElement(element, props) {
+  for (var _len = arguments.length, children = new Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+    children[_key - 2] = arguments[_key];
+  }
+
+  return (0, _react.isValidElement)(element) ? _react.cloneElement.apply(void 0, [element, props].concat(children)) : element;
+}
+
+function createNamedContext(name, defaultValue) {
+  var Ctx = (0, _react.createContext)(defaultValue);
+  Ctx.displayName = name;
+  return Ctx;
+}
+/**
+ * This is a hack for sure. The thing is, getting a component to intelligently
+ * infer props based on a component or JSX string passed into an `as` prop is
+ * kind of a huge pain. Getting it to work and satisfy the constraints of
+ * `forwardRef` seems dang near impossible. To avoid needing to do this awkward
+ * type song-and-dance every time we want to forward a ref into a component
+ * that accepts an `as` prop, we abstract all of that mess to this function for
+ * the time time being.
+ *
+ * TODO: Eventually we should probably just try to get the type defs above
+ * working across the board, but ain't nobody got time for that mess!
+ *
+ * @param Comp
+ */
+
+
+function forwardRefWithAs(comp) {
+  return _react.default.forwardRef(comp);
+}
+/**
+ * Get a computed style value by property, backwards compatible with IE
+ * @param element
+ * @param styleProp
+ */
+
+
+function getElementComputedStyle(element, styleProp) {
+  var y = null;
+  var doc = getOwnerDocument(element);
+
+  if (element.currentStyle) {
+    y = element.currentStyle[styleProp];
+  } else if (doc && doc.defaultView && isFunction(doc.defaultView.getComputedStyle)) {
+    y = doc.defaultView.getComputedStyle(element, null).getPropertyValue(styleProp);
+  }
+
+  return y;
+}
+/**
+ * Get an element's owner document. Useful when components are used in iframes
+ * or other environments like dev tools.
+ *
+ * @param element
+ */
+
+
+function getOwnerDocument(element) {
+  return element && element.ownerDocument ? element.ownerDocument : canUseDOM() ? document : null;
+}
+/**
+ * Get the scrollbar offset distance.
+ */
+
+
+function getScrollbarOffset() {
+  try {
+    if (window.innerWidth > document.documentElement.clientWidth) {
+      return window.innerWidth - document.documentElement.clientWidth;
+    }
+  } catch (err) {}
+
+  return 0;
+}
+/**
+ * Checks whether or not a value is a boolean.
+ *
+ * @param value
+ */
+
+
+function isBoolean(value) {
+  return typeof value === "boolean";
+}
+/**
+ * Checks whether or not a value is a function.
+ *
+ * @param value
+ */
+
+
+function isFunction(value) {
+  return !!(value && {}.toString.call(value) == "[object Function]");
+}
+/**
+ * Checks whether or not a value is a number.
+ *
+ * @param value
+ */
+
+
+function isNumber(value) {
+  return typeof value === "number";
+}
+/**
+ * Detects right clicks
+ *
+ * @param nativeEvent
+ */
+
+
+function isRightClick(nativeEvent) {
+  return nativeEvent.which === 3 || nativeEvent.button === 2;
+}
+/**
+ * Checks whether or not a value is a string.
+ *
+ * @param value
+ */
+
+
+function isString(value) {
+  return typeof value === "string";
+}
+/**
+ * Joins strings to format IDs for compound components.
+ *
+ * @param args
+ */
+
+
+function makeId() {
+  for (var _len2 = arguments.length, args = new Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+    args[_key2] = arguments[_key2];
+  }
+
+  return args.filter(function (val) {
+    return val != null;
+  }).join("--");
+}
+/**
+ * No-op function.
+ */
+
+
+function noop() {}
+/**
+ * Convert our state strings for HTML data attributes.
+ * No need for a fancy kebab-caser here, we know what our state strings are!
+ *
+ * @param state
+ */
+
+
+function stateToAttributeString(state) {
+  return String(state).replace(/([\s_]+)/g, "-").toLowerCase();
+}
+/**
+ * Logs a warning in dev mode when a component switches from controlled to
+ * uncontrolled, or vice versa
+ *
+ * A single prop should typically be used to determine whether or not a
+ * component is controlled or not.
+ *
+ * @param controlPropValue
+ * @param controlPropName
+ * @param componentName
+ */
+
+
+function useControlledSwitchWarning(controlPropValue, controlPropName, componentName) {
+  /*
+   * Determine whether or not the component is controlled and warn the developer
+   * if this changes unexpectedly.
+   */
+  var isControlled = controlPropValue != null;
+
+  var _useRef = (0, _react.useRef)(isControlled),
+      wasControlled = _useRef.current;
+
+  var effect = noop;
+
+  if ("development" !== "production") {
+    effect = function effect() {
+      "development" !== "production" ? (0, _warning.default)(!(!isControlled && wasControlled), "`" + componentName + "` is changing from uncontrolled to be controlled. Reach UI components should not switch from uncontrolled to controlled (or vice versa). Decide between using a controlled or uncontrolled `" + componentName + "` for the lifetime of the component. Check the `" + controlPropName + "` prop.") : void 0;
+      "development" !== "production" ? (0, _warning.default)(!(!isControlled && wasControlled), "`" + componentName + "` is changing from controlled to be uncontrolled. Reach UI components should not switch from controlled to uncontrolled (or vice versa). Decide between using a controlled or uncontrolled `" + componentName + "` for the lifetime of the component. Check the `" + controlPropName + "` prop.") : void 0;
+    };
+  }
+
+  (0, _react.useEffect)(effect, [componentName, controlPropName, isControlled]);
+}
+/**
+ * React hook for creating a value exactly once.
+ * @see https://github.com/Andarist/use-constant
+ */
+
+
+function useConstant(fn) {
+  var ref = _react.default.useRef();
+
+  if (!ref.current) {
+    ref.current = {
+      v: fn()
+    };
+  }
+
+  return ref.current.v;
+}
+/**
+ * Detect when focus changes in our document.
+ *
+ * @param handleChange
+ * @param when
+ * @param ownerDocument
+ */
+
+
+function useFocusChange(handleChange, when, ownerDocument) {
+  if (handleChange === void 0) {
+    handleChange = console.log;
+  }
+
+  if (when === void 0) {
+    when = "focus";
+  }
+
+  if (ownerDocument === void 0) {
+    ownerDocument = document;
+  }
+
+  var lastActiveElement = (0, _react.useRef)(ownerDocument.activeElement);
+  (0, _react.useEffect)(function () {
+    lastActiveElement.current = ownerDocument.activeElement;
+
+    function onChange(event) {
+      if (lastActiveElement.current !== ownerDocument.activeElement) {
+        handleChange(ownerDocument.activeElement, lastActiveElement.current, event);
+        lastActiveElement.current = ownerDocument.activeElement;
+      }
+    }
+
+    ownerDocument.addEventListener(when, onChange, true);
+    return function () {
+      ownerDocument.removeEventListener(when, onChange);
+    };
+  }, [when, handleChange, ownerDocument]);
+}
+/**
+ * Passes or assigns a value to multiple refs (typically a DOM node). Useful for
+ * dealing with components that need an explicit ref for DOM calculations but
+ * also forwards refs assigned by an app.
+ *
+ * @param refs Refs to fork
+ */
+
+
+function useForkedRef() {
+  for (var _len3 = arguments.length, refs = new Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+    refs[_key3] = arguments[_key3];
+  }
+
+  return (0, _react.useMemo)(function () {
+    if (refs.every(function (ref) {
+      return ref == null;
+    })) {
+      return null;
+    }
+
+    return function (node) {
+      refs.forEach(function (ref) {
+        assignRef(ref, node);
+      });
+    }; // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, refs);
+}
+/**
+ * Returns the previous value of a reference after a component update.
+ *
+ * @param value
+ */
+
+
+function usePrevious(value) {
+  var ref = (0, _react.useRef)(null);
+  (0, _react.useEffect)(function () {
+    ref.current = value;
+  }, [value]);
+  return ref.current;
+}
+/**
+ * Call an effect after a component update, skipping the initial mount.
+ *
+ * @param effect Effect to call
+ * @param deps Effect dependency list
+ */
+
+
+function useUpdateEffect(effect, deps) {
+  var mounted = (0, _react.useRef)(false);
+  (0, _react.useEffect)(function () {
+    if (mounted.current) {
+      effect();
+    } else {
+      mounted.current = true;
+    } // eslint-disable-next-line react-hooks/exhaustive-deps
+
+  }, deps);
+}
+/**
+ * Just a lil state logger
+ *
+ * @param state
+ * @param DEBUG
+ */
+
+
+function useStateLogger(state, DEBUG) {
+  if (DEBUG === void 0) {
+    DEBUG = false;
+  }
+
+  var effect = noop;
+
+  if ("development" !== "production") {
+    if (DEBUG) {
+      effect = function effect() {
+        console.group("State Updated");
+        console.log("%c" + state, "font-weight: normal; font-size: 120%; font-style: italic;");
+        console.groupEnd();
+      };
+    }
+  }
+
+  (0, _react.useEffect)(effect, [state]);
+}
+/**
+ * Wraps a lib-defined event handler and a user-defined event handler, returning
+ * a single handler that allows a user to prevent lib-defined handlers from
+ * firing.
+ *
+ * @param theirHandler User-supplied event handler
+ * @param ourHandler Library-supplied event handler
+ */
+
+
+function wrapEvent(theirHandler, ourHandler) {
+  return function (event) {
+    theirHandler && theirHandler(event);
+
+    if (!event.defaultPrevented) {
+      return ourHandler(event);
+    }
+  };
+}
+},{"react":"../../../node_modules/react/index.js","warning":"../../../node_modules/warning/warning.js","process":"../../../node_modules/process/browser.js"}],"../../../node_modules/@reach/auto-id/dist/auto-id.esm.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -30289,30 +31086,120 @@ exports.useId = void 0;
 
 var _react = require("react");
 
-// Could use UUID but if we hit 9,007,199,254,740,991 unique components over
-// the lifetime of the app before it gets reloaded, I mean ... come on.
-// I don't even know what xillion that is.
-// /me googles
-// Oh duh, quadrillion. Nine quadrillion components. I think we're okay.
+var _utils = require("@reach/utils");
+
+/*
+ * Welcome to @reach/auto-id!
+
+ * Let's see if we can make sense of why this hook exists and its
+ * implementation.
+ *
+ * Some background:
+ *   1. Accessibiliy APIs rely heavily on element IDs
+ *   2. Requiring developers to put IDs on every element in Reach UI is both
+ *      cumbersome and error-prone
+ *   3. With a component model, we can generate IDs for them!
+ *
+ * Solution 1: Generate random IDs.
+ *
+ * This works great as long as you don't server render your app. When React (in
+ * the client) tries to reuse the markup from the server, the IDs won't match
+ * and React will then recreate the entire DOM tree.
+ *
+ * Solution 2: Increment an integer
+ *
+ * This sounds great. Since we're rendering the exact same tree on the server
+ * and client, we can increment a counter and get a deterministic result between
+ * client and server. Also, JS integers can go up to nine-quadrillion. I'm
+ * pretty sure the tab will be closed before an app never needs
+ * 10 quadrillion IDs!
+ *
+ * Problem solved, right?
+ *
+ * Ah, but there's a catch! React's concurrent rendering makes this approach
+ * non-deterministic. While the client and server will end up with the same
+ * elements in the end, depending on suspense boundaries (and possibly some user
+ * input during the initial render) the incrementing integers won't always match
+ * up.
+ *
+ * Solution 3: Don't use IDs at all on the server; patch after first render.
+ *
+ * What we've done here is solution 2 with some tricks. With this approach, the
+ * ID returned is an empty string on the first render. This way the server and
+ * client have the same markup no matter how wild the concurrent rendering may
+ * have gotten.
+ *
+ * After the render, we patch up the components with an incremented ID. This
+ * causes a double render on any components with `useId`. Shouldn't be a problem
+ * since the components using this hook should be small, and we're only updating
+ * the ID attribute on the DOM, nothing big is happening.
+ *
+ * It doesn't have to be an incremented number, though--we could do generate
+ * random strings instead, but incrementing a number is probably the cheapest
+ * thing we can do.
+ *
+ * Additionally, we only do this patchup on the very first client render ever.
+ * Any calls to `useId` that happen dynamically in the client will be
+ * populated immediately with a value. So, we only get the double render after
+ * server hydration and never again, SO BACK OFF ALRIGHT?
+ */
+var serverHandoffComplete = false;
 var id = 0;
 
 var genId = function genId() {
   return ++id;
 };
+/**
+ * useId
+ *
+ * Autogenerate IDs to facilitate WAI-ARIA and server rendering.
+ *
+ * Note: The returned ID will initially be `null` and will update after a
+ * component mounts. Users may need to supply their own ID if they need
+ * consistent values for SSR.
+ *
+ * @see Docs https://reacttraining.com/reach-ui/auto-id
+ */
 
-var useId = function useId() {
-  var _useState = (0, _react.useState)(null),
+
+var useId = function useId(idFromProps) {
+  /*
+   * If this instance isn't part of the initial render, we don't have to do the
+   * double render/patch-up dance. We can just generate the ID and return it.
+   */
+  var initialId = idFromProps || (serverHandoffComplete ? genId() : null);
+
+  var _useState = (0, _react.useState)(initialId),
       id = _useState[0],
       setId = _useState[1];
 
-  (0, _react.useEffect)(function () {
-    return setId(genId());
+  (0, _utils.useIsomorphicLayoutEffect)(function () {
+    if (id === null) {
+      /*
+       * Patch the ID after render. We do this in `useLayoutEffect` to avoid any
+       * rendering flicker, though it'll make the first render slower (unlikely
+       * to matter, but you're welcome to measure your app and let us know if
+       * it's a problem).
+       */
+      setId(genId());
+    } // eslint-disable-next-line react-hooks/exhaustive-deps
+
   }, []);
-  return id;
+  (0, _react.useEffect)(function () {
+    if (serverHandoffComplete === false) {
+      /*
+       * Flag all future uses of `useId` to skip the update dance. This is in
+       * `useEffect` because it goes after `useLayoutEffect`, ensuring we don't
+       * accidentally bail out of the patch-up dance prematurely.
+       */
+      serverHandoffComplete = true;
+    }
+  }, []);
+  return id != null ? String(id) : undefined;
 };
 
 exports.useId = useId;
-},{"react":"../../../node_modules/react/index.js"}],"../../../node_modules/@babel/runtime/helpers/defineProperty.js":[function(require,module,exports) {
+},{"react":"../../../node_modules/react/index.js","@reach/utils":"../../../node_modules/@reach/utils/dist/utils.esm.js"}],"../../../node_modules/@babel/runtime/helpers/defineProperty.js":[function(require,module,exports) {
 function _defineProperty(obj, key, value) {
   if (key in obj) {
     Object.defineProperty(obj, key, {
@@ -31396,7 +32283,7 @@ var shadow = (0, _core.system)({
 exports.shadow = shadow;
 var _default = shadow;
 exports.default = _default;
-},{"@styled-system/core":"../../../node_modules/@styled-system/core/dist/index.esm.js"}],"../../../node_modules/@styled-system/variant/node_modules/@styled-system/css/dist/index.esm.js":[function(require,module,exports) {
+},{"@styled-system/core":"../../../node_modules/@styled-system/core/dist/index.esm.js"}],"../../../node_modules/@styled-system/css/dist/index.esm.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -31703,7 +32590,7 @@ var colorStyle = variant({
   prop: 'colors'
 });
 exports.colorStyle = colorStyle;
-},{"@styled-system/core":"../../../node_modules/@styled-system/core/dist/index.esm.js","@styled-system/css":"../../../node_modules/@styled-system/variant/node_modules/@styled-system/css/dist/index.esm.js"}],"../../../node_modules/@styled-system/should-forward-prop/node_modules/styled-system/dist/index.esm.js":[function(require,module,exports) {
+},{"@styled-system/core":"../../../node_modules/@styled-system/core/dist/index.esm.js","@styled-system/css":"../../../node_modules/@styled-system/css/dist/index.esm.js"}],"../../../node_modules/styled-system/dist/index.esm.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -32064,571 +32951,7 @@ exports.createShouldForwardProp = createShouldForwardProp;
 var _default = createShouldForwardProp(props);
 
 exports.default = _default;
-},{"@emotion/memoize":"../../../node_modules/@emotion/memoize/dist/memoize.browser.esm.js","@emotion/is-prop-valid":"../../../node_modules/@emotion/is-prop-valid/dist/is-prop-valid.browser.esm.js","styled-system":"../../../node_modules/@styled-system/should-forward-prop/node_modules/styled-system/dist/index.esm.js"}],"../../../node_modules/styled-system/dist/index.esm.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-Object.defineProperty(exports, "get", {
-  enumerable: true,
-  get: function () {
-    return _core.get;
-  }
-});
-Object.defineProperty(exports, "createParser", {
-  enumerable: true,
-  get: function () {
-    return _core.createParser;
-  }
-});
-Object.defineProperty(exports, "createStyleFunction", {
-  enumerable: true,
-  get: function () {
-    return _core.createStyleFunction;
-  }
-});
-Object.defineProperty(exports, "compose", {
-  enumerable: true,
-  get: function () {
-    return _core.compose;
-  }
-});
-Object.defineProperty(exports, "system", {
-  enumerable: true,
-  get: function () {
-    return _core.system;
-  }
-});
-Object.defineProperty(exports, "margin", {
-  enumerable: true,
-  get: function () {
-    return _space.margin;
-  }
-});
-Object.defineProperty(exports, "padding", {
-  enumerable: true,
-  get: function () {
-    return _space.padding;
-  }
-});
-Object.defineProperty(exports, "space", {
-  enumerable: true,
-  get: function () {
-    return _space.space;
-  }
-});
-Object.defineProperty(exports, "color", {
-  enumerable: true,
-  get: function () {
-    return _color.color;
-  }
-});
-Object.defineProperty(exports, "opacity", {
-  enumerable: true,
-  get: function () {
-    return _color.default;
-  }
-});
-Object.defineProperty(exports, "layout", {
-  enumerable: true,
-  get: function () {
-    return _layout.layout;
-  }
-});
-Object.defineProperty(exports, "width", {
-  enumerable: true,
-  get: function () {
-    return _layout.default;
-  }
-});
-Object.defineProperty(exports, "height", {
-  enumerable: true,
-  get: function () {
-    return _layout.default;
-  }
-});
-Object.defineProperty(exports, "minWidth", {
-  enumerable: true,
-  get: function () {
-    return _layout.default;
-  }
-});
-Object.defineProperty(exports, "minHeight", {
-  enumerable: true,
-  get: function () {
-    return _layout.default;
-  }
-});
-Object.defineProperty(exports, "maxWidth", {
-  enumerable: true,
-  get: function () {
-    return _layout.default;
-  }
-});
-Object.defineProperty(exports, "maxHeight", {
-  enumerable: true,
-  get: function () {
-    return _layout.default;
-  }
-});
-Object.defineProperty(exports, "size", {
-  enumerable: true,
-  get: function () {
-    return _layout.default;
-  }
-});
-Object.defineProperty(exports, "verticalAlign", {
-  enumerable: true,
-  get: function () {
-    return _layout.default;
-  }
-});
-Object.defineProperty(exports, "display", {
-  enumerable: true,
-  get: function () {
-    return _layout.default;
-  }
-});
-Object.defineProperty(exports, "overflow", {
-  enumerable: true,
-  get: function () {
-    return _layout.default;
-  }
-});
-Object.defineProperty(exports, "typography", {
-  enumerable: true,
-  get: function () {
-    return _typography.typography;
-  }
-});
-Object.defineProperty(exports, "fontSize", {
-  enumerable: true,
-  get: function () {
-    return _typography.default;
-  }
-});
-Object.defineProperty(exports, "fontFamily", {
-  enumerable: true,
-  get: function () {
-    return _typography.default;
-  }
-});
-Object.defineProperty(exports, "fontWeight", {
-  enumerable: true,
-  get: function () {
-    return _typography.default;
-  }
-});
-Object.defineProperty(exports, "lineHeight", {
-  enumerable: true,
-  get: function () {
-    return _typography.default;
-  }
-});
-Object.defineProperty(exports, "textAlign", {
-  enumerable: true,
-  get: function () {
-    return _typography.default;
-  }
-});
-Object.defineProperty(exports, "fontStyle", {
-  enumerable: true,
-  get: function () {
-    return _typography.default;
-  }
-});
-Object.defineProperty(exports, "letterSpacing", {
-  enumerable: true,
-  get: function () {
-    return _typography.default;
-  }
-});
-Object.defineProperty(exports, "flexbox", {
-  enumerable: true,
-  get: function () {
-    return _flexbox.flexbox;
-  }
-});
-Object.defineProperty(exports, "alignItems", {
-  enumerable: true,
-  get: function () {
-    return _flexbox.default;
-  }
-});
-Object.defineProperty(exports, "alignContent", {
-  enumerable: true,
-  get: function () {
-    return _flexbox.default;
-  }
-});
-Object.defineProperty(exports, "justifyItems", {
-  enumerable: true,
-  get: function () {
-    return _flexbox.default;
-  }
-});
-Object.defineProperty(exports, "justifyContent", {
-  enumerable: true,
-  get: function () {
-    return _flexbox.default;
-  }
-});
-Object.defineProperty(exports, "flexWrap", {
-  enumerable: true,
-  get: function () {
-    return _flexbox.default;
-  }
-});
-Object.defineProperty(exports, "flexDirection", {
-  enumerable: true,
-  get: function () {
-    return _flexbox.default;
-  }
-});
-Object.defineProperty(exports, "flex", {
-  enumerable: true,
-  get: function () {
-    return _flexbox.default;
-  }
-});
-Object.defineProperty(exports, "flexGrow", {
-  enumerable: true,
-  get: function () {
-    return _flexbox.default;
-  }
-});
-Object.defineProperty(exports, "flexShrink", {
-  enumerable: true,
-  get: function () {
-    return _flexbox.default;
-  }
-});
-Object.defineProperty(exports, "flexBasis", {
-  enumerable: true,
-  get: function () {
-    return _flexbox.default;
-  }
-});
-Object.defineProperty(exports, "justifySelf", {
-  enumerable: true,
-  get: function () {
-    return _flexbox.default;
-  }
-});
-Object.defineProperty(exports, "alignSelf", {
-  enumerable: true,
-  get: function () {
-    return _flexbox.default;
-  }
-});
-Object.defineProperty(exports, "order", {
-  enumerable: true,
-  get: function () {
-    return _flexbox.default;
-  }
-});
-Object.defineProperty(exports, "border", {
-  enumerable: true,
-  get: function () {
-    return _border.border;
-  }
-});
-Object.defineProperty(exports, "borderWidth", {
-  enumerable: true,
-  get: function () {
-    return _border.default;
-  }
-});
-Object.defineProperty(exports, "borderStyle", {
-  enumerable: true,
-  get: function () {
-    return _border.default;
-  }
-});
-Object.defineProperty(exports, "borderColor", {
-  enumerable: true,
-  get: function () {
-    return _border.default;
-  }
-});
-Object.defineProperty(exports, "borderTop", {
-  enumerable: true,
-  get: function () {
-    return _border.default;
-  }
-});
-Object.defineProperty(exports, "borderRight", {
-  enumerable: true,
-  get: function () {
-    return _border.default;
-  }
-});
-Object.defineProperty(exports, "borderBottom", {
-  enumerable: true,
-  get: function () {
-    return _border.default;
-  }
-});
-Object.defineProperty(exports, "borderLeft", {
-  enumerable: true,
-  get: function () {
-    return _border.default;
-  }
-});
-Object.defineProperty(exports, "borderRadius", {
-  enumerable: true,
-  get: function () {
-    return _border.default;
-  }
-});
-Object.defineProperty(exports, "borders", {
-  enumerable: true,
-  get: function () {
-    return _border.default;
-  }
-});
-Object.defineProperty(exports, "background", {
-  enumerable: true,
-  get: function () {
-    return _background.background;
-  }
-});
-Object.defineProperty(exports, "backgroundImage", {
-  enumerable: true,
-  get: function () {
-    return _background.default;
-  }
-});
-Object.defineProperty(exports, "backgroundSize", {
-  enumerable: true,
-  get: function () {
-    return _background.default;
-  }
-});
-Object.defineProperty(exports, "backgroundPosition", {
-  enumerable: true,
-  get: function () {
-    return _background.default;
-  }
-});
-Object.defineProperty(exports, "backgroundRepeat", {
-  enumerable: true,
-  get: function () {
-    return _background.default;
-  }
-});
-Object.defineProperty(exports, "position", {
-  enumerable: true,
-  get: function () {
-    return _position.position;
-  }
-});
-Object.defineProperty(exports, "zIndex", {
-  enumerable: true,
-  get: function () {
-    return _position.default;
-  }
-});
-Object.defineProperty(exports, "top", {
-  enumerable: true,
-  get: function () {
-    return _position.default;
-  }
-});
-Object.defineProperty(exports, "right", {
-  enumerable: true,
-  get: function () {
-    return _position.default;
-  }
-});
-Object.defineProperty(exports, "bottom", {
-  enumerable: true,
-  get: function () {
-    return _position.default;
-  }
-});
-Object.defineProperty(exports, "left", {
-  enumerable: true,
-  get: function () {
-    return _position.default;
-  }
-});
-Object.defineProperty(exports, "grid", {
-  enumerable: true,
-  get: function () {
-    return _grid.grid;
-  }
-});
-Object.defineProperty(exports, "gridGap", {
-  enumerable: true,
-  get: function () {
-    return _grid.default;
-  }
-});
-Object.defineProperty(exports, "gridColumnGap", {
-  enumerable: true,
-  get: function () {
-    return _grid.default;
-  }
-});
-Object.defineProperty(exports, "gridRowGap", {
-  enumerable: true,
-  get: function () {
-    return _grid.default;
-  }
-});
-Object.defineProperty(exports, "gridColumn", {
-  enumerable: true,
-  get: function () {
-    return _grid.default;
-  }
-});
-Object.defineProperty(exports, "gridRow", {
-  enumerable: true,
-  get: function () {
-    return _grid.default;
-  }
-});
-Object.defineProperty(exports, "gridAutoFlow", {
-  enumerable: true,
-  get: function () {
-    return _grid.default;
-  }
-});
-Object.defineProperty(exports, "gridAutoColumns", {
-  enumerable: true,
-  get: function () {
-    return _grid.default;
-  }
-});
-Object.defineProperty(exports, "gridAutoRows", {
-  enumerable: true,
-  get: function () {
-    return _grid.default;
-  }
-});
-Object.defineProperty(exports, "gridTemplateColumns", {
-  enumerable: true,
-  get: function () {
-    return _grid.default;
-  }
-});
-Object.defineProperty(exports, "gridTemplateRows", {
-  enumerable: true,
-  get: function () {
-    return _grid.default;
-  }
-});
-Object.defineProperty(exports, "gridTemplateAreas", {
-  enumerable: true,
-  get: function () {
-    return _grid.default;
-  }
-});
-Object.defineProperty(exports, "gridArea", {
-  enumerable: true,
-  get: function () {
-    return _grid.default;
-  }
-});
-Object.defineProperty(exports, "shadow", {
-  enumerable: true,
-  get: function () {
-    return _shadow.shadow;
-  }
-});
-Object.defineProperty(exports, "boxShadow", {
-  enumerable: true,
-  get: function () {
-    return _shadow.default;
-  }
-});
-Object.defineProperty(exports, "textShadow", {
-  enumerable: true,
-  get: function () {
-    return _shadow.default;
-  }
-});
-Object.defineProperty(exports, "variant", {
-  enumerable: true,
-  get: function () {
-    return _variant.variant;
-  }
-});
-Object.defineProperty(exports, "buttonStyle", {
-  enumerable: true,
-  get: function () {
-    return _variant.buttonStyle;
-  }
-});
-Object.defineProperty(exports, "textStyle", {
-  enumerable: true,
-  get: function () {
-    return _variant.textStyle;
-  }
-});
-Object.defineProperty(exports, "colorStyle", {
-  enumerable: true,
-  get: function () {
-    return _variant.colorStyle;
-  }
-});
-exports.style = void 0;
-
-var _core = require("@styled-system/core");
-
-var _space = require("@styled-system/space");
-
-var _color = _interopRequireWildcard(require("@styled-system/color"));
-
-var _layout = _interopRequireWildcard(require("@styled-system/layout"));
-
-var _typography = _interopRequireWildcard(require("@styled-system/typography"));
-
-var _flexbox = _interopRequireWildcard(require("@styled-system/flexbox"));
-
-var _border = _interopRequireWildcard(require("@styled-system/border"));
-
-var _background = _interopRequireWildcard(require("@styled-system/background"));
-
-var _position = _interopRequireWildcard(require("@styled-system/position"));
-
-var _grid = _interopRequireWildcard(require("@styled-system/grid"));
-
-var _shadow = _interopRequireWildcard(require("@styled-system/shadow"));
-
-var _variant = require("@styled-system/variant");
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-// v4 api shims
-// v4 style API shim
-var style = function style(_ref) {
-  var prop = _ref.prop,
-      cssProperty = _ref.cssProperty,
-      alias = _ref.alias,
-      key = _ref.key,
-      transformValue = _ref.transformValue,
-      scale = _ref.scale,
-      properties = _ref.properties;
-  var config = {};
-  config[prop] = (0, _core.createStyleFunction)({
-    properties: properties,
-    property: cssProperty || prop,
-    scale: key,
-    defaultScale: scale,
-    transform: transformValue
-  });
-  if (alias) config[alias] = config[prop];
-  var parse = (0, _core.createParser)(config);
-  return parse;
-};
-
-exports.style = style;
-},{"@styled-system/core":"../../../node_modules/@styled-system/core/dist/index.esm.js","@styled-system/space":"../../../node_modules/@styled-system/space/dist/index.esm.js","@styled-system/color":"../../../node_modules/@styled-system/color/dist/index.esm.js","@styled-system/layout":"../../../node_modules/@styled-system/layout/dist/index.esm.js","@styled-system/typography":"../../../node_modules/@styled-system/typography/dist/index.esm.js","@styled-system/flexbox":"../../../node_modules/@styled-system/flexbox/dist/index.esm.js","@styled-system/border":"../../../node_modules/@styled-system/border/dist/index.esm.js","@styled-system/background":"../../../node_modules/@styled-system/background/dist/index.esm.js","@styled-system/position":"../../../node_modules/@styled-system/position/dist/index.esm.js","@styled-system/grid":"../../../node_modules/@styled-system/grid/dist/index.esm.js","@styled-system/shadow":"../../../node_modules/@styled-system/shadow/dist/index.esm.js","@styled-system/variant":"../../../node_modules/@styled-system/variant/dist/index.esm.js"}],"../../../node_modules/@chakra-ui/core/dist/es/Box/config.js":[function(require,module,exports) {
+},{"@emotion/memoize":"../../../node_modules/@emotion/memoize/dist/memoize.browser.esm.js","@emotion/is-prop-valid":"../../../node_modules/@emotion/is-prop-valid/dist/is-prop-valid.browser.esm.js","styled-system":"../../../node_modules/styled-system/dist/index.esm.js"}],"../../../node_modules/@chakra-ui/core/dist/es/Box/config.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -33918,10 +34241,20 @@ function omit(obj) {
 
 // Start animation helper using nested requestAnimationFrames
 function startAnimationHelper(callback) {
-  requestAnimationFrame(function () {
-    requestAnimationFrame(function () {
+  var requestAnimationFrameIDs = [];
+
+  requestAnimationFrameIDs[0] = requestAnimationFrame(function () {
+    requestAnimationFrameIDs[1] = requestAnimationFrame(function () {
       callback();
     });
+  });
+
+  return requestAnimationFrameIDs;
+}
+
+function cancelAnimationFrames(requestAnimationFrameIDs) {
+  requestAnimationFrameIDs.forEach(function (id) {
+    return cancelAnimationFrame(id);
   });
 }
 
@@ -33947,6 +34280,8 @@ var AnimateHeight = function (_React$Component) {
     _classCallCheck(this, AnimateHeight);
 
     var _this = _possibleConstructorReturn(this, (AnimateHeight.__proto__ || Object.getPrototypeOf(AnimateHeight)).call(this, props));
+
+    _this.animationFrameIDs = [];
 
     var height = 'auto';
     var overflow = 'visible';
@@ -34075,7 +34410,8 @@ var AnimateHeight = function (_React$Component) {
           // after setting fixed height above
           timeoutState.shouldUseTransitions = true;
 
-          startAnimationHelper(function () {
+          cancelAnimationFrames(this.animationFrameIDs);
+          this.animationFrameIDs = startAnimationHelper(function () {
             _this2.setState(timeoutState);
 
             // ANIMATION STARTS, run a callback if it exists
@@ -34122,8 +34458,11 @@ var AnimateHeight = function (_React$Component) {
   }, {
     key: 'componentWillUnmount',
     value: function componentWillUnmount() {
+      cancelAnimationFrames(this.animationFrameIDs);
+
       clearTimeout(this.timeoutID);
       clearTimeout(this.animationClassesTimeoutID);
+
       this.timeoutID = null;
       this.animationClassesTimeoutID = null;
       this.animationStateClasses = null;
@@ -34407,236 +34746,7 @@ var Icon = (0, _react.forwardRef)(function (_ref, ref) {
 Icon.displayName = "Icon";
 var _default = Icon;
 exports.default = _default;
-},{"@babel/runtime/helpers/extends":"../../../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/objectWithoutPropertiesLoose":"../../../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js","@babel/runtime/helpers/taggedTemplateLiteralLoose":"../../../node_modules/@babel/runtime/helpers/taggedTemplateLiteralLoose.js","@emotion/core":"../../../node_modules/@emotion/core/dist/core.browser.esm.js","@emotion/styled":"../../../node_modules/@emotion/styled/dist/styled.browser.esm.js","react":"../../../node_modules/react/index.js","../Box":"../../../node_modules/@chakra-ui/core/dist/es/Box/index.js"}],"../../../node_modules/@styled-system/css/dist/index.esm.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = exports.css = exports.responsive = exports.get = void 0;
-
-function _extends() {
-  _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-
-    return target;
-  };
-
-  return _extends.apply(this, arguments);
-} // based on https://github.com/developit/dlv
-
-
-var get = function get(obj, key, def, p, undef) {
-  key = key && key.split ? key.split('.') : [key];
-
-  for (p = 0; p < key.length; p++) {
-    obj = obj ? obj[key[p]] : undef;
-  }
-
-  return obj === undef ? def : obj;
-};
-
-exports.get = get;
-var defaultBreakpoints = [40, 52, 64].map(function (n) {
-  return n + 'em';
-});
-var defaultTheme = {
-  space: [0, 4, 8, 16, 32, 64, 128, 256, 512],
-  fontSizes: [12, 14, 16, 20, 24, 32, 48, 64, 72]
-};
-var aliases = {
-  bg: 'backgroundColor',
-  m: 'margin',
-  mt: 'marginTop',
-  mr: 'marginRight',
-  mb: 'marginBottom',
-  ml: 'marginLeft',
-  mx: 'marginX',
-  my: 'marginY',
-  p: 'padding',
-  pt: 'paddingTop',
-  pr: 'paddingRight',
-  pb: 'paddingBottom',
-  pl: 'paddingLeft',
-  px: 'paddingX',
-  py: 'paddingY'
-};
-var directions = {
-  marginX: ['marginLeft', 'marginRight'],
-  marginY: ['marginTop', 'marginBottom'],
-  paddingX: ['paddingLeft', 'paddingRight'],
-  paddingY: ['paddingTop', 'paddingBottom']
-};
-var scales = {
-  color: 'colors',
-  backgroundColor: 'colors',
-  borderColor: 'colors',
-  margin: 'space',
-  marginTop: 'space',
-  marginRight: 'space',
-  marginBottom: 'space',
-  marginLeft: 'space',
-  marginX: 'space',
-  marginY: 'space',
-  padding: 'space',
-  paddingTop: 'space',
-  paddingRight: 'space',
-  paddingBottom: 'space',
-  paddingLeft: 'space',
-  paddingX: 'space',
-  paddingY: 'space',
-  top: 'space',
-  right: 'space',
-  bottom: 'space',
-  left: 'space',
-  gridGap: 'space',
-  gridColumnGap: 'space',
-  gridRowGap: 'space',
-  gap: 'space',
-  columnGap: 'space',
-  rowGap: 'space',
-  fontFamily: 'fonts',
-  fontSize: 'fontSizes',
-  fontWeight: 'fontWeights',
-  lineHeight: 'lineHeights',
-  letterSpacing: 'letterSpacings',
-  border: 'borders',
-  borderTop: 'borders',
-  borderRight: 'borders',
-  borderBottom: 'borders',
-  borderLeft: 'borders',
-  borderWidth: 'borderWidths',
-  borderStyle: 'borderStyles',
-  borderRadius: 'radii',
-  borderTopRightRadius: 'radii',
-  borderTopLeftRadius: 'radii',
-  borderBottomRightRadius: 'radii',
-  borderBottomLeftRadius: 'radii',
-  boxShadow: 'shadows',
-  textShadow: 'shadows',
-  zIndex: 'zIndices',
-  width: 'sizes',
-  minWidth: 'sizes',
-  maxWidth: 'sizes',
-  height: 'sizes',
-  minHeight: 'sizes',
-  maxHeight: 'sizes'
-};
-
-var positiveOrNegative = function positiveOrNegative(scale, value) {
-  if (typeof value !== 'number' || value >= 0) {
-    return get(scale, value, value);
-  }
-
-  var absolute = Math.abs(value);
-  var n = get(scale, absolute, absolute);
-  if (typeof n === 'string') return '-' + n;
-  return n * -1;
-};
-
-var transforms = ['margin', 'marginTop', 'marginRight', 'marginBottom', 'marginLeft', 'marginX', 'marginY', 'top', 'bottom', 'left', 'right'].reduce(function (acc, curr) {
-  var _extends2;
-
-  return _extends({}, acc, (_extends2 = {}, _extends2[curr] = positiveOrNegative, _extends2));
-}, {});
-
-var responsive = function responsive(styles) {
-  return function (theme) {
-    var next = {};
-    var breakpoints = get(theme, 'breakpoints', defaultBreakpoints);
-    var mediaQueries = [null].concat(breakpoints.map(function (n) {
-      return "@media screen and (min-width: " + n + ")";
-    }));
-
-    for (var key in styles) {
-      var value = styles[key];
-      if (value == null) continue;
-
-      if (!Array.isArray(value)) {
-        next[key] = value;
-        continue;
-      }
-
-      for (var i = 0; i < value.length; i++) {
-        var media = mediaQueries[i];
-        if (value[i] == null) continue;
-
-        if (!media) {
-          next[key] = value[i];
-          continue;
-        }
-
-        next[media] = next[media] || {};
-        next[media][key] = value[i];
-      }
-    }
-
-    return next;
-  };
-};
-
-exports.responsive = responsive;
-
-var css = function css(args) {
-  return function (props) {
-    if (props === void 0) {
-      props = {};
-    }
-
-    var theme = _extends({}, defaultTheme, props.theme || props);
-
-    var result = {};
-    var obj = typeof args === 'function' ? args(theme) : args;
-    var styles = responsive(obj)(theme);
-
-    for (var key in styles) {
-      var prop = get(aliases, key, key);
-      var scaleName = get(scales, prop);
-      var scale = get(theme, scaleName, get(theme, prop, {}));
-      var x = styles[key];
-      var val = typeof x === 'function' ? x(theme) : x;
-
-      if (key === 'variant') {
-        var variant = css(get(theme, val))(theme);
-        result = _extends({}, result, variant);
-        continue;
-      }
-
-      if (val && typeof val === 'object') {
-        result[prop] = css(val)(theme);
-        continue;
-      }
-
-      var transform = get(transforms, prop, get);
-      var value = transform(scale, val, val);
-
-      if (directions[prop]) {
-        var dirs = directions[prop];
-
-        for (var i = 0; i < dirs.length; i++) {
-          result[dirs[i]] = value;
-        }
-      } else {
-        result[prop] = value;
-      }
-    }
-
-    return result;
-  };
-};
-
-exports.css = css;
-var _default = css;
-exports.default = _default;
-},{}],"../../../node_modules/@chakra-ui/core/dist/es/PseudoBox/index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/extends":"../../../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/objectWithoutPropertiesLoose":"../../../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js","@babel/runtime/helpers/taggedTemplateLiteralLoose":"../../../node_modules/@babel/runtime/helpers/taggedTemplateLiteralLoose.js","@emotion/core":"../../../node_modules/@emotion/core/dist/core.browser.esm.js","@emotion/styled":"../../../node_modules/@emotion/styled/dist/styled.browser.esm.js","react":"../../../node_modules/react/index.js","../Box":"../../../node_modules/@chakra-ui/core/dist/es/Box/index.js"}],"../../../node_modules/@chakra-ui/core/dist/es/PseudoBox/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -36460,7 +36570,7 @@ var AccordionIcon = function AccordionIcon(props) {
 };
 
 exports.AccordionIcon = AccordionIcon;
-},{"@babel/runtime/helpers/extends":"../../../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/objectWithoutPropertiesLoose":"../../../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js","@emotion/core":"../../../node_modules/@emotion/core/dist/core.browser.esm.js","@reach/auto-id":"../../../node_modules/@reach/auto-id/es/index.js","react":"../../../node_modules/react/index.js","../Box":"../../../node_modules/@chakra-ui/core/dist/es/Box/index.js","../Collapse":"../../../node_modules/@chakra-ui/core/dist/es/Collapse/index.js","../Icon":"../../../node_modules/@chakra-ui/core/dist/es/Icon/index.js","../PseudoBox":"../../../node_modules/@chakra-ui/core/dist/es/PseudoBox/index.js","../utils":"../../../node_modules/@chakra-ui/core/dist/es/utils/index.js"}],"../../../node_modules/color-string/node_modules/color-name/index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/extends":"../../../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/objectWithoutPropertiesLoose":"../../../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js","@emotion/core":"../../../node_modules/@emotion/core/dist/core.browser.esm.js","@reach/auto-id":"../../../node_modules/@reach/auto-id/dist/auto-id.esm.js","react":"../../../node_modules/react/index.js","../Box":"../../../node_modules/@chakra-ui/core/dist/es/Box/index.js","../Collapse":"../../../node_modules/@chakra-ui/core/dist/es/Collapse/index.js","../Icon":"../../../node_modules/@chakra-ui/core/dist/es/Icon/index.js","../PseudoBox":"../../../node_modules/@chakra-ui/core/dist/es/PseudoBox/index.js","../utils":"../../../node_modules/@chakra-ui/core/dist/es/utils/index.js"}],"../../../node_modules/color-string/node_modules/color-name/index.js":[function(require,module,exports) {
 'use strict'
 
 module.exports = {
@@ -43142,7 +43252,7 @@ var ModalCloseButton = (0, _react.forwardRef)(function (props, ref) {
 });
 exports.ModalCloseButton = ModalCloseButton;
 ModalCloseButton.displayName = "ModalCloseButton"; ////////////////////////////////////////////////////////////////////////
-},{"@babel/runtime/helpers/defineProperty":"../../../node_modules/@babel/runtime/helpers/defineProperty.js","@babel/runtime/helpers/objectWithoutPropertiesLoose":"../../../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js","@babel/runtime/helpers/extends":"../../../node_modules/@babel/runtime/helpers/extends.js","react":"../../../node_modules/react/index.js","body-scroll-lock":"../../../node_modules/body-scroll-lock/lib/bodyScrollLock.min.js","react-focus-lock/dist/cjs":"../../../node_modules/react-focus-lock/dist/cjs/index.js","../utils":"../../../node_modules/@chakra-ui/core/dist/es/utils/index.js","../Box":"../../../node_modules/@chakra-ui/core/dist/es/Box/index.js","../Portal":"../../../node_modules/@chakra-ui/core/dist/es/Portal/index.js","../CloseButton":"../../../node_modules/@chakra-ui/core/dist/es/CloseButton/index.js","aria-hidden":"../../../node_modules/aria-hidden/dist/es2015/index.js","@reach/auto-id":"../../../node_modules/@reach/auto-id/es/index.js","../ColorModeProvider":"../../../node_modules/@chakra-ui/core/dist/es/ColorModeProvider/index.js","exenv":"../../../node_modules/exenv/index.js"}],"../../../node_modules/@chakra-ui/core/dist/es/AlertDialog/index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/defineProperty":"../../../node_modules/@babel/runtime/helpers/defineProperty.js","@babel/runtime/helpers/objectWithoutPropertiesLoose":"../../../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js","@babel/runtime/helpers/extends":"../../../node_modules/@babel/runtime/helpers/extends.js","react":"../../../node_modules/react/index.js","body-scroll-lock":"../../../node_modules/body-scroll-lock/lib/bodyScrollLock.min.js","react-focus-lock/dist/cjs":"../../../node_modules/react-focus-lock/dist/cjs/index.js","../utils":"../../../node_modules/@chakra-ui/core/dist/es/utils/index.js","../Box":"../../../node_modules/@chakra-ui/core/dist/es/Box/index.js","../Portal":"../../../node_modules/@chakra-ui/core/dist/es/Portal/index.js","../CloseButton":"../../../node_modules/@chakra-ui/core/dist/es/CloseButton/index.js","aria-hidden":"../../../node_modules/aria-hidden/dist/es2015/index.js","@reach/auto-id":"../../../node_modules/@reach/auto-id/dist/auto-id.esm.js","../ColorModeProvider":"../../../node_modules/@chakra-ui/core/dist/es/ColorModeProvider/index.js","exenv":"../../../node_modules/exenv/index.js"}],"../../../node_modules/@chakra-ui/core/dist/es/AlertDialog/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -43347,7 +43457,8 @@ exports.default = _default;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = exports.useHasImageLoaded = void 0;
+exports.useHasImageLoaded = useHasImageLoaded;
+exports.default = void 0;
 
 var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
 
@@ -43362,10 +43473,12 @@ var _Box = _interopRequireDefault(require("../Box"));
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /** @jsx jsx */
-var useHasImageLoaded = function useHasImageLoaded(_ref) {
-  var src = _ref.src,
-      onLoad = _ref.onLoad,
-      onError = _ref.onError;
+function useHasImageLoaded(props) {
+  var src = props.src,
+      onLoad = props.onLoad,
+      onError = props.onError,
+      _props$enabled = props.enabled,
+      enabled = _props$enabled === void 0 ? true : _props$enabled;
   var isMounted = (0, _react.useRef)(true);
 
   var _useState = (0, _react.useState)(false),
@@ -43373,7 +43486,7 @@ var useHasImageLoaded = function useHasImageLoaded(_ref) {
       setHasLoaded = _useState[1];
 
   (0, _react.useEffect)(function () {
-    if (!src) {
+    if (!src || !enabled) {
       return;
     }
 
@@ -43387,27 +43500,26 @@ var useHasImageLoaded = function useHasImageLoaded(_ref) {
       }
     };
 
-    image.onError = function (event) {
+    image.onerror = function (event) {
       if (isMounted.current) {
         setHasLoaded(false);
         onError && onError(event);
       }
     };
-  }, [src, onLoad, onError]);
+  }, [src, onLoad, onError, enabled]);
   (0, _react.useEffect)(function () {
     return function () {
       isMounted.current = false;
     };
   }, []);
   return hasLoaded;
-};
+}
 
-exports.useHasImageLoaded = useHasImageLoaded;
-var NativeImage = (0, _react.forwardRef)(function (_ref2, ref) {
-  var htmlWidth = _ref2.htmlWidth,
-      htmlHeight = _ref2.htmlHeight,
-      alt = _ref2.alt,
-      props = (0, _objectWithoutPropertiesLoose2.default)(_ref2, ["htmlWidth", "htmlHeight", "alt"]);
+var NativeImage = (0, _react.forwardRef)(function (_ref, ref) {
+  var htmlWidth = _ref.htmlWidth,
+      htmlHeight = _ref.htmlHeight,
+      alt = _ref.alt,
+      props = (0, _objectWithoutPropertiesLoose2.default)(_ref, ["htmlWidth", "htmlHeight", "alt"]);
   return (0, _core.jsx)("img", (0, _extends2.default)({
     width: htmlWidth,
     height: htmlHeight,
@@ -43415,36 +43527,30 @@ var NativeImage = (0, _react.forwardRef)(function (_ref2, ref) {
     alt: alt
   }, props));
 });
-var Image = (0, _react.forwardRef)(function (_ref3, ref) {
-  var src = _ref3.src,
-      fallbackSrc = _ref3.fallbackSrc,
-      onError = _ref3.onError,
-      onLoad = _ref3.onLoad,
-      ignoreFallback = _ref3.ignoreFallback,
-      props = (0, _objectWithoutPropertiesLoose2.default)(_ref3, ["src", "fallbackSrc", "onError", "onLoad", "ignoreFallback"]);
+var Image = (0, _react.forwardRef)(function (props, ref) {
+  var src = props.src,
+      fallbackSrc = props.fallbackSrc,
+      onError = props.onError,
+      onLoad = props.onLoad,
+      ignoreFallback = props.ignoreFallback,
+      rest = (0, _objectWithoutPropertiesLoose2.default)(props, ["src", "fallbackSrc", "onError", "onLoad", "ignoreFallback"]);
   var hasLoaded = useHasImageLoaded({
     src: src,
     onLoad: onLoad,
-    onError: onError
+    onError: onError,
+    enabled: !Boolean(ignoreFallback)
   });
-  var imageProps;
-
-  if (ignoreFallback) {
-    imageProps = {
-      src: src,
-      onLoad: onLoad,
-      onError: onError
-    };
-  } else {
-    imageProps = {
-      src: hasLoaded ? src : fallbackSrc
-    };
-  }
-
+  var imageProps = ignoreFallback ? {
+    src: src,
+    onLoad: onLoad,
+    onError: onError
+  } : {
+    src: hasLoaded ? src : fallbackSrc
+  };
   return (0, _core.jsx)(_Box.default, (0, _extends2.default)({
     as: NativeImage,
     ref: ref
-  }, imageProps, props));
+  }, imageProps, rest));
 });
 Image.displayName = "Image";
 var _default = Image;
@@ -43790,6 +43896,7 @@ var AvatarGroup = function AvatarGroup(_ref2) {
 
     if (max && index === max) {
       return (0, _core.jsx)(MoreAvatarLabel, {
+        key: index,
         size: size,
         ml: spacing,
         label: "+" + (count - max)
@@ -45203,6 +45310,7 @@ var Checkbox = (0, _react.forwardRef)(function (_ref2, ref) {
     as: "input",
     type: "checkbox",
     "aria-label": ariaLabel,
+    "aria-labelledby": ariaLabelledBy,
     id: id,
     ref: _ref,
     name: name,
@@ -45313,6 +45421,7 @@ var CheckboxGroup = function CheckboxGroup(_ref) {
       mb: spacing
     };
     return (0, _core.jsx)(_Box.default, (0, _extends2.default)({
+      key: index,
       display: isInline ? "inline-block" : "block"
     }, !isLastCheckbox && spacingProps), (0, _react.cloneElement)(child, {
       size: size,
@@ -45329,7 +45438,7 @@ var CheckboxGroup = function CheckboxGroup(_ref) {
 
 var _default = CheckboxGroup;
 exports.default = _default;
-},{"@babel/runtime/helpers/extends":"../../../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/objectWithoutPropertiesLoose":"../../../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js","@emotion/core":"../../../node_modules/@emotion/core/dist/core.browser.esm.js","@reach/auto-id":"../../../node_modules/@reach/auto-id/es/index.js","react":"../../../node_modules/react/index.js","../Box":"../../../node_modules/@chakra-ui/core/dist/es/Box/index.js","../utils":"../../../node_modules/@chakra-ui/core/dist/es/utils/index.js"}],"../../../node_modules/@chakra-ui/core/dist/es/Css/index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/extends":"../../../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/objectWithoutPropertiesLoose":"../../../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js","@emotion/core":"../../../node_modules/@emotion/core/dist/core.browser.esm.js","@reach/auto-id":"../../../node_modules/@reach/auto-id/dist/auto-id.esm.js","react":"../../../node_modules/react/index.js","../Box":"../../../node_modules/@chakra-ui/core/dist/es/Box/index.js","../utils":"../../../node_modules/@chakra-ui/core/dist/es/utils/index.js"}],"../../../node_modules/@chakra-ui/core/dist/es/Css/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -48934,8 +49043,7 @@ exports.useFormControl = useFormControl;
 var FormControlContext = (0, _react.createContext)();
 
 var useFormControlContext = function useFormControlContext() {
-  var context = (0, _react.useContext)(FormControlContext);
-  return context;
+  return (0, _react.useContext)(FormControlContext);
 };
 
 exports.useFormControlContext = useFormControlContext;
@@ -53507,7 +53615,7 @@ var MenuOptionGroup = function MenuOptionGroup(_ref2) {
 };
 
 exports.MenuOptionGroup = MenuOptionGroup;
-},{"@babel/runtime/helpers/extends":"../../../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/objectWithoutPropertiesLoose":"../../../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js","@emotion/core":"../../../node_modules/@emotion/core/dist/core.browser.esm.js","@reach/auto-id":"../../../node_modules/@reach/auto-id/es/index.js","react":"../../../node_modules/react/index.js",".":"../../../node_modules/@chakra-ui/core/dist/es/Menu/index.js","../Box":"../../../node_modules/@chakra-ui/core/dist/es/Box/index.js","../Icon":"../../../node_modules/@chakra-ui/core/dist/es/Icon/index.js","../PseudoBox":"../../../node_modules/@chakra-ui/core/dist/es/PseudoBox/index.js","../utils":"../../../node_modules/@chakra-ui/core/dist/es/utils/index.js","./styles":"../../../node_modules/@chakra-ui/core/dist/es/Menu/styles.js"}],"../../../node_modules/@chakra-ui/core/dist/es/Menu/index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/extends":"../../../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/objectWithoutPropertiesLoose":"../../../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js","@emotion/core":"../../../node_modules/@emotion/core/dist/core.browser.esm.js","@reach/auto-id":"../../../node_modules/@reach/auto-id/dist/auto-id.esm.js","react":"../../../node_modules/react/index.js",".":"../../../node_modules/@chakra-ui/core/dist/es/Menu/index.js","../Box":"../../../node_modules/@chakra-ui/core/dist/es/Box/index.js","../Icon":"../../../node_modules/@chakra-ui/core/dist/es/Icon/index.js","../PseudoBox":"../../../node_modules/@chakra-ui/core/dist/es/PseudoBox/index.js","../utils":"../../../node_modules/@chakra-ui/core/dist/es/utils/index.js","./styles":"../../../node_modules/@chakra-ui/core/dist/es/Menu/styles.js"}],"../../../node_modules/@chakra-ui/core/dist/es/Menu/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -53998,7 +54106,7 @@ MenuGroup.displayName = "MenuGroup"; ///////////////////////////////////////////
 
 var _default = Menu;
 exports.default = _default;
-},{"@babel/runtime/helpers/objectWithoutPropertiesLoose":"../../../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js","@babel/runtime/helpers/extends":"../../../node_modules/@babel/runtime/helpers/extends.js","@emotion/core":"../../../node_modules/@emotion/core/dist/core.browser.esm.js","@reach/auto-id":"../../../node_modules/@reach/auto-id/es/index.js","react":"../../../node_modules/react/index.js","../Box":"../../../node_modules/@chakra-ui/core/dist/es/Box/index.js","../PseudoBox":"../../../node_modules/@chakra-ui/core/dist/es/PseudoBox/index.js","../Text":"../../../node_modules/@chakra-ui/core/dist/es/Text/index.js","../ColorModeProvider":"../../../node_modules/@chakra-ui/core/dist/es/ColorModeProvider/index.js","../usePrevious":"../../../node_modules/@chakra-ui/core/dist/es/usePrevious/index.js","../utils":"../../../node_modules/@chakra-ui/core/dist/es/utils/index.js","./styles":"../../../node_modules/@chakra-ui/core/dist/es/Menu/styles.js","../Divider":"../../../node_modules/@chakra-ui/core/dist/es/Divider/index.js","../Popper":"../../../node_modules/@chakra-ui/core/dist/es/Popper/index.js","./MenuOption":"../../../node_modules/@chakra-ui/core/dist/es/Menu/MenuOption.js"}],"../../../node_modules/@chakra-ui/core/dist/es/useNumberInput/utils.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/objectWithoutPropertiesLoose":"../../../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js","@babel/runtime/helpers/extends":"../../../node_modules/@babel/runtime/helpers/extends.js","@emotion/core":"../../../node_modules/@emotion/core/dist/core.browser.esm.js","@reach/auto-id":"../../../node_modules/@reach/auto-id/dist/auto-id.esm.js","react":"../../../node_modules/react/index.js","../Box":"../../../node_modules/@chakra-ui/core/dist/es/Box/index.js","../PseudoBox":"../../../node_modules/@chakra-ui/core/dist/es/PseudoBox/index.js","../Text":"../../../node_modules/@chakra-ui/core/dist/es/Text/index.js","../ColorModeProvider":"../../../node_modules/@chakra-ui/core/dist/es/ColorModeProvider/index.js","../usePrevious":"../../../node_modules/@chakra-ui/core/dist/es/usePrevious/index.js","../utils":"../../../node_modules/@chakra-ui/core/dist/es/utils/index.js","./styles":"../../../node_modules/@chakra-ui/core/dist/es/Menu/styles.js","../Divider":"../../../node_modules/@chakra-ui/core/dist/es/Divider/index.js","../Popper":"../../../node_modules/@chakra-ui/core/dist/es/Popper/index.js","./MenuOption":"../../../node_modules/@chakra-ui/core/dist/es/Menu/MenuOption.js"}],"../../../node_modules/@chakra-ui/core/dist/es/useNumberInput/utils.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -55191,7 +55299,7 @@ var PopoverCloseButton = function PopoverCloseButton(_ref4) {
 
 
 exports.PopoverCloseButton = PopoverCloseButton;
-},{"@babel/runtime/helpers/extends":"../../../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/objectWithoutPropertiesLoose":"../../../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js","@babel/runtime/helpers/defineProperty":"../../../node_modules/@babel/runtime/helpers/defineProperty.js","@emotion/core":"../../../node_modules/@emotion/core/dist/core.browser.esm.js","@reach/auto-id":"../../../node_modules/@reach/auto-id/es/index.js","react":"../../../node_modules/react/index.js","../Box":"../../../node_modules/@chakra-ui/core/dist/es/Box/index.js","../CloseButton":"../../../node_modules/@chakra-ui/core/dist/es/CloseButton/index.js","../ColorModeProvider":"../../../node_modules/@chakra-ui/core/dist/es/ColorModeProvider/index.js","../Popper":"../../../node_modules/@chakra-ui/core/dist/es/Popper/index.js","../usePrevious":"../../../node_modules/@chakra-ui/core/dist/es/usePrevious/index.js","../utils":"../../../node_modules/@chakra-ui/core/dist/es/utils/index.js"}],"../../../node_modules/@chakra-ui/core/dist/es/Slider/styles.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/extends":"../../../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/objectWithoutPropertiesLoose":"../../../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js","@babel/runtime/helpers/defineProperty":"../../../node_modules/@babel/runtime/helpers/defineProperty.js","@emotion/core":"../../../node_modules/@emotion/core/dist/core.browser.esm.js","@reach/auto-id":"../../../node_modules/@reach/auto-id/dist/auto-id.esm.js","react":"../../../node_modules/react/index.js","../Box":"../../../node_modules/@chakra-ui/core/dist/es/Box/index.js","../CloseButton":"../../../node_modules/@chakra-ui/core/dist/es/CloseButton/index.js","../ColorModeProvider":"../../../node_modules/@chakra-ui/core/dist/es/ColorModeProvider/index.js","../Popper":"../../../node_modules/@chakra-ui/core/dist/es/Popper/index.js","../usePrevious":"../../../node_modules/@chakra-ui/core/dist/es/usePrevious/index.js","../utils":"../../../node_modules/@chakra-ui/core/dist/es/utils/index.js"}],"../../../node_modules/@chakra-ui/core/dist/es/Slider/styles.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -56021,9 +56129,9 @@ var _objectWithoutPropertiesLoose2 = _interopRequireDefault(require("@babel/runt
 
 var _core = require("@emotion/core");
 
-var _react = require("react");
-
 var _autoId = require("@reach/auto-id");
+
+var _react = require("react");
 
 var _Box = _interopRequireDefault(require("../Box"));
 
@@ -56080,6 +56188,7 @@ var RadioGroup = (0, _react.forwardRef)(function (_ref, ref) {
       mb: spacing
     };
     return (0, _core.jsx)(_Box.default, (0, _extends2.default)({
+      key: index,
       display: isInline ? "inline-block" : "block"
     }, !isLastRadio && spacingProps), (0, _react.cloneElement)(child, {
       size: child.props.size || size,
@@ -56113,7 +56222,7 @@ var RadioGroup = (0, _react.forwardRef)(function (_ref, ref) {
 RadioGroup.displayName = "RadioGroup";
 var _default = RadioGroup;
 exports.default = _default;
-},{"@babel/runtime/helpers/extends":"../../../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/objectWithoutPropertiesLoose":"../../../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js","@emotion/core":"../../../node_modules/@emotion/core/dist/core.browser.esm.js","react":"../../../node_modules/react/index.js","@reach/auto-id":"../../../node_modules/@reach/auto-id/es/index.js","../Box":"../../../node_modules/@chakra-ui/core/dist/es/Box/index.js","../utils":"../../../node_modules/@chakra-ui/core/dist/es/utils/index.js"}],"../../../node_modules/@chakra-ui/core/dist/es/RadioButtonGroup/index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/extends":"../../../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/objectWithoutPropertiesLoose":"../../../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js","@emotion/core":"../../../node_modules/@emotion/core/dist/core.browser.esm.js","@reach/auto-id":"../../../node_modules/@reach/auto-id/dist/auto-id.esm.js","react":"../../../node_modules/react/index.js","../Box":"../../../node_modules/@chakra-ui/core/dist/es/Box/index.js","../utils":"../../../node_modules/@chakra-ui/core/dist/es/utils/index.js"}],"../../../node_modules/@chakra-ui/core/dist/es/RadioButtonGroup/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -56281,6 +56390,7 @@ var RadioButtonGroup = function RadioButtonGroup(_ref) {
     };
 
     return (0, _react.cloneElement)(child, _objectSpread({
+      key: index,
       ref: function ref(node) {
         return allNodes.current[index] = node;
       },
@@ -56299,7 +56409,7 @@ var RadioButtonGroup = function RadioButtonGroup(_ref) {
 RadioButtonGroup.displayName = "RadioButtonGroup";
 var _default = RadioButtonGroup;
 exports.default = _default;
-},{"@babel/runtime/helpers/extends":"../../../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/defineProperty":"../../../node_modules/@babel/runtime/helpers/defineProperty.js","@babel/runtime/helpers/objectWithoutPropertiesLoose":"../../../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js","@emotion/core":"../../../node_modules/@emotion/core/dist/core.browser.esm.js","@reach/auto-id":"../../../node_modules/@reach/auto-id/es/index.js","react":"../../../node_modules/react/index.js","../Box":"../../../node_modules/@chakra-ui/core/dist/es/Box/index.js","../utils":"../../../node_modules/@chakra-ui/core/dist/es/utils/index.js"}],"../../../node_modules/@chakra-ui/core/dist/es/Select/utils.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/extends":"../../../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/defineProperty":"../../../node_modules/@babel/runtime/helpers/defineProperty.js","@babel/runtime/helpers/objectWithoutPropertiesLoose":"../../../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js","@emotion/core":"../../../node_modules/@emotion/core/dist/core.browser.esm.js","@reach/auto-id":"../../../node_modules/@reach/auto-id/dist/auto-id.esm.js","react":"../../../node_modules/react/index.js","../Box":"../../../node_modules/@chakra-ui/core/dist/es/Box/index.js","../utils":"../../../node_modules/@chakra-ui/core/dist/es/utils/index.js"}],"../../../node_modules/@chakra-ui/core/dist/es/Select/utils.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -56464,7 +56574,143 @@ var Select = (0, _react.forwardRef)(function (_ref2, ref) {
 Select.displayName = "Select";
 var _default = Select;
 exports.default = _default;
-},{"@babel/runtime/helpers/objectWithoutPropertiesLoose":"../../../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js","@babel/runtime/helpers/extends":"../../../node_modules/@babel/runtime/helpers/extends.js","@emotion/core":"../../../node_modules/@emotion/core/dist/core.browser.esm.js","react":"../../../node_modules/react/index.js","../Input":"../../../node_modules/@chakra-ui/core/dist/es/Input/index.js","../ColorModeProvider":"../../../node_modules/@chakra-ui/core/dist/es/ColorModeProvider/index.js","../Box":"../../../node_modules/@chakra-ui/core/dist/es/Box/index.js","./utils":"../../../node_modules/@chakra-ui/core/dist/es/Select/utils.js","../Icon/custom":"../../../node_modules/@chakra-ui/core/dist/es/Icon/custom.js"}],"../../../node_modules/@chakra-ui/core/dist/es/Stat/index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/objectWithoutPropertiesLoose":"../../../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js","@babel/runtime/helpers/extends":"../../../node_modules/@babel/runtime/helpers/extends.js","@emotion/core":"../../../node_modules/@emotion/core/dist/core.browser.esm.js","react":"../../../node_modules/react/index.js","../Input":"../../../node_modules/@chakra-ui/core/dist/es/Input/index.js","../ColorModeProvider":"../../../node_modules/@chakra-ui/core/dist/es/ColorModeProvider/index.js","../Box":"../../../node_modules/@chakra-ui/core/dist/es/Box/index.js","./utils":"../../../node_modules/@chakra-ui/core/dist/es/Select/utils.js","../Icon/custom":"../../../node_modules/@chakra-ui/core/dist/es/Icon/custom.js"}],"../../../node_modules/@chakra-ui/core/dist/es/Skeleton/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _extends2 = _interopRequireDefault(require("@babel/runtime/helpers/extends"));
+
+var _objectWithoutPropertiesLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutPropertiesLoose"));
+
+var _taggedTemplateLiteralLoose2 = _interopRequireDefault(require("@babel/runtime/helpers/taggedTemplateLiteralLoose"));
+
+var _react = require("react");
+
+var _ThemeProvider = require("../ThemeProvider");
+
+var _ColorModeProvider = require("../ColorModeProvider");
+
+var _core = require("@emotion/core");
+
+var _Box = _interopRequireDefault(require("../Box"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _templateObject4() {
+  var data = (0, _taggedTemplateLiteralLoose2.default)(["\n  animation: ", " ", "s;\n"]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3() {
+  var data = (0, _taggedTemplateLiteralLoose2.default)(["\nfrom { opacity: 0; }\nto   { opacity: 1; }\n"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  var data = (0, _taggedTemplateLiteralLoose2.default)(["\n  border-color: ", " !important;\n  box-shadow: none !important;\n  opacity: 0.7;\n  // do not !important this for Firefox support\n  background: ", ";\n\n  // Prevent background color from extending to the border and overlappping\n  background-clip: padding-box !important;\n  cursor: default;\n\n  // Transparent text will occupy space but be invisible to the user\n  color: transparent !important;\n  animation: ", "s linear infinite alternate\n    ", ";\n  pointer-events: none;\n  user-select: none;\n\n  // Make pseudo-elements (CSS icons) and children invisible\n  &::before,\n  &::after,\n  * {\n    visibility: hidden !important;\n  }\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  var data = (0, _taggedTemplateLiteralLoose2.default)(["\nfrom {\n  border-color: ", ";\n  background: ", ";\n}\n\nto {\n  border-color: ", ";\n  background: ", ";\n}\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+/** @jsx jsx */
+
+
+var skeletonGlow = function skeletonGlow(colorStart, colorEnd) {
+  return (0, _core.keyframes)(_templateObject(), colorStart, colorStart, colorEnd, colorEnd);
+};
+
+var getStyle = function getStyle(_ref) {
+  var colorStart = _ref.colorStart,
+      colorEnd = _ref.colorEnd,
+      speed = _ref.speed;
+  return (0, _core.css)(_templateObject2(), colorStart, colorStart, speed, skeletonGlow(colorStart, colorEnd));
+};
+
+var fadeIn = (0, _core.keyframes)(_templateObject3());
+
+var fadeInCss = function fadeInCss(duration) {
+  return (0, _core.css)(_templateObject4(), fadeIn, duration);
+};
+
+var Skeleton = function Skeleton(props) {
+  var _useTheme = (0, _ThemeProvider.useTheme)(),
+      colors = _useTheme.colors;
+
+  var _useColorMode = (0, _ColorModeProvider.useColorMode)(),
+      colorMode = _useColorMode.colorMode;
+
+  var defaultStart = {
+    light: colors.gray[100],
+    dark: colors.gray[800]
+  };
+  var defaultEnd = {
+    light: colors.gray[400],
+    dark: colors.gray[600]
+  };
+  var _props$colorStart = props.colorStart,
+      colorStart = _props$colorStart === void 0 ? defaultStart[colorMode] : _props$colorStart,
+      _props$colorEnd = props.colorEnd,
+      colorEnd = _props$colorEnd === void 0 ? defaultEnd[colorMode] : _props$colorEnd,
+      _props$isLoaded = props.isLoaded,
+      isLoaded = _props$isLoaded === void 0 ? false : _props$isLoaded,
+      _props$fadeInDuration = props.fadeInDuration,
+      fadeInDuration = _props$fadeInDuration === void 0 ? 0.4 : _props$fadeInDuration,
+      _props$speed = props.speed,
+      speed = _props$speed === void 0 ? 0.8 : _props$speed,
+      rest = (0, _objectWithoutPropertiesLoose2.default)(props, ["colorStart", "colorEnd", "isLoaded", "fadeInDuration", "speed"]);
+  var fadeInStyle = (0, _react.useMemo)(function () {
+    return fadeInCss(fadeInDuration);
+  }, [fadeInDuration]);
+  var skeletonStyle = (0, _react.useMemo)(function () {
+    return getStyle({
+      colorStart: colorStart,
+      colorEnd: colorEnd,
+      speed: speed
+    });
+  }, [colorStart, colorEnd, speed]);
+
+  if (isLoaded) {
+    return (0, _core.jsx)(_Box.default, (0, _extends2.default)({
+      css: fadeInStyle
+    }, rest));
+  }
+
+  return (0, _core.jsx)(_Box.default, (0, _extends2.default)({
+    css: skeletonStyle,
+    borderRadius: "2px"
+  }, rest));
+};
+
+var _default = Skeleton;
+exports.default = _default;
+},{"@babel/runtime/helpers/extends":"../../../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/objectWithoutPropertiesLoose":"../../../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js","@babel/runtime/helpers/taggedTemplateLiteralLoose":"../../../node_modules/@babel/runtime/helpers/taggedTemplateLiteralLoose.js","react":"../../../node_modules/react/index.js","../ThemeProvider":"../../../node_modules/@chakra-ui/core/dist/es/ThemeProvider/index.js","../ColorModeProvider":"../../../node_modules/@chakra-ui/core/dist/es/ColorModeProvider/index.js","@emotion/core":"../../../node_modules/@emotion/core/dist/core.browser.esm.js","../Box":"../../../node_modules/@chakra-ui/core/dist/es/Box/index.js"}],"../../../node_modules/@chakra-ui/core/dist/es/Stat/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -57375,7 +57621,7 @@ var Tabs = (0, _react.forwardRef)(function (_ref4, ref) {
 Tabs.displayName = "Tabs";
 var _default = Tabs;
 exports.default = _default;
-},{"@babel/runtime/helpers/extends":"../../../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/objectWithoutPropertiesLoose":"../../../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js","@emotion/core":"../../../node_modules/@emotion/core/dist/core.browser.esm.js","@reach/auto-id":"../../../node_modules/@reach/auto-id/es/index.js","react":"../../../node_modules/react/index.js","../Box":"../../../node_modules/@chakra-ui/core/dist/es/Box/index.js","../Flex":"../../../node_modules/@chakra-ui/core/dist/es/Flex/index.js","../PseudoBox":"../../../node_modules/@chakra-ui/core/dist/es/PseudoBox/index.js","../utils":"../../../node_modules/@chakra-ui/core/dist/es/utils/index.js","./styles":"../../../node_modules/@chakra-ui/core/dist/es/Tabs/styles.js"}],"../../../node_modules/@chakra-ui/core/dist/es/Tag/index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/extends":"../../../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/objectWithoutPropertiesLoose":"../../../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js","@emotion/core":"../../../node_modules/@emotion/core/dist/core.browser.esm.js","@reach/auto-id":"../../../node_modules/@reach/auto-id/dist/auto-id.esm.js","react":"../../../node_modules/react/index.js","../Box":"../../../node_modules/@chakra-ui/core/dist/es/Box/index.js","../Flex":"../../../node_modules/@chakra-ui/core/dist/es/Flex/index.js","../PseudoBox":"../../../node_modules/@chakra-ui/core/dist/es/PseudoBox/index.js","../utils":"../../../node_modules/@chakra-ui/core/dist/es/utils/index.js","./styles":"../../../node_modules/@chakra-ui/core/dist/es/Tabs/styles.js"}],"../../../node_modules/@chakra-ui/core/dist/es/Tag/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -60247,6 +60493,7 @@ var Message = function (_ref) {
     message: message,
     position: position,
     onRequestRemove: onRequestRemove,
+    requestClose = false,
     duration = 30000
   } = _ref;
   var container = React.useRef(null);
@@ -60303,6 +60550,12 @@ var Message = function (_ref) {
   function close() {
     setLocalShow(false);
   }
+
+  React.useEffect(function () {
+    if (requestClose) {
+      setLocalShow(false);
+    }
+  }, [requestClose]);
 
   function renderMessage() {
     if (typeof message === "string" || React.isValidElement(message)) {
@@ -60402,6 +60655,15 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+var defaultState = {
+  top: [],
+  "top-left": [],
+  "top-right": [],
+  "bottom-left": [],
+  bottom: [],
+  "bottom-right": []
+};
+
 var ToastManager = /*#__PURE__*/function (_React$Component) {
   _inherits(ToastManager, _React$Component);
 
@@ -60413,14 +60675,7 @@ var ToastManager = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, ToastManager);
 
     _this = _super.call(this, props);
-    _this.state = {
-      "top-left": [],
-      top: [],
-      "top-right": [],
-      "bottom-left": [],
-      bottom: [],
-      "bottom-right": []
-    };
+    _this.state = defaultState;
 
     _this.notify = function (message, options) {
       var toast = _this.createToastState(message, options);
@@ -60434,6 +60689,21 @@ var ToastManager = /*#__PURE__*/function (_React$Component) {
 
       _this.setState(function (prev) {
         return Object.assign({}, prev, _defineProperty({}, position, isTop ? [toast].concat(_toConsumableArray(prev[position])) : [].concat(_toConsumableArray(prev[position]), [toast])));
+      });
+
+      return {
+        id: toast.id,
+        position: toast.position
+      };
+    };
+
+    _this.closeAll = function () {
+      Object.keys(_this.state).forEach(function (pos) {
+        var p = pos;
+        var position = _this.state[p];
+        position.forEach(function (toast) {
+          _this.closeToast(toast.id, p);
+        });
       });
     };
 
@@ -60453,6 +60723,17 @@ var ToastManager = /*#__PURE__*/function (_React$Component) {
         },
         type: options.type
       };
+    };
+
+    _this.closeToast = function (id, position) {
+      _this.setState(function (prev) {
+        return Object.assign({}, prev, _defineProperty({}, position, prev[position].map(function (toast) {
+          if (toast.id !== id) return toast;
+          return Object.assign({}, toast, {
+            requestClose: true
+          });
+        })));
+      });
     }; // actually fully remove the toast
 
 
@@ -60496,7 +60777,7 @@ var ToastManager = /*#__PURE__*/function (_React$Component) {
       return style;
     };
 
-    props.notify(_this.notify);
+    props.notify(_this.notify, _this.closeAll, _this.closeToast);
     return _this;
   }
 
@@ -60557,15 +60838,29 @@ var Toaster = function Toaster() {
 
   _classCallCheck(this, Toaster);
 
-  this.bindNotify = function (fn) {
+  this.closeAll = function () {
+    if (_this.removeAll) {
+      _this.removeAll();
+    }
+  };
+
+  this.bindNotify = function (fn, removeAll, closeToast) {
     _this.createNotification = fn;
+    _this.removeAll = removeAll;
+    _this.closeToast = closeToast;
   };
 
   this.notify = function (message) {
     var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
     if (_this.createNotification) {
-      _this.createNotification(message, options);
+      return _this.createNotification(message, options);
+    }
+  };
+
+  this.close = function (id, position) {
+    if (_this.closeToast) {
+      _this.closeToast(id, position);
     }
   };
 
@@ -61007,7 +61302,7 @@ var Tooltip = function Tooltip(_ref) {
 
 var _default = Tooltip;
 exports.default = _default;
-},{"@babel/runtime/helpers/extends":"../../../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/defineProperty":"../../../node_modules/@babel/runtime/helpers/defineProperty.js","@babel/runtime/helpers/objectWithoutPropertiesLoose":"../../../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js","@emotion/core":"../../../node_modules/@emotion/core/dist/core.browser.esm.js","react":"../../../node_modules/react/index.js","../ColorModeProvider":"../../../node_modules/@chakra-ui/core/dist/es/ColorModeProvider/index.js","../Box":"../../../node_modules/@chakra-ui/core/dist/es/Box/index.js","../useDisclosure":"../../../node_modules/@chakra-ui/core/dist/es/useDisclosure/index.js","@reach/auto-id":"../../../node_modules/@reach/auto-id/es/index.js","../Popper":"../../../node_modules/@chakra-ui/core/dist/es/Popper/index.js","../VisuallyHidden":"../../../node_modules/@chakra-ui/core/dist/es/VisuallyHidden/index.js"}],"../../../node_modules/toggle-selection/index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/extends":"../../../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/defineProperty":"../../../node_modules/@babel/runtime/helpers/defineProperty.js","@babel/runtime/helpers/objectWithoutPropertiesLoose":"../../../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js","@emotion/core":"../../../node_modules/@emotion/core/dist/core.browser.esm.js","react":"../../../node_modules/react/index.js","../ColorModeProvider":"../../../node_modules/@chakra-ui/core/dist/es/ColorModeProvider/index.js","../Box":"../../../node_modules/@chakra-ui/core/dist/es/Box/index.js","../useDisclosure":"../../../node_modules/@chakra-ui/core/dist/es/useDisclosure/index.js","@reach/auto-id":"../../../node_modules/@reach/auto-id/dist/auto-id.esm.js","../Popper":"../../../node_modules/@chakra-ui/core/dist/es/Popper/index.js","../VisuallyHidden":"../../../node_modules/@chakra-ui/core/dist/es/VisuallyHidden/index.js"}],"../../../node_modules/toggle-selection/index.js":[function(require,module,exports) {
 
 module.exports = function () {
   var selection = document.getSelection();
@@ -61260,6 +61555,7 @@ var _exportNames = {
   RadioGroup: true,
   RadioButtonGroup: true,
   Select: true,
+  Skeleton: true,
   Slider: true,
   Spinner: true,
   Switch: true,
@@ -61557,6 +61853,12 @@ Object.defineProperty(exports, "Select", {
   enumerable: true,
   get: function () {
     return _Select.default;
+  }
+});
+Object.defineProperty(exports, "Skeleton", {
+  enumerable: true,
+  get: function () {
+    return _Skeleton.default;
   }
 });
 Object.defineProperty(exports, "Slider", {
@@ -61964,6 +62266,8 @@ var _RadioButtonGroup = _interopRequireDefault(require("./RadioButtonGroup"));
 
 var _Select = _interopRequireDefault(require("./Select"));
 
+var _Skeleton = _interopRequireDefault(require("./Skeleton"));
+
 var _Slider = _interopRequireWildcard(require("./Slider"));
 
 Object.keys(_Slider).forEach(function (key) {
@@ -62071,7 +62375,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-},{"./Accordion":"../../../node_modules/@chakra-ui/core/dist/es/Accordion/index.js","./Alert":"../../../node_modules/@chakra-ui/core/dist/es/Alert/index.js","./AlertDialog":"../../../node_modules/@chakra-ui/core/dist/es/AlertDialog/index.js","./Avatar":"../../../node_modules/@chakra-ui/core/dist/es/Avatar/index.js","./AspectRatioBox":"../../../node_modules/@chakra-ui/core/dist/es/AspectRatioBox/index.js","./AvatarGroup":"../../../node_modules/@chakra-ui/core/dist/es/AvatarGroup/index.js","./Badge":"../../../node_modules/@chakra-ui/core/dist/es/Badge/index.js","./Box":"../../../node_modules/@chakra-ui/core/dist/es/Box/index.js","./Breadcrumb":"../../../node_modules/@chakra-ui/core/dist/es/Breadcrumb/index.js","./Button":"../../../node_modules/@chakra-ui/core/dist/es/Button/index.js","./ButtonGroup":"../../../node_modules/@chakra-ui/core/dist/es/ButtonGroup/index.js","./Callout":"../../../node_modules/@chakra-ui/core/dist/es/Callout/index.js","./Code":"../../../node_modules/@chakra-ui/core/dist/es/Code/index.js","./Checkbox":"../../../node_modules/@chakra-ui/core/dist/es/Checkbox/index.js","./CheckboxGroup":"../../../node_modules/@chakra-ui/core/dist/es/CheckboxGroup/index.js","./CloseButton":"../../../node_modules/@chakra-ui/core/dist/es/CloseButton/index.js","./Collapse":"../../../node_modules/@chakra-ui/core/dist/es/Collapse/index.js","./ControlBox":"../../../node_modules/@chakra-ui/core/dist/es/ControlBox/index.js","./ColorModeProvider":"../../../node_modules/@chakra-ui/core/dist/es/ColorModeProvider/index.js","./Css":"../../../node_modules/@chakra-ui/core/dist/es/Css/index.js","./CSSReset":"../../../node_modules/@chakra-ui/core/dist/es/CSSReset/index.js","./CircularProgress":"../../../node_modules/@chakra-ui/core/dist/es/CircularProgress/index.js","./Divider":"../../../node_modules/@chakra-ui/core/dist/es/Divider/index.js","./Drawer":"../../../node_modules/@chakra-ui/core/dist/es/Drawer/index.js","./Editable":"../../../node_modules/@chakra-ui/core/dist/es/Editable/index.js","./Flex":"../../../node_modules/@chakra-ui/core/dist/es/Flex/index.js","./FormControl":"../../../node_modules/@chakra-ui/core/dist/es/FormControl/index.js","./FormHelperText":"../../../node_modules/@chakra-ui/core/dist/es/FormHelperText/index.js","./FormLabel":"../../../node_modules/@chakra-ui/core/dist/es/FormLabel/index.js","./FormErrorMessage":"../../../node_modules/@chakra-ui/core/dist/es/FormErrorMessage/index.js","./Grid":"../../../node_modules/@chakra-ui/core/dist/es/Grid/index.js","./Heading":"../../../node_modules/@chakra-ui/core/dist/es/Heading/index.js","./Icon":"../../../node_modules/@chakra-ui/core/dist/es/Icon/index.js","./IconButton":"../../../node_modules/@chakra-ui/core/dist/es/IconButton/index.js","./Image":"../../../node_modules/@chakra-ui/core/dist/es/Image/index.js","./Input":"../../../node_modules/@chakra-ui/core/dist/es/Input/index.js","./InputAddon":"../../../node_modules/@chakra-ui/core/dist/es/InputAddon/index.js","./InputGroup":"../../../node_modules/@chakra-ui/core/dist/es/InputGroup/index.js","./InputElement":"../../../node_modules/@chakra-ui/core/dist/es/InputElement/index.js","./Kbd":"../../../node_modules/@chakra-ui/core/dist/es/Kbd/index.js","./Link":"../../../node_modules/@chakra-ui/core/dist/es/Link/index.js","./List":"../../../node_modules/@chakra-ui/core/dist/es/List/index.js","./Stack":"../../../node_modules/@chakra-ui/core/dist/es/Stack/index.js","./SimpleGrid":"../../../node_modules/@chakra-ui/core/dist/es/SimpleGrid/index.js","./Menu":"../../../node_modules/@chakra-ui/core/dist/es/Menu/index.js","./Modal":"../../../node_modules/@chakra-ui/core/dist/es/Modal/index.js","./NumberInput":"../../../node_modules/@chakra-ui/core/dist/es/NumberInput/index.js","./Portal":"../../../node_modules/@chakra-ui/core/dist/es/Portal/index.js","./Popover":"../../../node_modules/@chakra-ui/core/dist/es/Popover/index.js","./Progress":"../../../node_modules/@chakra-ui/core/dist/es/Progress/index.js","./PseudoBox":"../../../node_modules/@chakra-ui/core/dist/es/PseudoBox/index.js","./Radio":"../../../node_modules/@chakra-ui/core/dist/es/Radio/index.js","./RadioGroup":"../../../node_modules/@chakra-ui/core/dist/es/RadioGroup/index.js","./RadioButtonGroup":"../../../node_modules/@chakra-ui/core/dist/es/RadioButtonGroup/index.js","./Select":"../../../node_modules/@chakra-ui/core/dist/es/Select/index.js","./Slider":"../../../node_modules/@chakra-ui/core/dist/es/Slider/index.js","./Spinner":"../../../node_modules/@chakra-ui/core/dist/es/Spinner/index.js","./Stat":"../../../node_modules/@chakra-ui/core/dist/es/Stat/index.js","./Switch":"../../../node_modules/@chakra-ui/core/dist/es/Switch/index.js","./Tabs":"../../../node_modules/@chakra-ui/core/dist/es/Tabs/index.js","./Tag":"../../../node_modules/@chakra-ui/core/dist/es/Tag/index.js","./Text":"../../../node_modules/@chakra-ui/core/dist/es/Text/index.js","./Textarea":"../../../node_modules/@chakra-ui/core/dist/es/Textarea/index.js","./Transition":"../../../node_modules/@chakra-ui/core/dist/es/Transition/index.js","./Toast":"../../../node_modules/@chakra-ui/core/dist/es/Toast/index.js","./Tooltip":"../../../node_modules/@chakra-ui/core/dist/es/Tooltip/index.js","./theme":"../../../node_modules/@chakra-ui/core/dist/es/theme/index.js","./ThemeProvider":"../../../node_modules/@chakra-ui/core/dist/es/ThemeProvider/index.js","./useClipboard":"../../../node_modules/@chakra-ui/core/dist/es/useClipboard/index.js","./useDisclosure":"../../../node_modules/@chakra-ui/core/dist/es/useDisclosure/index.js","./usePrevious":"../../../node_modules/@chakra-ui/core/dist/es/usePrevious/index.js","./useNumberInput":"../../../node_modules/@chakra-ui/core/dist/es/useNumberInput/index.js","./VisuallyHidden":"../../../node_modules/@chakra-ui/core/dist/es/VisuallyHidden/index.js"}],"../util.js":[function(require,module,exports) {
+},{"./Accordion":"../../../node_modules/@chakra-ui/core/dist/es/Accordion/index.js","./Alert":"../../../node_modules/@chakra-ui/core/dist/es/Alert/index.js","./AlertDialog":"../../../node_modules/@chakra-ui/core/dist/es/AlertDialog/index.js","./Avatar":"../../../node_modules/@chakra-ui/core/dist/es/Avatar/index.js","./AspectRatioBox":"../../../node_modules/@chakra-ui/core/dist/es/AspectRatioBox/index.js","./AvatarGroup":"../../../node_modules/@chakra-ui/core/dist/es/AvatarGroup/index.js","./Badge":"../../../node_modules/@chakra-ui/core/dist/es/Badge/index.js","./Box":"../../../node_modules/@chakra-ui/core/dist/es/Box/index.js","./Breadcrumb":"../../../node_modules/@chakra-ui/core/dist/es/Breadcrumb/index.js","./Button":"../../../node_modules/@chakra-ui/core/dist/es/Button/index.js","./ButtonGroup":"../../../node_modules/@chakra-ui/core/dist/es/ButtonGroup/index.js","./Callout":"../../../node_modules/@chakra-ui/core/dist/es/Callout/index.js","./Code":"../../../node_modules/@chakra-ui/core/dist/es/Code/index.js","./Checkbox":"../../../node_modules/@chakra-ui/core/dist/es/Checkbox/index.js","./CheckboxGroup":"../../../node_modules/@chakra-ui/core/dist/es/CheckboxGroup/index.js","./CloseButton":"../../../node_modules/@chakra-ui/core/dist/es/CloseButton/index.js","./Collapse":"../../../node_modules/@chakra-ui/core/dist/es/Collapse/index.js","./ControlBox":"../../../node_modules/@chakra-ui/core/dist/es/ControlBox/index.js","./ColorModeProvider":"../../../node_modules/@chakra-ui/core/dist/es/ColorModeProvider/index.js","./Css":"../../../node_modules/@chakra-ui/core/dist/es/Css/index.js","./CSSReset":"../../../node_modules/@chakra-ui/core/dist/es/CSSReset/index.js","./CircularProgress":"../../../node_modules/@chakra-ui/core/dist/es/CircularProgress/index.js","./Divider":"../../../node_modules/@chakra-ui/core/dist/es/Divider/index.js","./Drawer":"../../../node_modules/@chakra-ui/core/dist/es/Drawer/index.js","./Editable":"../../../node_modules/@chakra-ui/core/dist/es/Editable/index.js","./Flex":"../../../node_modules/@chakra-ui/core/dist/es/Flex/index.js","./FormControl":"../../../node_modules/@chakra-ui/core/dist/es/FormControl/index.js","./FormHelperText":"../../../node_modules/@chakra-ui/core/dist/es/FormHelperText/index.js","./FormLabel":"../../../node_modules/@chakra-ui/core/dist/es/FormLabel/index.js","./FormErrorMessage":"../../../node_modules/@chakra-ui/core/dist/es/FormErrorMessage/index.js","./Grid":"../../../node_modules/@chakra-ui/core/dist/es/Grid/index.js","./Heading":"../../../node_modules/@chakra-ui/core/dist/es/Heading/index.js","./Icon":"../../../node_modules/@chakra-ui/core/dist/es/Icon/index.js","./IconButton":"../../../node_modules/@chakra-ui/core/dist/es/IconButton/index.js","./Image":"../../../node_modules/@chakra-ui/core/dist/es/Image/index.js","./Input":"../../../node_modules/@chakra-ui/core/dist/es/Input/index.js","./InputAddon":"../../../node_modules/@chakra-ui/core/dist/es/InputAddon/index.js","./InputGroup":"../../../node_modules/@chakra-ui/core/dist/es/InputGroup/index.js","./InputElement":"../../../node_modules/@chakra-ui/core/dist/es/InputElement/index.js","./Kbd":"../../../node_modules/@chakra-ui/core/dist/es/Kbd/index.js","./Link":"../../../node_modules/@chakra-ui/core/dist/es/Link/index.js","./List":"../../../node_modules/@chakra-ui/core/dist/es/List/index.js","./Stack":"../../../node_modules/@chakra-ui/core/dist/es/Stack/index.js","./SimpleGrid":"../../../node_modules/@chakra-ui/core/dist/es/SimpleGrid/index.js","./Menu":"../../../node_modules/@chakra-ui/core/dist/es/Menu/index.js","./Modal":"../../../node_modules/@chakra-ui/core/dist/es/Modal/index.js","./NumberInput":"../../../node_modules/@chakra-ui/core/dist/es/NumberInput/index.js","./Portal":"../../../node_modules/@chakra-ui/core/dist/es/Portal/index.js","./Popover":"../../../node_modules/@chakra-ui/core/dist/es/Popover/index.js","./Progress":"../../../node_modules/@chakra-ui/core/dist/es/Progress/index.js","./PseudoBox":"../../../node_modules/@chakra-ui/core/dist/es/PseudoBox/index.js","./Radio":"../../../node_modules/@chakra-ui/core/dist/es/Radio/index.js","./RadioGroup":"../../../node_modules/@chakra-ui/core/dist/es/RadioGroup/index.js","./RadioButtonGroup":"../../../node_modules/@chakra-ui/core/dist/es/RadioButtonGroup/index.js","./Select":"../../../node_modules/@chakra-ui/core/dist/es/Select/index.js","./Skeleton":"../../../node_modules/@chakra-ui/core/dist/es/Skeleton/index.js","./Slider":"../../../node_modules/@chakra-ui/core/dist/es/Slider/index.js","./Spinner":"../../../node_modules/@chakra-ui/core/dist/es/Spinner/index.js","./Stat":"../../../node_modules/@chakra-ui/core/dist/es/Stat/index.js","./Switch":"../../../node_modules/@chakra-ui/core/dist/es/Switch/index.js","./Tabs":"../../../node_modules/@chakra-ui/core/dist/es/Tabs/index.js","./Tag":"../../../node_modules/@chakra-ui/core/dist/es/Tag/index.js","./Text":"../../../node_modules/@chakra-ui/core/dist/es/Text/index.js","./Textarea":"../../../node_modules/@chakra-ui/core/dist/es/Textarea/index.js","./Transition":"../../../node_modules/@chakra-ui/core/dist/es/Transition/index.js","./Toast":"../../../node_modules/@chakra-ui/core/dist/es/Toast/index.js","./Tooltip":"../../../node_modules/@chakra-ui/core/dist/es/Tooltip/index.js","./theme":"../../../node_modules/@chakra-ui/core/dist/es/theme/index.js","./ThemeProvider":"../../../node_modules/@chakra-ui/core/dist/es/ThemeProvider/index.js","./useClipboard":"../../../node_modules/@chakra-ui/core/dist/es/useClipboard/index.js","./useDisclosure":"../../../node_modules/@chakra-ui/core/dist/es/useDisclosure/index.js","./usePrevious":"../../../node_modules/@chakra-ui/core/dist/es/usePrevious/index.js","./useNumberInput":"../../../node_modules/@chakra-ui/core/dist/es/useNumberInput/index.js","./VisuallyHidden":"../../../node_modules/@chakra-ui/core/dist/es/VisuallyHidden/index.js"}],"../util.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -72364,216 +72668,7 @@ function isEqual(value, other) {
 
 module.exports = isEqual;
 
-},{"./_baseIsEqual":"../../../node_modules/lodash/_baseIsEqual.js"}],"../../../node_modules/process/browser.js":[function(require,module,exports) {
-
-// shim for using process in browser
-var process = module.exports = {}; // cached from whatever global is present so that test runners that stub it
-// don't break things.  But we need to wrap it in a try catch in case it is
-// wrapped in strict mode code which doesn't define any globals.  It's inside a
-// function because try/catches deoptimize in certain engines.
-
-var cachedSetTimeout;
-var cachedClearTimeout;
-
-function defaultSetTimout() {
-  throw new Error('setTimeout has not been defined');
-}
-
-function defaultClearTimeout() {
-  throw new Error('clearTimeout has not been defined');
-}
-
-(function () {
-  try {
-    if (typeof setTimeout === 'function') {
-      cachedSetTimeout = setTimeout;
-    } else {
-      cachedSetTimeout = defaultSetTimout;
-    }
-  } catch (e) {
-    cachedSetTimeout = defaultSetTimout;
-  }
-
-  try {
-    if (typeof clearTimeout === 'function') {
-      cachedClearTimeout = clearTimeout;
-    } else {
-      cachedClearTimeout = defaultClearTimeout;
-    }
-  } catch (e) {
-    cachedClearTimeout = defaultClearTimeout;
-  }
-})();
-
-function runTimeout(fun) {
-  if (cachedSetTimeout === setTimeout) {
-    //normal enviroments in sane situations
-    return setTimeout(fun, 0);
-  } // if setTimeout wasn't available but was latter defined
-
-
-  if ((cachedSetTimeout === defaultSetTimout || !cachedSetTimeout) && setTimeout) {
-    cachedSetTimeout = setTimeout;
-    return setTimeout(fun, 0);
-  }
-
-  try {
-    // when when somebody has screwed with setTimeout but no I.E. maddness
-    return cachedSetTimeout(fun, 0);
-  } catch (e) {
-    try {
-      // When we are in I.E. but the script has been evaled so I.E. doesn't trust the global object when called normally
-      return cachedSetTimeout.call(null, fun, 0);
-    } catch (e) {
-      // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error
-      return cachedSetTimeout.call(this, fun, 0);
-    }
-  }
-}
-
-function runClearTimeout(marker) {
-  if (cachedClearTimeout === clearTimeout) {
-    //normal enviroments in sane situations
-    return clearTimeout(marker);
-  } // if clearTimeout wasn't available but was latter defined
-
-
-  if ((cachedClearTimeout === defaultClearTimeout || !cachedClearTimeout) && clearTimeout) {
-    cachedClearTimeout = clearTimeout;
-    return clearTimeout(marker);
-  }
-
-  try {
-    // when when somebody has screwed with setTimeout but no I.E. maddness
-    return cachedClearTimeout(marker);
-  } catch (e) {
-    try {
-      // When we are in I.E. but the script has been evaled so I.E. doesn't  trust the global object when called normally
-      return cachedClearTimeout.call(null, marker);
-    } catch (e) {
-      // same as above but when it's a version of I.E. that must have the global object for 'this', hopfully our context correct otherwise it will throw a global error.
-      // Some versions of I.E. have different rules for clearTimeout vs setTimeout
-      return cachedClearTimeout.call(this, marker);
-    }
-  }
-}
-
-var queue = [];
-var draining = false;
-var currentQueue;
-var queueIndex = -1;
-
-function cleanUpNextTick() {
-  if (!draining || !currentQueue) {
-    return;
-  }
-
-  draining = false;
-
-  if (currentQueue.length) {
-    queue = currentQueue.concat(queue);
-  } else {
-    queueIndex = -1;
-  }
-
-  if (queue.length) {
-    drainQueue();
-  }
-}
-
-function drainQueue() {
-  if (draining) {
-    return;
-  }
-
-  var timeout = runTimeout(cleanUpNextTick);
-  draining = true;
-  var len = queue.length;
-
-  while (len) {
-    currentQueue = queue;
-    queue = [];
-
-    while (++queueIndex < len) {
-      if (currentQueue) {
-        currentQueue[queueIndex].run();
-      }
-    }
-
-    queueIndex = -1;
-    len = queue.length;
-  }
-
-  currentQueue = null;
-  draining = false;
-  runClearTimeout(timeout);
-}
-
-process.nextTick = function (fun) {
-  var args = new Array(arguments.length - 1);
-
-  if (arguments.length > 1) {
-    for (var i = 1; i < arguments.length; i++) {
-      args[i - 1] = arguments[i];
-    }
-  }
-
-  queue.push(new Item(fun, args));
-
-  if (queue.length === 1 && !draining) {
-    runTimeout(drainQueue);
-  }
-}; // v8 likes predictible objects
-
-
-function Item(fun, array) {
-  this.fun = fun;
-  this.array = array;
-}
-
-Item.prototype.run = function () {
-  this.fun.apply(null, this.array);
-};
-
-process.title = 'browser';
-process.env = {};
-process.argv = [];
-process.version = ''; // empty string to avoid regexp issues
-
-process.versions = {};
-
-function noop() {}
-
-process.on = noop;
-process.addListener = noop;
-process.once = noop;
-process.off = noop;
-process.removeListener = noop;
-process.removeAllListeners = noop;
-process.emit = noop;
-process.prependListener = noop;
-process.prependOnceListener = noop;
-
-process.listeners = function (name) {
-  return [];
-};
-
-process.binding = function (name) {
-  throw new Error('process.binding is not supported');
-};
-
-process.cwd = function () {
-  return '/';
-};
-
-process.chdir = function (dir) {
-  throw new Error('process.chdir is not supported');
-};
-
-process.umask = function () {
-  return 0;
-};
-},{}],"../../../node_modules/performance-now/lib/performance-now.js":[function(require,module,exports) {
+},{"./_baseIsEqual":"../../../node_modules/lodash/_baseIsEqual.js"}],"../../../node_modules/performance-now/lib/performance-now.js":[function(require,module,exports) {
 var process = require("process");
 // Generated by CoffeeScript 1.12.2
 (function() {
@@ -115793,7 +115888,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.useStatus = exports.useStatusColors = void 0;
+exports.useEstimateStatus = exports.useInvoiceStatus = exports.useStatusColors = void 0;
 
 var _core = require("@chakra-ui/core");
 
@@ -115812,11 +115907,17 @@ var useStatusColors = function useStatusColors() {
 
 exports.useStatusColors = useStatusColors;
 
-var useStatus = function useStatus() {
+var useInvoiceStatus = function useInvoiceStatus() {
   return ['lb-paid', 'lb-unpaid', 'lb-overdue', 'lb-draft', 'lb-voided'];
 };
 
-exports.useStatus = useStatus;
+exports.useInvoiceStatus = useInvoiceStatus;
+
+var useEstimateStatus = function useEstimateStatus() {
+  return ['lb-approved', 'lb-declined', 'lb-overdue', 'lb-pending'];
+};
+
+exports.useEstimateStatus = useEstimateStatus;
 },{"@chakra-ui/core":"../../../node_modules/@chakra-ui/core/dist/es/index.js"}],"components/Invoices/index.js":[function(require,module,exports) {
 "use strict";
 
@@ -120709,8 +120810,6 @@ var _core = require("@chakra-ui/core");
 
 var _moment = _interopRequireDefault(require("moment"));
 
-var _hooks = require("../../../hooks");
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
@@ -120737,38 +120836,42 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
-var DocTable = function DocTable() {
-  var chartColors = (0, _hooks.useStatusColors)();
-  var allStatus = (0, _hooks.useStatus)();
+var DocTable = function DocTable(_ref) {
+  var postType = _ref.postType,
+      allStatus = _ref.allStatus,
+      initialStatus = _ref.initialStatus;
 
-  var _useState = (0, _react.useState)(false),
+  var _useState = (0, _react.useState)([initialStatus]),
       _useState2 = _slicedToArray(_useState, 2),
-      allFetched = _useState2[0],
-      setAllFetched = _useState2[1];
+      statusQuery = _useState2[0],
+      setStatusQuery = _useState2[1];
 
   var _useState3 = (0, _react.useState)(0),
       _useState4 = _slicedToArray(_useState3, 2),
-      total = _useState4[0],
-      setTotal = _useState4[1];
+      totalPages = _useState4[0],
+      setTotalPages = _useState4[1];
 
   var _useState5 = (0, _react.useState)(false),
       _useState6 = _slicedToArray(_useState5, 2),
       showAlert = _useState6[0],
       setShowAlert = _useState6[1];
 
-  var _useState7 = (0, _react.useState)([]),
+  var _useState7 = (0, _react.useState)(false),
       _useState8 = _slicedToArray(_useState7, 2),
       allPosts = _useState8[0],
       setAllPosts = _useState8[1];
 
-  var _useState9 = (0, _react.useState)(['lb-paid']),
+  var _useState9 = (0, _react.useState)(0),
       _useState10 = _slicedToArray(_useState9, 2),
-      statusQuery = _useState10[0],
-      setStatusQuery = _useState10[1];
+      total = _useState10[0],
+      setTotal = _useState10[1];
 
-  var headers = ['#', 'Date', 'Title', 'Status', 'Amount'];
-  var postAggregate = [];
-  var page = 1;
+  var _useState11 = (0, _react.useState)(1),
+      _useState12 = _slicedToArray(_useState11, 2),
+      page = _useState12[0],
+      setPage = _useState12[1];
+
+  var headers = ['count', '#', 'Date', 'Title', 'Status', 'Amount'];
 
   var handleStatusFilter = function handleStatusFilter(status) {
     if (statusQuery.includes(status) && statusQuery.length === 1) {
@@ -120777,10 +120880,7 @@ var DocTable = function DocTable() {
     }
 
     setShowAlert(false);
-    setAllFetched(false);
     var newStatusQuery;
-    postAggregate = [];
-    page = 1;
     /**
      * Rewmove from array if it's in it.
      */
@@ -120797,15 +120897,11 @@ var DocTable = function DocTable() {
   };
 
   var getTotal = function getTotal() {
-    if (!allFetched) {
-      return;
-    }
-
-    var total = 0;
-    allPosts.forEach(function (post) {
-      return total = total + post.lb_meta.total;
+    var allStatus = statusQuery.join(',');
+    var total = (0, _util.makeRequest)("/wp-json/littlebot/v1/total?status=".concat(allStatus));
+    total.then(function (res) {
+      return setTotal(res.data);
     });
-    setTotal(total);
   };
 
   var createCSV = function createCSV() {
@@ -120827,37 +120923,34 @@ var DocTable = function DocTable() {
   };
 
   var getPosts = function getPosts() {
+    setAllPosts(false);
     var allStatus = statusQuery.join(',');
-    var posts = (0, _util.makeRequest)("/wp-json/wp/v2/lb_invoice?status=".concat(allStatus, "&per_page=100&page=").concat(page));
+    var posts = (0, _util.makeRequest)("/wp-json/wp/v2/".concat(postType, "?status=").concat(allStatus, "&per_page=100&page=").concat(page));
     posts.then(function (res) {
       var totalPages = parseInt(res.headers.get('X-WP-TotalPages'));
-      postAggregate = [].concat(_toConsumableArray(postAggregate), _toConsumableArray(res.data));
-
-      if (totalPages !== page) {
-        page = page + 1;
-        return getPosts();
-      }
-
-      setAllPosts(postAggregate);
-      setAllFetched(true);
+      setTotalPages(totalPages);
+      setAllPosts(res.data);
     });
   };
 
   (0, _react.useEffect)(function () {
     return getPosts();
-  }, [statusQuery]);
+  }, [statusQuery, page]);
   (0, _react.useEffect)(function () {
     return getTotal();
-  }, [allFetched]);
+  }, [statusQuery]);
 
-  if (!allFetched) {
-    return _react.default.createElement(_core.Spinner, {
-      thickness: "4px",
-      speed: "0.65s",
-      emptyColor: "gray.200",
-      color: "blue.500",
-      size: "xl"
-    });
+  if (!allPosts) {
+    return _react.default.createElement("div", null, _react.default.createElement(_core.Skeleton, {
+      height: "20px",
+      my: "10px"
+    }), _react.default.createElement(_core.Skeleton, {
+      height: "20px",
+      my: "10px"
+    }), _react.default.createElement(_core.Skeleton, {
+      height: "20px",
+      my: "10px"
+    }));
   }
 
   return _react.default.createElement(_react.default.Fragment, null, showAlert && _react.default.createElement(_core.Alert, {
@@ -120874,10 +120967,11 @@ var DocTable = function DocTable() {
         return handleStatusFilter(status);
       },
       key: status,
-      variantColor: statusQuery.includes(status) ? 'cyan' : 'gray'
+      variantColor: statusQuery.includes(status) ? 'cyan' : 'gray',
+      textTransform: "capitalize"
     }, status.replace('lb-', ''));
   })), _react.default.createElement(_core.Grid, {
-    gridTemplateColumns: "min-content auto minmax(0, 500px) auto auto",
+    gridTemplateColumns: "min-content min-content auto minmax(0, 500px) auto auto",
     gap: 3
   }, headers.map(function (header) {
     return _react.default.createElement(_core.Box, {
@@ -120887,10 +120981,13 @@ var DocTable = function DocTable() {
       color: "white",
       mt: 3
     }, header);
-  }), allPosts.map(function (post) {
+  }), allPosts.map(function (post, index) {
     return _react.default.createElement(_react.default.Fragment, {
       key: post.id
     }, _react.default.createElement(_core.Box, {
+      p: 3,
+      bg: "gray.100"
+    }, index + 1), _react.default.createElement(_core.Box, {
       p: 3,
       bg: "gray.100"
     }, post.id), _react.default.createElement(_core.Box, {
@@ -120907,22 +121004,46 @@ var DocTable = function DocTable() {
       p: 3,
       bg: "gray.100"
     }, post.lb_meta.total.toFixed(2)));
-  })), _react.default.createElement(_core.SimpleGrid, {
-    columns: 2,
+  })), !allPosts.length && _react.default.createElement(_core.Box, {
+    bg: "gray.100",
+    p: 4,
+    fontSize: 15,
+    textAlign: "center",
+    mt: 3
+  }, "No results for that query :("), _react.default.createElement(_core.SimpleGrid, {
+    columns: 3,
     mt: 3
   }, _react.default.createElement("div", null, _react.default.createElement(_core.Button, {
     variantColor: "cyan",
     onClick: createCSV
   }, "Download CSV")), _react.default.createElement(_core.Box, {
+    textAlign: "center"
+  }, page !== 1 && _react.default.createElement(_core.IconButton, {
+    onClick: function onClick() {
+      return setPage(page - 1);
+    },
+    mr: 2,
+    "aria-label": "More",
+    icon: "chevron-left"
+  }), page < totalPages && _react.default.createElement(_core.IconButton, {
+    onClick: function onClick() {
+      return setPage(page + 1);
+    },
+    ml: 2,
+    "aria-label": "More",
+    icon: "chevron-right"
+  })), _react.default.createElement(_core.Box, {
     textAlign: "right",
     fontSize: 20,
     fontWeight: "normal"
   }, "Total: $", total.toFixed(2))));
 };
 
-var _default = DocTable;
+var _default = DocTable; // $ wp post generate count=2  | xargs -n1 -I % wp --url=% option update my_option my_value
+//  wp post generate --count=2  --format=ids | xargs -n1 -I % wp post meta add % _lb_total 100
+
 exports.default = _default;
-},{"react":"../../../node_modules/react/index.js","../../../util":"../util.js","@chakra-ui/core":"../../../node_modules/@chakra-ui/core/dist/es/index.js","moment":"../../../node_modules/moment/moment.js","../../../hooks":"../hooks.js"}],"App.js":[function(require,module,exports) {
+},{"react":"../../../node_modules/react/index.js","../../../util":"../util.js","@chakra-ui/core":"../../../node_modules/@chakra-ui/core/dist/es/index.js","moment":"../../../node_modules/moment/moment.js"}],"components/EstimateTable/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -120932,6 +121053,60 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
+var _hooks = require("../../../hooks");
+
+var _DocTable = _interopRequireDefault(require("../DocTable"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var EstimateTable = function EstimateTable() {
+  var allStatus = (0, _hooks.useEstimateStatus)();
+  return _react.default.createElement(_DocTable.default, {
+    postType: "lb_estimate",
+    allStatus: allStatus,
+    initialStatus: "lb-approved"
+  });
+};
+
+var _default = EstimateTable;
+exports.default = _default;
+},{"react":"../../../node_modules/react/index.js","../../../hooks":"../hooks.js","../DocTable":"components/DocTable/index.js"}],"components/InvoiceTable/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _hooks = require("../../../hooks");
+
+var _DocTable = _interopRequireDefault(require("../DocTable"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var InvoiceTable = function InvoiceTable() {
+  var allStatus = (0, _hooks.useInvoiceStatus)();
+  return _react.default.createElement(_DocTable.default, {
+    postType: "lb_invoice",
+    allStatus: allStatus,
+    initialStatus: "lb-paid"
+  });
+};
+
+var _default = InvoiceTable;
+exports.default = _default;
+},{"react":"../../../node_modules/react/index.js","../../../hooks":"../hooks.js","../DocTable":"components/DocTable/index.js"}],"App.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
 var _core = require("@chakra-ui/core");
 
 var _Invoices = _interopRequireDefault(require("./components/Invoices/"));
@@ -120940,21 +121115,95 @@ var _OverTime = _interopRequireDefault(require("./components/OverTime/"));
 
 var _Card = _interopRequireDefault(require("./Card"));
 
-var _DocTable = _interopRequireDefault(require("./components/DocTable"));
+var _EstimateTable = _interopRequireDefault(require("./components/EstimateTable"));
+
+var _InvoiceTable = _interopRequireDefault(require("./components/InvoiceTable"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 var App = function App() {
-  return _react.default.createElement(_core.ThemeProvider, null, _react.default.createElement(_core.CSSReset, null), _react.default.createElement(_core.Box, {
+  var allRoutes = [{
+    name: 'Estimate Report',
+    slug: 'EstimateTable'
+  }, {
+    name: 'Invoice Report',
+    slug: 'InvoiceTable'
+  }, {
+    name: 'Invoice Summary',
+    slug: 'InvoiceSummary'
+  }, {
+    name: 'Over Time',
+    slug: 'OverTime'
+  }];
+
+  var _useState = (0, _react.useState)('InvoiceTable'),
+      _useState2 = _slicedToArray(_useState, 2),
+      route = _useState2[0],
+      setRoute = _useState2[1];
+
+  var renderRoute = function renderRoute() {
+    switch (route) {
+      case 'InvoiceTable':
+        return _react.default.createElement(_Card.default, {
+          heading: "Estimate Report"
+        }, _react.default.createElement(_InvoiceTable.default, null));
+
+      case 'EstimateTable':
+        return _react.default.createElement(_Card.default, {
+          heading: "Estimate Report"
+        }, _react.default.createElement(_EstimateTable.default, null));
+
+      case 'InvoiceSummary':
+        return _react.default.createElement(_Card.default, {
+          heading: "Invoices Summary"
+        }, _react.default.createElement(_Invoices.default, null));
+
+      case 'OverTime':
+        return _react.default.createElement(_Card.default, {
+          heading: "OverTime"
+        }, _react.default.createElement(_OverTime.default, null));
+    }
+  };
+
+  return _react.default.createElement(_core.ThemeProvider, null, _react.default.createElement(_core.CSSReset, null), _react.default.createElement(_core.SimpleGrid, {
+    maxW: "900px",
+    gap: 4,
+    columns: 5,
+    mt: 4
+  }, allRoutes.map(function (route) {
+    return _react.default.createElement(_core.Button, {
+      onClick: function onClick() {
+        return setRoute(route.slug);
+      },
+      key: route.name // variantColor={statusQuery.includes(status) ? 'cyan' : 'gray'}
+      ,
+      variantColor: "pink",
+      textTransform: "capitalize"
+    }, route.name);
+  })), _react.default.createElement(_core.Divider, null), _react.default.createElement(_core.Box, {
     mr: 5
-  }, _react.default.createElement(_Card.default, {
-    heading: "Invoice Report"
-  }, _react.default.createElement(_DocTable.default, null))));
+  }, renderRoute()));
 };
 
 var _default = App;
 exports.default = _default;
-},{"react":"../../../node_modules/react/index.js","@chakra-ui/core":"../../../node_modules/@chakra-ui/core/dist/es/index.js","./components/Invoices/":"components/Invoices/index.js","./components/OverTime/":"components/OverTime/index.js","./Card":"Card.js","./components/DocTable":"components/DocTable/index.js"}],"index.js":[function(require,module,exports) {
+},{"react":"../../../node_modules/react/index.js","@chakra-ui/core":"../../../node_modules/@chakra-ui/core/dist/es/index.js","./components/Invoices/":"components/Invoices/index.js","./components/OverTime/":"components/OverTime/index.js","./Card":"Card.js","./components/EstimateTable":"components/EstimateTable/index.js","./components/InvoiceTable":"components/InvoiceTable/index.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -120994,7 +121243,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50175" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53616" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -121171,4 +121420,4 @@ function hmrAcceptRun(bundle, id) {
   }
 }
 },{}]},{},["../../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js","index.js"], null)
-//# sourceMappingURL=/index.js.map
+//# sourceMappingURL=/wp-content/plugins/littlebot-invoices/dist/index.js.map

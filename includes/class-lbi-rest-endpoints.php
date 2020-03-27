@@ -16,6 +16,30 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Slug_Custom_Route extends WP_REST_Controller {
+
+  /**
+   * Valid invoice statuses
+   *
+   * @var array
+   */
+  private $invoice_statuses;
+
+  /**
+   * valid estiamte statuses
+   *
+   * @var array
+   */
+  private $estimate_statuses;
+
+  	/**
+	 * Get things going
+	 *
+	 * @since 0.9
+	 */
+	function __construct() {
+		$this->invoice_statuses = array_keys( LBI()->invoice_statuses ); 
+		$this->estimate_statuses = array_keys( LBI()->estimate_statuses ); 
+	}
  
   /**
    * Register the routes for the objects of the controller.
@@ -25,25 +49,93 @@ class Slug_Custom_Route extends WP_REST_Controller {
     $version = '1';
     $namespace = 'littlebot/v' . $version;
 
-    register_rest_route( $namespace, '/(?P<id>[\d]+)', array(
-      array(
-        'methods'             => WP_REST_Server::READABLE,
-        'callback'            => array( $this, 'get_item' ),
-        'permission_callback' => array( $this, 'get_item_permissions_check' ),
-        'args'                => array(
-            'id'
-        ),
-      ),
-    ) );
+    // register_rest_route( $namespace, '/(?P<id>[\d]+)', array(
+    //   array(
+    //     'methods'             => WP_REST_Server::READABLE,
+    //     'callback'            => array( $this, 'get_item' ),
+    //     'permission_callback' => array( $this, 's' ),
+    //     'args'                => array(
+    //         'id'
+    //     ),
+    //   ),
+    // ) );
 
     register_rest_route( $namespace, '/totals', array(
       'methods'  => WP_REST_Server::READABLE,
       'callback' => array( $this, 'get_totals' ),
     ) );
+
+    register_rest_route( $namespace, '/total', array(
+      'methods'             => WP_REST_Server::READABLE,
+      'callback'            => array( $this, 'get_total_for_period' ),
+      'permission_callback' => array( $this, 'get_items_permissions_check' ),
+      'args' => array(
+        'status' => array(
+          'validate_callback' => array( $this, 'validate_invoice_status' ),
+        ),
+      ),
+    ) );
+  }
+
+  /**
+   * Validates invoice statuses passed as REST params.
+   *
+   * @param strins $params
+   * @return boolean
+   */
+  public function validate_invoice_status($params) {
+    $statuses = explode(',', $params);
+
+    foreach ($statuses as $status) {
+      if (! in_array( $status, $this->invoice_statuses ) ) {
+        return false;
+      }
+    }
+    
+    return true;
+  }
+
+  /**
+   * Get the SUM of all invoices or estimates for a period.
+   *
+   * @param WP_REST_Request $request Full data about the request.
+   * @return WP_Error|WP_REST_Response
+   */
+  public function get_total_for_period( $request ) {
+
+    $params = $request->get_params();
+    $statuses = explode( ',', $params['status'] );
+    $statuses_sql = '';
+
+    foreach ($statuses as $index => $status) {
+      $statuses_sql .= "'{$status}'";
+      
+      if ( $index !== count( $statuses ) - 1 ) {
+        $statuses_sql .= ',';
+      }
+    }
+//     print_r($statuses_sql); 
+// die;
+
+    global $wpdb;
+
+    $req = $wpdb->get_var( "
+      SELECT DISTINCT SUM(pm.meta_value)
+      FROM {$wpdb->prefix}posts AS p
+      INNER JOIN wp_postmeta AS pm ON p.ID = pm.post_id
+      WHERE p.post_type LIKE 'lb_invoice'
+      AND p.post_status IN ({$statuses_sql})
+      AND p.post_date > '2020-01-01T00:00:00'
+      AND pm.meta_key LIKE '_total'
+    " );
+
+    //     AND UNIX_TIMESTAMP(p.post_date) >= (UNIX_TIMESTAMP(NOW()) - (86400))
+
+    return new WP_REST_Response( (int) $req, 200 );
   }
  
   /**
-   * Get a collection of items
+   * Get totals for each document status
    *
    * @param WP_REST_Request $request Full data about the request.
    * @return WP_Error|WP_REST_Response

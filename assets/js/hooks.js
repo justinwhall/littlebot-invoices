@@ -12,10 +12,17 @@ export const useStatusColors = () => {
   };
 };
 
-export const useStatus = () => [
+export const useInvoiceStatus = () => [
   'lb-paid',
   'lb-unpaid',
   'lb-overdue',
   'lb-draft',
   'lb-voided'
+];
+
+export const useEstimateStatus = () => [
+  'lb-approved',
+  'lb-declined',
+  'lb-overdue',
+  'lb-pending'
 ];
