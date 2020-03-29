@@ -20,9 +20,4 @@ export const useInvoiceStatus = () => [
   'lb-voided'
 ];
 
-export const useEstimateStatus = () => [
-  'lb-approved',
-  'lb-declined',
-  'lb-overdue',
-  'lb-pending'
-];
+export const useEstimateStatus = () => ['lb-approved', 'lb-declined', 'lb-pending'];

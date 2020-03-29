@@ -20,3 +20,29 @@ export const makeRequest = async (url, authCookie = true) => {
 
   return { data, headers: res.headers };
 };
+
+export const createCSV = lineItems => {
+  let rows = [];
+
+  lineItems.forEach(post => {
+    const singleRow = [
+      post.id,
+      post.date,
+      post.title.rendered,
+      post.satus,
+      post.lb_meta.total
+    ];
+    rows = [...rows, singleRow];
+  });
+
+  const commaList = rows.map(e => e.join(',')).join('\n');
+  const csvContent = 'data:text/csv;charset=utf-8,' + commaList;
+  const encodedUri = encodeURI(csvContent);
+  const link = document.createElement('a');
+
+  link.setAttribute('href', encodedUri);
+  link.setAttribute('download', 'littlebot-report.csv');
+  document.body.appendChild(link);
+
+  link.click();
+};

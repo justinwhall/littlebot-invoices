@@ -62381,7 +62381,19 @@ function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.makeRequest = void 0;
+exports.createCSV = exports.makeRequest = void 0;
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -62444,6 +62456,26 @@ var makeRequest = /*#__PURE__*/function () {
 }();
 
 exports.makeRequest = makeRequest;
+
+var createCSV = function createCSV(lineItems) {
+  var rows = [];
+  lineItems.forEach(function (post) {
+    var singleRow = [post.id, post.date, post.title.rendered, post.satus, post.lb_meta.total];
+    rows = [].concat(_toConsumableArray(rows), [singleRow]);
+  });
+  var commaList = rows.map(function (e) {
+    return e.join(',');
+  }).join('\n');
+  var csvContent = 'data:text/csv;charset=utf-8,' + commaList;
+  var encodedUri = encodeURI(csvContent);
+  var link = document.createElement('a');
+  link.setAttribute('href', encodedUri);
+  link.setAttribute('download', 'littlebot-report.csv');
+  document.body.appendChild(link);
+  link.click();
+};
+
+exports.createCSV = createCSV;
 },{}],"../../../node_modules/core-js/modules/_global.js":[function(require,module,exports) {
 
 // https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
@@ -115914,7 +115946,7 @@ var useInvoiceStatus = function useInvoiceStatus() {
 exports.useInvoiceStatus = useInvoiceStatus;
 
 var useEstimateStatus = function useEstimateStatus() {
-  return ['lb-approved', 'lb-declined', 'lb-overdue', 'lb-pending'];
+  return ['lb-approved', 'lb-declined', 'lb-pending'];
 };
 
 exports.useEstimateStatus = useEstimateStatus;
@@ -120794,7 +120826,7 @@ var Card = function Card(_ref) {
 
 var _default = Card;
 exports.default = _default;
-},{"react":"../../../node_modules/react/index.js","@chakra-ui/core":"../../../node_modules/@chakra-ui/core/dist/es/index.js"}],"components/DocTable/index.js":[function(require,module,exports) {
+},{"react":"../../../node_modules/react/index.js","@chakra-ui/core":"../../../node_modules/@chakra-ui/core/dist/es/index.js"}],"components/Table/filterButtons.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -120802,9 +120834,46 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _react = _interopRequireWildcard(require("react"));
+var _react = _interopRequireDefault(require("react"));
 
-var _util = require("../../../util");
+var _core = require("@chakra-ui/core");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var FilterButtons = function FilterButtons(_ref) {
+  var statuses = _ref.statuses,
+      handleFilter = _ref.handleFilter,
+      currentStatus = _ref.currentStatus;
+  return _react.default.createElement(_core.SimpleGrid, {
+    maxW: "500px",
+    gap: 4,
+    columns: 5,
+    mt: 4
+  }, statuses.map(function (status) {
+    return _react.default.createElement(_core.Button, {
+      onClick: function onClick() {
+        return handleFilter(status);
+      },
+      key: status,
+      variantColor: "cyan",
+      variant: currentStatus === status ? 'solid' : 'outline',
+      textTransform: "capitalize",
+      size: "sm"
+    }, status.replace('lb-', ''));
+  }));
+};
+
+var _default = FilterButtons;
+exports.default = _default;
+},{"react":"../../../node_modules/react/index.js","@chakra-ui/core":"../../../node_modules/@chakra-ui/core/dist/es/index.js"}],"components/Table/LineItems.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
 
 var _core = require("@chakra-ui/core");
 
@@ -120812,176 +120881,9 @@ var _moment = _interopRequireDefault(require("moment"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
-
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-var DocTable = function DocTable(_ref) {
-  var postType = _ref.postType,
-      allStatus = _ref.allStatus,
-      initialStatus = _ref.initialStatus;
-
-  var _useState = (0, _react.useState)([initialStatus]),
-      _useState2 = _slicedToArray(_useState, 2),
-      statusQuery = _useState2[0],
-      setStatusQuery = _useState2[1];
-
-  var _useState3 = (0, _react.useState)(0),
-      _useState4 = _slicedToArray(_useState3, 2),
-      totalPages = _useState4[0],
-      setTotalPages = _useState4[1];
-
-  var _useState5 = (0, _react.useState)(false),
-      _useState6 = _slicedToArray(_useState5, 2),
-      showAlert = _useState6[0],
-      setShowAlert = _useState6[1];
-
-  var _useState7 = (0, _react.useState)(false),
-      _useState8 = _slicedToArray(_useState7, 2),
-      allPosts = _useState8[0],
-      setAllPosts = _useState8[1];
-
-  var _useState9 = (0, _react.useState)(0),
-      _useState10 = _slicedToArray(_useState9, 2),
-      total = _useState10[0],
-      setTotal = _useState10[1];
-
-  var _useState11 = (0, _react.useState)(1),
-      _useState12 = _slicedToArray(_useState11, 2),
-      page = _useState12[0],
-      setPage = _useState12[1];
-
-  var headers = ['count', '#', 'Date', 'Title', 'Status', 'Amount'];
-
-  var handleStatusFilter = function handleStatusFilter(status) {
-    if (statusQuery.includes(status) && statusQuery.length === 1) {
-      setShowAlert(true);
-      return;
-    }
-
-    setShowAlert(false);
-    var newStatusQuery;
-    /**
-     * Rewmove from array if it's in it.
-     */
-
-    if (statusQuery.indexOf(status) !== -1) {
-      newStatusQuery = statusQuery.filter(function (item) {
-        return item !== status;
-      });
-    } else {
-      newStatusQuery = [].concat(_toConsumableArray(statusQuery), [status]);
-    }
-
-    setStatusQuery(newStatusQuery);
-  };
-
-  var getTotal = function getTotal() {
-    var allStatus = statusQuery.join(',');
-    var total = (0, _util.makeRequest)("/wp-json/littlebot/v1/total?status=".concat(allStatus));
-    total.then(function (res) {
-      return setTotal(res.data);
-    });
-  };
-
-  var createCSV = function createCSV() {
-    var rows = [];
-    allPosts.forEach(function (post) {
-      var singleRow = [post.id, post.date, post.title.rendered, post.satus, post.lb_meta.total];
-      rows = [].concat(_toConsumableArray(rows), [singleRow]);
-    });
-    var commaList = rows.map(function (e) {
-      return e.join(',');
-    }).join('\n');
-    var csvContent = 'data:text/csv;charset=utf-8,' + commaList;
-    var encodedUri = encodeURI(csvContent);
-    var link = document.createElement('a');
-    link.setAttribute('href', encodedUri);
-    link.setAttribute('download', 'littlebot-invoices-report.csv');
-    document.body.appendChild(link);
-    link.click();
-  };
-
-  var getPosts = function getPosts() {
-    setAllPosts(false);
-    var allStatus = statusQuery.join(',');
-    var posts = (0, _util.makeRequest)("/wp-json/wp/v2/".concat(postType, "?status=").concat(allStatus, "&per_page=100&page=").concat(page));
-    posts.then(function (res) {
-      var totalPages = parseInt(res.headers.get('X-WP-TotalPages'));
-      setTotalPages(totalPages);
-      setAllPosts(res.data);
-    });
-  };
-
-  (0, _react.useEffect)(function () {
-    return getPosts();
-  }, [statusQuery, page]);
-  (0, _react.useEffect)(function () {
-    return getTotal();
-  }, [statusQuery]);
-
-  if (!allPosts) {
-    return _react.default.createElement("div", null, _react.default.createElement(_core.Skeleton, {
-      height: "20px",
-      my: "10px"
-    }), _react.default.createElement(_core.Skeleton, {
-      height: "20px",
-      my: "10px"
-    }), _react.default.createElement(_core.Skeleton, {
-      height: "20px",
-      my: "10px"
-    }));
-  }
-
-  return _react.default.createElement(_react.default.Fragment, null, showAlert && _react.default.createElement(_core.Alert, {
-    status: "info",
-    mt: 3
-  }, _react.default.createElement(_core.AlertIcon, null), "At least one status filter must be enabled."), _react.default.createElement(_core.SimpleGrid, {
-    maxW: "500px",
-    gap: 4,
-    columns: 5,
-    mt: 4
-  }, allStatus.map(function (status) {
-    return _react.default.createElement(_core.Button, {
-      onClick: function onClick() {
-        return handleStatusFilter(status);
-      },
-      key: status,
-      variantColor: statusQuery.includes(status) ? 'cyan' : 'gray',
-      textTransform: "capitalize"
-    }, status.replace('lb-', ''));
-  })), _react.default.createElement(_core.Grid, {
-    gridTemplateColumns: "min-content min-content auto minmax(0, 500px) auto auto",
-    gap: 3
-  }, headers.map(function (header) {
-    return _react.default.createElement(_core.Box, {
-      key: header,
-      p: 3,
-      bg: "cyan.700",
-      color: "white",
-      mt: 3
-    }, header);
-  }), allPosts.map(function (post, index) {
+var LineItems = function LineItems(_ref) {
+  var allPosts = _ref.allPosts;
+  return _react.default.createElement(_react.default.Fragment, null, allPosts.map(function (post, index) {
     return _react.default.createElement(_react.default.Fragment, {
       key: post.id
     }, _react.default.createElement(_core.Box, {
@@ -121004,6 +120906,133 @@ var DocTable = function DocTable(_ref) {
       p: 3,
       bg: "gray.100"
     }, post.lb_meta.total.toFixed(2)));
+  }));
+};
+
+var _default = LineItems;
+exports.default = _default;
+},{"react":"../../../node_modules/react/index.js","@chakra-ui/core":"../../../node_modules/@chakra-ui/core/dist/es/index.js","moment":"../../../node_modules/moment/moment.js"}],"components/Table/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _util = require("../../../util");
+
+var _core = require("@chakra-ui/core");
+
+var _filterButtons = _interopRequireDefault(require("./filterButtons"));
+
+var _LineItems = _interopRequireDefault(require("./LineItems"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var DocTable = function DocTable(_ref) {
+  var postType = _ref.postType,
+      allStatus = _ref.allStatus,
+      initialStatus = _ref.initialStatus;
+
+  var _useState = (0, _react.useState)(initialStatus),
+      _useState2 = _slicedToArray(_useState, 2),
+      status = _useState2[0],
+      setStatus = _useState2[1];
+
+  var _useState3 = (0, _react.useState)(0),
+      _useState4 = _slicedToArray(_useState3, 2),
+      totalPages = _useState4[0],
+      setTotalPages = _useState4[1];
+
+  var _useState5 = (0, _react.useState)(false),
+      _useState6 = _slicedToArray(_useState5, 2),
+      allPosts = _useState6[0],
+      setAllPosts = _useState6[1];
+
+  var _useState7 = (0, _react.useState)(0),
+      _useState8 = _slicedToArray(_useState7, 2),
+      total = _useState8[0],
+      setTotal = _useState8[1];
+
+  var _useState9 = (0, _react.useState)(1),
+      _useState10 = _slicedToArray(_useState9, 2),
+      page = _useState10[0],
+      setPage = _useState10[1];
+
+  var headers = ['count', '#', 'Date', 'Title', 'Status', 'Amount'];
+
+  var getTotal = function getTotal() {
+    var total = (0, _util.makeRequest)("/wp-json/littlebot/v1/total?status=".concat(status, "&post_type=").concat(postType));
+    total.then(function (res) {
+      return setTotal(res.data);
+    });
+  };
+
+  var getPosts = function getPosts() {
+    setAllPosts(false);
+    var posts = (0, _util.makeRequest)("/wp-json/wp/v2/".concat(postType, "?status=").concat(status, "&per_page=100&page=").concat(page));
+    posts.then(function (res) {
+      var totalPages = parseInt(res.headers.get('X-WP-TotalPages'));
+      setTotalPages(totalPages);
+      setAllPosts(res.data);
+    });
+  };
+
+  (0, _react.useEffect)(function () {
+    return getPosts();
+  }, [status, page]);
+  (0, _react.useEffect)(function () {
+    return getTotal();
+  }, [status]);
+
+  if (!allPosts) {
+    return _react.default.createElement("div", null, _react.default.createElement(_core.Skeleton, {
+      height: "20px",
+      my: "10px"
+    }), _react.default.createElement(_core.Skeleton, {
+      height: "20px",
+      my: "10px"
+    }), _react.default.createElement(_core.Skeleton, {
+      height: "20px",
+      my: "10px"
+    }));
+  }
+
+  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(_filterButtons.default, {
+    statuses: allStatus,
+    currentStatus: status,
+    handleFilter: setStatus
+  }), _react.default.createElement(_core.Grid, {
+    gridTemplateColumns: "min-content min-content auto minmax(0, 500px) auto auto",
+    gap: 3
+  }, headers.map(function (header) {
+    return _react.default.createElement(_core.Box, {
+      key: header,
+      p: 3,
+      bg: "cyan.700",
+      color: "white",
+      mt: 3
+    }, header);
+  }), _react.default.createElement(_LineItems.default, {
+    allPosts: allPosts
   })), !allPosts.length && _react.default.createElement(_core.Box, {
     bg: "gray.100",
     p: 4,
@@ -121015,7 +121044,9 @@ var DocTable = function DocTable(_ref) {
     mt: 3
   }, _react.default.createElement("div", null, _react.default.createElement(_core.Button, {
     variantColor: "cyan",
-    onClick: createCSV
+    onClick: function onClick() {
+      return (0, _util.createCSV)(allPosts);
+    }
   }, "Download CSV")), _react.default.createElement(_core.Box, {
     textAlign: "center"
   }, page !== 1 && _react.default.createElement(_core.IconButton, {
@@ -121039,11 +121070,9 @@ var DocTable = function DocTable(_ref) {
   }, "Total: $", total.toFixed(2))));
 };
 
-var _default = DocTable; // $ wp post generate count=2  | xargs -n1 -I % wp --url=% option update my_option my_value
-//  wp post generate --count=2  --format=ids | xargs -n1 -I % wp post meta add % _lb_total 100
-
+var _default = DocTable;
 exports.default = _default;
-},{"react":"../../../node_modules/react/index.js","../../../util":"../util.js","@chakra-ui/core":"../../../node_modules/@chakra-ui/core/dist/es/index.js","moment":"../../../node_modules/moment/moment.js"}],"components/EstimateTable/index.js":[function(require,module,exports) {
+},{"react":"../../../node_modules/react/index.js","../../../util":"../util.js","@chakra-ui/core":"../../../node_modules/@chakra-ui/core/dist/es/index.js","./filterButtons":"components/Table/filterButtons.js","./LineItems":"components/Table/LineItems.js"}],"components/TableEstimates/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -121055,13 +121084,13 @@ var _react = _interopRequireDefault(require("react"));
 
 var _hooks = require("../../../hooks");
 
-var _DocTable = _interopRequireDefault(require("../DocTable"));
+var _Table = _interopRequireDefault(require("../Table"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var EstimateTable = function EstimateTable() {
   var allStatus = (0, _hooks.useEstimateStatus)();
-  return _react.default.createElement(_DocTable.default, {
+  return _react.default.createElement(_Table.default, {
     postType: "lb_estimate",
     allStatus: allStatus,
     initialStatus: "lb-approved"
@@ -121070,7 +121099,7 @@ var EstimateTable = function EstimateTable() {
 
 var _default = EstimateTable;
 exports.default = _default;
-},{"react":"../../../node_modules/react/index.js","../../../hooks":"../hooks.js","../DocTable":"components/DocTable/index.js"}],"components/InvoiceTable/index.js":[function(require,module,exports) {
+},{"react":"../../../node_modules/react/index.js","../../../hooks":"../hooks.js","../Table":"components/Table/index.js"}],"components/TableInvoices/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -121082,13 +121111,13 @@ var _react = _interopRequireDefault(require("react"));
 
 var _hooks = require("../../../hooks");
 
-var _DocTable = _interopRequireDefault(require("../DocTable"));
+var _Table = _interopRequireDefault(require("../Table"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var InvoiceTable = function InvoiceTable() {
   var allStatus = (0, _hooks.useInvoiceStatus)();
-  return _react.default.createElement(_DocTable.default, {
+  return _react.default.createElement(_Table.default, {
     postType: "lb_invoice",
     allStatus: allStatus,
     initialStatus: "lb-paid"
@@ -121097,7 +121126,144 @@ var InvoiceTable = function InvoiceTable() {
 
 var _default = InvoiceTable;
 exports.default = _default;
-},{"react":"../../../node_modules/react/index.js","../../../hooks":"../hooks.js","../DocTable":"components/DocTable/index.js"}],"App.js":[function(require,module,exports) {
+},{"react":"../../../node_modules/react/index.js","../../../hooks":"../hooks.js","../Table":"components/Table/index.js"}],"components/TableClients/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _core = require("@chakra-ui/core");
+
+var _util = require("../../../util");
+
+var _hooks = require("../../../hooks");
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && Symbol.iterator in Object(iter)) return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+var TableClients = function TableClients() {
+  var invoiceStatuses = (0, _hooks.useInvoiceStatus)();
+  var estimateStatuses = (0, _hooks.useEstimateStatus)();
+  var allStatuses = [].concat(_toConsumableArray(invoiceStatuses), _toConsumableArray(estimateStatuses));
+
+  var _useState = (0, _react.useState)(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      allClients = _useState2[0],
+      setClients = _useState2[1];
+
+  var _useState3 = (0, _react.useState)('lb_invoice'),
+      _useState4 = _slicedToArray(_useState3, 2),
+      postType = _useState4[0],
+      setPostType = _useState4[1];
+
+  var _useState5 = (0, _react.useState)('lb-paid'),
+      _useState6 = _slicedToArray(_useState5, 2),
+      postStatus = _useState6[0],
+      setPostStatus = _useState6[1];
+
+  var headers = ['Client Name', 'Email', 'Website', 'Amount'];
+
+  var filterClientTable = function filterClientTable(status) {
+    var newPostType = invoiceStatuses.includes(status) ? 'lb_invoice' : 'lb_estimate';
+    setPostType(newPostType);
+    setPostStatus(status);
+  };
+
+  var getClients = function getClients() {
+    var clients = (0, _util.makeRequest)("/wp-json/littlebot/v1/clients?status=".concat(postStatus, "&post_type=").concat(postType));
+    clients.then(function (res) {
+      return setClients(res.data);
+    });
+  };
+
+  (0, _react.useEffect)(function () {
+    return getClients();
+  }, [postStatus, postType]);
+
+  if (!allClients) {
+    return _react.default.createElement("div", null, _react.default.createElement(_core.Skeleton, {
+      height: "20px",
+      my: "10px"
+    }), _react.default.createElement(_core.Skeleton, {
+      height: "20px",
+      my: "10px"
+    }), _react.default.createElement(_core.Skeleton, {
+      height: "20px",
+      my: "10px"
+    }));
+  }
+
+  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(_core.ButtonGroup, {
+    mt: 2
+  }, allStatuses.map(function (status) {
+    return _react.default.createElement(_core.Button, {
+      key: status,
+      variantColor: "cyan",
+      size: "sm",
+      textTransform: "capitalize",
+      variant: postStatus === status ? 'solid' : 'outline',
+      onClick: function onClick() {
+        return filterClientTable(status);
+      }
+    }, status.replace('lb-', ''));
+  })), _react.default.createElement(_core.Grid, {
+    gridTemplateColumns: "auto auto auto auto",
+    gap: 3
+  }, headers.map(function (header) {
+    return _react.default.createElement(_core.Box, {
+      key: header,
+      p: 3,
+      bg: "cyan.700",
+      color: "white",
+      mt: 3
+    }, header);
+  }), allClients.map(function (client) {
+    return _react.default.createElement(_react.default.Fragment, {
+      key: client.ID
+    }, _react.default.createElement(_core.Box, {
+      p: 3,
+      bg: "gray.100"
+    }, client.data.display_name), _react.default.createElement(_core.Box, {
+      p: 3,
+      bg: "gray.100"
+    }, client.data.user_email), _react.default.createElement(_core.Box, {
+      p: 3,
+      bg: "gray.100"
+    }, client.data.user_url), _react.default.createElement(_core.Box, {
+      p: 3,
+      bg: "gray.100"
+    }, client.data.total_paid));
+  })));
+};
+
+var _default = TableClients;
+exports.default = _default;
+},{"react":"../../../node_modules/react/index.js","@chakra-ui/core":"../../../node_modules/@chakra-ui/core/dist/es/index.js","../../../util":"../util.js","../../../hooks":"../hooks.js"}],"App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -121115,9 +121281,11 @@ var _OverTime = _interopRequireDefault(require("./components/OverTime/"));
 
 var _Card = _interopRequireDefault(require("./Card"));
 
-var _EstimateTable = _interopRequireDefault(require("./components/EstimateTable"));
+var _TableEstimates = _interopRequireDefault(require("./components/TableEstimates"));
 
-var _InvoiceTable = _interopRequireDefault(require("./components/InvoiceTable"));
+var _TableInvoices = _interopRequireDefault(require("./components/TableInvoices"));
+
+var _TableClients = _interopRequireDefault(require("./components/TableClients"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -121139,35 +121307,43 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var App = function App() {
   var allRoutes = [{
-    name: 'Estimate Report',
-    slug: 'EstimateTable'
-  }, {
-    name: 'Invoice Report',
-    slug: 'InvoiceTable'
-  }, {
     name: 'Invoice Summary',
     slug: 'InvoiceSummary'
+  }, {
+    name: 'Invoice Table',
+    slug: 'InvoiceTable'
+  }, {
+    name: 'Estimate Table',
+    slug: 'EstimateTable'
+  }, {
+    name: 'Client Table',
+    slug: 'ClientTable'
   }, {
     name: 'Over Time',
     slug: 'OverTime'
   }];
 
-  var _useState = (0, _react.useState)('InvoiceTable'),
+  var _useState = (0, _react.useState)('ClientTable'),
       _useState2 = _slicedToArray(_useState, 2),
-      route = _useState2[0],
+      currentRoute = _useState2[0],
       setRoute = _useState2[1];
 
   var renderRoute = function renderRoute() {
-    switch (route) {
+    switch (currentRoute) {
+      case 'ClientTable':
+        return _react.default.createElement(_Card.default, {
+          heading: "Client Table"
+        }, _react.default.createElement(_TableClients.default, null));
+
       case 'InvoiceTable':
         return _react.default.createElement(_Card.default, {
-          heading: "Estimate Report"
-        }, _react.default.createElement(_InvoiceTable.default, null));
+          heading: "Invoice Table"
+        }, _react.default.createElement(_TableInvoices.default, null));
 
       case 'EstimateTable':
         return _react.default.createElement(_Card.default, {
-          heading: "Estimate Report"
-        }, _react.default.createElement(_EstimateTable.default, null));
+          heading: "Estimate Table"
+        }, _react.default.createElement(_TableEstimates.default, null));
 
       case 'InvoiceSummary':
         return _react.default.createElement(_Card.default, {
@@ -121176,7 +121352,7 @@ var App = function App() {
 
       case 'OverTime':
         return _react.default.createElement(_Card.default, {
-          heading: "OverTime"
+          heading: "Over Time"
         }, _react.default.createElement(_OverTime.default, null));
     }
   };
@@ -121191,9 +121367,8 @@ var App = function App() {
       onClick: function onClick() {
         return setRoute(route.slug);
       },
-      key: route.name // variantColor={statusQuery.includes(status) ? 'cyan' : 'gray'}
-      ,
-      variantColor: "pink",
+      key: route.name,
+      variantColor: route.slug === currentRoute ? 'pink' : 'gray',
       textTransform: "capitalize"
     }, route.name);
   })), _react.default.createElement(_core.Divider, null), _react.default.createElement(_core.Box, {
@@ -121203,7 +121378,7 @@ var App = function App() {
 
 var _default = App;
 exports.default = _default;
-},{"react":"../../../node_modules/react/index.js","@chakra-ui/core":"../../../node_modules/@chakra-ui/core/dist/es/index.js","./components/Invoices/":"components/Invoices/index.js","./components/OverTime/":"components/OverTime/index.js","./Card":"Card.js","./components/EstimateTable":"components/EstimateTable/index.js","./components/InvoiceTable":"components/InvoiceTable/index.js"}],"index.js":[function(require,module,exports) {
+},{"react":"../../../node_modules/react/index.js","@chakra-ui/core":"../../../node_modules/@chakra-ui/core/dist/es/index.js","./components/Invoices/":"components/Invoices/index.js","./components/OverTime/":"components/OverTime/index.js","./Card":"Card.js","./components/TableEstimates":"components/TableEstimates/index.js","./components/TableInvoices":"components/TableInvoices/index.js","./components/TableClients":"components/TableClients/index.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -121243,7 +121418,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53616" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63601" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
