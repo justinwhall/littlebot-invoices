@@ -39,6 +39,7 @@ class LBI_Estimate extends LBI_Admin_Post {
 
 		return $valid_until;
 	}
+	
 
 }
 
