@@ -67,19 +67,20 @@ const App = () => {
   return (
     <ThemeProvider>
       <CSSReset />
-      <SimpleGrid maxW="900px" gap={4} columns={5} mt={4}>
-        {allRoutes.map(route => (
-          <Button
-            onClick={() => setRoute(route.slug)}
-            key={route.name}
-            variantColor={route.slug === currentRoute ? 'pink' : 'gray'}
-            textTransform="capitalize"
-          >
-            {route.name}
-          </Button>
-        ))}
-      </SimpleGrid>
-      <Divider />
+      <Tabs maxW="900px" mt={4}>
+        <TabList>
+          {allRoutes.map(route => (
+            <Tab
+              onClick={() => setRoute(route.slug)}
+              key={route.name}
+              // variantColor={route.slug === currentRoute ? 'pink' : 'gray'}
+              textTransform="capitalize"
+            >
+              {route.name}
+            </Tab>
+          ))}
+        </TabList>
+      </Tabs>
       <Box mr={5}>{renderRoute()}</Box>
     </ThemeProvider>
   );

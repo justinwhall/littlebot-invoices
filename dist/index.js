@@ -121357,21 +121357,19 @@ var App = function App() {
     }
   };
 
-  return _react.default.createElement(_core.ThemeProvider, null, _react.default.createElement(_core.CSSReset, null), _react.default.createElement(_core.SimpleGrid, {
+  return _react.default.createElement(_core.ThemeProvider, null, _react.default.createElement(_core.CSSReset, null), _react.default.createElement(_core.Tabs, {
     maxW: "900px",
-    gap: 4,
-    columns: 5,
     mt: 4
-  }, allRoutes.map(function (route) {
-    return _react.default.createElement(_core.Button, {
+  }, _react.default.createElement(_core.TabList, null, allRoutes.map(function (route) {
+    return _react.default.createElement(_core.Tab, {
       onClick: function onClick() {
         return setRoute(route.slug);
       },
-      key: route.name,
-      variantColor: route.slug === currentRoute ? 'pink' : 'gray',
+      key: route.name // variantColor={route.slug === currentRoute ? 'pink' : 'gray'}
+      ,
       textTransform: "capitalize"
     }, route.name);
-  })), _react.default.createElement(_core.Divider, null), _react.default.createElement(_core.Box, {
+  }))), _react.default.createElement(_core.Box, {
     mr: 5
   }, renderRoute()));
 };
