@@ -82,6 +82,11 @@ const TableClients = () => {
           </React.Fragment>
         ))}
       </Grid>
+      {!allClients.length && (
+        <Box bg="gray.100" p={4} fontSize={15} textAlign="center" mt={3}>
+          No clients yet.
+        </Box>
+      )}
     </>
   );
 };

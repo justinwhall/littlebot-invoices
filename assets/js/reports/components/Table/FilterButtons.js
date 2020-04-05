@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, SimpleGrid } from '@chakra-ui/core';
 
+
 const FilterButtons = ({ statuses, handleFilter, currentStatus }) => (
   <SimpleGrid maxW="500px" gap={4} columns={5} mt={4}>
     {statuses.map(status => (

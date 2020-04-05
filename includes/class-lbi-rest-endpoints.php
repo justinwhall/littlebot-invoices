@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * LittleBot REST endpoints.
  */
-class Slug_Custom_Route extends WP_REST_Controller {
+class Littlebot_Rest_Endpoints extends WP_REST_Controller {
 
 
 	/**
@@ -107,6 +107,16 @@ class Slug_Custom_Route extends WP_REST_Controller {
 				'callback'            => array( $this, 'get_total_for_period' ),
 				'permission_callback' => array( $this, 'get_items_permissions_check' ),
 				'args'                => array(
+					'before' => array(
+						'required' => false,
+						'type'     => 'string',
+						'format'   => 'date-time',
+					),
+					'after' => array(
+						'required' => false,
+						'type'     => 'string',
+						'format'   => 'date-time',
+					),
 					'status'    => array(
 						'validate_callback' => array( $this, 'validate_status' ),
 					),
@@ -197,10 +207,12 @@ class Slug_Custom_Route extends WP_REST_Controller {
 		$params    = $request->get_params();
 		$client_id = $params['client_id'];
 		$post_type = $params['post_type'];
+		$after     = $params['after'];
+		$before    = $params['before'];
 		$statuses  = explode( ',', $params['status'] );
 
 		$lbi_reports = new LBI_REPORTS();
-		$total       = $lbi_reports->get_total_for_period( $statuses, $client_id, $post_type );
+		$total       = $lbi_reports->get_total_for_period( $statuses, $client_id, $post_type, $after, $before );
 
 		return new WP_REST_Response( (float) $total, 200 );
 	}
@@ -312,7 +324,7 @@ class Slug_Custom_Route extends WP_REST_Controller {
  * Function to register our new routes from the controller.
  */
 function register_cat_list_controller() {
-	$controller = new Slug_Custom_Route();
+	$controller = new Littlebot_Rest_Endpoints();
 	$controller->register_routes();
 }
 

@@ -6,7 +6,7 @@
  * Author: Justin W Hall
  * Author URI: https://littlebot.io
 
- * Version: 2.6.6
+ * Version: 2.7.0
  * Text Domain: littlebot-invoices
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt

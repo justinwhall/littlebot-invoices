@@ -1,0 +1,81 @@
+{
+    "extends": [
+        "airbnb",
+        "plugin:react/recommended"
+    ],
+    "plugins": [
+        "react",
+        "jsx-a11y",
+        "import"
+    ],
+    "parser": "babel-eslint",
+    "rules": {
+        "import/extensions": 0,
+        "no-console": 0,
+        "no-debugger": 0,
+        "react/prop-types": 0,
+        "max-len": [
+            2,
+            80,
+            2
+        ],
+        "no-param-reassign": [
+            2,
+            {
+                "props": false
+            }
+        ],
+        "react/react-in-jsx-scope": 0,
+        "react/jsx-filename-extension": [
+            1,
+            {
+                "extensions": [
+                    ".js",
+                    ".jsx"
+                ]
+            }
+        ],
+        "no-unused-vars": [
+            "error",
+            {
+                "varsIgnorePattern": "^h$"
+            }
+        ]
+    },
+    "overrides": [
+        {
+            "files": [
+                "*.test.js"
+            ],
+            "env": {
+                "jest": true
+            }
+        }
+    ],
+    "settings": {
+        "import/core-modules": []
+    },
+    "env": {
+        "browser": true,
+        "jquery": true
+    },
+    "globals": {
+        "Cypress": false,
+        "cy": false,
+        "context": false,
+        "beforeEach": false,
+        "it": false,
+        "_": false,
+        "Foundation": false,
+        "gtag": false,
+        "jQuery": false,
+        "MktoForms2": false,
+        "noUiSlider": false,
+        "VAR_SG": false,
+        "dataLayer": false,
+        "analytics": false,
+        "wp": false,
+        "optimizely": false,
+        "getUrlParameter": false
+    }
+}

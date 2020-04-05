@@ -36570,7 +36570,7 @@ var AccordionIcon = function AccordionIcon(props) {
 };
 
 exports.AccordionIcon = AccordionIcon;
-},{"@babel/runtime/helpers/extends":"../../../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/objectWithoutPropertiesLoose":"../../../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js","@emotion/core":"../../../node_modules/@emotion/core/dist/core.browser.esm.js","@reach/auto-id":"../../../node_modules/@reach/auto-id/dist/auto-id.esm.js","react":"../../../node_modules/react/index.js","../Box":"../../../node_modules/@chakra-ui/core/dist/es/Box/index.js","../Collapse":"../../../node_modules/@chakra-ui/core/dist/es/Collapse/index.js","../Icon":"../../../node_modules/@chakra-ui/core/dist/es/Icon/index.js","../PseudoBox":"../../../node_modules/@chakra-ui/core/dist/es/PseudoBox/index.js","../utils":"../../../node_modules/@chakra-ui/core/dist/es/utils/index.js"}],"../../../node_modules/color-string/node_modules/color-name/index.js":[function(require,module,exports) {
+},{"@babel/runtime/helpers/extends":"../../../node_modules/@babel/runtime/helpers/extends.js","@babel/runtime/helpers/objectWithoutPropertiesLoose":"../../../node_modules/@babel/runtime/helpers/objectWithoutPropertiesLoose.js","@emotion/core":"../../../node_modules/@emotion/core/dist/core.browser.esm.js","@reach/auto-id":"../../../node_modules/@reach/auto-id/dist/auto-id.esm.js","react":"../../../node_modules/react/index.js","../Box":"../../../node_modules/@chakra-ui/core/dist/es/Box/index.js","../Collapse":"../../../node_modules/@chakra-ui/core/dist/es/Collapse/index.js","../Icon":"../../../node_modules/@chakra-ui/core/dist/es/Icon/index.js","../PseudoBox":"../../../node_modules/@chakra-ui/core/dist/es/PseudoBox/index.js","../utils":"../../../node_modules/@chakra-ui/core/dist/es/utils/index.js"}],"../../../node_modules/color-name/index.js":[function(require,module,exports) {
 'use strict'
 
 module.exports = {
@@ -37002,161 +37002,7 @@ function hexDouble(num) {
 	return (str.length < 2) ? '0' + str : str;
 }
 
-},{"color-name":"../../../node_modules/color-string/node_modules/color-name/index.js","simple-swizzle":"../../../node_modules/simple-swizzle/index.js"}],"../../../node_modules/color-name/index.js":[function(require,module,exports) {
-'use strict'
-
-module.exports = {
-	"aliceblue": [240, 248, 255],
-	"antiquewhite": [250, 235, 215],
-	"aqua": [0, 255, 255],
-	"aquamarine": [127, 255, 212],
-	"azure": [240, 255, 255],
-	"beige": [245, 245, 220],
-	"bisque": [255, 228, 196],
-	"black": [0, 0, 0],
-	"blanchedalmond": [255, 235, 205],
-	"blue": [0, 0, 255],
-	"blueviolet": [138, 43, 226],
-	"brown": [165, 42, 42],
-	"burlywood": [222, 184, 135],
-	"cadetblue": [95, 158, 160],
-	"chartreuse": [127, 255, 0],
-	"chocolate": [210, 105, 30],
-	"coral": [255, 127, 80],
-	"cornflowerblue": [100, 149, 237],
-	"cornsilk": [255, 248, 220],
-	"crimson": [220, 20, 60],
-	"cyan": [0, 255, 255],
-	"darkblue": [0, 0, 139],
-	"darkcyan": [0, 139, 139],
-	"darkgoldenrod": [184, 134, 11],
-	"darkgray": [169, 169, 169],
-	"darkgreen": [0, 100, 0],
-	"darkgrey": [169, 169, 169],
-	"darkkhaki": [189, 183, 107],
-	"darkmagenta": [139, 0, 139],
-	"darkolivegreen": [85, 107, 47],
-	"darkorange": [255, 140, 0],
-	"darkorchid": [153, 50, 204],
-	"darkred": [139, 0, 0],
-	"darksalmon": [233, 150, 122],
-	"darkseagreen": [143, 188, 143],
-	"darkslateblue": [72, 61, 139],
-	"darkslategray": [47, 79, 79],
-	"darkslategrey": [47, 79, 79],
-	"darkturquoise": [0, 206, 209],
-	"darkviolet": [148, 0, 211],
-	"deeppink": [255, 20, 147],
-	"deepskyblue": [0, 191, 255],
-	"dimgray": [105, 105, 105],
-	"dimgrey": [105, 105, 105],
-	"dodgerblue": [30, 144, 255],
-	"firebrick": [178, 34, 34],
-	"floralwhite": [255, 250, 240],
-	"forestgreen": [34, 139, 34],
-	"fuchsia": [255, 0, 255],
-	"gainsboro": [220, 220, 220],
-	"ghostwhite": [248, 248, 255],
-	"gold": [255, 215, 0],
-	"goldenrod": [218, 165, 32],
-	"gray": [128, 128, 128],
-	"green": [0, 128, 0],
-	"greenyellow": [173, 255, 47],
-	"grey": [128, 128, 128],
-	"honeydew": [240, 255, 240],
-	"hotpink": [255, 105, 180],
-	"indianred": [205, 92, 92],
-	"indigo": [75, 0, 130],
-	"ivory": [255, 255, 240],
-	"khaki": [240, 230, 140],
-	"lavender": [230, 230, 250],
-	"lavenderblush": [255, 240, 245],
-	"lawngreen": [124, 252, 0],
-	"lemonchiffon": [255, 250, 205],
-	"lightblue": [173, 216, 230],
-	"lightcoral": [240, 128, 128],
-	"lightcyan": [224, 255, 255],
-	"lightgoldenrodyellow": [250, 250, 210],
-	"lightgray": [211, 211, 211],
-	"lightgreen": [144, 238, 144],
-	"lightgrey": [211, 211, 211],
-	"lightpink": [255, 182, 193],
-	"lightsalmon": [255, 160, 122],
-	"lightseagreen": [32, 178, 170],
-	"lightskyblue": [135, 206, 250],
-	"lightslategray": [119, 136, 153],
-	"lightslategrey": [119, 136, 153],
-	"lightsteelblue": [176, 196, 222],
-	"lightyellow": [255, 255, 224],
-	"lime": [0, 255, 0],
-	"limegreen": [50, 205, 50],
-	"linen": [250, 240, 230],
-	"magenta": [255, 0, 255],
-	"maroon": [128, 0, 0],
-	"mediumaquamarine": [102, 205, 170],
-	"mediumblue": [0, 0, 205],
-	"mediumorchid": [186, 85, 211],
-	"mediumpurple": [147, 112, 219],
-	"mediumseagreen": [60, 179, 113],
-	"mediumslateblue": [123, 104, 238],
-	"mediumspringgreen": [0, 250, 154],
-	"mediumturquoise": [72, 209, 204],
-	"mediumvioletred": [199, 21, 133],
-	"midnightblue": [25, 25, 112],
-	"mintcream": [245, 255, 250],
-	"mistyrose": [255, 228, 225],
-	"moccasin": [255, 228, 181],
-	"navajowhite": [255, 222, 173],
-	"navy": [0, 0, 128],
-	"oldlace": [253, 245, 230],
-	"olive": [128, 128, 0],
-	"olivedrab": [107, 142, 35],
-	"orange": [255, 165, 0],
-	"orangered": [255, 69, 0],
-	"orchid": [218, 112, 214],
-	"palegoldenrod": [238, 232, 170],
-	"palegreen": [152, 251, 152],
-	"paleturquoise": [175, 238, 238],
-	"palevioletred": [219, 112, 147],
-	"papayawhip": [255, 239, 213],
-	"peachpuff": [255, 218, 185],
-	"peru": [205, 133, 63],
-	"pink": [255, 192, 203],
-	"plum": [221, 160, 221],
-	"powderblue": [176, 224, 230],
-	"purple": [128, 0, 128],
-	"rebeccapurple": [102, 51, 153],
-	"red": [255, 0, 0],
-	"rosybrown": [188, 143, 143],
-	"royalblue": [65, 105, 225],
-	"saddlebrown": [139, 69, 19],
-	"salmon": [250, 128, 114],
-	"sandybrown": [244, 164, 96],
-	"seagreen": [46, 139, 87],
-	"seashell": [255, 245, 238],
-	"sienna": [160, 82, 45],
-	"silver": [192, 192, 192],
-	"skyblue": [135, 206, 235],
-	"slateblue": [106, 90, 205],
-	"slategray": [112, 128, 144],
-	"slategrey": [112, 128, 144],
-	"snow": [255, 250, 250],
-	"springgreen": [0, 255, 127],
-	"steelblue": [70, 130, 180],
-	"tan": [210, 180, 140],
-	"teal": [0, 128, 128],
-	"thistle": [216, 191, 216],
-	"tomato": [255, 99, 71],
-	"turquoise": [64, 224, 208],
-	"violet": [238, 130, 238],
-	"wheat": [245, 222, 179],
-	"white": [255, 255, 255],
-	"whitesmoke": [245, 245, 245],
-	"yellow": [255, 255, 0],
-	"yellowgreen": [154, 205, 50]
-};
-
-},{}],"../../../node_modules/color-convert/conversions.js":[function(require,module,exports) {
+},{"color-name":"../../../node_modules/color-name/index.js","simple-swizzle":"../../../node_modules/simple-swizzle/index.js"}],"../../../node_modules/color-convert/conversions.js":[function(require,module,exports) {
 /* MIT license */
 var cssKeywords = require('color-name');
 
@@ -80956,7 +80802,7 @@ Cell.propTypes = _objectSpread({}, _ReactUtils.PRESENTATION_ATTRIBUTES);
 Cell.displayName = 'Cell';
 var _default = Cell;
 exports.default = _default;
-},{"../util/ReactUtils":"../../../node_modules/recharts/es6/util/ReactUtils.js"}],"../../../node_modules/reduce-css-calc/node_modules/balanced-match/index.js":[function(require,module,exports) {
+},{"../util/ReactUtils":"../../../node_modules/recharts/es6/util/ReactUtils.js"}],"../../../node_modules/balanced-match/index.js":[function(require,module,exports) {
 module.exports = balanced;
 function balanced(a, b, str) {
   if (a instanceof RegExp) a = maybeMatch(a, str);
@@ -81016,7 +80862,7 @@ function range(a, b, str) {
   return result;
 }
 
-},{}],"../../../node_modules/balanced-match/index.js":[function(require,module,exports) {
+},{}],"../../../node_modules/reduce-function-call/node_modules/balanced-match/index.js":[function(require,module,exports) {
 'use strict';
 module.exports = balanced;
 function balanced(a, b, str) {
@@ -81153,7 +80999,7 @@ function evalFunctionCall (string, functionIdentifier, callback, call, functionR
   return callback(reduceFunctionCall(string, functionRE, callback), functionIdentifier, call)
 }
 
-},{"balanced-match":"../../../node_modules/balanced-match/index.js"}],"../../../node_modules/math-expression-evaluator/src/math_function.js":[function(require,module,exports) {
+},{"balanced-match":"../../../node_modules/reduce-function-call/node_modules/balanced-match/index.js"}],"../../../node_modules/math-expression-evaluator/src/math_function.js":[function(require,module,exports) {
 var Mexp = function (parsed) {
   this.value = parsed
 }
@@ -82034,7 +81880,7 @@ function getUnitsInExpression(expression) {
   return uniqueUnits
 }
 
-},{"balanced-match":"../../../node_modules/reduce-css-calc/node_modules/balanced-match/index.js","reduce-function-call":"../../../node_modules/reduce-function-call/index.js","math-expression-evaluator":"../../../node_modules/math-expression-evaluator/src/formula_evaluator.js"}],"../../../node_modules/recharts/es6/util/DOMUtils.js":[function(require,module,exports) {
+},{"balanced-match":"../../../node_modules/balanced-match/index.js","reduce-function-call":"../../../node_modules/reduce-function-call/index.js","math-expression-evaluator":"../../../node_modules/math-expression-evaluator/src/formula_evaluator.js"}],"../../../node_modules/recharts/es6/util/DOMUtils.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -89501,14 +89347,15 @@ function _default(locale) {
         valueSuffix = formatType(value) + valueSuffix;
         value = "";
       } else {
-        value = +value; // Perform the initial formatting.
+        value = +value; // Determine the sign. -0 is not less than 0, but 1 / -0 is!
 
-        var valueNegative = value < 0;
+        var valueNegative = value < 0 || 1 / value < 0; // Perform the initial formatting.
+
         value = isNaN(value) ? nan : formatType(Math.abs(value), precision); // Trim insignificant zeros.
 
-        if (trim) value = (0, _formatTrim.default)(value); // If a negative value rounds to zero during formatting, treat as positive.
+        if (trim) value = (0, _formatTrim.default)(value); // If a negative value rounds to zero after formatting, and no explicit positive sign is requested, hide the sign.
 
-        if (valueNegative && +value === 0) valueNegative = false; // Compute the prefix and suffix.
+        if (valueNegative && +value === 0 && sign !== "+") valueNegative = false; // Compute the prefix and suffix.
 
         valuePrefix = (valueNegative ? sign === "(" ? sign : minus : sign === "-" || sign === "(" ? "" : sign) + valuePrefix;
         valueSuffix = (type === "s" ? prefixes[8 + _formatPrefixAuto.prefixExponent / 3] : "") + valueSuffix + (valueNegative && sign === "(" ? ")" : ""); // Break the formatted value into the integer “value” part that can be
@@ -116000,7 +115847,7 @@ var Invoices = function Invoices() {
   }, []);
 
   if (!totals) {
-    return _react.default.createElement(_core.Spinner, {
+    return /*#__PURE__*/_react.default.createElement(_core.Spinner, {
       thickness: "4px",
       speed: "0.65s",
       emptyColor: "gray.200",
@@ -116020,24 +115867,24 @@ var Invoices = function Invoices() {
       value: total
     };
   });
-  return _react.default.createElement(_core.Grid, {
+  return /*#__PURE__*/_react.default.createElement(_core.Grid, {
     templateColumns: "300px auto"
-  }, _react.default.createElement(_core.Box, null, totals.map(function (_ref3, index) {
+  }, /*#__PURE__*/_react.default.createElement(_core.Box, null, totals.map(function (_ref3, index) {
     var count = _ref3.count,
         total = _ref3.total,
         status = _ref3.status;
-    return _react.default.createElement(_core.Grid, {
+    return /*#__PURE__*/_react.default.createElement(_core.Grid, {
       key: status,
       templateColumns: "90px auto",
       gap: 2,
       p: 3,
       textTransform: "capitalize",
       bg: index % 2 ? 'transparent' : 'gray.100'
-    }, _react.default.createElement(_core.Box, null, count, " ", status.replace('lb-', '')), _react.default.createElement(_core.Box, null, "$", total));
-  })), _react.default.createElement(_recharts.PieChart, {
+    }, /*#__PURE__*/_react.default.createElement(_core.Box, null, count, " ", status.replace('lb-', '')), /*#__PURE__*/_react.default.createElement(_core.Box, null, "$", total));
+  })), /*#__PURE__*/_react.default.createElement(_recharts.PieChart, {
     width: 300,
     height: 220
-  }, _react.default.createElement(_recharts.Pie, {
+  }, /*#__PURE__*/_react.default.createElement(_recharts.Pie, {
     dataKey: "value",
     data: data,
     cx: "50%",
@@ -116045,11 +115892,11 @@ var Invoices = function Invoices() {
     outerRadius: 100,
     label: false
   }, data.map(function (entry, index) {
-    return _react.default.createElement(_recharts.Cell, {
+    return /*#__PURE__*/_react.default.createElement(_recharts.Cell, {
       key: "cell-".concat(index),
       fill: chartColors[entry.name]
     });
-  })), _react.default.createElement(_recharts.Tooltip, null)));
+  })), /*#__PURE__*/_react.default.createElement(_recharts.Tooltip, null)));
 };
 
 var _default = Invoices;
@@ -120738,7 +120585,7 @@ var OverTime = function OverTime() {
   };
 
   if (!posts) {
-    return _react.default.createElement(_core.Spinner, {
+    return /*#__PURE__*/_react.default.createElement(_core.Spinner, {
       thickness: "4px",
       speed: "0.65s",
       emptyColor: "gray.200",
@@ -120747,7 +120594,7 @@ var OverTime = function OverTime() {
     });
   }
 
-  return _react.default.createElement(_recharts.AreaChart, {
+  return /*#__PURE__*/_react.default.createElement(_recharts.AreaChart, {
     width: 1000,
     height: 400,
     data: posts,
@@ -120757,35 +120604,35 @@ var OverTime = function OverTime() {
       left: 0,
       bottom: 0
     }
-  }, _react.default.createElement(_recharts.CartesianGrid, {
+  }, /*#__PURE__*/_react.default.createElement(_recharts.CartesianGrid, {
     strokeDasharray: "3 3"
-  }), _react.default.createElement(_recharts.XAxis, {
+  }), /*#__PURE__*/_react.default.createElement(_recharts.XAxis, {
     dataKey: "name"
-  }), _react.default.createElement(_recharts.YAxis, null), _react.default.createElement(_recharts.Tooltip, null), _react.default.createElement(_recharts.Area, {
+  }), /*#__PURE__*/_react.default.createElement(_recharts.YAxis, null), /*#__PURE__*/_react.default.createElement(_recharts.Tooltip, null), /*#__PURE__*/_react.default.createElement(_recharts.Area, {
     type: "monotone",
     dataKey: "draft",
     stackId: "1",
     stroke: colors['draft'],
     fill: colors['draft']
-  }), _react.default.createElement(_recharts.Area, {
+  }), /*#__PURE__*/_react.default.createElement(_recharts.Area, {
     type: "monotone",
     dataKey: "unpaid",
     stackId: "1",
     stroke: colors['unpaid'],
     fill: colors['unpaid']
-  }), _react.default.createElement(_recharts.Area, {
+  }), /*#__PURE__*/_react.default.createElement(_recharts.Area, {
     type: "monotone",
     dataKey: "paid",
     stackId: "1",
     stroke: colors['paid'],
     fill: colors['paid']
-  }), _react.default.createElement(_recharts.Area, {
+  }), /*#__PURE__*/_react.default.createElement(_recharts.Area, {
     type: "monotone",
     dataKey: "overdue",
     stackId: "1",
     stroke: colors['overdue'],
     fill: colors['overdue']
-  }), _react.default.createElement(_recharts.Area, {
+  }), /*#__PURE__*/_react.default.createElement(_recharts.Area, {
     type: "monotone",
     dataKey: "voided",
     stackId: "1",
@@ -120813,18 +120660,57 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Card = function Card(_ref) {
   var heading = _ref.heading,
       children = _ref.children;
-  return _react.default.createElement(_core.Box, {
+  return /*#__PURE__*/_react.default.createElement(_core.Box, {
     p: 4,
     bg: "white",
     fontSize: 15,
     mt: 10
-  }, _react.default.createElement(_core.Heading, {
+  }, /*#__PURE__*/_react.default.createElement(_core.Heading, {
     as: "h3",
     fontSize: 20
   }, heading), children);
 };
 
 var _default = Card;
+exports.default = _default;
+},{"react":"../../../node_modules/react/index.js","@chakra-ui/core":"../../../node_modules/@chakra-ui/core/dist/es/index.js"}],"components/Pagination.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _core = require("@chakra-ui/core");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Pagination = function Pagination(_ref) {
+  var currentPage = _ref.currentPage,
+      totalPages = _ref.totalPages,
+      setPage = _ref.setPage;
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_core.IconButton, {
+    onClick: function onClick() {
+      return setPage(currentPage - 1);
+    },
+    mr: 2,
+    "aria-label": "More",
+    icon: "chevron-left",
+    isDisabled: currentPage === 1
+  }), /*#__PURE__*/_react.default.createElement("span", null, currentPage, " of ", totalPages), /*#__PURE__*/_react.default.createElement(_core.IconButton, {
+    onClick: function onClick() {
+      return setPage(currentPage + 1);
+    },
+    ml: 2,
+    "aria-label": "More",
+    icon: "chevron-right",
+    isDisabled: currentPage >= totalPages
+  }));
+};
+
+var _default = Pagination;
 exports.default = _default;
 },{"react":"../../../node_modules/react/index.js","@chakra-ui/core":"../../../node_modules/@chakra-ui/core/dist/es/index.js"}],"components/Table/filterButtons.js":[function(require,module,exports) {
 "use strict";
@@ -120844,13 +120730,13 @@ var FilterButtons = function FilterButtons(_ref) {
   var statuses = _ref.statuses,
       handleFilter = _ref.handleFilter,
       currentStatus = _ref.currentStatus;
-  return _react.default.createElement(_core.SimpleGrid, {
+  return /*#__PURE__*/_react.default.createElement(_core.SimpleGrid, {
     maxW: "500px",
     gap: 4,
     columns: 5,
     mt: 4
   }, statuses.map(function (status) {
-    return _react.default.createElement(_core.Button, {
+    return /*#__PURE__*/_react.default.createElement(_core.Button, {
       onClick: function onClick() {
         return handleFilter(status);
       },
@@ -120883,26 +120769,26 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var LineItems = function LineItems(_ref) {
   var allPosts = _ref.allPosts;
-  return _react.default.createElement(_react.default.Fragment, null, allPosts.map(function (post, index) {
-    return _react.default.createElement(_react.default.Fragment, {
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, allPosts.map(function (post, index) {
+    return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, {
       key: post.id
-    }, _react.default.createElement(_core.Box, {
+    }, /*#__PURE__*/_react.default.createElement(_core.Box, {
       p: 3,
       bg: "gray.100"
-    }, index + 1), _react.default.createElement(_core.Box, {
+    }, index + 1), /*#__PURE__*/_react.default.createElement(_core.Box, {
       p: 3,
       bg: "gray.100"
-    }, post.id), _react.default.createElement(_core.Box, {
+    }, post.id), /*#__PURE__*/_react.default.createElement(_core.Box, {
       p: 3,
       bg: "gray.100"
-    }, (0, _moment.default)(post.date).format('MM/DD/YY')), _react.default.createElement(_core.Box, {
+    }, (0, _moment.default)(post.date).format('MM/DD/YY')), /*#__PURE__*/_react.default.createElement(_core.Box, {
       p: 3,
       bg: "gray.100"
-    }, post.title.rendered), _react.default.createElement(_core.Box, {
+    }, post.title.rendered), /*#__PURE__*/_react.default.createElement(_core.Box, {
       p: 3,
       bg: "gray.100",
       textTransform: "capitalize"
-    }, post.status.replace('lb-', '')), _react.default.createElement(_core.Box, {
+    }, post.status.replace('lb-', '')), /*#__PURE__*/_react.default.createElement(_core.Box, {
       p: 3,
       bg: "gray.100"
     }, post.lb_meta.total.toFixed(2)));
@@ -120911,7 +120797,96 @@ var LineItems = function LineItems(_ref) {
 
 var _default = LineItems;
 exports.default = _default;
-},{"react":"../../../node_modules/react/index.js","@chakra-ui/core":"../../../node_modules/@chakra-ui/core/dist/es/index.js","moment":"../../../node_modules/moment/moment.js"}],"components/Table/index.js":[function(require,module,exports) {
+},{"react":"../../../node_modules/react/index.js","@chakra-ui/core":"../../../node_modules/@chakra-ui/core/dist/es/index.js","moment":"../../../node_modules/moment/moment.js"}],"DateFilters.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _moment = _interopRequireDefault(require("moment"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var today = (0, _moment.default)().add(1, 'd').format('YYYY-MM-DD');
+var DATE_FILTERS = {
+  oneWeek: {
+    label: '1 Week',
+    after: (0, _moment.default)().subtract(7, 'd').format('YYYY-MM-DD'),
+    before: today
+  },
+  oneMonth: {
+    label: '1 Month',
+    after: (0, _moment.default)().subtract(1, 'month').format('YYYY-MM-DD'),
+    before: today
+  },
+  sixMonths: {
+    label: '6 Months',
+    after: (0, _moment.default)().subtract(6, 'month').format('YYYY-MM-DD'),
+    before: today
+  },
+  oneYear: {
+    label: '1 Year',
+    after: (0, _moment.default)().subtract(1, 'y').format('YYYY-MM-DD'),
+    before: today
+  },
+  lastYear: {
+    label: 'Last year',
+    after: "".concat((0, _moment.default)().subtract(1, 'y').format('YYYY'), "-01-01"),
+    before: "".concat((0, _moment.default)().format('YYYY'), "-01-01")
+  }
+};
+var _default = DATE_FILTERS;
+exports.default = _default;
+},{"moment":"../../../node_modules/moment/moment.js"}],"components/SelectTimePeriod.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _core = require("@chakra-ui/core");
+
+var _DateFilters = _interopRequireDefault(require("../DateFilters"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var styles = {
+  background: 'none',
+  maxWidth: 'inherit',
+  minWidth: '250px'
+};
+
+var SelectTimePeriod = function SelectTimePeriod(_ref) {
+  var setTimePeriod = _ref.setTimePeriod,
+      timePeriod = _ref.timePeriod;
+  return /*#__PURE__*/_react.default.createElement(_core.FormControl, {
+    mt: -2
+  }, /*#__PURE__*/_react.default.createElement(_core.FormLabel, {
+    fontSize: 13
+  }, "Time Period"), /*#__PURE__*/_react.default.createElement(_core.Select, {
+    style: styles // placeholder="Select Time Period"
+    ,
+    size: "sm",
+    defaultValue: timePeriod,
+    onChange: function onChange(e) {
+      return setTimePeriod(e.target.value);
+    }
+  }, Object.keys(_DateFilters.default).map(function (dateKey) {
+    return /*#__PURE__*/_react.default.createElement("option", {
+      key: dateKey,
+      value: dateKey
+    }, _DateFilters.default[dateKey].label);
+  })));
+};
+
+var _default = SelectTimePeriod;
+exports.default = _default;
+},{"react":"../../../node_modules/react/index.js","@chakra-ui/core":"../../../node_modules/@chakra-ui/core/dist/es/index.js","../DateFilters":"DateFilters.js"}],"components/Table/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -120921,13 +120896,19 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
+var _core = require("@chakra-ui/core");
+
 var _util = require("../../../util");
 
-var _core = require("@chakra-ui/core");
+var _Pagination = _interopRequireDefault(require("../Pagination"));
 
 var _filterButtons = _interopRequireDefault(require("./filterButtons"));
 
 var _LineItems = _interopRequireDefault(require("./LineItems"));
+
+var _SelectTimePeriod = _interopRequireDefault(require("../SelectTimePeriod"));
+
+var _DateFilters = _interopRequireDefault(require("../../DateFilters"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -120967,103 +120948,110 @@ var DocTable = function DocTable(_ref) {
       allPosts = _useState6[0],
       setAllPosts = _useState6[1];
 
-  var _useState7 = (0, _react.useState)(0),
+  var _useState7 = (0, _react.useState)('oneWeek'),
       _useState8 = _slicedToArray(_useState7, 2),
-      total = _useState8[0],
-      setTotal = _useState8[1];
+      timePeriod = _useState8[0],
+      setTimePeriod = _useState8[1];
 
-  var _useState9 = (0, _react.useState)(1),
+  var _useState9 = (0, _react.useState)(0),
       _useState10 = _slicedToArray(_useState9, 2),
-      page = _useState10[0],
-      setPage = _useState10[1];
+      total = _useState10[0],
+      setTotal = _useState10[1];
+
+  var _useState11 = (0, _react.useState)(1),
+      _useState12 = _slicedToArray(_useState11, 2),
+      page = _useState12[0],
+      setPage = _useState12[1];
 
   var headers = ['count', '#', 'Date', 'Title', 'Status', 'Amount'];
 
   var getTotal = function getTotal() {
-    var total = (0, _util.makeRequest)("/wp-json/littlebot/v1/total?status=".concat(status, "&post_type=").concat(postType));
-    total.then(function (res) {
+    var _DATE_FILTERS$timePer = _DateFilters.default[timePeriod],
+        after = _DATE_FILTERS$timePer.after,
+        before = _DATE_FILTERS$timePer.before;
+    var req = (0, _util.makeRequest)("/wp-json/littlebot/v1/total?status=".concat(status, "&post_type=").concat(postType, "&after=").concat(after, "T00:00:00&before=").concat(before, "T00:00:00"));
+    req.then(function (res) {
       return setTotal(res.data);
     });
   };
 
   var getPosts = function getPosts() {
+    var _DATE_FILTERS$timePer2 = _DateFilters.default[timePeriod],
+        after = _DATE_FILTERS$timePer2.after,
+        before = _DATE_FILTERS$timePer2.before;
     setAllPosts(false);
-    var posts = (0, _util.makeRequest)("/wp-json/wp/v2/".concat(postType, "?status=").concat(status, "&per_page=100&page=").concat(page));
+    var posts = (0, _util.makeRequest)("/wp-json/wp/v2/".concat(postType, "?status=").concat(status, "&per_page=100&page=").concat(page, "&after=").concat(after, "T00:00:00&before=").concat(before, "T00:00:00"));
     posts.then(function (res) {
-      var totalPages = parseInt(res.headers.get('X-WP-TotalPages'));
-      setTotalPages(totalPages);
+      var pages = parseInt(res.headers.get('X-WP-TotalPages'), 10);
+      setTotalPages(pages);
       setAllPosts(res.data);
     });
   };
 
   (0, _react.useEffect)(function () {
     return getPosts();
-  }, [status, page]);
+  }, [status, page, timePeriod]);
   (0, _react.useEffect)(function () {
     return getTotal();
-  }, [status]);
+  }, [status, timePeriod]);
 
   if (!allPosts) {
-    return _react.default.createElement("div", null, _react.default.createElement(_core.Skeleton, {
+    return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_core.Skeleton, {
       height: "20px",
       my: "10px"
-    }), _react.default.createElement(_core.Skeleton, {
+    }), /*#__PURE__*/_react.default.createElement(_core.Skeleton, {
       height: "20px",
       my: "10px"
-    }), _react.default.createElement(_core.Skeleton, {
+    }), /*#__PURE__*/_react.default.createElement(_core.Skeleton, {
       height: "20px",
       my: "10px"
     }));
   }
 
-  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(_filterButtons.default, {
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_core.Grid, {
+    gridTemplateColumns: "auto min-content",
+    gap: 3
+  }, /*#__PURE__*/_react.default.createElement(_filterButtons.default, {
     statuses: allStatus,
     currentStatus: status,
     handleFilter: setStatus
-  }), _react.default.createElement(_core.Grid, {
+  }), /*#__PURE__*/_react.default.createElement(_SelectTimePeriod.default, {
+    setTimePeriod: setTimePeriod,
+    timePeriod: timePeriod
+  })), /*#__PURE__*/_react.default.createElement(_core.Grid, {
     gridTemplateColumns: "min-content min-content auto minmax(0, 500px) auto auto",
     gap: 3
   }, headers.map(function (header) {
-    return _react.default.createElement(_core.Box, {
+    return /*#__PURE__*/_react.default.createElement(_core.Box, {
       key: header,
       p: 3,
       bg: "cyan.700",
       color: "white",
       mt: 3
     }, header);
-  }), _react.default.createElement(_LineItems.default, {
+  }), /*#__PURE__*/_react.default.createElement(_LineItems.default, {
     allPosts: allPosts
-  })), !allPosts.length && _react.default.createElement(_core.Box, {
+  })), !allPosts.length && /*#__PURE__*/_react.default.createElement(_core.Box, {
     bg: "gray.100",
     p: 4,
     fontSize: 15,
     textAlign: "center",
     mt: 3
-  }, "No results for that query :("), _react.default.createElement(_core.SimpleGrid, {
+  }, "No results for that query :("), /*#__PURE__*/_react.default.createElement(_core.SimpleGrid, {
     columns: 3,
     mt: 3
-  }, _react.default.createElement("div", null, _react.default.createElement(_core.Button, {
+  }, /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_core.Button, {
     variantColor: "cyan",
     onClick: function onClick() {
       return (0, _util.createCSV)(allPosts);
     }
-  }, "Download CSV")), _react.default.createElement(_core.Box, {
+  }, "Download CSV")), /*#__PURE__*/_react.default.createElement(_core.Box, {
     textAlign: "center"
-  }, page !== 1 && _react.default.createElement(_core.IconButton, {
-    onClick: function onClick() {
-      return setPage(page - 1);
-    },
-    mr: 2,
-    "aria-label": "More",
-    icon: "chevron-left"
-  }), page < totalPages && _react.default.createElement(_core.IconButton, {
-    onClick: function onClick() {
-      return setPage(page + 1);
-    },
-    ml: 2,
-    "aria-label": "More",
-    icon: "chevron-right"
-  })), _react.default.createElement(_core.Box, {
+  }, /*#__PURE__*/_react.default.createElement(_Pagination.default, {
+    currentPage: page,
+    totalPages: totalPages,
+    setPage: setPage
+  })), /*#__PURE__*/_react.default.createElement(_core.Box, {
     textAlign: "right",
     fontSize: 20,
     fontWeight: "normal"
@@ -121072,7 +121060,7 @@ var DocTable = function DocTable(_ref) {
 
 var _default = DocTable;
 exports.default = _default;
-},{"react":"../../../node_modules/react/index.js","../../../util":"../util.js","@chakra-ui/core":"../../../node_modules/@chakra-ui/core/dist/es/index.js","./filterButtons":"components/Table/filterButtons.js","./LineItems":"components/Table/LineItems.js"}],"components/TableEstimates/index.js":[function(require,module,exports) {
+},{"react":"../../../node_modules/react/index.js","@chakra-ui/core":"../../../node_modules/@chakra-ui/core/dist/es/index.js","../../../util":"../util.js","../Pagination":"components/Pagination.js","./filterButtons":"components/Table/filterButtons.js","./LineItems":"components/Table/LineItems.js","../SelectTimePeriod":"components/SelectTimePeriod.js","../../DateFilters":"DateFilters.js"}],"components/TableEstimates/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -121090,7 +121078,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var EstimateTable = function EstimateTable() {
   var allStatus = (0, _hooks.useEstimateStatus)();
-  return _react.default.createElement(_Table.default, {
+  return /*#__PURE__*/_react.default.createElement(_Table.default, {
     postType: "lb_estimate",
     allStatus: allStatus,
     initialStatus: "lb-approved"
@@ -121117,7 +121105,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var InvoiceTable = function InvoiceTable() {
   var allStatus = (0, _hooks.useInvoiceStatus)();
-  return _react.default.createElement(_Table.default, {
+  return /*#__PURE__*/_react.default.createElement(_Table.default, {
     postType: "lb_invoice",
     allStatus: allStatus,
     initialStatus: "lb-paid"
@@ -121206,22 +121194,22 @@ var TableClients = function TableClients() {
   }, [postStatus, postType]);
 
   if (!allClients) {
-    return _react.default.createElement("div", null, _react.default.createElement(_core.Skeleton, {
+    return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_core.Skeleton, {
       height: "20px",
       my: "10px"
-    }), _react.default.createElement(_core.Skeleton, {
+    }), /*#__PURE__*/_react.default.createElement(_core.Skeleton, {
       height: "20px",
       my: "10px"
-    }), _react.default.createElement(_core.Skeleton, {
+    }), /*#__PURE__*/_react.default.createElement(_core.Skeleton, {
       height: "20px",
       my: "10px"
     }));
   }
 
-  return _react.default.createElement(_react.default.Fragment, null, _react.default.createElement(_core.ButtonGroup, {
+  return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/_react.default.createElement(_core.ButtonGroup, {
     mt: 2
   }, allStatuses.map(function (status) {
-    return _react.default.createElement(_core.Button, {
+    return /*#__PURE__*/_react.default.createElement(_core.Button, {
       key: status,
       variantColor: "cyan",
       size: "sm",
@@ -121231,11 +121219,11 @@ var TableClients = function TableClients() {
         return filterClientTable(status);
       }
     }, status.replace('lb-', ''));
-  })), _react.default.createElement(_core.Grid, {
+  })), /*#__PURE__*/_react.default.createElement(_core.Grid, {
     gridTemplateColumns: "auto auto auto auto",
     gap: 3
   }, headers.map(function (header) {
-    return _react.default.createElement(_core.Box, {
+    return /*#__PURE__*/_react.default.createElement(_core.Box, {
       key: header,
       p: 3,
       bg: "cyan.700",
@@ -121243,22 +121231,28 @@ var TableClients = function TableClients() {
       mt: 3
     }, header);
   }), allClients.map(function (client) {
-    return _react.default.createElement(_react.default.Fragment, {
+    return /*#__PURE__*/_react.default.createElement(_react.default.Fragment, {
       key: client.ID
-    }, _react.default.createElement(_core.Box, {
+    }, /*#__PURE__*/_react.default.createElement(_core.Box, {
       p: 3,
       bg: "gray.100"
-    }, client.data.display_name), _react.default.createElement(_core.Box, {
+    }, client.data.display_name), /*#__PURE__*/_react.default.createElement(_core.Box, {
       p: 3,
       bg: "gray.100"
-    }, client.data.user_email), _react.default.createElement(_core.Box, {
+    }, client.data.user_email), /*#__PURE__*/_react.default.createElement(_core.Box, {
       p: 3,
       bg: "gray.100"
-    }, client.data.user_url), _react.default.createElement(_core.Box, {
+    }, client.data.user_url), /*#__PURE__*/_react.default.createElement(_core.Box, {
       p: 3,
       bg: "gray.100"
     }, client.data.total_paid));
-  })));
+  })), !allClients.length && /*#__PURE__*/_react.default.createElement(_core.Box, {
+    bg: "gray.100",
+    p: 4,
+    fontSize: 15,
+    textAlign: "center",
+    mt: 3
+  }, "No clients yet."));
 };
 
 var _default = TableClients;
@@ -121323,7 +121317,7 @@ var App = function App() {
     slug: 'OverTime'
   }];
 
-  var _useState = (0, _react.useState)('ClientTable'),
+  var _useState = (0, _react.useState)('InvoiceTable'),
       _useState2 = _slicedToArray(_useState, 2),
       currentRoute = _useState2[0],
       setRoute = _useState2[1];
@@ -121331,45 +121325,45 @@ var App = function App() {
   var renderRoute = function renderRoute() {
     switch (currentRoute) {
       case 'ClientTable':
-        return _react.default.createElement(_Card.default, {
+        return /*#__PURE__*/_react.default.createElement(_Card.default, {
           heading: "Client Table"
-        }, _react.default.createElement(_TableClients.default, null));
+        }, /*#__PURE__*/_react.default.createElement(_TableClients.default, null));
 
       case 'InvoiceTable':
-        return _react.default.createElement(_Card.default, {
+        return /*#__PURE__*/_react.default.createElement(_Card.default, {
           heading: "Invoice Table"
-        }, _react.default.createElement(_TableInvoices.default, null));
+        }, /*#__PURE__*/_react.default.createElement(_TableInvoices.default, null));
 
       case 'EstimateTable':
-        return _react.default.createElement(_Card.default, {
+        return /*#__PURE__*/_react.default.createElement(_Card.default, {
           heading: "Estimate Table"
-        }, _react.default.createElement(_TableEstimates.default, null));
+        }, /*#__PURE__*/_react.default.createElement(_TableEstimates.default, null));
 
       case 'InvoiceSummary':
-        return _react.default.createElement(_Card.default, {
+        return /*#__PURE__*/_react.default.createElement(_Card.default, {
           heading: "Invoices Summary"
-        }, _react.default.createElement(_Invoices.default, null));
+        }, /*#__PURE__*/_react.default.createElement(_Invoices.default, null));
 
       case 'OverTime':
-        return _react.default.createElement(_Card.default, {
+        return /*#__PURE__*/_react.default.createElement(_Card.default, {
           heading: "Over Time"
-        }, _react.default.createElement(_OverTime.default, null));
+        }, /*#__PURE__*/_react.default.createElement(_OverTime.default, null));
     }
   };
 
-  return _react.default.createElement(_core.ThemeProvider, null, _react.default.createElement(_core.CSSReset, null), _react.default.createElement(_core.Tabs, {
+  return /*#__PURE__*/_react.default.createElement(_core.ThemeProvider, null, /*#__PURE__*/_react.default.createElement(_core.CSSReset, null), /*#__PURE__*/_react.default.createElement(_core.Tabs, {
     maxW: "900px",
     mt: 4
-  }, _react.default.createElement(_core.TabList, null, allRoutes.map(function (route) {
-    return _react.default.createElement(_core.Tab, {
+  }, /*#__PURE__*/_react.default.createElement(_core.TabList, null, allRoutes.map(function (route) {
+    return /*#__PURE__*/_react.default.createElement(_core.Tab, {
       onClick: function onClick() {
         return setRoute(route.slug);
       },
-      key: route.name // variantColor={route.slug === currentRoute ? 'pink' : 'gray'}
-      ,
+      key: route.name,
+      "aria-selected": route.slug === currentRoute ? 'true' : 'false',
       textTransform: "capitalize"
     }, route.name);
-  }))), _react.default.createElement(_core.Box, {
+  }))), /*#__PURE__*/_react.default.createElement(_core.Box, {
     mr: 5
   }, renderRoute()));
 };
@@ -121387,7 +121381,7 @@ var _App = _interopRequireDefault(require("./App.js"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_reactDom.default.render(_react.default.createElement(_App.default, null), document.getElementById('reports-root'));
+_reactDom.default.render( /*#__PURE__*/_react.default.createElement(_App.default, null), document.getElementById('reports-root'));
 },{"react":"../../../node_modules/react/index.js","react-dom":"../../../node_modules/react-dom/index.js","./App.js":"App.js"}],"../../../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -121416,7 +121410,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63601" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49623" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

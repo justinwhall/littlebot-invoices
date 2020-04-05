@@ -27,7 +27,7 @@ const App = () => {
     { name: 'Client Table', slug: 'ClientTable' },
     { name: 'Over Time', slug: 'OverTime' }
   ];
-  const [currentRoute, setRoute] = useState('ClientTable');
+  const [currentRoute, setRoute] = useState('InvoiceTable');
 
   const renderRoute = () => {
     switch (currentRoute) {
@@ -73,7 +73,7 @@ const App = () => {
             <Tab
               onClick={() => setRoute(route.slug)}
               key={route.name}
-              // variantColor={route.slug === currentRoute ? 'pink' : 'gray'}
+              aria-selected={route.slug === currentRoute ? 'true' : 'false'}
               textTransform="capitalize"
             >
               {route.name}
