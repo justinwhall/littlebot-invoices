@@ -28,7 +28,7 @@ class LBI_REPORTS {
 	 * @param string $post_type Post type to query.
 	 * @return object
 	 */
-	public function get_total_for_period( $statuses, $client_id, $post_type, $after, $before ) {
+	public function get_total_for_period( $statuses, $client_id, $post_type, $after = false, $before = false ) {
 		global $wpdb;
 		$status_sql = '';
 
@@ -48,10 +48,16 @@ class LBI_REPORTS {
                 INNER JOIN wp_postmeta AS pm ON p.ID = pm.post_id 
                 WHERE p.post_type LIKE %s 
                 AND p.post_status IN ({$status_sql}) 
-                AND p.post_date > '{$after}'
-                AND p.post_date < '{$before}'
                 AND pm.meta_key = '_total'
-                AND wp_postmeta.meta_key = '_client'";
+				AND wp_postmeta.meta_key = '_client'";
+
+		if ( $after ) {
+			$sql .= "AND p.post_date > '{$after}'";
+		}
+
+		if ( $before ) {
+			$sql .= "AND p.post_date < '{$before}'";
+		}
 
 		if ( $client_id ) {
 			$sql .= "AND wp_postmeta.meta_value = {$client_id}";

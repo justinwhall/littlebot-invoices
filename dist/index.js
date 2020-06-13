@@ -115797,111 +115797,7 @@ var useEstimateStatus = function useEstimateStatus() {
 };
 
 exports.useEstimateStatus = useEstimateStatus;
-},{"@chakra-ui/core":"../../../node_modules/@chakra-ui/core/dist/es/index.js"}],"components/Invoices/index.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireWildcard(require("react"));
-
-var _util = require("../../../util");
-
-var _core = require("@chakra-ui/core");
-
-var _recharts = require("recharts");
-
-var _hooks = require("../../../hooks");
-
-function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-var Invoices = function Invoices() {
-  var chartColors = (0, _hooks.useStatusColors)();
-
-  var _useState = (0, _react.useState)(false),
-      _useState2 = _slicedToArray(_useState, 2),
-      totals = _useState2[0],
-      setTotals = _useState2[1];
-
-  (0, _react.useEffect)(function () {
-    var totals = (0, _util.makeRequest)('http://littlebot.local/wp-json/littlebot/v1/totals');
-    totals.then(function (res) {
-      return setTotals(Object.values(res.data));
-    });
-  }, []);
-
-  if (!totals) {
-    return /*#__PURE__*/_react.default.createElement(_core.Spinner, {
-      thickness: "4px",
-      speed: "0.65s",
-      emptyColor: "gray.200",
-      color: "blue.500",
-      size: "xl"
-    });
-  }
-
-  var data = totals.filter(function (_ref) {
-    var total = _ref.total;
-    return total;
-  }).map(function (_ref2) {
-    var status = _ref2.status,
-        total = _ref2.total;
-    return {
-      name: status.replace('lb-', ''),
-      value: total
-    };
-  });
-  return /*#__PURE__*/_react.default.createElement(_core.Grid, {
-    templateColumns: "300px auto"
-  }, /*#__PURE__*/_react.default.createElement(_core.Box, null, totals.map(function (_ref3, index) {
-    var count = _ref3.count,
-        total = _ref3.total,
-        status = _ref3.status;
-    return /*#__PURE__*/_react.default.createElement(_core.Grid, {
-      key: status,
-      templateColumns: "90px auto",
-      gap: 2,
-      p: 3,
-      textTransform: "capitalize",
-      bg: index % 2 ? 'transparent' : 'gray.100'
-    }, /*#__PURE__*/_react.default.createElement(_core.Box, null, count, " ", status.replace('lb-', '')), /*#__PURE__*/_react.default.createElement(_core.Box, null, "$", total));
-  })), /*#__PURE__*/_react.default.createElement(_recharts.PieChart, {
-    width: 300,
-    height: 220
-  }, /*#__PURE__*/_react.default.createElement(_recharts.Pie, {
-    dataKey: "value",
-    data: data,
-    cx: "50%",
-    cy: "50%",
-    outerRadius: 100,
-    label: false
-  }, data.map(function (entry, index) {
-    return /*#__PURE__*/_react.default.createElement(_recharts.Cell, {
-      key: "cell-".concat(index),
-      fill: chartColors[entry.name]
-    });
-  })), /*#__PURE__*/_react.default.createElement(_recharts.Tooltip, null)));
-};
-
-var _default = Invoices;
-exports.default = _default;
-},{"react":"../../../node_modules/react/index.js","../../../util":"../util.js","@chakra-ui/core":"../../../node_modules/@chakra-ui/core/dist/es/index.js","recharts":"../../../node_modules/recharts/es6/index.js","../../../hooks":"../hooks.js"}],"../../../node_modules/moment/moment.js":[function(require,module,exports) {
+},{"@chakra-ui/core":"../../../node_modules/@chakra-ui/core/dist/es/index.js"}],"../../../node_modules/moment/moment.js":[function(require,module,exports) {
 var define;
 var global = arguments[3];
 //! moment.js
@@ -120507,7 +120403,233 @@ var global = arguments[3];
 
 })));
 
-},{}],"components/OverTime/index.js":[function(require,module,exports) {
+},{}],"DateFilters.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _moment = _interopRequireDefault(require("moment"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var today = (0, _moment.default)().add(1, 'd').format('YYYY-MM-DDT00:00:00');
+var DATE_FILTERS = {
+  oneWeek: {
+    label: '1 Week',
+    after: (0, _moment.default)().subtract(7, 'd').format('YYYY-MM-DDT00:00:00'),
+    before: today
+  },
+  oneMonth: {
+    label: '1 Month',
+    after: (0, _moment.default)().subtract(1, 'month').format('YYYY-MM-DDT00:00:00'),
+    before: today
+  },
+  sixMonths: {
+    label: '6 Months',
+    after: (0, _moment.default)().subtract(6, 'month').format('YYYY-MM-DDT00:00:00'),
+    before: today
+  },
+  oneYear: {
+    label: '1 Year',
+    after: (0, _moment.default)().subtract(1, 'y').format('YYYY-MM-DDT00:00:00'),
+    before: today
+  },
+  lastYear: {
+    label: 'Last year',
+    after: "".concat((0, _moment.default)().subtract(1, 'y').format('YYYY'), "-01-01T00:00:00"),
+    before: "".concat((0, _moment.default)().format('YYYY'), "-01-01T00:00:00")
+  }
+};
+var _default = DATE_FILTERS;
+exports.default = _default;
+},{"moment":"../../../node_modules/moment/moment.js"}],"components/constants.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.IS_PAID = void 0;
+// eslint-disable-next-line import/prefer-default-export
+var IS_PAID = window.isLittlebotReports;
+exports.IS_PAID = IS_PAID;
+},{}],"components/SelectTimePeriod.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _core = require("@chakra-ui/core");
+
+var _DateFilters = _interopRequireDefault(require("../DateFilters"));
+
+var _constants = require("./constants");
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var styles = {
+  background: 'none',
+  maxWidth: 'inherit',
+  minWidth: '250px'
+};
+
+var SelectTimePeriod = function SelectTimePeriod(_ref) {
+  var setTimePeriod = _ref.setTimePeriod,
+      timePeriod = _ref.timePeriod;
+  return /*#__PURE__*/_react.default.createElement(_core.FormControl, {
+    mt: -2
+  }, /*#__PURE__*/_react.default.createElement(_core.FormLabel, {
+    fontSize: 13
+  }, "Time Period"), /*#__PURE__*/_react.default.createElement(_core.Select, {
+    style: styles,
+    isDisabled: !_constants.IS_PAID,
+    size: "sm",
+    defaultValue: timePeriod,
+    onChange: function onChange(e) {
+      return setTimePeriod(e.target.value);
+    }
+  }, Object.keys(_DateFilters.default).map(function (dateKey) {
+    return /*#__PURE__*/_react.default.createElement("option", {
+      key: dateKey,
+      value: dateKey
+    }, _DateFilters.default[dateKey].label);
+  })));
+};
+
+var _default = SelectTimePeriod;
+exports.default = _default;
+},{"react":"../../../node_modules/react/index.js","@chakra-ui/core":"../../../node_modules/@chakra-ui/core/dist/es/index.js","../DateFilters":"DateFilters.js","./constants":"components/constants.js"}],"components/Invoices/index.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _util = require("../../../util");
+
+var _core = require("@chakra-ui/core");
+
+var _recharts = require("recharts");
+
+var _hooks = require("../../../hooks");
+
+var _SelectTimePeriod = _interopRequireDefault(require("../SelectTimePeriod"));
+
+var _DateFilters = _interopRequireDefault(require("../../DateFilters"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(n); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var Invoices = function Invoices() {
+  var chartColors = (0, _hooks.useStatusColors)();
+
+  var _useState = (0, _react.useState)(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      totals = _useState2[0],
+      setTotals = _useState2[1];
+
+  var _useState3 = (0, _react.useState)('oneWeek'),
+      _useState4 = _slicedToArray(_useState3, 2),
+      timePeriod = _useState4[0],
+      setTimePeriod = _useState4[1];
+
+  console.log(timePeriod);
+  (0, _react.useEffect)(function () {
+    var _DATE_FILTERS$timePer = _DateFilters.default[timePeriod],
+        after = _DATE_FILTERS$timePer.after,
+        before = _DATE_FILTERS$timePer.before;
+    var totals = (0, _util.makeRequest)("/wp-json/littlebot/v1/totals?after=".concat(after, "&before=").concat(before));
+    totals.then(function (res) {
+      return setTotals(Object.values(res.data));
+    });
+  }, [timePeriod]);
+
+  if (!totals) {
+    return /*#__PURE__*/_react.default.createElement(_core.Spinner, {
+      thickness: "4px",
+      speed: "0.65s",
+      emptyColor: "gray.200",
+      color: "blue.500",
+      size: "xl"
+    });
+  }
+
+  var data = totals.filter(function (_ref) {
+    var total = _ref.total;
+    return total;
+  }).map(function (_ref2) {
+    var status = _ref2.status,
+        total = _ref2.total;
+    return {
+      name: status.replace('lb-', ''),
+      value: total
+    };
+  });
+  return /*#__PURE__*/_react.default.createElement(_core.Grid, {
+    templateColumns: "300px auto"
+  }, /*#__PURE__*/_react.default.createElement(_core.Box, null, /*#__PURE__*/_react.default.createElement(_core.Box, {
+    mt: 6,
+    mb: 4
+  }, /*#__PURE__*/_react.default.createElement(_SelectTimePeriod.default, {
+    setTimePeriod: setTimePeriod,
+    timePeriod: timePeriod
+  })), totals.map(function (_ref3, index) {
+    var count = _ref3.count,
+        total = _ref3.total,
+        status = _ref3.status;
+    return /*#__PURE__*/_react.default.createElement(_core.Grid, {
+      key: status,
+      templateColumns: "90px auto",
+      gap: 2,
+      p: 3,
+      textTransform: "capitalize",
+      bg: index % 2 ? 'transparent' : 'gray.100'
+    }, /*#__PURE__*/_react.default.createElement(_core.Box, null, count, " ", status.replace('lb-', '')), /*#__PURE__*/_react.default.createElement(_core.Box, null, "$", total));
+  })), /*#__PURE__*/_react.default.createElement(_recharts.PieChart, {
+    width: 500,
+    height: 320
+  }, /*#__PURE__*/_react.default.createElement(_recharts.Pie, {
+    dataKey: "value",
+    data: data,
+    cx: "50%",
+    cy: "50%",
+    outerRadius: 130,
+    label: false
+  }, data.map(function (entry, index) {
+    return /*#__PURE__*/_react.default.createElement(_recharts.Cell, {
+      key: "cell-".concat(index),
+      fill: chartColors[entry.name]
+    });
+  })), /*#__PURE__*/_react.default.createElement(_recharts.Tooltip, null)));
+};
+
+var _default = Invoices;
+exports.default = _default;
+},{"react":"../../../node_modules/react/index.js","../../../util":"../util.js","@chakra-ui/core":"../../../node_modules/@chakra-ui/core/dist/es/index.js","recharts":"../../../node_modules/recharts/es6/index.js","../../../hooks":"../hooks.js","../SelectTimePeriod":"components/SelectTimePeriod.js","../../DateFilters":"DateFilters.js"}],"components/OverTime/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -120545,6 +120667,8 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+var oneYear = (0, _moment.default)().subtract(2, 'y').format('YYYY-MM-DDT00:00:00');
+
 var OverTime = function OverTime() {
   var _useState = (0, _react.useState)(false),
       _useState2 = _slicedToArray(_useState, 2),
@@ -120553,7 +120677,7 @@ var OverTime = function OverTime() {
 
   var colors = (0, _hooks.useStatusColors)();
   (0, _react.useEffect)(function () {
-    var invoices = (0, _util.makeRequest)('http://littlebot.local/wp-json/wp/v2/lb_invoice?status=lb-paid,lb-unpaid,lb-draft,lb-overdue,lb-voided&after=2020-01-01T00:00:00');
+    var invoices = (0, _util.makeRequest)("http://littlebot.local/wp-json/wp/v2/lb_invoice?status=lb-paid,lb-unpaid,lb-draft,lb-overdue,lb-voided&after=".concat(oneYear));
     invoices.then(function (res) {
       return setPosts(parseByMonth(res));
     });
@@ -120566,6 +120690,7 @@ var OverTime = function OverTime() {
     var months = _moment.default.monthsShort();
 
     var monthsMap = {};
+    console.log(data);
     months.forEach(function (month) {
       monthsMap[month] = {
         name: month,
@@ -120724,6 +120849,8 @@ var _react = _interopRequireDefault(require("react"));
 
 var _core = require("@chakra-ui/core");
 
+var _constants = require("../constants");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var FilterButtons = function FilterButtons(_ref) {
@@ -120744,6 +120871,7 @@ var FilterButtons = function FilterButtons(_ref) {
       variantColor: "cyan",
       variant: currentStatus === status ? 'solid' : 'outline',
       textTransform: "capitalize",
+      isDisabled: !_constants.IS_PAID,
       size: "sm"
     }, status.replace('lb-', ''));
   }));
@@ -120751,7 +120879,7 @@ var FilterButtons = function FilterButtons(_ref) {
 
 var _default = FilterButtons;
 exports.default = _default;
-},{"react":"../../../node_modules/react/index.js","@chakra-ui/core":"../../../node_modules/@chakra-ui/core/dist/es/index.js"}],"components/Table/LineItems.js":[function(require,module,exports) {
+},{"react":"../../../node_modules/react/index.js","@chakra-ui/core":"../../../node_modules/@chakra-ui/core/dist/es/index.js","../constants":"components/constants.js"}],"components/Table/LineItems.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -120797,96 +120925,7 @@ var LineItems = function LineItems(_ref) {
 
 var _default = LineItems;
 exports.default = _default;
-},{"react":"../../../node_modules/react/index.js","@chakra-ui/core":"../../../node_modules/@chakra-ui/core/dist/es/index.js","moment":"../../../node_modules/moment/moment.js"}],"DateFilters.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _moment = _interopRequireDefault(require("moment"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var today = (0, _moment.default)().add(1, 'd').format('YYYY-MM-DD');
-var DATE_FILTERS = {
-  oneWeek: {
-    label: '1 Week',
-    after: (0, _moment.default)().subtract(7, 'd').format('YYYY-MM-DD'),
-    before: today
-  },
-  oneMonth: {
-    label: '1 Month',
-    after: (0, _moment.default)().subtract(1, 'month').format('YYYY-MM-DD'),
-    before: today
-  },
-  sixMonths: {
-    label: '6 Months',
-    after: (0, _moment.default)().subtract(6, 'month').format('YYYY-MM-DD'),
-    before: today
-  },
-  oneYear: {
-    label: '1 Year',
-    after: (0, _moment.default)().subtract(1, 'y').format('YYYY-MM-DD'),
-    before: today
-  },
-  lastYear: {
-    label: 'Last year',
-    after: "".concat((0, _moment.default)().subtract(1, 'y').format('YYYY'), "-01-01"),
-    before: "".concat((0, _moment.default)().format('YYYY'), "-01-01")
-  }
-};
-var _default = DATE_FILTERS;
-exports.default = _default;
-},{"moment":"../../../node_modules/moment/moment.js"}],"components/SelectTimePeriod.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-
-var _react = _interopRequireDefault(require("react"));
-
-var _core = require("@chakra-ui/core");
-
-var _DateFilters = _interopRequireDefault(require("../DateFilters"));
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var styles = {
-  background: 'none',
-  maxWidth: 'inherit',
-  minWidth: '250px'
-};
-
-var SelectTimePeriod = function SelectTimePeriod(_ref) {
-  var setTimePeriod = _ref.setTimePeriod,
-      timePeriod = _ref.timePeriod;
-  return /*#__PURE__*/_react.default.createElement(_core.FormControl, {
-    mt: -2
-  }, /*#__PURE__*/_react.default.createElement(_core.FormLabel, {
-    fontSize: 13
-  }, "Time Period"), /*#__PURE__*/_react.default.createElement(_core.Select, {
-    style: styles // placeholder="Select Time Period"
-    ,
-    size: "sm",
-    defaultValue: timePeriod,
-    onChange: function onChange(e) {
-      return setTimePeriod(e.target.value);
-    }
-  }, Object.keys(_DateFilters.default).map(function (dateKey) {
-    return /*#__PURE__*/_react.default.createElement("option", {
-      key: dateKey,
-      value: dateKey
-    }, _DateFilters.default[dateKey].label);
-  })));
-};
-
-var _default = SelectTimePeriod;
-exports.default = _default;
-},{"react":"../../../node_modules/react/index.js","@chakra-ui/core":"../../../node_modules/@chakra-ui/core/dist/es/index.js","../DateFilters":"DateFilters.js"}],"components/Table/index.js":[function(require,module,exports) {
+},{"react":"../../../node_modules/react/index.js","@chakra-ui/core":"../../../node_modules/@chakra-ui/core/dist/es/index.js","moment":"../../../node_modules/moment/moment.js"}],"components/Table/index.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -120969,7 +121008,7 @@ var DocTable = function DocTable(_ref) {
     var _DATE_FILTERS$timePer = _DateFilters.default[timePeriod],
         after = _DATE_FILTERS$timePer.after,
         before = _DATE_FILTERS$timePer.before;
-    var req = (0, _util.makeRequest)("/wp-json/littlebot/v1/total?status=".concat(status, "&post_type=").concat(postType, "&after=").concat(after, "T00:00:00&before=").concat(before, "T00:00:00"));
+    var req = (0, _util.makeRequest)("/wp-json/littlebot/v1/total?status=".concat(status, "&post_type=").concat(postType, "&after=").concat(after, "&before=").concat(before));
     req.then(function (res) {
       return setTotal(res.data);
     });
@@ -120980,7 +121019,7 @@ var DocTable = function DocTable(_ref) {
         after = _DATE_FILTERS$timePer2.after,
         before = _DATE_FILTERS$timePer2.before;
     setAllPosts(false);
-    var posts = (0, _util.makeRequest)("/wp-json/wp/v2/".concat(postType, "?status=").concat(status, "&per_page=100&page=").concat(page, "&after=").concat(after, "T00:00:00&before=").concat(before, "T00:00:00"));
+    var posts = (0, _util.makeRequest)("/wp-json/wp/v2/".concat(postType, "?status=").concat(status, "&per_page=100&page=").concat(page, "&after=").concat(after, "&before=").concat(before));
     posts.then(function (res) {
       var pages = parseInt(res.headers.get('X-WP-TotalPages'), 10);
       setTotalPages(pages);
@@ -121130,6 +121169,8 @@ var _util = require("../../../util");
 
 var _hooks = require("../../../hooks");
 
+var _constants = require("../constants");
+
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
@@ -121217,7 +121258,8 @@ var TableClients = function TableClients() {
       variant: postStatus === status ? 'solid' : 'outline',
       onClick: function onClick() {
         return filterClientTable(status);
-      }
+      },
+      isDisabled: !_constants.IS_PAID
     }, status.replace('lb-', ''));
   })), /*#__PURE__*/_react.default.createElement(_core.Grid, {
     gridTemplateColumns: "auto auto auto auto",
@@ -121257,7 +121299,7 @@ var TableClients = function TableClients() {
 
 var _default = TableClients;
 exports.default = _default;
-},{"react":"../../../node_modules/react/index.js","@chakra-ui/core":"../../../node_modules/@chakra-ui/core/dist/es/index.js","../../../util":"../util.js","../../../hooks":"../hooks.js"}],"App.js":[function(require,module,exports) {
+},{"react":"../../../node_modules/react/index.js","@chakra-ui/core":"../../../node_modules/@chakra-ui/core/dist/es/index.js","../../../util":"../util.js","../../../hooks":"../hooks.js","../constants":"components/constants.js"}],"App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -121269,9 +121311,9 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _core = require("@chakra-ui/core");
 
-var _Invoices = _interopRequireDefault(require("./components/Invoices/"));
+var _Invoices = _interopRequireDefault(require("./components/Invoices"));
 
-var _OverTime = _interopRequireDefault(require("./components/OverTime/"));
+var _OverTime = _interopRequireDefault(require("./components/OverTime"));
 
 var _Card = _interopRequireDefault(require("./Card"));
 
@@ -121317,12 +121359,14 @@ var App = function App() {
     slug: 'OverTime'
   }];
 
-  var _useState = (0, _react.useState)('InvoiceTable'),
+  var _useState = (0, _react.useState)('InvoiceSummary'),
       _useState2 = _slicedToArray(_useState, 2),
       currentRoute = _useState2[0],
-      setRoute = _useState2[1];
+      setRoute = _useState2[1]; // eslint-disable-next-line consistent-return
+
 
   var renderRoute = function renderRoute() {
+    // eslint-disable-next-line default-case
     switch (currentRoute) {
       case 'ClientTable':
         return /*#__PURE__*/_react.default.createElement(_Card.default, {
@@ -121370,7 +121414,7 @@ var App = function App() {
 
 var _default = App;
 exports.default = _default;
-},{"react":"../../../node_modules/react/index.js","@chakra-ui/core":"../../../node_modules/@chakra-ui/core/dist/es/index.js","./components/Invoices/":"components/Invoices/index.js","./components/OverTime/":"components/OverTime/index.js","./Card":"Card.js","./components/TableEstimates":"components/TableEstimates/index.js","./components/TableInvoices":"components/TableInvoices/index.js","./components/TableClients":"components/TableClients/index.js"}],"index.js":[function(require,module,exports) {
+},{"react":"../../../node_modules/react/index.js","@chakra-ui/core":"../../../node_modules/@chakra-ui/core/dist/es/index.js","./components/Invoices":"components/Invoices/index.js","./components/OverTime":"components/OverTime/index.js","./Card":"Card.js","./components/TableEstimates":"components/TableEstimates/index.js","./components/TableInvoices":"components/TableInvoices/index.js","./components/TableClients":"components/TableClients/index.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -121410,7 +121454,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49623" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52315" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

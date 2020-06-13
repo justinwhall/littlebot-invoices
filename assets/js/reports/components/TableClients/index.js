@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Skeleton, Grid, Button, ButtonGroup } from '@chakra-ui/core';
+import {
+  Box, Skeleton, Grid, Button, ButtonGroup,
+} from '@chakra-ui/core';
 import { makeRequest } from '../../../util';
 import { useInvoiceStatus, useEstimateStatus } from '../../../hooks';
+import { IS_PAID } from '../constants';
 
 const TableClients = () => {
   const invoiceStatuses = useInvoiceStatus();
@@ -14,7 +17,7 @@ const TableClients = () => {
 
   const headers = ['Client Name', 'Email', 'Website', 'Amount'];
 
-  const filterClientTable = status => {
+  const filterClientTable = (status) => {
     const newPostType = invoiceStatuses.includes(status)
       ? 'lb_invoice'
       : 'lb_estimate';
@@ -25,9 +28,9 @@ const TableClients = () => {
 
   const getClients = () => {
     const clients = makeRequest(
-      `/wp-json/littlebot/v1/clients?status=${postStatus}&post_type=${postType}`
+      `/wp-json/littlebot/v1/clients?status=${postStatus}&post_type=${postType}`,
     );
-    clients.then(res => setClients(res.data));
+    clients.then((res) => setClients(res.data));
   };
 
   useEffect(() => getClients(), [postStatus, postType]);
@@ -45,7 +48,7 @@ const TableClients = () => {
   return (
     <>
       <ButtonGroup mt={2}>
-        {allStatuses.map(status => (
+        {allStatuses.map((status) => (
           <Button
             key={status}
             variantColor="cyan"
@@ -53,19 +56,20 @@ const TableClients = () => {
             textTransform="capitalize"
             variant={postStatus === status ? 'solid' : 'outline'}
             onClick={() => filterClientTable(status)}
+            isDisabled={!IS_PAID}
           >
             {status.replace('lb-', '')}
           </Button>
         ))}
       </ButtonGroup>
       <Grid gridTemplateColumns="auto auto auto auto" gap={3}>
-        {headers.map(header => (
+        {headers.map((header) => (
           <Box key={header} p={3} bg="cyan.700" color="white" mt={3}>
             {header}
           </Box>
         ))}
 
-        {allClients.map(client => (
+        {allClients.map((client) => (
           <React.Fragment key={client.ID}>
             <Box p={3} bg="gray.100">
               {client.data.display_name}

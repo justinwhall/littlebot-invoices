@@ -1,6 +1,7 @@
 import React from 'react';
 import { Select, FormControl, FormLabel } from '@chakra-ui/core';
 import DATE_FILTERS from '../DateFilters';
+import { IS_PAID } from './constants';
 
 const styles = {
   background: 'none',
@@ -13,7 +14,7 @@ const SelectTimePeriod = ({ setTimePeriod, timePeriod }) => (
     <FormLabel fontSize={13}>Time Period</FormLabel>
     <Select
       style={styles}
-      // placeholder="Select Time Period"
+      isDisabled={!IS_PAID}
       size="sm"
       defaultValue={timePeriod}
       onChange={(e) => setTimePeriod(e.target.value)}

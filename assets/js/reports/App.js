@@ -3,17 +3,12 @@ import {
   ThemeProvider,
   Box,
   CSSReset,
-  Divider,
-  SimpleGrid,
-  Button,
   Tabs,
   TabList,
-  TabPanels,
   Tab,
-  TabPanel
 } from '@chakra-ui/core';
-import Invoices from './components/Invoices/';
-import OverTime from './components/OverTime/';
+import Invoices from './components/Invoices';
+import OverTime from './components/OverTime';
 import Card from './Card';
 import EstimateTable from './components/TableEstimates';
 import InvoiceTable from './components/TableInvoices';
@@ -25,11 +20,13 @@ const App = () => {
     { name: 'Invoice Table', slug: 'InvoiceTable' },
     { name: 'Estimate Table', slug: 'EstimateTable' },
     { name: 'Client Table', slug: 'ClientTable' },
-    { name: 'Over Time', slug: 'OverTime' }
+    { name: 'Over Time', slug: 'OverTime' },
   ];
-  const [currentRoute, setRoute] = useState('InvoiceTable');
+  const [currentRoute, setRoute] = useState('InvoiceSummary');
 
+  // eslint-disable-next-line consistent-return
   const renderRoute = () => {
+    // eslint-disable-next-line default-case
     switch (currentRoute) {
       case 'ClientTable':
         return (
@@ -69,7 +66,7 @@ const App = () => {
       <CSSReset />
       <Tabs maxW="900px" mt={4}>
         <TabList>
-          {allRoutes.map(route => (
+          {allRoutes.map((route) => (
             <Tab
               onClick={() => setRoute(route.slug)}
               key={route.name}

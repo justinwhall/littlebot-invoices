@@ -3,15 +3,21 @@ import { makeRequest } from '../../../util';
 import { Box, Spinner, Grid } from '@chakra-ui/core';
 import { PieChart, Pie, Tooltip, Cell } from 'recharts';
 import { useStatusColors } from '../../../hooks';
+import SelectTimePeriod from '../SelectTimePeriod';
+import DATE_FILTERS from '../../DateFilters';
 
 const Invoices = () => {
   const chartColors = useStatusColors();
   const [totals, setTotals] = useState(false);
+  const [timePeriod, setTimePeriod] = useState('oneWeek');
+
+  console.log(timePeriod);
 
   useEffect(() => {
-    const totals = makeRequest('http://littlebot.local/wp-json/littlebot/v1/totals');
+    const { after, before } = DATE_FILTERS[timePeriod];
+    const totals = makeRequest(`/wp-json/littlebot/v1/totals?after=${after}&before=${before}`);
     totals.then(res => setTotals(Object.values(res.data)));
-  }, []);
+  }, [timePeriod]);
 
   if (!totals) {
     return (
@@ -35,6 +41,9 @@ const Invoices = () => {
   return (
     <Grid templateColumns="300px auto">
       <Box>
+        <Box mt={6} mb={4}>
+          <SelectTimePeriod setTimePeriod={setTimePeriod} timePeriod={timePeriod} />
+        </Box>
         {totals.map(({ count, total, status }, index) => (
           <Grid
             key={status}
@@ -51,13 +60,13 @@ const Invoices = () => {
           </Grid>
         ))}
       </Box>
-      <PieChart width={300} height={220}>
+      <PieChart width={500} height={320}>
         <Pie
           dataKey="value"
           data={data}
           cx="50%"
           cy="50%"
-          outerRadius={100}
+          outerRadius={130}
           label={false}
         >
           {data.map((entry, index) => (

@@ -1,0 +1,29 @@
+{
+    "version": "0.1.0",
+    "configurations": [
+        {
+            "name": "Launch localhost",
+            "type": "chrome",
+            "request": "launch",
+            "url": "http://littlebot.local",
+            "webRoot": "${workspaceFolder}"
+        },
+        {
+            "name": "Listen for Xdebug",
+            "type": "php",
+            "request": "launch",
+            "port": 9000,
+            "pathMappings": {
+                "/app/public/wp-content/plugins/littlebot-invoices": "${workspaceRoot}"
+            }
+        },
+        {
+            "name": "Launch currently open script",
+            "type": "php",
+            "request": "launch",
+            "program": "${file}",
+            "cwd": "${fileDirname}",
+            "port": 9000
+        },
+    ]
+}

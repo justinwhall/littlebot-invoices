@@ -27,7 +27,7 @@ const DocTable = ({ postType, allStatus, initialStatus }) => {
   const getTotal = () => {
     const { after, before } = DATE_FILTERS[timePeriod];
     const req = makeRequest(
-      `/wp-json/littlebot/v1/total?status=${status}&post_type=${postType}&after=${after}T00:00:00&before=${before}T00:00:00`,
+      `/wp-json/littlebot/v1/total?status=${status}&post_type=${postType}&after=${after}&before=${before}`,
     );
     req.then((res) => setTotal(res.data));
   };
@@ -36,7 +36,7 @@ const DocTable = ({ postType, allStatus, initialStatus }) => {
     const { after, before } = DATE_FILTERS[timePeriod];
     setAllPosts(false);
     const posts = makeRequest(
-      `/wp-json/wp/v2/${postType}?status=${status}&per_page=100&page=${page}&after=${after}T00:00:00&before=${before}T00:00:00`,
+      `/wp-json/wp/v2/${postType}?status=${status}&per_page=100&page=${page}&after=${after}&before=${before}`,
     );
 
     posts.then((res) => {

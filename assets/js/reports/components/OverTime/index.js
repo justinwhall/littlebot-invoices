@@ -5,13 +5,16 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip } from 'recharts'
 import moment from 'moment';
 import { useStatusColors } from '../../../hooks';
 
+const oneYear = moment().subtract(2, 'y').format('YYYY-MM-DDT00:00:00');
+
+
 const OverTime = () => {
   const [posts, setPosts] = useState(false);
   const colors = useStatusColors();
 
   useEffect(() => {
     const invoices = makeRequest(
-      'http://littlebot.local/wp-json/wp/v2/lb_invoice?status=lb-paid,lb-unpaid,lb-draft,lb-overdue,lb-voided&after=2020-01-01T00:00:00'
+      `http://littlebot.local/wp-json/wp/v2/lb_invoice?status=lb-paid,lb-unpaid,lb-draft,lb-overdue,lb-voided&after=${oneYear}`
     );
     invoices.then(res => setPosts(parseByMonth(res)));
   }, []);
@@ -19,6 +22,8 @@ const OverTime = () => {
   const parseByMonth = ({ data, headers }) => {
     const months = moment.monthsShort();
     const monthsMap = {};
+
+    console.log(data);
 
     months.forEach(month => {
       monthsMap[month] = {

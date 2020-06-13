@@ -27,6 +27,7 @@ class LBI_Assets {
 		add_action( 'wp_enqueue_scripts', array( $this, 'public_scripts' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_styles' ) );
 		add_action( 'admin_enqueue_scripts', array( $this, 'admin_scripts' ) );
+		add_action( 'admin_head', array( $this, 'admin_head_scripts' ) );
 	}
 
 	/**
@@ -53,6 +54,12 @@ class LBI_Assets {
 		wp_localize_script('little-bot-scripts', 'ajax_object', array( 'ajax_url' => admin_url('admin-ajax.php'), 'ajax_nonce' => wp_create_nonce('lb-invoices') ) );
 	}
 
+
+	public function admin_head_scripts() {
+		$is_reports = apply_filters( 'littlebot_is_reports', 1 );
+		echo '<script>var isLittlebotReports = ' . $is_reports . '</script>';
+	}
+
 	/**
 	 * Enqueue public scripts.
 	 */
@@ -63,7 +70,7 @@ class LBI_Assets {
 		$allow_post_types = ['lb_invoice', 'lb_estimate'];
 
 		/**
-		 * Only load on Littlebot post types. 
+		 * Only load on Littlebot post types.
 		 */
 		if ( ! in_array( $post_type, $allow_post_types ) ) {
 			return;
@@ -75,7 +82,37 @@ class LBI_Assets {
 
 }
 
+// Enqueue editor scripts.
+add_action( 'enqueue_block_editor_assets', __NAMESPACE__ . '\enqueue_editor_assets' );
+
+/**
+ * Enqueue editor scripts.
+ *
+ * @since 1.0.0
+ */
+function enqueue_editor_assets() {
+
+	$url = GUTENBERG_HOT_RELOAD_PLUGIN_URL . 'admin/dist/block.build.js';
+
+	// if ( defined( 'WP_LOCAL_DEV' ) && WP_LOCAL_DEV ) {
+
+		// }
+		$url = 'http://localhost:8080/gutenberg-hot-module-replacement/block.hot.js';
+
+	wp_enqueue_script(
+		'gutenberg-hot-module-replacement',
+		$url,
+		array(
+			'wp-blocks',
+			'wp-i18n',
+			'wp-element',
+		),
+		'1.0.2',
+		true
+	);
+}
+
 endif;
 
-return new LBI_Assets();
+// return new LBI_Assets();
 

@@ -177,6 +177,9 @@ if ( ! class_exists( 'Little_Bot_Invoices' ) ) :
 				define( 'LBI_PLUGIN_FILE', __FILE__ );
 			}
 
+			define( 'GUTENBERG_HOT_RELOAD_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+			define( 'GUTENBERG_HOT_RELOAD_PLUGIN_URL', plugins_url( '/', __FILE__ ) );
+
 		}
 
 		/**

@@ -107,11 +107,11 @@ class Littlebot_Rest_Endpoints extends WP_REST_Controller {
 				'callback'            => array( $this, 'get_total_for_period' ),
 				'permission_callback' => array( $this, 'get_items_permissions_check' ),
 				'args'                => array(
-					'before' => array(
+					'before' => [
 						'required' => false,
 						'type'     => 'string',
 						'format'   => 'date-time',
-					),
+					],
 					'after' => array(
 						'required' => false,
 						'type'     => 'string',
@@ -144,6 +144,7 @@ class Littlebot_Rest_Endpoints extends WP_REST_Controller {
 		$params    = $request->get_params();
 		$post_type = $params['post_type'];
 		$status    = $params['status'];
+
 
 		/**
 		 * Get out clients.

@@ -1,5 +1,5 @@
 {
-  "name": "littlebot-invoices",
+  "name": "gutenberg-hot-module-replacement",
   "version": "2.7.0",
   "repository": "git@github.com:justinwhall/littlebot-invoices.git",
   "author": "justinwhall <justinwhall@me.com>",
@@ -11,18 +11,32 @@
   "scripts": {
     "start": "parcel assets/js/reports/index.js --public-url /wp-content/plugins/littlebot-invoices/dist/",
     "watch": "parcel watch assets/js/reports/index.js",
-    "build": "parcel build assets/js/reports/index.js --no-content-hash"
+    "build": "parcel build assets/js/reports/index.js --no-content-hash",
+    "prebuild": "rimraf ./admin/dist/*",
+    "buildgute": "cross-env BABEL_ENV=default NODE_ENV=production webpack",
+    "dev": "cross-env BABEL_ENV=default POSTFIX_ENV=dev webpack --watch",
+    "postdev": "rimraf ./admin/dist/block.dev.js",
+    "hot": "cross-env BABEL_ENV=default POSTFIX_ENV=hot webpack --watch & POSTFIX_ENV=hot webpack-dev-server --hot --inline --config ./webpack.config.js",
+    "posthot": "rimraf ./admin/dist/block.hot.js"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0",
+    "@babel/core": "^7.10.2",
     "parcel-bundler": "^1.12.4"
   },
   "dependencies": {
+    "@babel/preset-env": "^7.10.2",
+    "@babel/preset-react": "^7.10.1",
+    "babel-core": "^7.0.0-bridge.0",
     "@chakra-ui/core": "^0.7.0",
     "@emotion/core": "^10.0.28",
     "@emotion/styled": "^10.0.27",
+    "@hot-loader/react-dom": "^16.13.0",
     "babel-eslint": "^10.1.0",
+    "babel-loader": "^7.1.1",
     "babel-plugin-styled-components": "^1.10.7",
+    "babel-plugin-transform-react-jsx": "^6.24.1",
+    "babel-preset-env": "^1.6.0",
+    "cross-env": "^5.0.1",
     "emotion-theming": "^10.0.27",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "^18.1.0",
@@ -34,7 +48,12 @@
     "moment": "^2.24.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-hot-loader": "^4.3.11",
     "recharts": "^1.8.5",
-    "styled-components": "^5.0.1"
+    "rimraf": "^2.6.3",
+    "styled-components": "^5.0.1",
+    "webpack": "^4.23.1",
+    "webpack-cli": "^3.1.2",
+    "webpack-dev-server": "^3.1.11"
   }
 }
