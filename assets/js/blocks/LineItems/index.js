@@ -9,6 +9,9 @@ const {
   i18n: {
     __,
   },
+  blockEditor: {
+    InnerBlocks,
+  },
   blocks: {
     registerBlockType,
   },
@@ -23,11 +26,12 @@ registerBlockType('lb/lineitems', {
     __('Littlebot'),
   ],
   attributes: {
-    lineItems: {
-      default: {},
-      type: 'object',
+    metaLineItems: {
+      type: 'string',
+      source: 'meta',
+      meta: 'line_items',
     },
   },
   edit,
-  save: () => null,
+  save: () => <InnerBlocks.Content />,
 });

@@ -1,35 +1,37 @@
 import { hot, setConfig } from 'react-hot-loader';
+import store from '../store';
 
 setConfig({
   showReactDomPatchNotification: false,
 });
 
-const { InnerBlocks } = wp.blockEditor;
-const { createBlock } = wp.blocks;
-const { dispatch } = wp.data;
-const { compose } = wp.compose;
-const { withDispatch, withSelect } = wp.data;
-
 const {
-  // useState,
-  useEffect,
-} = wp.element;
+  blockEditor: {
+    InnerBlocks,
+  },
+  compose: {
+    compose,
+  },
+  data: {
+    withDispatch,
+    select,
+  },
+  element: {
+    useEffect,
+  },
+} = wp;
 
-const initialState = {
-  lineItems: [
-    'line item 1',
-    'line item 2',
-    'line item 3',
-  ],
-};
-
-const LineItems = (props) => {
+const LineItems = () => {
   useEffect(() => {
-    initialState.lineItems.forEach((item, index) => {
-      const nextBlock = createBlock('lb/lineitem', { lineItemTitle: item });
-      dispatch('core/block-editor').insertBlock(nextBlock, index, props.clientId);
+    // eslint-disable-next-line camelcase
+    const { line_items } = select('core/editor').getEditedPostAttribute('meta');
+
+    // Update store with initial lineitem value
+    store.dispatch({
+      type: 'UPDATE_LINE_ITEMS',
+      lineItems: JSON.parse(line_items),
     });
-  }, ['kj']);
+  }, []);
 
   return (
     <div>
@@ -42,23 +44,14 @@ const LineItems = (props) => {
   );
 };
 
-const LineItemsRedux = compose([
-  withDispatch((dispatch, props) => {
-    // This function here is the action we created before.
-    const { updateMyControlValue } = dispatch('littlebot/lineitems');
+export default compose([
+  withDispatch((dispatch) => {
+    const {
+      updateLineItems,
+    } = dispatch('littlebot/lineitems');
 
     return {
-      updateMyControlValue,
-    };
-  }),
-  withSelect((select, props) => {
-    // This function here is the selector we created before.
-    const { getMyControlValue } = select('littlebot/lineitems');
-    // console.log( 'updateMyControlValue', getMyControlValue() );
-    return {
-      value: getMyControlValue(),
+      updateLineItems,
     };
   }),
 ])(LineItems);
-
-export default hot(module)(LineItemsRedux);

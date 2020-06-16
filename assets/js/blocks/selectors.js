@@ -3,7 +3,7 @@
  */
 const selectors = {
   getMyControlValue(state) {
-    return state.lineItems.value;
+    return state.lineItems;
   },
 };
 

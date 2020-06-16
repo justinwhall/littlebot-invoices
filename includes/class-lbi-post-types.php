@@ -62,7 +62,7 @@ class LB_Post_Types {
 
 		$args = array(
 			'labels'             => $labels,
-            'description'        => __( 'Little Bot Invoices.', 'littlebot-invoices' ),
+			'description'        => __( 'Little Bot Invoices.', 'littlebot-invoices' ),
 			'public'             => true,
 			'publicly_queryable' => true,
 			'show_ui'            => true,
@@ -74,8 +74,16 @@ class LB_Post_Types {
 			'has_archive'        => true,
 			'hierarchical'       => false,
 			'menu_position'      => null,
-			'menu_icon'			 => 'dashicons-littlebot-icon',
-			'supports'           => array( 'title')
+			'menu_icon'          => 'dashicons-littlebot-icon',
+			'template'           => array(
+				array( 'lb/lineitems' ),
+			),
+			'template_lock'      => 'insert',
+			'supports'           => array(
+				'title',
+				'editor',
+				'custom-fields',
+			)
 		);
 
 		register_post_type( 'lb_invoice', $args );
@@ -217,3 +225,59 @@ class LB_Post_Types {
 }
 
 LB_Post_Types::init();
+
+function gutenberg_my_block_init() {
+	// register_meta( 'post', '_line_items', array(
+	// 	'show_in_rest' => true,
+	// 	'single' => true,
+	// 	'object_subtype' => 'lb_invoice',
+	// ) );
+	register_meta( 'post', 'line_items', array(
+		'show_in_rest' => true,
+		'single' => true,
+		'object_subtype' => 'lb_invoice',
+	) );
+}
+add_action( 'init', 'gutenberg_my_block_init' );
+
+function register_cpt() {
+
+	$labels = array(
+		'name'               => 'Testimonials',
+		'singular_name'      => 'Testimonial',
+		'add_new'            => 'Add New',
+		'add_new_item'       => 'Add New Testimonial',
+		'edit_item'          => 'Edit Testimonial',
+		'new_item'           => 'New Testimonial',
+		'view_item'          => 'View Testimonial',
+		'search_items'       => 'Search Testimonials',
+		'not_found'          => 'No Testimonials found',
+		'not_found_in_trash' => 'No Testimonials found in Trash',
+		'parent_item_colon'  => 'Parent Testimonial:',
+		'menu_name'          => 'Testimonials',
+	);
+
+	$args = array(
+		'labels'              => $labels,
+		'hierarchical'        => true,
+		'supports'            => array( 'editor', 'custom-fields' ),
+		'public'              => true,
+		'show_ui'             => true,
+		'show_in_rest'        => true,
+		'publicly_queryable'  => false,
+		'exclude_from_search' => true,
+		'has_archive'         => false,
+		'query_var'           => true,
+		'can_export'          => true,
+		'rewrite'             => array( 'slug' => 'testimonial', 'with_front' => false ),
+		'menu_icon'           => 'dashicons-format-quote',
+		'template'            => array(
+			array( 'lb/lineitems'),
+		),
+		'template_lock'      => 'insert',
+	);
+
+	register_post_type( 'testimonial', $args );
+
+}
+add_action( 'init', 'register_cpt' );
