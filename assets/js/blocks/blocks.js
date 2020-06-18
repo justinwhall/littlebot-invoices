@@ -4,3 +4,4 @@
 import './store';
 import './LineItem/index.js';
 import './LineItems/index.js';
+import './Totals/index.js';

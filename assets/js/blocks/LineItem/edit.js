@@ -4,30 +4,76 @@ setConfig({
   showReactDomPatchNotification: false,
 });
 
-const { compose } = wp.compose;
-const { withDispatch, withSelect } = wp.data;
-const { TextControl } = wp.components;
+const {
+  blockEditor: {
+    RichText,
+  },
+  components: {
+    TextControl,
+  },
+  compose: {
+    compose,
+  },
+  data: {
+    withDispatch,
+  },
+  i18n: {
+    __,
+  },
+} = wp;
 
 const LineItem = ({
   attributes, clientId, setAttributes, updateLineItems,
 }) => {
-  const handleChange = (val) => {
-    setAttributes({ lineItemTitle: val });
-    updateLineItems(clientId, val);
+  const handleChange = (val, attName) => {
+    const numInputs = ['rate', 'qty', 'precent'];
+    const newAtts = {};
+    // newAtts[attName] = numInputs.includes(attName) ? parseInt(val, 10) || 0 : val;
+    newAtts[attName] = val;
+
+    console.log('newAtts', newAtts);
+
+    setAttributes(newAtts);
+    updateLineItems(clientId);
   };
 
   return (
-    <TextControl
-      label="Line Item"
-      type="text"
-      value={attributes.lineItemTitle}
-      onChange={(val) => handleChange(val)}
-    />
+    <>
+      <TextControl
+        label="Name"
+        value={attributes.name}
+        onChange={(val) => handleChange(val, 'name')}
+      />
+      <TextControl
+        label="rate"
+        type="number"
+        value={attributes.rate}
+        onChange={(val) => handleChange(val, 'rate')}
+      />
+      <TextControl
+        label="Qty"
+        value={attributes.qty}
+        onChange={(val) => handleChange(val, 'qty')}
+      />
+      <TextControl
+        label="%"
+        value={attributes.percent}
+        onChange={(val) => handleChange(val, 'percent')}
+      />
+      <RichText
+        className="block__description"
+        keepPlaceholderOnFocus
+        onChange={(val) => handleChange(val, 'desc')}
+        placeholder={__('Optional Description', 'littlebot-invoices')}
+        tagName="p"
+        value={attributes.desc}
+      />
+    </>
   );
 };
 
-const LineItemRedux = compose([
-  withDispatch((dispatch, ownProps, registry) => {
+export default compose([
+  withDispatch((dispatch) => {
     const {
       updateMyControlValue,
       updateLineItems,
@@ -38,13 +84,4 @@ const LineItemRedux = compose([
       updateLineItems,
     };
   }),
-  withSelect((select, props) => {
-    // This function here is the selector we created before.
-    const { getMyControlValue } = select('littlebot/lineitems');
-    return {
-      value: getMyControlValue(),
-    };
-  }),
 ])(LineItem);
-
-export default hot(module)(LineItemRedux);

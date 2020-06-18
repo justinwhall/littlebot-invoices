@@ -224,6 +224,7 @@ if ( ! class_exists( 'Little_Bot_Invoices' ) ) :
 			require_once LBI_PLUGIN_DIR . 'includes/class-lbi-rest-endpoints.php';
 			require_once LBI_PLUGIN_DIR . 'includes/class-lbi-rest-fields.php';
 			require_once LBI_PLUGIN_DIR . 'includes/class-lbi-reports.php';
+			require_once LBI_PLUGIN_DIR . 'includes/class-lbi-meta.php';
 			require_once LBI_PLUGIN_DIR . 'includes/lbi-template-tags.php';
 
 			LBI_PDF::init();

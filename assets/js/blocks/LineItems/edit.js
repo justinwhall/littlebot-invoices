@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { hot, setConfig } from 'react-hot-loader';
 import store from '../store';
 
@@ -23,19 +24,19 @@ const {
 
 const LineItems = () => {
   useEffect(() => {
-    // eslint-disable-next-line camelcase
     const { line_items } = select('core/editor').getEditedPostAttribute('meta');
 
-    // Update store with initial lineitem value
-    store.dispatch({
-      type: 'UPDATE_LINE_ITEMS',
-      lineItems: JSON.parse(line_items),
-    });
+    if (line_items) {
+      store.dispatch({
+        type: 'UPDATE_LINE_ITEMS',
+        lineItems: JSON.parse(line_items),
+      });
+    }
   }, []);
 
   return (
     <div>
-      add line items
+      Line Items
       <InnerBlocks
         allowedBlocks={['lb/lineitem']}
         templateLock={false}
