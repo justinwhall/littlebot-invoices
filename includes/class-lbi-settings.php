@@ -27,23 +27,30 @@ class LBI_Settings {
 		private $settings_api;
 
 
+		/**
+		 * Holds LittleBot Settings Keys.
+		 *
+		 * @var array $options
+		 */
 		static $options = array(
 			'lbi_general',
 			'lbi_business',
 			'lbi_estimates',
 			'lbi_invoices',
 			'lbi_emails',
-			'lbi_payments'
+			'lbi_payments',
 		);
 
 
+		/**
+		 * Kick it off.
+		 */
 		public function __construct() {
 
 			$this->settings_api = new WeDevs_Settings_API;
 
-			add_action( 'admin_init', array($this, 'admin_init') );
-			add_action( 'admin_menu', array($this, 'admin_menu') );
-
+			add_action( 'admin_init', array( $this, 'admin_init' ) );
+			add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 		}
 
 		static function littlebot_get_option( $option_key, $option_id, $single = true ){
@@ -68,10 +75,10 @@ class LBI_Settings {
 				// 	$x = $x + 1;
 				// 	$this->duplicate(8, $x);
 				// }
-			
+
 		}
 
-		  function duplicate($post_id, $num) {
+		function duplicate($post_id, $num) {
 			$title   = get_the_title($post_id);
 			$oldpost = get_post($post_id);
 			$post    = array(
@@ -93,7 +100,7 @@ class LBI_Settings {
 
 		public function admin_menu() {
 			add_menu_page( 'LittleBot Invoices', 'LittleBot Invoices', 'manage_options', 'littlebot_invoices', array($this, 'plugin_page'), 'dashicons-littlebot-icon' );
-			add_submenu_page( 'littlebot_invoices', 'Reports', 'Reports', 'manage_options', 'littlebot_reports', function() { echo '<div id="reports-root"></div>'; } ); 
+			add_submenu_page( 'littlebot_invoices', 'Reports', 'Reports', 'manage_options', 'littlebot_reports', function() { echo '<div id="reports-root"></div>'; } );
 		}
 
 		public function get_settings_sections() {
@@ -135,6 +142,14 @@ class LBI_Settings {
 			$settings_fields = array(
 				'lbi_general' => array(
 					array(
+						'name'              => 'is_classic_editor',
+						'label'             => __( 'Use Legacy Classic Editor', 'littlebot-invoices' ),
+						'desc'              => __( '(We recommend NOT using the classic editor.)', 'littlebot-invoices' ),
+						'placeholder'       => '',
+						'type'              => 'checkbox',
+						// 'options'           => array( 1 => 'Yes', 0 => 'No')
+					),
+					array(
 						'name'              => 'currency_symbol',
 						'label'             => __( 'Currency Symbol', 'littlebot-invoices' ),
 						'desc'              => __( 'USD is <code>$</code>', 'littlebot-invoices' ),
@@ -160,7 +175,7 @@ class LBI_Settings {
 								'right' => 'Right (99.99$)',
 								'left_space' => 'Left with space ($ 99.99)',
 								'right_space' => 'Right with space (99.99 $)'
-						)
+						),
 					),
 					array(
 						'name'              => 'thousand_sep',

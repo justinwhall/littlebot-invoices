@@ -1,9 +1,10 @@
 /**
- * BLOCK: LineItems
+ * BLOCK: Totals
  *
  */
 
 import edit from './edit';
+import attributes from './attributes';
 
 const {
   i18n: {
@@ -21,13 +22,7 @@ registerBlockType('littlebot/totals', {
   keywords: [
     __('Littlebot', 'littlebot-invoices'),
   ],
-  attributes: {
-    metaLineItems: {
-      type: 'string',
-      source: 'meta',
-      meta: 'line_items',
-    },
-  },
+  attributes,
   edit,
   save: () => null,
 });

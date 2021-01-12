@@ -42,6 +42,12 @@ class LBI_Invoice_Details extends LBI_Admin_Post {
 	 * Adds the meta box.
 	 */
 	public function add_details() {
+		$gutenberg = get_current_screen()->is_block_editor();
+
+		if ( $gutenberg ) {
+			return;
+		}
+
 		add_meta_box(
 			'lbi-inovoice-details',
 			__( $this->post_type_name . ' Details', 'little-bot-invoices' ),

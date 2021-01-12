@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * LittleBot REST Endpoints
@@ -24,5 +24,6 @@ add_action( 'rest_api_init', function () {
 
           return $meta;
         },
+        'permission_callback' => '__return_true',
     ) );
 } );

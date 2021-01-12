@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * LBI_Line_Items Classes.
  */
 class LBI_Line_Items extends LBI_Admin_Post {
- 
+
     /**
      * Constructor.
      */
@@ -27,9 +27,9 @@ class LBI_Line_Items extends LBI_Admin_Post {
             add_action( 'load-post.php',     array( $this, 'init_metabox' ) );
             add_action( 'load-post-new.php', array( $this, 'init_metabox' ) );
         }
- 
+
     }
- 
+
     /**
      * Meta box initialization.
      */
@@ -37,7 +37,7 @@ class LBI_Line_Items extends LBI_Admin_Post {
         add_action( 'add_meta_boxes', array( $this, 'add_line_items'  )        );
         add_action( 'save_post',      array( $this, 'save_line_items' ), 10, 2 );
     }
- 
+
     /**
      * Adds the meta box.
      */
@@ -50,9 +50,9 @@ class LBI_Line_Items extends LBI_Admin_Post {
             'normal',
             'default'
         );
- 
+
     }
- 
+
     /**
      * Renders the meta box.
      */
@@ -61,7 +61,7 @@ class LBI_Line_Items extends LBI_Admin_Post {
         wp_nonce_field( 'custom_nonce_action', 'custom_nonce' );
         require_once LBI_PLUGIN_DIR . 'views/html-admin-invoice-line-items.php';
     }
- 
+
     /**
      * Handles saving the meta box.
      *
@@ -77,8 +77,8 @@ class LBI_Line_Items extends LBI_Admin_Post {
 
         $save = $this->validate_save_action( $nonce_name, $nonce_action, $post_id);
 
-        if ( !$save || !$_POST['item_title'] ) return; 
-        
+        if ( !$save || !$_POST['item_title'] ) return;
+
         $all_line_items = array();
         foreach ( $_POST['item_title'] as $i => $title ) {
             // Wait a minute, let's not save empty line items
@@ -102,6 +102,3 @@ class LBI_Line_Items extends LBI_Admin_Post {
         update_post_meta( $post_id, '_total', $_POST['_total'] );
     }
 }
- 
-new LBI_Line_Items();
-

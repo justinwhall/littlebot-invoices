@@ -14,7 +14,7 @@
             "request": "launch",
             "port": 9000,
             "pathMappings": {
-                "/app/public/wp-content/plugins/littlebot-invoices": "${workspaceRoot}"
+                "/app": "${workspaceRoot}/app"
             }
         },
         {

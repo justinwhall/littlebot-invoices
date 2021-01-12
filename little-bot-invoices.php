@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: LittleBot Invoices
+ * Plugin Name: LittleBot Invoices V2
  * Plugin URI: https://littlebot.io
  * Description: Easily create and send estimates and invoices for your business.
  * Author: Justin W Hall
@@ -190,8 +190,9 @@ if ( ! class_exists( 'Little_Bot_Invoices' ) ) :
 		 * @return void
 		 */
 		private function includes() {
-			global $LBI_options;
 
+			require_once LBI_PLUGIN_DIR . 'includes/class-lbi-settings-api.php';
+			require_once LBI_PLUGIN_DIR . 'includes/class-lbi-settings.php';
 			require_once LBI_PLUGIN_DIR . 'includes/class-lbi-activate-deactivate.php';
 			require_once LBI_PLUGIN_DIR . 'includes/class-lbi-controller.php';
 			require_once LBI_PLUGIN_DIR . 'includes/class-lbi-assets.php';
@@ -207,8 +208,6 @@ if ( ! class_exists( 'Little_Bot_Invoices' ) ) :
 			require_once LBI_PLUGIN_DIR . 'includes/class-lbi-estimate.php';
 			require_once LBI_PLUGIN_DIR . 'includes/class-lbi-invoice.php';
 			require_once LBI_PLUGIN_DIR . 'includes/class-lbi-response.php';
-			require_once LBI_PLUGIN_DIR . 'includes/class-lbi-settings-api.php';
-			require_once LBI_PLUGIN_DIR . 'includes/class-lbi-settings.php';
 			require_once LBI_PLUGIN_DIR . 'includes/class-lbi-checkouts.php';
 			require_once LBI_PLUGIN_DIR . 'includes/class-lbi-emails.php';
 			require_once LBI_PLUGIN_DIR . 'includes/class-lbi-notifications.php';
@@ -226,6 +225,12 @@ if ( ! class_exists( 'Little_Bot_Invoices' ) ) :
 			require_once LBI_PLUGIN_DIR . 'includes/class-lbi-reports.php';
 			require_once LBI_PLUGIN_DIR . 'includes/class-lbi-meta.php';
 			require_once LBI_PLUGIN_DIR . 'includes/lbi-template-tags.php';
+
+			$is_classic_editor = LBI_SETTINGS::littlebot_get_option( 'is_classic_editor', 'lbi_general' ) === 'on' ? true : false;
+
+			if ( $is_classic_editor ) {
+				new LBI_Line_Items();
+			}
 
 			LBI_PDF::init();
 			LBI_Controller::init();

@@ -31,6 +31,16 @@ registerBlockType('lb/lineitems', {
       source: 'meta',
       meta: 'line_items',
     },
+    lineItems: {
+      type: 'array',
+      source: 'meta',
+      meta: '_line_items',
+    },
+    taxRate: {
+      // type: 'integer',
+      source: 'meta',
+      meta: '_tax_rate',
+    },
   },
   edit,
   save: () => <InnerBlocks.Content />,

@@ -69,6 +69,7 @@ class Littlebot_Rest_Endpoints extends WP_REST_Controller {
 			array(
 				'methods'  => WP_REST_Server::READABLE,
 				'callback' => array( $this, 'get_totals' ),
+				'permission_callback' => array( $this, 'get_items_permissions_check'),
 			)
 		);
 
@@ -279,7 +280,7 @@ class Littlebot_Rest_Endpoints extends WP_REST_Controller {
 	 * @return WP_Error|bool
 	 */
 	public function get_items_permissions_check( $request ) {
-		return true;
+		return current_user_can( 'edit_posts' );
 	}
 
 	/**

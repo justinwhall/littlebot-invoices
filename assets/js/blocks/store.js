@@ -7,8 +7,12 @@ import selectors from './selectors';
 
 const { registerStore } = wp.data;
 
-export default registerStore('littlebot/lineitems', {
+const store = registerStore('littlebot/lineitems', {
   reducer,
   actions,
   selectors,
 });
+
+window.store = store;
+
+export default store;

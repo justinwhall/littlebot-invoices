@@ -43,6 +43,8 @@ class LB_Post_Types {
 			return;
 		}
 
+		$is_classic_editor = LBI_SETTINGS::littlebot_get_option( 'is_classic_editor', 'lbi_general' ) === 'on' ? true : false;
+
 		$labels = array(
 			'name'               => _x( 'Invoices', 'post type general name', 'littlebot-invoices' ),
 			'singular_name'      => _x( 'Invoice', 'post type singular name', 'littlebot-invoices' ),
@@ -82,10 +84,13 @@ class LB_Post_Types {
 			'template_lock'      => 'insert',
 			'supports'           => array(
 				'title',
-				'editor',
 				'custom-fields',
-			)
+			),
 		);
+
+		if ( ! $is_classic_editor ) {
+			array_push( $args['supports'], 'editor' );
+		}
 
 		register_post_type( 'lb_invoice', $args );
 
@@ -123,6 +128,10 @@ class LB_Post_Types {
 			'supports'           => array( 'title'),
 			'show_in_rest'       => true,
 		);
+
+		if ( ! $is_classic_editor ) {
+			array_push( $args['supports'], 'editor' );
+		}
 
 		register_post_type( 'lb_estimate', $args );
 	}

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * Admin Invoice
@@ -15,6 +15,39 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+function p_open($flag) {
+    global $p_times;
+    if (null === $p_times)
+        $p_times = [];
+    if (! array_key_exists($flag, $p_times))
+        $p_times[$flag] = [ 'total' => 0, 'open' => 0 ];
+    $p_times[$flag]['open'] = microtime(true);
+}
+
+function p_close($flag)
+{
+    global $p_times;
+    if (isset($p_times[$flag]['open'])) {
+        $p_times[$flag]['total'] += (microtime(true) - $p_times[$flag]['open']);
+        unset($p_times[$flag]['open']);
+    }
+}
+
+function p_dump()
+{
+    global $p_times;
+    $dump = [];
+    $sum  = 0;
+    foreach ($p_times as $flag => $info) {
+        $dump[$flag]['elapsed'] = $info['total'];
+        $sum += $info['total'];
+    }
+    foreach ($dump as $flag => $info) {
+        $dump[$flag]['percent'] = $dump[$flag]['elapsed']/$sum;
+    }
+    return $dump;
+}
+
 class LBI_Admin_Post
 {
 	public $post_type_name;
@@ -29,7 +62,7 @@ class LBI_Admin_Post
 	 * kick it off
 	 * @return void
 	 */
-	public static function init(){
+	public static function init() {
 		add_action( 'transition_post_status', array( __CLASS__, 'check_for_approved_estimate' ), 10, 3 );
 		add_action( 'wp_ajax_nopriv_update_status', array( __CLASS__, 'update_status' ), 11 );
 		add_action( 'wp_ajax_update_status', array( __CLASS__, 'update_status' ), 20 );
@@ -42,7 +75,7 @@ class LBI_Admin_Post
 			$status = sanitize_text_field( $_POST['status'] );
 			$ID = (int)sanitize_text_field( $_POST['ID'] );
 		}
-		
+
 		$post = array(
 		  'ID'           => $ID,
 		  'post_status'   => $status
@@ -73,16 +106,16 @@ class LBI_Admin_Post
 	 * @param  string $new_status the new status
 	 * @param  string $old_status the old status
 	 * @param  object $post       the current post (estimate)
-	 * @return void             
+	 * @return void
 	 */
 	public static function check_for_approved_estimate( $new_status, $old_status, $post ) {
-	
+
 		// we're only looking for estimates here...
 		if ( $post->post_type != 'lb_estimate' ) return;
 
 		// create invoice
 		if ( $old_status !== $new_status && $new_status == 'lb-approved' ) {
-			
+
 			$invoice = array(
 			  'post_title'    => $post->post_title,
 			  'post_content'  => '',
@@ -110,14 +143,14 @@ class LBI_Admin_Post
 	public static function link_docs( $estimate_id, $invoice_id) {
 		update_post_meta( $estimate_id, '_linked_doc', $invoice_id );
 		update_post_meta( $invoice_id, '_linked_doc', $estimate_id );
-	} 
+	}
 
 	/**
 	 * security & privlege check before saving posts meta
 	 * @param  string $nonce_name   save nonce
 	 * @param  sttring $nonce_action nonce action
 	 * @param  object $post_id      post being saved
-	 * @return boolean               save to save true/false... 
+	 * @return boolean               save to save true/false...
 	 */
 	public function validate_save_action( $nonce_name, $nonce_action, $post_id ){
 
@@ -127,22 +160,22 @@ class LBI_Admin_Post
 		if ( ! isset( $nonce_name ) ) {
 		    $save = false;
 		}
-		
+
 		// Check if nonce is valid.
 		if ( ! wp_verify_nonce( $nonce_name, $nonce_action ) ) {
 		    $save = false;
 		}
-		
+
 		// Check if user has permissions to save data.
 		if ( ! current_user_can( 'edit_post', $post_id ) ) {
 		    $save = false;
 		}
-		
+
 		// Check if not an autosave.
 		if ( wp_is_post_autosave( $post_id ) ) {
 		    $save = false;
 		}
-		
+
 		// Check if not a revision.
 		if ( wp_is_post_revision( $post_id ) ) {
 		    $save = false;

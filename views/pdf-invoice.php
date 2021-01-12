@@ -83,14 +83,13 @@
 
 		<div class="tax">
 			<span class="label sub"><?php esc_html_e( 'Tax', 'littebot-invoices' ); ?>:</span>
-			<span class="val"><?php echo littlebot_get_tax_total(); ?></span>
+			<span class="val"><?php //echo littlebot_get_tax_total(); ?></span>
 		</div>
 
 		<div class="total">
 			<span class="label sub"><?php esc_html_e( 'Total', 'littebot-invoices' ); ?>:</span>
 			<span class="val"><?php echo littlebot_get_total(); ?></span>
 		</div>
-
 
 </div>
 

@@ -22,13 +22,13 @@ const {
   },
 } = wp;
 
-const LineItems = () => {
+const LineItems = (props) => {
   useEffect(() => {
     const { line_items } = select('core/editor').getEditedPostAttribute('meta');
 
     if (line_items) {
       store.dispatch({
-        type: 'UPDATE_LINE_ITEMS',
+        type: 'UPDATE_LINEITEMS',
         lineItems: JSON.parse(line_items),
       });
     }
