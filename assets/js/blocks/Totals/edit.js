@@ -39,7 +39,7 @@ const Totals = ({ attributes, setAttributes, lineItems }) => {
   };
 
   useEffect(() => {
-    console.log('lineItems', lineItems);
+    // console.log('lineItems', lineItems);
     calcTotal();
   }, [lineItems]);
 

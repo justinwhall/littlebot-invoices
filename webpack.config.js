@@ -16,8 +16,7 @@ module.exports = {
   mode: isProduction ? 'production' : 'development',
   target: 'web',
   entry: {
-    // app: path.resolve('./assets/js/blocks/block.js'),
-    app: path.resolve('./assets/js/blocks/blocks.js'),
+    app: path.resolve('./assets/js/index.js'),
   },
   output: {
     path: path.resolve(__dirname, 'assets/dist'),

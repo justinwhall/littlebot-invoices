@@ -57,6 +57,10 @@ class Littlebot_Invoices_Meta {
 				'key'  => 'tax_rate',
 				'type' => 'integer',
 			],
+			[
+				'key'  => 'status',
+				'type' => 'string',
+			],
 		];
 
 		foreach ( $meta_keys as $meta ) {
