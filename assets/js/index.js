@@ -14,9 +14,6 @@ import './slotfills/LittleBotSettingsPanel.js';
 
 const {
   domReady,
-  data: {
-    dispatch,
-  },
   i18n: {
     __,
     setLocaleData,
@@ -25,5 +22,4 @@ const {
 
 domReady(() => {
   setLocaleData({ Publish: [__('Save', 'littlebot-invoices')] });
-  dispatch('core/edit-post').toggleEditorPanelOpened('littlebot-slot-settings');
 });
