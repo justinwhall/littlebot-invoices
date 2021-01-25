@@ -82,8 +82,10 @@ class LBI_Assets {
 
 
 	public function admin_head_scripts() {
+		global $post;
+		$status     = is_object( $post ) ? $post->post_status : '';
 		$is_reports = apply_filters( 'littlebot_is_reports', 1 );
-		echo '<script>var isLittlebotReports = ' . $is_reports . '</script>';
+		echo '<script>var isLittlebotReports = "' . $is_reports . '"; var littlebotStatus = "' . $status . '"</script>';
 	}
 
 	/**

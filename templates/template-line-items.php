@@ -11,7 +11,6 @@
 	<?php if ( is_array( $line_items ) ) : ?>
 		<?php
 		$count = 0;
-		var_dump( $line_items);
 		foreach ( $line_items as $item ) : $count++;?>
 			<tr <?php if ($count % 2 == 0): ?> class="alt" <?php endif; ?>>
 				<td class="left title-desc wide">

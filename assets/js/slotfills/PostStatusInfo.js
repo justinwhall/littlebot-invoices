@@ -1,14 +1,10 @@
 /* eslint-disable camelcase */
 
+import { useMeta } from '../util/useMeta';
+
 const {
-  data: {
-    useDispatch,
-    useSelect,
-    select,
-  },
-  element: {
-    useState,
-    useEffect,
+  components: {
+    SelectControl,
   },
   i18n: {
     __,
@@ -22,36 +18,22 @@ const {
 } = wp;
 
 const PostStatusInfo = () => {
-  // const {
-  //   type,
-  // } = select('core/editor').getCurrentPost();
-
-  const {
-    meta,
-  } = useSelect((select) => ({
-    meta: select('core/editor').getEditedPostAttribute('meta') || {},
-  }));
-
-  console.log(meta);
-
-  const { editPost } = useDispatch('core/editor');
-  // const [embedMeta, setEmbedMeta] = useState(
-  //   knight_foundation_app_event_show_vid_after_event
-  // );
-
-  // useEffect(() => {
-  //   editPost({
-  //     meta: {
-  //       ...meta,
-  //       knight_foundation_app_event_show_vid_after_event: embedMeta,
-  //     },
-  //   });
-  // }, [embedMeta]);
+  const { meta, updateMeta } = useMeta();
 
   return (
     <PluginPostStatusInfo>
-      <div className="module--type-event-embed components-base-control">
-        hello
+      <div className="lb-module--status">
+        <SelectControl
+          label={__('Status', 'littlebot-invoices')}
+          value={meta.status}
+          onChange={(val) => updateMeta({ status: val })}
+          options={[
+            { value: 'lb-draft', label: __('Draft', 'littlebot-invoices') },
+            { value: 'lb-unpaid', label: __('Unpaid', 'littlebot-invoices') },
+            { value: 'lb-paid', label: __('Paid', 'littlebot-invoices') },
+            { value: 'lb-overdue', label: __('Overdue', 'littlebot-invoices') },
+          ]}
+        />
       </div>
     </PluginPostStatusInfo>
   );

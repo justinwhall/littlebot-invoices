@@ -8,7 +8,7 @@ export const useStatusColors = () => {
     unpaid: colors.cyan['500'],
     paid: colors.cyan['700'],
     overdue: colors.pink['500'],
-    voided: colors.gray['700']
+    voided: colors.gray['700'],
   };
 };
 
@@ -17,7 +17,7 @@ export const useInvoiceStatus = () => [
   'lb-unpaid',
   'lb-overdue',
   'lb-draft',
-  'lb-voided'
+  'lb-voided',
 ];
 
 export const useEstimateStatus = () => ['lb-approved', 'lb-declined', 'lb-pending'];

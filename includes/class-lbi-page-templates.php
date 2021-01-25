@@ -21,34 +21,36 @@ class LBI_Page_Templates {
 	}
 
 	/**
-	 * define page template and directory for lb_estimate & lb_invoice post types
-	 * @param  string $single_template default path to template
-	 * @return string  new path to template
+	 * Define page template and directory for lb_estimate & lb_invoice post types.
+	 *
+	 * @param  string $single_template default path to template.
+	 * @return string  new path to template.
 	 */
-	public static function load_post_templates( $single_template ){
+	public static function load_post_templates( $single_template ) {
 
-		$object = get_queried_object();
+		$post   = get_queried_object();
+		$status = get_post_meta( $post->ID, 'status', true );
 
-		// If it's a draft, show the draft template
-		if( $object->post_status == 'lb-draft' & ! is_user_logged_in() ){
+		// If it's a draft, show the draft template.
+		if ( $status === 'lb-draft' & ! is_user_logged_in() ) {
 			$single_template = LBI_PLUGIN_DIR . '/templates/template-doc-draft.php';
-		} else if ( $object->post_type == 'lb_estimate' ) {
+		} elseif ( $post->post_type === 'lb_estimate' ) {
 			$single_template = LBI_PLUGIN_DIR . '/templates/template-estimate.php';
-		} else if ( $object->post_type == 'lb_invoice' ){
-			$single_template = LBI_PLUGIN_DIR . '/templates/template-invoice.php';			
+		} elseif ( $post->post_type === 'lb_invoice' ) {
+			$single_template = LBI_PLUGIN_DIR . '/templates/template-invoice.php';
 		}
 
 		return $single_template;
-	
 	}
 
 	/**
-	 * strip out styles that are not LittleBot styles so estimates and invoices look nice
+	 * Strip out styles that are not LittleBot styles so estimates and invoices look nice
+	 *
 	 * @return void
 	 */
 	public static function remove_non_littlebot_styles(){
 		global $wp_styles, $post;
-		
+
 		// Only on the public side. Bail if not actually a page.
 		if ( is_admin() || ! isset( $post ) ) return;
 
@@ -62,4 +64,4 @@ class LBI_Page_Templates {
 
 	}
 
-} 
+}

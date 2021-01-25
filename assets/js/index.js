@@ -21,5 +21,9 @@ const {
 } = wp;
 
 domReady(() => {
-  setLocaleData({ Publish: [__('Save', 'littlebot-invoices')] });
+  // eslint-disable-next-line no-undef
+  const label = littlebotStatus === 'publish'
+    ? __('Issued', 'littlebot-invoices')
+    : __('Save', 'littlebot-invoices');
+  setLocaleData({ Publish: [label] });
 });

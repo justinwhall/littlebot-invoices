@@ -1,6 +1,12 @@
+import { useMeta } from '../util/useMeta';
+
 const {
+  components: {
+    TextControl,
+  },
   data: {
     dispatch,
+    select,
   },
   editPost: {
     PluginDocumentSettingPanel,
@@ -15,12 +21,24 @@ const {
 } = wp;
 
 const PluginDocumentSettingPanelDemo = () => {
+  const postID = select('core/editor').getCurrentPostId();
+  const { meta, updateMeta } = useMeta();
+
   useEffect(() => {
     // Open panel on load.
+    const pluginSlug = 'littlebot-slot-settings/littlebot-doc-settings';
+    const open = select('core/edit-post').getPreference('panels')[pluginSlug].opened; // eslint-disable-line max-len
+
+    if (open) {
+      return;
+    }
+
     dispatch('core/edit-post').toggleEditorPanelOpened(
-      'littlebot-slot-settings/littlebot-doc-settings',
+      pluginSlug,
     );
   }, []);
+
+  console.log(meta);
 
   return (
     <PluginDocumentSettingPanel
@@ -28,7 +46,12 @@ const PluginDocumentSettingPanelDemo = () => {
       title="Littlebot 🤖"
       className="littlebot-slot-settings"
     >
-      Custom Panel Contents
+      <TextControl
+        label="Invoice Number"
+        value={meta.invoiceNumber || postID}
+        type="number"
+        onChange={(val) => updateMeta({ invoiceNumber: val })}
+      />
     </PluginDocumentSettingPanel>
   );
 };
