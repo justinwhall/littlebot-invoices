@@ -3,7 +3,6 @@ import { convertToCase } from './casing';
 const {
   data: {
     useDispatch,
-    useSelect,
     select,
   },
   element: {
@@ -18,7 +17,7 @@ export const useMeta = () => {
   const metaCamelCase = convertToCase(meta, 'camel');
   const [postMeta, setMeta] = useState(metaCamelCase);
 
-  const updateMeta = (val) => setMeta({ ...meta, ...val });
+  const updateMeta = (val) => setMeta({ ...postMeta, ...val });
 
   useEffect(() => {
     const metaUpdate = convertToCase(postMeta, 'snake');

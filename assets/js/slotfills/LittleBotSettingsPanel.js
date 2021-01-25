@@ -15,6 +15,9 @@ const {
     useState,
     useEffect,
   },
+  i18n: {
+    __,
+  },
   plugins: {
     registerPlugin,
   },
@@ -47,10 +50,22 @@ const PluginDocumentSettingPanelDemo = () => {
       className="littlebot-slot-settings"
     >
       <TextControl
-        label="Invoice Number"
+        label={__('Invoice Number', 'littlebot-invoices')}
         value={meta.invoiceNumber || postID}
         type="number"
         onChange={(val) => updateMeta({ invoiceNumber: val })}
+      />
+      <TextControl
+        label={__('P.O. Number', 'littlebot-invoices')}
+        value={meta.poNumber || ''}
+        type="number"
+        onChange={(val) => updateMeta({ poNumber: val })}
+      />
+      <TextControl
+        label={__('Tax rate %', 'littlebot-invoices')}
+        value={meta.taxRate || ''}
+        type="number"
+        onChange={(val) => updateMeta({ taxRate: val })}
       />
     </PluginDocumentSettingPanel>
   );
