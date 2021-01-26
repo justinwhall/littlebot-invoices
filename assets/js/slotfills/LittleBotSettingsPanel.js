@@ -41,8 +41,6 @@ const PluginDocumentSettingPanelDemo = () => {
     );
   }, []);
 
-  console.log(meta);
-
   return (
     <PluginDocumentSettingPanel
       name="littlebot-doc-settings"

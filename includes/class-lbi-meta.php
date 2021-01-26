@@ -34,6 +34,10 @@ class Littlebot_Invoices_Meta {
 	public static function register_meta() {
 		$meta_keys = [
 			[
+				'key'  => 'due_date',
+				'type' => 'string',
+			],
+			[
 				'key'  => 'invoice_number',
 				'type' => 'integer',
 			],
