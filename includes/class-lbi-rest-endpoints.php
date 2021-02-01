@@ -75,6 +75,23 @@ class Littlebot_Rest_Endpoints extends WP_REST_Controller {
 
 		register_rest_route(
 			$namespace,
+			'/users',
+			array(
+				'methods'             => WP_REST_Server::READABLE,
+				'callback'            => array( $this, 'users' ),
+				'permission_callback' => '__return_true',
+				'args'                => array(
+					's' => array(
+						'default' => 'lb-paid',
+						'type'    => 'string',
+					),
+				),
+
+			)
+		);
+
+		register_rest_route(
+			$namespace,
 			'/clients',
 			array(
 				'methods'             => WP_REST_Server::READABLE,
@@ -146,7 +163,6 @@ class Littlebot_Rest_Endpoints extends WP_REST_Controller {
 		$post_type = $params['post_type'];
 		$status    = $params['status'];
 
-
 		/**
 		 * Get out clients.
 		 */
@@ -163,6 +179,62 @@ class Littlebot_Rest_Endpoints extends WP_REST_Controller {
 		}
 
 		return new WP_REST_Response( $all_clients, 200 );
+	}
+
+	/**
+	 * Search users with company name.
+	 *
+	 * @param object $request the rest request.
+	 * @return object the rest repsonse.
+	 */
+	public function users( $request ) {
+		$params = $request->get_params();
+		$search = $params['s'];
+
+		// search usertable.
+		$wp_user_query = new WP_User_Query(
+			[
+				'search'         => "*{$search}*",
+				'search_columns' => [
+					'display_name',
+					'user_login',
+					'user_nicename',
+					'user_email',
+				],
+			],
+		);
+
+		$users = $wp_user_query->get_results();
+
+		// search usermeta.
+		$wp_user_query2 = new WP_User_Query(
+			[
+				'fields'     => 'all_with_meta',
+				'meta_query' => [
+					'relation' => 'OR',
+					[
+						'key'     => 'company_name',
+						'value'   => $search,
+						'compare' => 'LIKE',
+					],
+				],
+			]
+		);
+
+		$users2         = $wp_user_query2->get_results();
+		$totalusers_dup = array_merge( $users, $users2 );
+		$totalusers     = array_unique( $totalusers_dup, SORT_REGULAR );
+
+		/**
+		 * Add compnay name to response.
+		 */
+		$users_with_meta = [];
+		foreach ( $totalusers as $user ) {
+			$user->data->company = get_user_meta( $user->ID, 'company_name', true );
+			$users_with_meta[]   = $user;
+		}
+
+		return new WP_REST_Response( $users_with_meta, 200 );
 	}
 
 	/**

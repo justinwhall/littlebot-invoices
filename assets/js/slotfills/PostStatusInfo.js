@@ -1,4 +1,3 @@
-/* eslint-disable camelcase */
 import styled from '@emotion/styled';
 import { useMeta } from '../util/useMeta';
 
@@ -30,11 +29,11 @@ const {
 const PostStatusInfo = () => {
   const settings = __experimentalGetSettings();
   const { meta, updateMeta } = useMeta();
-  const initialBtnText = meta.dueDate ? date(settings.formats.datetime, meta.dueDate) : __('Click to set date', 'littlebot-invoices');
+  const initialBtnText = meta.dueDate
+    ? date(settings.formats.datetime, meta.dueDate)
+    : __('Click to set date', 'littlebot-invoices');
   const [buttonText, setButtonText] = useState(initialBtnText);
   const [openDatePopup, setOpenDatePopup] = useState(false);
-
-  console.log(settings);
 
   return (
     <PluginPostStatusInfo>
@@ -63,7 +62,6 @@ const PostStatusInfo = () => {
         </div>
         <div className="lb-module--status components-panel__row">
           <SelectControl
-
             label={__('Status', 'littlebot-invoices')}
             labelPosition="side"
             value={meta.status}
@@ -72,6 +70,7 @@ const PostStatusInfo = () => {
               { value: 'lb-draft', label: __('Draft', 'littlebot-invoices') },
               { value: 'lb-unpaid', label: __('Unpaid', 'littlebot-invoices') },
               { value: 'lb-paid', label: __('Paid', 'littlebot-invoices') },
+              // eslint-disable-next-line max-len
               { value: 'lb-overdue', label: __('Overdue', 'littlebot-invoices') },
             ]}
           />

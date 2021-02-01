@@ -1,4 +1,5 @@
 import { useMeta } from '../util/useMeta';
+import Client from '../components/Client';
 
 const {
   components: {
@@ -12,7 +13,6 @@ const {
     PluginDocumentSettingPanel,
   },
   element: {
-    useState,
     useEffect,
   },
   i18n: {
@@ -47,6 +47,7 @@ const PluginDocumentSettingPanelDemo = () => {
       title="Littlebot 🤖"
       className="littlebot-slot-settings"
     >
+      <Client />
       <TextControl
         label={__('Invoice Number', 'littlebot-invoices')}
         value={meta.invoiceNumber || postID}

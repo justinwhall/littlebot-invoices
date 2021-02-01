@@ -34,6 +34,10 @@ class Littlebot_Invoices_Meta {
 	public static function register_meta() {
 		$meta_keys = [
 			[
+				'key'  => 'client',
+				'type' => 'integer',
+			],
+			[
 				'key'  => 'due_date',
 				'type' => 'string',
 			],
@@ -70,6 +74,20 @@ class Littlebot_Invoices_Meta {
 		foreach ( $meta_keys as $meta ) {
 			self::register_meta_helper( $meta );
 		}
+
+		register_meta(
+			'user',
+			'company_name',
+			[
+				'show_in_rest'   => true,
+				'single'         => true,
+				'object_subtype' => 'user',
+				'type'           => 'string',
+				'auth_callback'  => function() {
+					return true;
+				},
+			]
+		);
 
 		register_meta(
 			'post',
