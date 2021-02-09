@@ -226,7 +226,7 @@ class Littlebot_Rest_Endpoints extends WP_REST_Controller {
 		$totalusers     = array_unique( $totalusers_dup, SORT_REGULAR );
 
 		/**
-		 * Add compnay name to response.
+		 * Add company name to response.
 		 */
 		$users_with_meta = [];
 		foreach ( $totalusers as $user ) {

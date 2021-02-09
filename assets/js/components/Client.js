@@ -1,15 +1,17 @@
+import styled from '@emotion/styled';
+import colors from '../lib/colors';
+import { useMeta } from '../util/useMeta';
+
 const {
   apiFetch,
   components: {
     SelectControl,
     TextControl,
+    Spinner,
   },
   url: {
     addQueryArgs,
   },
-  // date: {
-  //   date,
-  // },
   element: {
     useState,
     useEffect,
@@ -22,28 +24,50 @@ const {
 const ClientMeta = ({ id }) => {
   const [client, setClient] = useState(null);
 
-  console.log('id', id);
-
   const fetchUser = async (userId) => {
+    console.log('id', userId);
     const user = await apiFetch({ path: `/wp/v2/users/${userId}` });
     console.log(user);
     setClient(user);
   };
 
   useEffect(() => {
+    console.log(id);
     fetchUser(id);
-  }, []);
+  }, [id]);
+
+  if (!client) {
+    return null;
+  }
 
   return (
-    <div>{ }</div>
+    <StyledClientMeta>
+      <div>
+        <strong>{__('Name')}</strong>
+        {' '}
+        {client.name}
+      </div>
+      <div>
+        <strong>{__('Company')}</strong>
+        {' '}
+        {client.meta.company_name}
+      </div>
+    </StyledClientMeta>
   );
 };
 
 const Client = () => {
+  const { meta, updateMeta } = useMeta();
   const [clients, setClients] = useState([]);
-  const [selectedClient, setSelectedClient] = useState(0);
+  const [fetching, setFetching] = useState(false);
+  const [search, setSearch] = useState('');
+  const [selectedClient, setSelectedClient] = useState(meta.client);
+  const noResults = !clients.length && search.length && !fetching;
 
-  const fetchClient = async (query) => {
+  console.log(search.length);
+
+  const fetchClients = async (query) => {
+    setFetching(true);
     const path = addQueryArgs(
       '/littlebot/v1/users/',
       {
@@ -52,20 +76,30 @@ const Client = () => {
     );
     const res = await apiFetch({ path });
     setClients(res);
+    setFetching(false);
   };
 
-  console.log(selectedClient);
+  useEffect(() => {
+    updateMeta({ client: selectedClient });
+  }, [selectedClient]);
 
-  if (selectedClient) {
-    return <ClientMeta id={selectedClient} />;
-  }
+  useEffect(() => {
+    if (search.length) {
+      fetchClients(search);
+    } else {
+      setClients([]);
+    }
+  }, [search]);
 
   return (
     <>
+      <span>{__('Client', 'littlebot-invoices')}</span>
+      {selectedClient ? (
+        <ClientMeta id={selectedClient} />
+      ) : null}
       <TextControl
-        label={__('Select Client', 'littlebot-invoices')}
-        onChange={(val) => fetchClient(val)}
-        placeholder="Search For client"
+        onChange={(val) => setSearch(val)}
+        placeholder="Search for a client"
       />
       {clients.length ? (
         <SelectControl
@@ -87,8 +121,25 @@ const Client = () => {
           ]}
         />
       ) : null}
+      {noResults ? (
+        <StyledNoResults>
+          {__('No Results', 'littlebot-invoices')}
+        </StyledNoResults>
+      ) : null}
+      {fetching ? <Spinner /> : null}
     </>
   );
 };
+
+const StyledClientMeta = styled.div`
+  background: ${colors.gray100};
+  padding: 10px;
+  margin-bottom: 10px;
+`;
+
+const StyledNoResults = styled.div`
+  color: ${colors.red};
+  margin-bottom: 10px;
+`;
 
 export default Client;
