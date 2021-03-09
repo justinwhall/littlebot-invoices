@@ -67,9 +67,9 @@ class Littlebot_Rest_Endpoints extends WP_REST_Controller {
 			$namespace,
 			'/totals',
 			array(
-				'methods'  => WP_REST_Server::READABLE,
-				'callback' => array( $this, 'get_totals' ),
-				'permission_callback' => array( $this, 'get_items_permissions_check'),
+				'methods'             => WP_REST_Server::READABLE,
+				'callback'            => array( $this, 'get_totals' ),
+				'permission_callback' => array( $this, 'get_items_permissions_check' ),
 			)
 		);
 
@@ -125,12 +125,12 @@ class Littlebot_Rest_Endpoints extends WP_REST_Controller {
 				'callback'            => array( $this, 'get_total_for_period' ),
 				'permission_callback' => array( $this, 'get_items_permissions_check' ),
 				'args'                => array(
-					'before' => [
+					'before'    => [
 						'required' => false,
 						'type'     => 'string',
 						'format'   => 'date-time',
 					],
-					'after' => array(
+					'after'     => array(
 						'required' => false,
 						'type'     => 'string',
 						'format'   => 'date-time',

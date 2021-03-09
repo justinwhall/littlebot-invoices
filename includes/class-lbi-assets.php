@@ -36,14 +36,14 @@ class LBI_Assets {
 	 * Enqueue admin styles.
 	 */
 	public function admin_styles() {
-		wp_enqueue_style( 'little-bot-admin-styles', LBI_PLUGIN_URL . 'assets/css/little-bot-admin.css', array(), LBI_VERSION, 'all');
+		wp_enqueue_style( 'little-bot-admin-styles', LBI_PLUGIN_URL . 'assets/css/little-bot-admin.css', array(), LBI_VERSION, 'all' );
 	}
 
 	/**
 	 * Enqueue public styles.
 	 */
 	public function public_styles() {
-		wp_enqueue_style( 'little-bot-public-styles', LBI_PLUGIN_URL . 'assets/css/little-bot-public.css', array(), LBI_VERSION, 'all');
+		wp_enqueue_style( 'little-bot-public-styles', LBI_PLUGIN_URL . 'assets/css/little-bot-public.css', array(), LBI_VERSION, 'all' );
 	}
 
 	/**
@@ -58,22 +58,21 @@ class LBI_Assets {
 		} else {
 				$url = GUTENBERG_HOT_RELOAD_PLUGIN_URL . 'admin/dist/block.build.js';
 
-			// if ( defined( 'WP_LOCAL_DEV' ) && WP_LOCAL_DEV ) {
+			if ( defined( 'LB_DEV' ) && LB_DEV ) {
+				$url = 'http://localhost:8080/gutenberg-hot-module-replacement/block.hot.js';
 
-				// }
-			$url = 'http://localhost:8080/gutenberg-hot-module-replacement/block.hot.js';
-
-			wp_enqueue_script(
-				'gutenberg-hot-module-replacement',
-				$url,
-				array(
-					'wp-blocks',
-					'wp-i18n',
-					'wp-element',
-				),
-				'1.0.2',
-				true
-			);
+				wp_enqueue_script(
+					'gutenberg-hot-module-replacement',
+					$url,
+					array(
+						'wp-blocks',
+						'wp-i18n',
+						'wp-element',
+					),
+					'1.0.2',
+					true
+				);
+			}
 		}
 
 		// wp_enqueue_script( 'little-report-scripts', LBI_PLUGIN_URL . 'dist/index.js', array( 'wp-api-request' ), LBI_VERSION, true );
@@ -94,8 +93,8 @@ class LBI_Assets {
 	public function public_scripts() {
 		global $post;
 
-		$post_type = get_post_type($post);
-		$allow_post_types = ['lb_invoice', 'lb_estimate'];
+		$post_type        = get_post_type( $post );
+		$allow_post_types = [ 'lb_invoice', 'lb_estimate' ];
 
 		/**
 		 * Only load on Littlebot post types.
@@ -105,7 +104,14 @@ class LBI_Assets {
 		}
 
 		wp_enqueue_script( 'little-bot-public-scripts', LBI_PLUGIN_URL . 'assets/js/littlebot-invoices-public.js', array( 'jquery' ), LBI_VERSION, true );
-		wp_localize_script('little-bot-public-scripts', 'ajax_object', array( 'ajax_url' => admin_url('admin-ajax.php'), 'ajax_nonce' => wp_create_nonce('lb-invoices') ) );
+		wp_localize_script(
+			'little-bot-public-scripts',
+			'ajax_object',
+			array(
+				'ajax_url'   => admin_url( 'admin-ajax.php' ),
+				'ajax_nonce' => wp_create_nonce( 'lb-invoices' ),
+			)
+		);
 	}
 
 }

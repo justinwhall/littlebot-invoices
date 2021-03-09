@@ -213,46 +213,46 @@ if ( ! function_exists( 'littlebot_print_to_from' ) ) :
 		$client = $client_obj->read( get_post_meta( get_the_ID(), '_client', true ) );
 		?>
 		<table>
-		    <tbody>
-			    <tr>
-			        <td class="label">From</td>
-			        <td class="address">
-			        	<div class="company"><?php echo $options['business_name']; ?></div>
-			        	<?php if (isset($options['address'])){ echo wpautop( $options['address'] ); }?>
-			        </td>
-			    </tr>
-	        	<?php if ( $client ): ?>
-			    <tr>
-			        <td class="label">To</td>
-			        <td class="address">
-				        	<div class="company"><?php echo $client->data->company_name; ?></div>
-				        	<div class="name"><?php echo $client->data->first_name . ' ' . $client->data->last_name; ?></div>
-				        	<div class="street"><?php echo $client->data->street_address; ?></div>
-				        	<div class="city-state">
-					        	<?php
-						        	$city_state_zip = $client->data->city;
-						        	// should we output a comma
-						        	if ( strlen( $city_state_zip ) ) {
-						        		if ( strlen( $client->data->state ) || strlen( $client->data->zip ) ) {
-						        			$city_state_zip .= ', ';
-						        		}
-						        	}
+			<tbody>
+				<tr>
+					<td class="label">From</td>
+					<td class="address">
+						<div class="company"><?php echo $options['business_name']; ?></div>
+						<?php if (isset($options['address'])){ echo wpautop( $options['address'] ); }?>
+					</td>
+				</tr>
+				<?php if ( $client ): ?>
+				<tr>
+					<td class="label">To</td>
+					<td class="address">
+							<div class="company"><?php echo $client->data->company_name; ?></div>
+							<div class="name"><?php echo $client->data->first_name . ' ' . $client->data->last_name; ?></div>
+							<div class="street"><?php echo $client->data->street_address; ?></div>
+							<div class="city-state">
+								<?php
+									$city_state_zip = $client->data->city;
+									// should we output a comma
+									if ( strlen( $city_state_zip ) ) {
+										if ( strlen( $client->data->state ) || strlen( $client->data->zip ) ) {
+											$city_state_zip .= ', ';
+										}
+									}
 
-						        	if ( strlen( $client->data->state ) ) {
-							        	$city_state_zip .= $client->data->state . ' ';
-						        	}
+									if ( strlen( $client->data->state ) ) {
+										$city_state_zip .= $client->data->state . ' ';
+									}
 
-						        	if ( strlen( $client->data->zip ) ) {
-							        	$city_state_zip .= $client->data->zip;
-						        	}
+									if ( strlen( $client->data->zip ) ) {
+										$city_state_zip .= $client->data->zip;
+									}
 
-						        	echo $city_state_zip;
-					        	?>
-				        	</div>
-				        </td>
-				    </tr>
-	        	<?php endif; ?>
-		    </tbody>
+									echo $city_state_zip;
+								?>
+							</div>
+						</td>
+					</tr>
+				<?php endif; ?>
+			</tbody>
 		</table>
 		<?php
 	}
@@ -263,7 +263,8 @@ endif;
 if ( ! function_exists( 'littlebot_print_line_items' ) ) :
 
 	function littlebot_print_line_items() {
-		$line_items = get_post_meta( get_the_ID(), '_line_items', true );
+		$line_items = get_post_meta( get_the_ID(), 'line_items', true );
+		var_dump($line_items); die;
 		include LBI_PLUGIN_DIR . '/templates/template-line-items.php';
 	}
 
@@ -304,7 +305,7 @@ if ( ! function_exists( 'littlebot_print_doc_js' ) ) :
 			'invoiceNumber' => get_post_meta( $post->ID , '_invoice_number', true ),
 			'businessName'  => $business_name,
 		];
-		
+
 		$inline_js_filtered = apply_filters('littlebot_print_doc_js', $inline_js );
 
 		?>

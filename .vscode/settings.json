@@ -1,0 +1,4 @@
+{
+    "phpcs.executablePath": "/Users/justinhall/.composer/vendor/bin/phpcs",
+    "phpSniffer.executablesFolder": "/Users/justinhall/.composer/vendor/bin",
+}

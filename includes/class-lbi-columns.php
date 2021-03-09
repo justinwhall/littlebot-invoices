@@ -59,7 +59,7 @@ class LBI_Columns {
 	 * @param  int   $post_id   the post id.
 	 * @return void
 	 */
-	 public function build_littlebot_columns( $columns, $post_id ) {
+	public function build_littlebot_columns( $columns, $post_id ) {
 
 		switch ( $columns ) {
 			case 'status':
@@ -109,7 +109,8 @@ class LBI_Columns {
 	 */
 	public function set_littlebot_columns( $columns ) {
 		unset( $columns['date'] );
-		return array_merge( $columns,
+		return array_merge(
+			$columns,
 			array(
 				'status' => __( 'Status' ),
 				'issued' => __( 'Issued' ),
