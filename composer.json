@@ -1,0 +1,5 @@
+{
+    "require-dev": {
+        "giacocorsiglia/wordpress-stubs": "^5.1"
+    }
+}

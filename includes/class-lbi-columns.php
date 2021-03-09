@@ -67,10 +67,8 @@ class LBI_Columns {
 				$status_slug = get_post_status( $post_id );
 				if ( 'trash' === $status_slug ) {
 					esc_html_e( 'Trashed', 'littlebot-invoices' );
-				} elseif ( 'lb_invoice' === $current_screen->post_type ) {
-					echo LBI()->invoice_statuses[ $status_slug ]['label'];
 				} else {
-					echo LBI()->estimate_statuses[ $status_slug ]['label'];
+					_e( str_replace( 'lb-', '', $status_slug ), 'littlebot-invoices' );
 				}
 
 				break;
