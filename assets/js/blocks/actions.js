@@ -6,6 +6,12 @@ const {
  * All actions
  */
 const actions = {
+  updateTaxRate(taxRate) {
+    return {
+      type: 'UPDATE_TAXRATE',
+      taxRate,
+    };
+  },
   updateMyControlValue(value) {
     return {
       type: 'UPDATE_LINEITEMS',
@@ -20,9 +26,6 @@ const actions = {
     const innerBlockIds = getBlockOrder(parentClientID);
     const lineItemBlocks = innerBlockIds.map((id) => getBlock(id));
     const lineItems = lineItemBlocks.filter((item) => item);
-
-    // Update meta
-    // wp.data.dispatch('core/editor').editPost({ meta: { line_items: JSON.stringify(lineItems) } });
 
     return {
       type: 'UPDATE_LINEITEMS',

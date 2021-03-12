@@ -24,20 +24,21 @@ const {
   },
 } = wp;
 
-const Totals = ({ attributes, setAttributes, lineItems }) => {
-  const { meta } = useMeta();
-
+const Totals = ({
+  attributes, setAttributes, lineItems, taxRate,
+}) => {
+  // console.log(taxRate);
   const calcTotal = () => {
     const sub_total = lineItems.reduce(
       (accum, item) => accum + item.attributes.total, 0,
     );
-    const total = parseInt(sub_total + (sub_total * (meta.taxRate / 100)), 10);
+    const total = parseInt(sub_total + (sub_total * (taxRate / 100)), 10);
     setAttributes({ sub_total, total });
   };
 
   useEffect(() => {
     calcTotal();
-  }, [lineItems]);
+  }, [lineItems, taxRate]);
 
   return (
     <StyledTotal>
@@ -52,9 +53,10 @@ const Totals = ({ attributes, setAttributes, lineItems }) => {
 export default compose([
   withSelect((select) => {
     // This function here is the selector we created before.
-    const { getMyControlValue } = select('littlebot/lineitems');
+    const { getMyControlValue, getTaxRate } = select('littlebot/lineitems');
     return {
       lineItems: getMyControlValue(),
+      taxRate: getTaxRate(),
     };
   }),
 ])(hot(module)(Totals));

@@ -1,11 +1,14 @@
 import { useMeta } from '../util/useMeta';
 import Client from '../components/Client';
+// import store from '../blocks/store';
+// import actions from '../blocks/actions';
 
 const {
   components: {
     TextControl,
   },
   data: {
+    useDispatch,
     dispatch,
     select,
   },
@@ -27,6 +30,8 @@ const PluginDocumentSettingPanelDemo = () => {
   const postID = select('core/editor').getCurrentPostId();
   const { meta, updateMeta } = useMeta();
 
+  const { updateTaxRate } = useDispatch('littlebot/lineitems');
+
   useEffect(() => {
     // Open panel on load.
     const pluginSlug = 'littlebot-slot-settings/littlebot-doc-settings';
@@ -40,6 +45,13 @@ const PluginDocumentSettingPanelDemo = () => {
       pluginSlug,
     );
   }, []);
+
+  // useEffect(() => {
+  //   store.dispatch({
+  //     type: 'UPDATE_TAXRATE',
+  //     taxRate: parseFloat(meta.taxRate),
+  //   });
+  // }, [meta.taxRate]);
 
   return (
     <PluginDocumentSettingPanel
@@ -64,7 +76,10 @@ const PluginDocumentSettingPanelDemo = () => {
         label={__('Tax rate %', 'littlebot-invoices')}
         value={meta.taxRate || ''}
         type="number"
-        onChange={(val) => updateMeta({ taxRate: val })}
+        onChange={(val) => {
+          updateTaxRate(parseFloat(val));
+          updateMeta({ taxRate: val });
+        }}
       />
     </PluginDocumentSettingPanel>
   );
