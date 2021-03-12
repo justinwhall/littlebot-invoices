@@ -1,6 +1,7 @@
 import { hot, setConfig } from 'react-hot-loader';
 import styled from '@emotion/styled';
 import { useMeta } from '../../util/useMeta';
+import { toDollars } from '../../util/money';
 
 const StyledTotal = styled.div`
   display: grid;
@@ -27,10 +28,11 @@ const Totals = ({ attributes, setAttributes, lineItems }) => {
   const { meta } = useMeta();
 
   const calcTotal = () => {
-    const subTotal = lineItems.reduce((accum, item) => accum + item.attributes.total, 0);
-    const total = subTotal + subTotal * (meta.taxRate / 100);
-    // console.log(subTotal);
-    setAttributes({ subTotal });
+    const sub_total = lineItems.reduce(
+      (accum, item) => accum + item.attributes.total, 0,
+    );
+    const total = parseInt(sub_total + (sub_total * (meta.taxRate / 100)), 10);
+    setAttributes({ sub_total, total });
   };
 
   useEffect(() => {
@@ -40,15 +42,14 @@ const Totals = ({ attributes, setAttributes, lineItems }) => {
   return (
     <StyledTotal>
       <div>Sub total</div>
-      <div>{attributes.total}</div>
+      <div>{toDollars(attributes.sub_total)}</div>
       <div>Total</div>
-      <div>{attributes.total}</div>
+      <div>{toDollars(attributes.total)}</div>
     </StyledTotal>
   );
 };
 
 export default compose([
-  // eslint-disable-next-line no-shadow
   withSelect((select) => {
     // This function here is the selector we created before.
     const { getMyControlValue } = select('littlebot/lineitems');

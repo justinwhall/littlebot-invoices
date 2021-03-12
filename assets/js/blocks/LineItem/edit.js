@@ -1,5 +1,6 @@
 import { hot, setConfig } from 'react-hot-loader';
 import styled from '@emotion/styled';
+import { toDollars } from '../../util/money';
 
 setConfig({
   showReactDomPatchNotification: false,
@@ -44,11 +45,9 @@ const LineItem = ({
     total,
   } = attributes;
 
-  const handleChange = (val, name) => {
-    const numInputs = ['rate'];
+  const handleChange = (val, key) => {
     const newAtts = {};
-    const newVal = numInputs.includes(name) ? val * 100 || '' : val;
-    newAtts[name] = parseInt(newVal, 10);
+    newAtts[key] = key === 'rate' ? parseInt(val * 100, 10) || '' : val;
 
     setAttributes(newAtts);
   };
@@ -86,7 +85,7 @@ const LineItem = ({
           type="number"
           min="0"
           step="0.01"
-          value={rate / 100 || ''}
+          value={toDollars(rate, false) || ''}
           onChange={(val) => handleChange(val, 'rate')}
         />
         <TextControl
@@ -104,7 +103,7 @@ const LineItem = ({
           value={percent}
           onChange={(val) => handleChange(val, 'percent')}
         />
-        <div className="lb-line-total">{(total / 100).toFixed(2)}</div>
+        <div className="lb-line-total">{toDollars(total)}</div>
       </LineMeta>
       <RichText
         className="block__description"

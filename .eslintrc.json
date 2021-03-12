@@ -15,6 +15,7 @@
         "no-debugger": 0,
         "react/prop-types": 0,
         "import/prefer-default-export": "off",
+        "camelcase": "off",
         "max-len": [
             2,
             80,
