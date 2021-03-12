@@ -47,14 +47,26 @@ const LineItem = ({
 
   const handleChange = (val, key) => {
     const newAtts = {};
-    newAtts[key] = key === 'rate' ? parseInt(val * 100, 10) || '' : val;
+    let newVal = val;
 
+    if (key === 'rate') {
+      console.log('rate', val);
+      newVal = parseInt(val * 100, 10);
+    }
+
+    if (['discount', 'qty'].includes(key)) {
+      console.log('qty', val);
+      newVal = parseInt(val * 1, 10);
+    }
+
+    newAtts[key] = newVal;
     setAttributes(newAtts);
   };
 
   const setLineItemTotal = () => {
     const discount = qty * rate * (percent / 100);
     const newTotal = (rate * qty) - discount;
+    console.log(rate);
     setAttributes({ total: parseInt(newTotal, 10) });
   };
 
