@@ -1,9 +1,10 @@
 import { hot, setConfig } from 'react-hot-loader';
 import styled from '@emotion/styled';
+import { useMeta } from '../../util/useMeta';
 
 const StyledTotal = styled.div`
   display: grid;
-  grid-template-columns: auto auto;
+  grid-template-columns: 100px auto;
 `;
 
 setConfig({
@@ -11,15 +12,11 @@ setConfig({
 });
 
 const {
-  blockEditor: {
-    InnerBlocks,
-  },
   compose: {
     compose,
   },
   data: {
     withSelect,
-    select,
   },
   element: {
     useEffect,
@@ -27,24 +24,23 @@ const {
 } = wp;
 
 const Totals = ({ attributes, setAttributes, lineItems }) => {
-  const {
-    subTotal,
-    total,
-  } = attributes;
+  const { meta } = useMeta();
 
   const calcTotal = () => {
-    const total = lineItems.reduce((accum, item) => accum + item.attributes.total, 0);
-
-    setAttributes({ total });
+    const subTotal = lineItems.reduce((accum, item) => accum + item.attributes.total, 0);
+    const total = subTotal + subTotal * (meta.taxRate / 100);
+    // console.log(subTotal);
+    setAttributes({ subTotal });
   };
 
   useEffect(() => {
-    // console.log('lineItems', lineItems);
     calcTotal();
   }, [lineItems]);
 
   return (
     <StyledTotal>
+      <div>Sub total</div>
+      <div>{attributes.total}</div>
       <div>Total</div>
       <div>{attributes.total}</div>
     </StyledTotal>
@@ -52,7 +48,8 @@ const Totals = ({ attributes, setAttributes, lineItems }) => {
 };
 
 export default compose([
-  withSelect((select, props) => {
+  // eslint-disable-next-line no-shadow
+  withSelect((select) => {
     // This function here is the selector we created before.
     const { getMyControlValue } = select('littlebot/lineitems');
     return {

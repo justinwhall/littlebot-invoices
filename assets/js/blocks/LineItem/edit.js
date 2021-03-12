@@ -45,9 +45,10 @@ const LineItem = ({
   } = attributes;
 
   const handleChange = (val, name) => {
-    const numInputs = ['rate', 'qty', 'percent'];
+    const numInputs = ['rate'];
     const newAtts = {};
-    newAtts[name] = numInputs.includes(name) ? parseFloat(val) || '' : val;
+    const newVal = numInputs.includes(name) ? val * 100 || '' : val;
+    newAtts[name] = parseInt(newVal, 10);
 
     setAttributes(newAtts);
   };
@@ -55,7 +56,7 @@ const LineItem = ({
   const setLineItemTotal = () => {
     const discount = qty * rate * (percent / 100);
     const newTotal = (rate * qty) - discount;
-    setAttributes({ total: newTotal });
+    setAttributes({ total: parseInt(newTotal, 10) });
   };
 
   /**
@@ -85,7 +86,7 @@ const LineItem = ({
           type="number"
           min="0"
           step="0.01"
-          value={rate}
+          value={rate / 100 || ''}
           onChange={(val) => handleChange(val, 'rate')}
         />
         <TextControl
@@ -103,7 +104,7 @@ const LineItem = ({
           value={percent}
           onChange={(val) => handleChange(val, 'percent')}
         />
-        <div className="lb-line-total">{total}</div>
+        <div className="lb-line-total">{(total / 100).toFixed(2)}</div>
       </LineMeta>
       <RichText
         className="block__description"

@@ -9,15 +9,12 @@
     "src/**/*.css": "dist/styles"
   },
   "scripts": {
-    "start": "parcel assets/js/reports/index.js --public-url /wp-content/plugins/littlebot-invoices/dist/",
     "watch": "parcel watch assets/js/reports/index.js",
-    "build": "parcel build assets/js/reports/index.js --no-content-hash",
-    "prebuild": "rimraf ./admin/dist/*",
-    "buildgute": "cross-env BABEL_ENV=default NODE_ENV=production webpack",
-    "dev": "cross-env BABEL_ENV=default POSTFIX_ENV=dev webpack --watch",
-    "postdev": "rimraf ./admin/dist/block.dev.js",
-    "hot": "cross-env BABEL_ENV=default POSTFIX_ENV=hot webpack --watch & POSTFIX_ENV=hot webpack-dev-server --hot --inline --config ./webpack.config.js",
-    "posthot": "rimraf ./admin/dist/block.hot.js"
+    "build:report": "parcel build assets/js/reports/index.js --no-content-hash",
+    "build:blocks": "cross-env BABEL_ENV=default NODE_ENV=production webpack",
+    "clean": "rimraf ./admin/dist/*",
+    "dev:reports": "parcel assets/js/reports/index.js --public-url /wp-content/plugins/littlebot-invoices/dist/",
+    "dev:blocks": "cross-env BABEL_ENV=default POSTFIX_ENV=hot webpack --watch & POSTFIX_ENV=hot webpack-dev-server --hot --inline --config ./webpack.config.js"
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",

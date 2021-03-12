@@ -63,14 +63,8 @@ class LBI_Columns {
 
 		switch ( $columns ) {
 			case 'status':
-				global $current_screen;
-				$status_slug = get_post_status( $post_id );
-				if ( 'trash' === $status_slug ) {
-					esc_html_e( 'Trashed', 'littlebot-invoices' );
-				} else {
-					_e( str_replace( 'lb-', '', $status_slug ), 'littlebot-invoices' );
-				}
-
+				$status_slug = get_post_meta( $post_id, 'status', true );
+				_e( str_replace( 'lb-', '', $status_slug ), 'littlebot-invoices' );
 				break;
 
 			case 'issued':

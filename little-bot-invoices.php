@@ -201,7 +201,6 @@ if ( ! class_exists( 'Little_Bot_Invoices' ) ) :
 			require_once LBI_PLUGIN_DIR . 'includes/class-lbi-post.php';
 			require_once LBI_PLUGIN_DIR . 'includes/class-lbi-post-details.php';
 			require_once LBI_PLUGIN_DIR . 'includes/class-lbi-post-line-items.php';
-			require_once LBI_PLUGIN_DIR . 'includes/class-lbi-send-doc.php';
 			require_once LBI_PLUGIN_DIR . 'includes/class-lbi-clients.php';
 			require_once LBI_PLUGIN_DIR . 'includes/class-lbi-client.php';
 			require_once LBI_PLUGIN_DIR . 'includes/class-lbi-columns.php';

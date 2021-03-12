@@ -1,5 +1,8 @@
 {
     "phpcs.executablePath": "/Users/justinhall/.composer/vendor/bin/phpcs",
     "phpSniffer.executablesFolder": "/Users/justinhall/.composer/vendor/bin",
-    "phpcs.standard": "phpcs.xml"
+    "phpcs.standard": "phpcs.xml",
+    "eslint.options": {
+        "configFile": ".eslintrc.json"
+    },
 }

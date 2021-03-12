@@ -25,14 +25,11 @@ const ClientMeta = ({ id }) => {
   const [client, setClient] = useState(null);
 
   const fetchUser = async (userId) => {
-    console.log('id', userId);
     const user = await apiFetch({ path: `/wp/v2/users/${userId}` });
-    console.log(user);
     setClient(user);
   };
 
   useEffect(() => {
-    console.log(id);
     fetchUser(id);
   }, [id]);
 
@@ -63,8 +60,6 @@ const Client = () => {
   const [search, setSearch] = useState('');
   const [selectedClient, setSelectedClient] = useState(meta.client);
   const noResults = !clients.length && search.length && !fetching;
-
-  console.log(search.length);
 
   const fetchClients = async (query) => {
     setFetching(true);
