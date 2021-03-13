@@ -33,7 +33,7 @@ const PluginDocumentSettingPanelDemo = () => {
   const { updateTaxRate } = useDispatch('littlebot/lineitems');
 
   useEffect(() => {
-    // updateTaxRate(parseFloat(meta.taxRate || 0));
+    updateTaxRate(parseFloat(meta.taxRate || 0));
 
     // Open panel on load.
     const pluginSlug = 'littlebot-slot-settings/littlebot-doc-settings';
@@ -47,6 +47,8 @@ const PluginDocumentSettingPanelDemo = () => {
       pluginSlug,
     );
   }, []);
+
+  console.log(meta);
 
   return (
     <PluginDocumentSettingPanel
@@ -72,6 +74,7 @@ const PluginDocumentSettingPanelDemo = () => {
         value={meta.taxRate || ''}
         type="number"
         onChange={(val) => {
+          console.log(val);
           updateTaxRate(parseFloat(val));
           updateMeta({ taxRate: val });
         }}

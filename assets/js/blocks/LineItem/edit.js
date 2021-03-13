@@ -55,7 +55,7 @@ const LineItem = ({
       newVal = parseInt(val * 100, 10);
     }
 
-    if (['discount', 'qty'].includes(key)) {
+    if (['percent', 'qty'].includes(key)) {
       newVal = parseInt(val * 1, 10);
     }
 
@@ -106,7 +106,7 @@ const LineItem = ({
           label="Qty"
           type="number"
           min="0"
-          value={qty}
+          value={qty || ''}
           onChange={(val) => handleChange(val, 'qty')}
         />
         <TextControl
@@ -114,7 +114,7 @@ const LineItem = ({
           type="number"
           min="0"
           max="100"
-          value={percent}
+          value={percent || ''}
           onChange={(val) => handleChange(val, 'percent')}
         />
         <div className="lb-line-total">{toDollars(total)}</div>

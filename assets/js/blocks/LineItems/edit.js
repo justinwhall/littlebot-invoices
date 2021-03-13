@@ -31,6 +31,8 @@ const LineItems = (props) => {
         type: 'UPDATE_LINEITEMS',
         lineItems: JSON.parse(line_items),
       });
+    } else {
+      props.updateLineItems(props.clientId);
     }
   }, []);
 
@@ -39,6 +41,7 @@ const LineItems = (props) => {
       Line Items
       <InnerBlocks
         allowedBlocks={['lb/lineitem']}
+        template={[['lb/lineitem']]}
         templateLock={false}
       />
     </div>
