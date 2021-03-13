@@ -33,6 +33,8 @@ const PluginDocumentSettingPanelDemo = () => {
   const { updateTaxRate } = useDispatch('littlebot/lineitems');
 
   useEffect(() => {
+    // updateTaxRate(parseFloat(meta.taxRate || 0));
+
     // Open panel on load.
     const pluginSlug = 'littlebot-slot-settings/littlebot-doc-settings';
     const open = select('core/edit-post').getPreference('panels')[pluginSlug].opened; // eslint-disable-line max-len

@@ -1,6 +1,7 @@
 import { hot, setConfig } from 'react-hot-loader';
 import styled from '@emotion/styled';
 import { toDollars } from '../../util/money';
+import { useDidUpdate } from '../../hooks';
 
 setConfig({
   showReactDomPatchNotification: false,
@@ -55,7 +56,6 @@ const LineItem = ({
     }
 
     if (['discount', 'qty'].includes(key)) {
-      console.log('qty', val);
       newVal = parseInt(val * 1, 10);
     }
 
@@ -66,8 +66,10 @@ const LineItem = ({
   const setLineItemTotal = () => {
     const discount = qty * rate * (percent / 100);
     const newTotal = (rate * qty) - discount;
-    console.log(rate);
+    // if (total !== parseInt(newTotal, 10)) {
+    //   console.log('update');
     setAttributes({ total: parseInt(newTotal, 10) });
+    // }
   };
 
   /**
@@ -80,7 +82,7 @@ const LineItem = ({
   /**
    * Update store when total changes.
    */
-  useEffect(() => {
+  useDidUpdate(() => {
     updateLineItems(clientId);
   }, [total]);
 
@@ -132,12 +134,10 @@ const LineItem = ({
 export default compose([
   withDispatch((dispatch) => {
     const {
-      updateMyControlValue,
       updateLineItems,
     } = dispatch('littlebot/lineitems');
 
     return {
-      updateMyControlValue,
       updateLineItems,
     };
   }),

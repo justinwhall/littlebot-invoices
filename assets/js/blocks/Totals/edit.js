@@ -27,18 +27,22 @@ const {
 const Totals = ({
   attributes, setAttributes, lineItems, taxRate,
 }) => {
-  // console.log(taxRate);
   const calcTotal = () => {
     const sub_total = lineItems.reduce(
       (accum, item) => accum + item.attributes.total, 0,
     );
+
+    if (!sub_total) {
+      return;
+    }
+    console.log('sub_total', sub_total);
     const total = parseInt(sub_total + (sub_total * (taxRate / 100)), 10);
     setAttributes({ sub_total, total });
   };
 
   useEffect(() => {
-    calcTotal();
-  }, [lineItems, taxRate]);
+    // calcTotal();
+  }, [lineItems]);
 
   return (
     <StyledTotal>

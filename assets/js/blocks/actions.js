@@ -12,15 +12,10 @@ const actions = {
       taxRate,
     };
   },
-  updateMyControlValue(value) {
-    return {
-      type: 'UPDATE_LINEITEMS',
-      value,
-    };
-  },
   updateLineItems(clientId) {
     const { getBlockOrder, getBlock } = select('core/block-editor');
-    const parentClientID = select('core/editor').getBlockHierarchyRootClientId(clientId);
+    const parentClientID = select('core/editor')
+      .getBlockHierarchyRootClientId(clientId);
 
     // get all innerBlockIds
     const innerBlockIds = getBlockOrder(parentClientID);

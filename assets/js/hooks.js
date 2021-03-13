@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import { useTheme } from '@chakra-ui/core';
 
 export const useStatusColors = () => {
@@ -20,4 +21,17 @@ export const useInvoiceStatus = () => [
   'lb-voided',
 ];
 
-export const useEstimateStatus = () => ['lb-approved', 'lb-declined', 'lb-pending'];
+export const useEstimateStatus = () => [
+  'lb-approved', 'lb-declined', 'lb-pending',
+];
+
+export const useDidUpdate = (func, deps) => {
+  const didMountRef = useRef(false);
+  useEffect(() => {
+    if (didMountRef.current) {
+      func();
+    } else {
+      didMountRef.current = true;
+    }
+  }, deps);
+};

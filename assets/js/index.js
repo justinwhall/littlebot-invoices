@@ -21,6 +21,7 @@ const {
 } = wp;
 
 domReady(() => {
+  console.log('domready');
   // eslint-disable-next-line no-undef
   const label = littlebotStatus === 'publish'
     ? __('Issued', 'littlebot-invoices')

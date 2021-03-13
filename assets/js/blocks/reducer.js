@@ -1,6 +1,6 @@
 const initialState = {
   lineItems: [],
-  taxRate: 0,
+  taxRate: false,
 };
 
 const reducer = (state = initialState, action) => {
