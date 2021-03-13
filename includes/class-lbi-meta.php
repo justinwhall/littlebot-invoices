@@ -65,10 +65,6 @@ class Littlebot_Invoices_Meta {
 				'key'  => 'tax_rate',
 				'type' => 'integer',
 			],
-			[
-				'key'  => 'status',
-				'type' => 'string',
-			],
 		];
 
 		foreach ( $meta_keys as $meta ) {
@@ -103,7 +99,7 @@ class Littlebot_Invoices_Meta {
 				'show_in_rest'   => [
 					'schema' => [
 						'items' => [
-							'type' => 'object',
+							'type'       => 'object',
 							'properties' => [
 								'item_title'   => [
 									'type' => 'string',
@@ -148,7 +144,7 @@ class Littlebot_Invoices_Meta {
 				'type'           => $meta['type'],
 				'auth_callback'  => function() {
 					return current_user_can( 'edit_posts' );
-				}
+				},
 			]
 		);
 		register_meta(

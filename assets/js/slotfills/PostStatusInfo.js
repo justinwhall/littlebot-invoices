@@ -8,6 +8,10 @@ const {
     Popover,
     Button,
   },
+  data: {
+    useDispatch,
+    useSelect,
+  },
   date: {
     date,
     __experimentalGetSettings,
@@ -34,6 +38,10 @@ const PostStatusInfo = () => {
     : __('Click to set date', 'littlebot-invoices');
   const [buttonText, setButtonText] = useState(initialBtnText);
   const [openDatePopup, setOpenDatePopup] = useState(false);
+  const { editPost, savePost } = useDispatch('core/editor');
+  const status = useSelect(
+    (select) => select('core/editor').getEditedPostAttribute('status'),
+  );
 
   return (
     <PluginPostStatusInfo>
@@ -64,10 +72,13 @@ const PostStatusInfo = () => {
           <SelectControl
             label={__('Status', 'littlebot-invoices')}
             labelPosition="side"
-            value={meta.status}
-            onChange={(val) => updateMeta({ status: val })}
+            value={status}
+            onChange={(val) => {
+              editPost({ status: val });
+              savePost();
+            }}
             options={[
-              { value: 'lb-draft', label: __('Draft', 'littlebot-invoices') },
+              { value: 'draft', label: __('Draft', 'littlebot-invoices') },
               { value: 'lb-unpaid', label: __('Unpaid', 'littlebot-invoices') },
               { value: 'lb-paid', label: __('Paid', 'littlebot-invoices') },
               // eslint-disable-next-line max-len

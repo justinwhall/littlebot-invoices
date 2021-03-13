@@ -64,6 +64,7 @@ class LBI_Columns {
 		switch ( $columns ) {
 			case 'status':
 				$status_slug = get_post_meta( $post_id, 'status', true );
+				var_dump( $status_slug );
 				_e( str_replace( 'lb-', '', $status_slug ), 'littlebot-invoices' );
 				break;
 

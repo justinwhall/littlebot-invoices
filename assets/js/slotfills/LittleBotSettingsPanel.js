@@ -46,13 +46,6 @@ const PluginDocumentSettingPanelDemo = () => {
     );
   }, []);
 
-  // useEffect(() => {
-  //   store.dispatch({
-  //     type: 'UPDATE_TAXRATE',
-  //     taxRate: parseFloat(meta.taxRate),
-  //   });
-  // }, [meta.taxRate]);
-
   return (
     <PluginDocumentSettingPanel
       name="littlebot-doc-settings"
