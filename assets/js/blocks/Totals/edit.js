@@ -1,6 +1,6 @@
 import { hot, setConfig } from 'react-hot-loader';
 import styled from '@emotion/styled';
-import { useMeta } from '../../util/useMeta';
+// import { useMeta } from '../../util/useMeta';
 import { toDollars } from '../../util/money';
 
 const StyledTotal = styled.div`
@@ -28,21 +28,21 @@ const Totals = ({
   attributes, setAttributes, lineItems, taxRate,
 }) => {
   const calcTotal = () => {
+    if (!lineItems || taxRate === false) {
+      return;
+    }
+
     const sub_total = lineItems.reduce(
       (accum, item) => accum + item.attributes.total, 0,
     );
 
-    if (!sub_total) {
-      return;
-    }
-    console.log('sub_total', sub_total);
     const total = parseInt(sub_total + (sub_total * (taxRate / 100)), 10);
     setAttributes({ sub_total, total });
   };
 
   useEffect(() => {
-    // calcTotal();
-  }, [lineItems]);
+    calcTotal();
+  }, [lineItems, taxRate]);
 
   return (
     <StyledTotal>
