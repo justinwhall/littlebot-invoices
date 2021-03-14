@@ -12,4 +12,5 @@ import './blocks/Totals/index.js';
 import './slotfills/PostStatusInfo.js';
 import './slotfills/LittleBotSettingsPanel.js';
 // Subscriptions.
-import './subscribe.js';
+import './subscribe/savePost.js';
+import './subscribe/resetLineItems.js';

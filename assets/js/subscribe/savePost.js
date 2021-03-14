@@ -68,7 +68,6 @@ const maybeInitSaveButton = () => {
 wp.data.subscribe(() => {
   const postId = wp.data.select('core/editor').getCurrentPostId();
   const postType = wp.data.select('core/editor').getCurrentPostType();
-  console.log(postType);
 
   if (!postId || !['lb_invoice', 'lb_estimate'].includes(postType)) {
     return;

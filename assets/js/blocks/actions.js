@@ -13,6 +13,7 @@ const actions = {
     };
   },
   updateLineItems(clientId) {
+    console.log(clientId);
     const { getBlockOrder, getBlock } = select('core/block-editor');
     const parentClientID = select('core/editor')
       .getBlockHierarchyRootClientId(clientId);
