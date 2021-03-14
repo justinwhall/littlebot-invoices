@@ -85,6 +85,15 @@ class LBI_Assets {
 		$status     = is_object( $post ) ? $post->post_status : '';
 		$is_reports = apply_filters( 'littlebot_is_reports', 1 );
 		echo '<script>var isLittlebotReports = "' . $is_reports . '"; var littlebotStatus = "' . $status . '"</script>';
+		?>
+		<style>
+			.post-type-lb_invoice .editor-post-publish-button__button,
+			.post-type-lb_invoice .editor-post-save-draft,
+			.post-type-lb_estimate .editor-post-publish-button__button {
+				display: none !important;
+			}
+		</style>
+		<?php
 	}
 
 	/**

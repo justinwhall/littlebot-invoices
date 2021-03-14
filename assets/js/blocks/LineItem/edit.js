@@ -66,10 +66,7 @@ const LineItem = ({
   const setLineItemTotal = () => {
     const discount = qty * rate * (percent / 100);
     const newTotal = (rate * qty) - discount;
-    // if (total !== parseInt(newTotal, 10)) {
-    //   console.log('update');
     setAttributes({ total: parseInt(newTotal, 10) });
-    // }
   };
 
   /**

@@ -48,8 +48,6 @@ const PluginDocumentSettingPanelDemo = () => {
     );
   }, []);
 
-  console.log(meta);
-
   return (
     <PluginDocumentSettingPanel
       name="littlebot-doc-settings"
@@ -74,7 +72,6 @@ const PluginDocumentSettingPanelDemo = () => {
         value={meta.taxRate || ''}
         type="number"
         onChange={(val) => {
-          console.log(val);
           updateTaxRate(parseFloat(val));
           updateMeta({ taxRate: val });
         }}

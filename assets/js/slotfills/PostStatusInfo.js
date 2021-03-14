@@ -38,7 +38,7 @@ const PostStatusInfo = () => {
     : __('Click to set date', 'littlebot-invoices');
   const [buttonText, setButtonText] = useState(initialBtnText);
   const [openDatePopup, setOpenDatePopup] = useState(false);
-  const { editPost, savePost } = useDispatch('core/editor');
+  const { editPost } = useDispatch('core/editor');
   const status = useSelect(
     (select) => select('core/editor').getEditedPostAttribute('status'),
   );
@@ -75,7 +75,6 @@ const PostStatusInfo = () => {
             value={status}
             onChange={(val) => {
               editPost({ status: val });
-              savePost();
             }}
             options={[
               { value: 'draft', label: __('Draft', 'littlebot-invoices') },

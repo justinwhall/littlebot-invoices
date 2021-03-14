@@ -2,6 +2,7 @@ import { hot, setConfig } from 'react-hot-loader';
 import styled from '@emotion/styled';
 // import { useMeta } from '../../util/useMeta';
 import { toDollars } from '../../util/money';
+import { useDidUpdate } from '../../hooks';
 
 const StyledTotal = styled.div`
   display: grid;
@@ -20,12 +21,28 @@ const {
     withSelect,
   },
   element: {
-    useEffect,
+    memo,
   },
 } = wp;
 
+const TotalsLineItems = memo((props) => (
+  <StyledTotal>
+    <div>
+      Sub total
+    </div>
+    <div>{toDollars(props.subTotal)}</div>
+    <div>Total</div>
+    <div>{toDollars(props.total)}</div>
+  </StyledTotal>
+));
+
+TotalsLineItems.displayName = 'TotalLineItems';
+
 const Totals = ({
-  attributes, setAttributes, lineItems, taxRate,
+  attributes,
+  setAttributes,
+  lineItems,
+  taxRate,
 }) => {
   const calcTotal = () => {
     if (!lineItems || taxRate === false) {
@@ -37,20 +54,19 @@ const Totals = ({
     );
 
     const total = parseInt(sub_total + (sub_total * (taxRate / 100)), 10);
-    setAttributes({ sub_total, total });
+
+    // Only update if the totals have changed.
+    if (attributes.total !== total || attributes.sub_total !== sub_total) {
+      setAttributes({ sub_total, total });
+    }
   };
 
-  useEffect(() => {
+  useDidUpdate(() => {
     calcTotal();
   }, [lineItems, taxRate]);
 
   return (
-    <StyledTotal>
-      <div>Sub total</div>
-      <div>{toDollars(attributes.sub_total)}</div>
-      <div>Total</div>
-      <div>{toDollars(attributes.total)}</div>
-    </StyledTotal>
+    <TotalsLineItems subTotal={attributes.sub_total} total={attributes.total} />
   );
 };
 
