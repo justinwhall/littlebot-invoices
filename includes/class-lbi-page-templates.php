@@ -10,14 +10,14 @@
 class LBI_Page_Templates {
 
 	/**
-	 * kick it off
+	 * kick it off.
 	 *
 	 * @return void
 	 */
 	public static function init() {
-		// proper template path for estimates & Invoices
+		// proper template path for estimates & Invoices.
 		add_action( 'single_template', array( __CLASS__, 'load_post_templates' ) );
-		// remove all the theme CSS & JS for these pages
+		// remove all the theme CSS & JS for these pages.
 		add_action( 'wp_print_styles', array( __CLASS__, 'remove_non_littlebot_styles' ) );
 	}
 
@@ -57,7 +57,7 @@ class LBI_Page_Templates {
 		}
 
 		// And on littleBot post types.
-		if ( $post->post_type == 'lb_estimate' || $post->post_type == 'lb_invoice' ) {
+		if ( $post->post_type === 'lb_estimate' || $post->post_type === 'lb_invoice' ) {
 			$wp_styles->queue = array(
 				'admin-bar',
 				'little-bot-public-styles',
