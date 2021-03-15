@@ -86,6 +86,20 @@ class Littlebot_Invoices_Meta {
 		);
 
 		register_meta(
+			'user',
+			'lb_client',
+			[
+				'show_in_rest'   => true,
+				'single'         => true,
+				'object_subtype' => 'user',
+				'type'           => 'boolean',
+				'auth_callback'  => function() {
+					return true;
+				},
+			]
+		);
+
+		register_meta(
 			'post',
 			'_line_items',
 			[

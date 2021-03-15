@@ -24,8 +24,25 @@ const {
 const ClientMeta = ({ id }) => {
   const [client, setClient] = useState(null);
 
+  const updateUserAsClient = async (user) => {
+    const data = {
+      ...user,
+      meta: {
+        lb_client: true,
+      },
+    };
+    apiFetch({
+      path: `/wp/v2/users/${user.id}`,
+      method: 'POST',
+      data,
+    });
+  };
+
   const fetchUser = async (userId) => {
     const user = await apiFetch({ path: `/wp/v2/users/${userId}` });
+    if (!user.meta.lb_client) {
+      await updateUserAsClient(user);
+    }
     setClient(user);
   };
 
@@ -40,12 +57,12 @@ const ClientMeta = ({ id }) => {
   return (
     <StyledClientMeta>
       <div>
-        <strong>{__('Name')}</strong>
+        <strong>{__('Name', 'littlebot-invoices')}</strong>
         {' '}
         {client.name}
       </div>
       <div>
-        <strong>{__('Company')}</strong>
+        <strong>{__('Company', 'littlebot-invoices')}</strong>
         {' '}
         {client.meta.company_name}
       </div>
@@ -70,6 +87,7 @@ const Client = () => {
       },
     );
     const res = await apiFetch({ path });
+
     setClients(res);
     setFetching(false);
   };
