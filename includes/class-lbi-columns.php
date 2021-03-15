@@ -63,26 +63,24 @@ class LBI_Columns {
 
 		switch ( $columns ) {
 			case 'status':
-				$status_slug = get_post_meta( $post_id, 'status', true );
-				var_dump( $status_slug );
-				_e( str_replace( 'lb-', '', $status_slug ), 'littlebot-invoices' );
+				$post   = get_post( $post_id );
+				$status = str_replace( 'lb-', '', $post->post_status );
+				echo esc_html( $status );
 				break;
 
 			case 'issued':
 				echo '<span class="lb-cal"></span>' . get_the_date( 'M j, Y', $post_id );
-
 				break;
 
 			case 'client':
-				$client_id = get_post_meta( $post_id, '_client', true );
+				$client_id = get_post_meta( $post_id, 'client', true );
 
-				if ( 'no_client' === $client_id ) {
+				if ( 'no_client' === $client_id || ! (bool) $client_id ) {
 					esc_html_e( 'No Client' );
 				} else {
 					$client = LBI_Client::get_client_details( $client_id );
 					echo '<div class="lb-company"><a href="/wp-admin/user-edit.php?user_id=' . esc_html( $client_id ) . '"><span class="dashicons dashicons-admin-users"></span> ' . esc_html( $client['company_name'] ) . '</a></div>';
 				}
-
 				break;
 
 			case 'amount':
