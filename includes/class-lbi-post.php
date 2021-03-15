@@ -14,43 +14,6 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-
-function p_open( $flag ) {
-	global $p_times;
-	if ( null === $p_times ) {
-		$p_times = [];
-	}
-	if ( ! array_key_exists( $flag, $p_times ) ) {
-		$p_times[ $flag ] = [
-			'total' => 0,
-			'open'  => 0,
-		];
-	}
-	$p_times[ $flag ]['open'] = microtime( true );
-}
-
-function p_close( $flag ) {
-	global $p_times;
-	if ( isset( $p_times[ $flag ]['open'] ) ) {
-		$p_times[ $flag ]['total'] += ( microtime( true ) - $p_times[ $flag ]['open'] );
-		unset( $p_times[ $flag ]['open'] );
-	}
-}
-
-function p_dump() {
-	 global $p_times;
-	$dump = [];
-	$sum  = 0;
-	foreach ( $p_times as $flag => $info ) {
-		$dump[ $flag ]['elapsed'] = $info['total'];
-		$sum                     += $info['total'];
-	}
-	foreach ( $dump as $flag => $info ) {
-		$dump[ $flag ]['percent'] = $dump[ $flag ]['elapsed'] / $sum;
-	}
-	return $dump;
-}
-
 class LBI_Admin_Post {
 
 	public $post_type_name;
