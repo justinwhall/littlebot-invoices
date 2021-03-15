@@ -2,7 +2,7 @@
  * All selectors
  */
 const selectors = {
-  getMyControlValue(state) {
+  getLineItems(state) {
     return state.lineItems;
   },
   getTaxRate(state) {

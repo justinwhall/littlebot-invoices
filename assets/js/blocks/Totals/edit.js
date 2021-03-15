@@ -73,9 +73,9 @@ const Totals = ({
 export default compose([
   withSelect((select) => {
     // This function here is the selector we created before.
-    const { getMyControlValue, getTaxRate } = select('littlebot/lineitems');
+    const { getLineItems, getTaxRate } = select('littlebot/lineitems');
     return {
-      lineItems: getMyControlValue(),
+      lineItems: getLineItems(),
       taxRate: getTaxRate(),
     };
   }),

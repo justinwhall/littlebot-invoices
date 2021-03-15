@@ -13,4 +13,4 @@ import './slotfills/PostStatusInfo.js';
 import './slotfills/LittleBotSettingsPanel.js';
 // Subscriptions.
 import './subscribe/savePost.js';
-import './subscribe/resetLineItems.js';
+import './subscribe/addRemoveLineItem.js';
