@@ -214,7 +214,7 @@ if ( ! function_exists( 'littlebot_print_to_from' ) ) :
 	function littlebot_print_to_from() {
 		$options    = get_option( 'lbi_business', array() );
 		$client_obj = new LBI_Client();
-		$client     = $client_obj->read( get_post_meta( get_the_ID(), '_client', true ) );
+		$client     = $client_obj->read( get_post_meta( get_the_ID(), 'client', true ) );
 		?>
 		<table>
 			<tbody>
@@ -271,8 +271,8 @@ if ( ! function_exists( 'littlebot_print_line_items' ) ) :
 
 	function littlebot_print_line_items() {
 		$line_items = get_post_meta( get_the_ID(), 'line_items', true );
-		var_dump( $line_items );
-		die;
+		// var_dump( $line_items );
+		// die;
 		include LBI_PLUGIN_DIR . '/templates/template-line-items.php';
 	}
 

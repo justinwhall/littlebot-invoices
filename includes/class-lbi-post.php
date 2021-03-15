@@ -82,7 +82,7 @@ class LBI_Admin_Post {
 			return;
 		}
 
-		// create invoice
+		// create invoice.
 		if ( $old_status !== $new_status && $new_status == 'lb-approved' ) {
 
 			$invoice = array(

@@ -47,51 +47,44 @@ class LBI_Settings {
 		 */
 		public function __construct() {
 
-			$this->settings_api = new WeDevs_Settings_API;
+			$this->settings_api = new WeDevs_Settings_API();
 
 			add_action( 'admin_init', array( $this, 'admin_init' ) );
 			add_action( 'admin_menu', array( $this, 'admin_menu' ) );
 		}
 
-		static function littlebot_get_option( $option_key, $option_id, $single = true ){
+		static function littlebot_get_option( $option_key, $option_id, $single = true ) {
 			$options = get_option( $option_id, $single );
 			if ( is_array( $options ) && array_key_exists( $option_key, $options ) ) {
-				$val = $options[$option_key];
-			} else{
+				$val = $options[ $option_key ];
+			} else {
 				$val = false;
 			}
 			return $val;
 		}
 
 		public function admin_init() {
-			//set the settings
+			// set the settings
 			$this->settings_api->set_sections( $this->get_settings_sections() );
 			$this->settings_api->set_fields( $this->get_settings_fields() );
-			//initialize settings
+			// initialize settings
 			$this->settings_api->admin_init();
-
-				// $x = 52;
-				// while($x <= 252) {
-				// 	$x = $x + 1;
-				// 	$this->duplicate(8, $x);
-				// }
-
 		}
 
-		function duplicate($post_id, $num) {
-			$title   = get_the_title($post_id);
-			$oldpost = get_post($post_id);
-			$post    = array(
-			'post_title' => 'Invoice' . $num,
-			'post_status' => 'lb-paid',
-			'post_type' => $oldpost->post_type,
-			'post_author' => 1
+		function duplicate( $post_id, $num ) {
+			$title       = get_the_title( $post_id );
+			$oldpost     = get_post( $post_id );
+			$post        = array(
+				'post_title'  => 'Invoice' . $num,
+				'post_status' => 'lb-paid',
+				'post_type'   => $oldpost->post_type,
+				'post_author' => 1,
 			);
-			$new_post_id = wp_insert_post($post);
+			$new_post_id = wp_insert_post( $post );
 			// Copy post metadata
-			$data = get_post_custom($post_id);
-			foreach ( $data as $key => $values) {
-				foreach ($values as $value) {
+			$data = get_post_custom( $post_id );
+			foreach ( $data as $key => $values ) {
+				foreach ( $values as $value ) {
 					add_post_meta( $new_post_id, $key, $value );
 				}
 			}
@@ -99,36 +92,45 @@ class LBI_Settings {
 		}
 
 		public function admin_menu() {
-			add_menu_page( 'LittleBot Invoices', 'LittleBot Invoices', 'manage_options', 'littlebot_invoices', array($this, 'plugin_page'), 'dashicons-littlebot-icon' );
-			add_submenu_page( 'littlebot_invoices', 'Reports', 'Reports', 'manage_options', 'littlebot_reports', function() { echo '<div id="reports-root"></div>'; } );
+			add_menu_page( 'LittleBot Invoices', 'LittleBot Invoices', 'manage_options', 'littlebot_invoices', array( $this, 'plugin_page' ), 'dashicons-littlebot-icon' );
+			add_submenu_page(
+				'littlebot_invoices',
+				'Reports',
+				'Reports',
+				'manage_options',
+				'littlebot_reports',
+				function() {
+					echo '<div id="reports-root"></div>';
+				}
+			);
 		}
 
 		public function get_settings_sections() {
 			$sections = array(
 				array(
 					'id'    => 'lbi_general',
-					'title' => __( 'General Settings', 'littlebot_invoices' )
+					'title' => __( 'General Settings', 'littlebot_invoices' ),
 				),
 				array(
 					'id'    => 'lbi_business',
-					'title' => __( 'Business', 'littlebot_invoices' )
+					'title' => __( 'Business', 'littlebot_invoices' ),
 				),
 				array(
 					'id'    => 'lbi_estimates',
-					'title' => __( 'Estimates', 'littlebot_invoices' )
+					'title' => __( 'Estimates', 'littlebot_invoices' ),
 				),
 				array(
 					'id'    => 'lbi_invoices',
-					'title' => __( 'Invoices', 'littlebot_invoices' )
+					'title' => __( 'Invoices', 'littlebot_invoices' ),
 				),
 				array(
 					'id'    => 'lbi_emails',
-					'title' => __( 'Emails', 'littlebot_invoices' )
+					'title' => __( 'Emails', 'littlebot_invoices' ),
 				),
 				array(
 					'id'    => 'lbi_payments',
-					'title' => __( 'Payments', 'littlebot_invoices' )
-				)
+					'title' => __( 'Payments', 'littlebot_invoices' ),
+				),
 			);
 
 			return apply_filters( 'lbi_settings_sections', $sections );
@@ -140,13 +142,13 @@ class LBI_Settings {
 		 */
 		public function get_settings_fields() {
 			$settings_fields = array(
-				'lbi_general' => array(
+				'lbi_general'   => array(
 					array(
-						'name'              => 'is_classic_editor',
-						'label'             => __( 'Use Legacy Classic Editor', 'littlebot-invoices' ),
-						'desc'              => __( '(We recommend NOT using the classic editor.)', 'littlebot-invoices' ),
-						'placeholder'       => '',
-						'type'              => 'checkbox',
+						'name'        => 'is_classic_editor',
+						'label'       => __( 'Use Legacy Classic Editor', 'littlebot-invoices' ),
+						'desc'        => __( '(We recommend NOT using the classic editor.)', 'littlebot-invoices' ),
+						'placeholder' => '',
+						'type'        => 'checkbox',
 						// 'options'           => array( 1 => 'Yes', 0 => 'No')
 					),
 					array(
@@ -155,7 +157,7 @@ class LBI_Settings {
 						'desc'              => __( 'USD is <code>$</code>', 'littlebot-invoices' ),
 						'type'              => 'text',
 						'default'           => '$',
-						'sanitize_callback' => 'sanitize_text_field'
+						'sanitize_callback' => 'sanitize_text_field',
 					),
 					array(
 						'name'              => 'currency_code',
@@ -163,7 +165,7 @@ class LBI_Settings {
 						'desc'              => '',
 						'type'              => 'text',
 						'default'           => 'USD',
-						'sanitize_callback' => 'sanitize_text_field'
+						'sanitize_callback' => 'sanitize_text_field',
 					),
 					array(
 						'name'    => 'currency_position',
@@ -171,10 +173,10 @@ class LBI_Settings {
 						'desc'    => '',
 						'type'    => 'select',
 						'options' => array(
-								'left' => 'Left ($99.99)',
-								'right' => 'Right (99.99$)',
-								'left_space' => 'Left with space ($ 99.99)',
-								'right_space' => 'Right with space (99.99 $)'
+							'left'        => 'Left ($99.99)',
+							'right'       => 'Right (99.99$)',
+							'left_space'  => 'Left with space ($ 99.99)',
+							'right_space' => 'Right with space (99.99 $)',
 						),
 					),
 					array(
@@ -184,7 +186,7 @@ class LBI_Settings {
 						'placeholder'       => '',
 						'type'              => 'text',
 						'default'           => ',',
-						'sanitize_callback' => 'sanitize_text_field'
+						'sanitize_callback' => 'sanitize_text_field',
 					),
 					array(
 						'name'              => 'decimal_sep',
@@ -193,7 +195,7 @@ class LBI_Settings {
 						'placeholder'       => '',
 						'type'              => 'text',
 						'default'           => '.',
-						'sanitize_callback' => 'sanitize_text_field'
+						'sanitize_callback' => 'sanitize_text_field',
 					),
 					array(
 						'name'              => 'decimal_num',
@@ -202,16 +204,16 @@ class LBI_Settings {
 						'placeholder'       => '',
 						'type'              => 'text',
 						'default'           => 2,
-						'sanitize_callback' => 'sanitize_text_field'
-					)
+						'sanitize_callback' => 'sanitize_text_field',
+					),
 				),
-				'lbi_business' => array(
+				'lbi_business'  => array(
 					array(
-						'name'              => 'logo',
-						'label'             => __( 'Business Logo', 'littlebot-invoices' ),
-						'desc'              => '',
-						'placeholder'       => '',
-						'type'              => 'file'
+						'name'        => 'logo',
+						'label'       => __( 'Business Logo', 'littlebot-invoices' ),
+						'desc'        => '',
+						'placeholder' => '',
+						'type'        => 'file',
 					),
 					array(
 						'name'              => 'business_name',
@@ -220,14 +222,14 @@ class LBI_Settings {
 						'placeholder'       => '',
 						'type'              => 'text',
 						'default'           => get_bloginfo( 'name' ),
-						'sanitize_callback' => 'sanitize_text_field'
+						'sanitize_callback' => 'sanitize_text_field',
 					),
 					array(
-						'name'              => 'address',
-						'label'             => __( 'Address', 'littlebot-invoices' ),
-						'desc'              => '',
-						'placeholder'       => '',
-						'type'              => 'textarea'
+						'name'        => 'address',
+						'label'       => __( 'Address', 'littlebot-invoices' ),
+						'desc'        => '',
+						'placeholder' => '',
+						'type'        => 'textarea',
 					),
 					array(
 						'name'              => 'business_email',
@@ -236,64 +238,64 @@ class LBI_Settings {
 						'placeholder'       => '',
 						'type'              => 'text',
 						'default'           => '',
-						'sanitize_callback' => 'sanitize_text_field'
-					)
+						'sanitize_callback' => 'sanitize_text_field',
+					),
 
 				),
 				'lbi_estimates' => array(
 					array(
-						'name'              => 'terms',
-						'label'             => __( 'Terms &amp; Conditions', 'littlebot-invoices' ),
-						'desc'              => '',
-						'placeholder'       => '',
-						'type'              => 'wysiwyg',
-						'default'           => ''
-					),
-					array(
-						'name'              => 'notes',
-						'label'             => __( 'Notes', 'littlebot-invoices' ),
-						'desc'              => '',
-						'placeholder'       => '',
-						'type'              => 'wysiwyg',
-						'default'           => ''
-					)
-				),
-				'lbi_invoices' => array(
-					array(
-						'name'              => 'hide_pdf',
-						'label'             => __( 'Hide PDF', 'littlebot-invoices' ),
-						'desc'              => __( 'Hides the PDF download button on invoices if checked.', 'littlebot-invoices' ),
-						'type'              => 'checkbox'
-					),
-					array(
-						'name'              => 'terms',
-						'label'             => __( 'Terms &amp; Conditions', 'littlebot-invoices' ),
-						'desc'              => '',
-						'placeholder'       => '',
-						'type'              => 'wysiwyg',
-						'default'           => ''
-					),
-					array(
-						'name'              => 'notes',
-						'label'             => __( 'Notes', 'littlebot-invoices' ),
-						'desc'              => '',
-						'placeholder'       => '',
-						'type'              => 'wysiwyg',
-						'default'           => ''
-					)
-				),
-				'lbi_emails' => array(
-					array(
-						'name'              => 'html_emails',
-						'label'             => __( 'Send HTML emails', 'littlebot-invoices' ),
-						'desc'              => __( 'Check to send HTML emails. Otherwise, emails are sent as plain text.', 'littlebot-invoices' ),
-						'type'              => 'checkbox'
-					),
-					array(
-						'name'        => 'token_html',
-						'label'		  => __('Token Key'),
+						'name'        => 'terms',
+						'label'       => __( 'Terms &amp; Conditions', 'littlebot-invoices' ),
 						'desc'        => '',
-						'type'        => 'token_html'
+						'placeholder' => '',
+						'type'        => 'wysiwyg',
+						'default'     => '',
+					),
+					array(
+						'name'        => 'notes',
+						'label'       => __( 'Notes', 'littlebot-invoices' ),
+						'desc'        => '',
+						'placeholder' => '',
+						'type'        => 'wysiwyg',
+						'default'     => '',
+					),
+				),
+				'lbi_invoices'  => array(
+					array(
+						'name'  => 'hide_pdf',
+						'label' => __( 'Hide PDF', 'littlebot-invoices' ),
+						'desc'  => __( 'Hides the PDF download button on invoices if checked.', 'littlebot-invoices' ),
+						'type'  => 'checkbox',
+					),
+					array(
+						'name'        => 'terms',
+						'label'       => __( 'Terms &amp; Conditions', 'littlebot-invoices' ),
+						'desc'        => '',
+						'placeholder' => '',
+						'type'        => 'wysiwyg',
+						'default'     => '',
+					),
+					array(
+						'name'        => 'notes',
+						'label'       => __( 'Notes', 'littlebot-invoices' ),
+						'desc'        => '',
+						'placeholder' => '',
+						'type'        => 'wysiwyg',
+						'default'     => '',
+					),
+				),
+				'lbi_emails'    => array(
+					array(
+						'name'  => 'html_emails',
+						'label' => __( 'Send HTML emails', 'littlebot-invoices' ),
+						'desc'  => __( 'Check to send HTML emails. Otherwise, emails are sent as plain text.', 'littlebot-invoices' ),
+						'type'  => 'checkbox',
+					),
+					array(
+						'name'  => 'token_html',
+						'label' => __( 'Token Key' ),
+						'desc'  => '',
+						'type'  => 'token_html',
 					),
 					array(
 						'name'              => 'estimate_new_subject',
@@ -302,15 +304,15 @@ class LBI_Settings {
 						'placeholder'       => '',
 						'type'              => 'text',
 						'default'           => '',
-						'sanitize_callback' => 'sanitize_text_field'
+						'sanitize_callback' => 'sanitize_text_field',
 					),
 					array(
-						'name'              => 'estimate_new_body',
-						'label'             => __( 'New Estimate Body', 'littlebot-invoices' ),
-						'desc'              => '',
-						'placeholder'       => '',
-						'type'              => 'wysiwyg',
-						'default'           => ''
+						'name'        => 'estimate_new_body',
+						'label'       => __( 'New Estimate Body', 'littlebot-invoices' ),
+						'desc'        => '',
+						'placeholder' => '',
+						'type'        => 'wysiwyg',
+						'default'     => '',
 					),
 					array(
 						'name'              => 'invoice_new_subject',
@@ -319,15 +321,15 @@ class LBI_Settings {
 						'placeholder'       => '',
 						'type'              => 'text',
 						'default'           => '',
-						'sanitize_callback' => 'sanitize_text_field'
+						'sanitize_callback' => 'sanitize_text_field',
 					),
 					array(
-						'name'              => 'invoice_new_body',
-						'label'             => __( 'New Invoice Body', 'littlebot-invoices' ),
-						'desc'              => '',
-						'placeholder'       => '',
-						'type'              => 'wysiwyg',
-						'default'           => ''
+						'name'        => 'invoice_new_body',
+						'label'       => __( 'New Invoice Body', 'littlebot-invoices' ),
+						'desc'        => '',
+						'placeholder' => '',
+						'type'        => 'wysiwyg',
+						'default'     => '',
 					),
 					array(
 						'name'              => 'invoice_overdue_subject',
@@ -336,23 +338,23 @@ class LBI_Settings {
 						'placeholder'       => '',
 						'type'              => 'text',
 						'default'           => '',
-						'sanitize_callback' => 'sanitize_text_field'
+						'sanitize_callback' => 'sanitize_text_field',
 					),
 					array(
-						'name'              => 'invoice_overdue_body',
-						'label'             => __( 'Invoice Overdue Body', 'littlebot-invoices' ),
-						'desc'              => '',
-						'placeholder'       => '',
-						'type'              => 'wysiwyg',
-						'default'           => ''
-					)
+						'name'        => 'invoice_overdue_body',
+						'label'       => __( 'Invoice Overdue Body', 'littlebot-invoices' ),
+						'desc'        => '',
+						'placeholder' => '',
+						'type'        => 'wysiwyg',
+						'default'     => '',
+					),
 				),
-				'lbi_payments' => array(
+				'lbi_payments'  => array(
 					array(
-						'name'              => 'enable_paypal_standard',
-						'label'             => __( 'Enable PayPal Standard', 'littlebot-invoices' ),
-						'desc'              => __( 'Enables offsite credit card checkout by PayPal. Can be used in conjunction with payment gateways.', 'littlebot-invoices' ),
-						'type'              => 'checkbox'
+						'name'  => 'enable_paypal_standard',
+						'label' => __( 'Enable PayPal Standard', 'littlebot-invoices' ),
+						'desc'  => __( 'Enables offsite credit card checkout by PayPal. Can be used in conjunction with payment gateways.', 'littlebot-invoices' ),
+						'type'  => 'checkbox',
 					),
 					array(
 						'name'              => 'paypal_email',
@@ -361,15 +363,18 @@ class LBI_Settings {
 						'placeholder'       => '',
 						'type'              => 'text',
 						'default'           => '',
-						'sanitize_callback' => 'sanitize_text_field'
+						'sanitize_callback' => 'sanitize_text_field',
 					),
 					array(
-							'name'              => 'paypal_environment',
-							'label'             => __( 'PayPal Environment', 'littlebot-invoices' ),
-							'desc'              => __( 'Live or Test mode?', 'littlebot-invoices' ),
-							'placeholder'       => '',
-							'type'              => 'radio',
-							'options'           => array( 'live' => 'Live', 'test' => 'Test')
+						'name'        => 'paypal_environment',
+						'label'       => __( 'PayPal Environment', 'littlebot-invoices' ),
+						'desc'        => __( 'Live or Test mode?', 'littlebot-invoices' ),
+						'placeholder' => '',
+						'type'        => 'radio',
+						'options'     => array(
+							'live' => 'Live',
+							'test' => 'Test',
+						),
 					),
 					array(
 						'name'    => 'payment_gateway',
@@ -377,7 +382,7 @@ class LBI_Settings {
 						'desc'    => 'Try the <a href="/wp-admin/admin.php?page=littlebot_invoices-addons">Stripe Addon</a>',
 						'type'    => 'select',
 						'options' => array(
-								'' => '--',
+							'' => '--',
 						),
 					),
 				),
@@ -398,11 +403,11 @@ class LBI_Settings {
 		 * @return array page names with key value pairs
 		 */
 		public function get_pages() {
-			$pages = get_pages();
+			$pages         = get_pages();
 			$pages_options = array();
 			if ( $pages ) {
-				foreach ($pages as $page) {
-					$pages_options[$page->ID] = $page->post_title;
+				foreach ( $pages as $page ) {
+					$pages_options[ $page->ID ] = $page->post_title;
 				}
 			}
 			return $pages_options;
@@ -410,4 +415,4 @@ class LBI_Settings {
 
 }
 
-return new LBI_Settings;
+return new LBI_Settings();
