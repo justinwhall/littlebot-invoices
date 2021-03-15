@@ -147,8 +147,8 @@ if ( ! function_exists( 'littlebot_get_total' ) ) :
 
 	function littlebot_get_total( $post_id = 0 ) {
 		$post_id = ( ! $post_id ) ? get_the_ID() : $post_id;
-		$meta    = get_post_meta( $post_id, '', true );
-		$total   = isset( $meta['total'] ) ? LBI_Admin_Post::get_formatted_currency( $meta['total'][0] ) : 0;
+		$total   = (int) get_post_meta( $post_id, 'total', true );
+		$total   = $total ? LBI_Admin_Post::get_formatted_currency( $total ) : 0;
 		return apply_filters( 'littlebot_get_total', $total );
 	}
 

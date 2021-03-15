@@ -55,11 +55,11 @@ class Littlebot_Invoices_Meta {
 			],
 			[
 				'key'  => 'sub_total',
-				'type' => 'integer',
+				'type' => 'number',
 			],
 			[
 				'key'  => 'total',
-				'type' => 'integer',
+				'type' => 'number',
 			],
 			[
 				'key'  => 'tax_rate',

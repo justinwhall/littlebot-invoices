@@ -15,41 +15,44 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-function p_open($flag) {
-    global $p_times;
-    if (null === $p_times)
-        $p_times = [];
-    if (! array_key_exists($flag, $p_times))
-        $p_times[$flag] = [ 'total' => 0, 'open' => 0 ];
-    $p_times[$flag]['open'] = microtime(true);
+function p_open( $flag ) {
+	global $p_times;
+	if ( null === $p_times ) {
+		$p_times = [];
+	}
+	if ( ! array_key_exists( $flag, $p_times ) ) {
+		$p_times[ $flag ] = [
+			'total' => 0,
+			'open'  => 0,
+		];
+	}
+	$p_times[ $flag ]['open'] = microtime( true );
 }
 
-function p_close($flag)
-{
-    global $p_times;
-    if (isset($p_times[$flag]['open'])) {
-        $p_times[$flag]['total'] += (microtime(true) - $p_times[$flag]['open']);
-        unset($p_times[$flag]['open']);
-    }
+function p_close( $flag ) {
+	global $p_times;
+	if ( isset( $p_times[ $flag ]['open'] ) ) {
+		$p_times[ $flag ]['total'] += ( microtime( true ) - $p_times[ $flag ]['open'] );
+		unset( $p_times[ $flag ]['open'] );
+	}
 }
 
-function p_dump()
-{
-    global $p_times;
-    $dump = [];
-    $sum  = 0;
-    foreach ($p_times as $flag => $info) {
-        $dump[$flag]['elapsed'] = $info['total'];
-        $sum += $info['total'];
-    }
-    foreach ($dump as $flag => $info) {
-        $dump[$flag]['percent'] = $dump[$flag]['elapsed']/$sum;
-    }
-    return $dump;
+function p_dump() {
+	 global $p_times;
+	$dump = [];
+	$sum  = 0;
+	foreach ( $p_times as $flag => $info ) {
+		$dump[ $flag ]['elapsed'] = $info['total'];
+		$sum                     += $info['total'];
+	}
+	foreach ( $dump as $flag => $info ) {
+		$dump[ $flag ]['percent'] = $dump[ $flag ]['elapsed'] / $sum;
+	}
+	return $dump;
 }
 
-class LBI_Admin_Post
-{
+class LBI_Admin_Post {
+
 	public $post_type_name;
 
 	static $error = false;
@@ -60,6 +63,7 @@ class LBI_Admin_Post
 
 	/**
 	 * kick it off
+	 *
 	 * @return void
 	 */
 	public static function init() {
@@ -68,32 +72,31 @@ class LBI_Admin_Post
 		add_action( 'wp_ajax_update_status', array( __CLASS__, 'update_status' ), 20 );
 	}
 
-	public static function update_status( $ID = false, $status = false ){
+	public static function update_status( $ID = false, $status = false ) {
 
-
-		if ( isset( $_POST ) && array_key_exists( 'ajax', $_POST ) )  {
+		if ( isset( $_POST ) && array_key_exists( 'ajax', $_POST ) ) {
 			$status = sanitize_text_field( $_POST['status'] );
-			$ID = (int)sanitize_text_field( $_POST['ID'] );
+			$ID     = (int) sanitize_text_field( $_POST['ID'] );
 		}
 
 		$post = array(
-		  'ID'           => $ID,
-		  'post_status'   => $status
+			'ID'          => $ID,
+			'post_status' => $status,
 		);
 
 		$update = wp_update_post( $post );
 
-		if ( !$update ) {
-			self::$error = true;
+		if ( ! $update ) {
+			self::$error   = true;
 			self::$message = "I'm sorry, there was a problem updating this document.";
-		} else{
+		} else {
 			self::$data['new_status'] = $status;
 		}
 
-		$response = LBI()->response->build( self::$error, self::$message, self::$data);
+		$response = LBI()->response->build( self::$error, self::$message, self::$data );
 
-		if ( isset( $_POST ) && array_key_exists( 'ajax', $_POST ) )  {
-	    	wp_send_json( $response );
+		if ( isset( $_POST ) && array_key_exists( 'ajax', $_POST ) ) {
+			wp_send_json( $response );
 			wp_die();
 		}
 
@@ -103,6 +106,7 @@ class LBI_Admin_Post
 
 	/**
 	 * fires on post status transition. Creates a invoice from an estimate if change from pending -> approved
+	 *
 	 * @param  string $new_status the new status
 	 * @param  string $old_status the old status
 	 * @param  object $post       the current post (estimate)
@@ -111,22 +115,24 @@ class LBI_Admin_Post
 	public static function check_for_approved_estimate( $new_status, $old_status, $post ) {
 
 		// we're only looking for estimates here...
-		if ( $post->post_type != 'lb_estimate' ) return;
+		if ( $post->post_type != 'lb_estimate' ) {
+			return;
+		}
 
 		// create invoice
 		if ( $old_status !== $new_status && $new_status == 'lb-approved' ) {
 
 			$invoice = array(
-			  'post_title'    => $post->post_title,
-			  'post_content'  => '',
-			  'post_status'   => 'lb-draft',
-			  'post_type'     => 'lb_invoice'
+				'post_title'   => $post->post_title,
+				'post_content' => '',
+				'post_status'  => 'lb-draft',
+				'post_type'    => 'lb_invoice',
 			);
 
 			$invoice_id = wp_insert_post( $invoice );
 
 			update_post_meta( $invoice_id, '_client', get_post_meta( $post->ID, '_client', true ) );
-			update_post_meta( $invoice_id, '_due_date', strtotime("+1 month") );
+			update_post_meta( $invoice_id, '_due_date', strtotime( '+1 month' ) );
 			update_post_meta( $invoice_id, '_line_items', get_post_meta( $post->ID, '_line_items', true ) );
 			update_post_meta( $invoice_id, '_subtotal', get_post_meta( $post->ID, '_subtotal', true ) );
 			update_post_meta( $invoice_id, '_total', get_post_meta( $post->ID, '_total', true ) );
@@ -135,50 +141,51 @@ class LBI_Admin_Post
 			self::link_docs( $post->ID, $invoice_id );
 
 			// send notification
-			do_action('send_estimate_approved_notification', $post );
+			do_action( 'send_estimate_approved_notification', $post );
 		}
 
 	}
 
-	public static function link_docs( $estimate_id, $invoice_id) {
+	public static function link_docs( $estimate_id, $invoice_id ) {
 		update_post_meta( $estimate_id, '_linked_doc', $invoice_id );
 		update_post_meta( $invoice_id, '_linked_doc', $estimate_id );
 	}
 
 	/**
 	 * security & privlege check before saving posts meta
-	 * @param  string $nonce_name   save nonce
+	 *
+	 * @param  string  $nonce_name   save nonce
 	 * @param  sttring $nonce_action nonce action
-	 * @param  object $post_id      post being saved
+	 * @param  object  $post_id      post being saved
 	 * @return boolean               save to save true/false...
 	 */
-	public function validate_save_action( $nonce_name, $nonce_action, $post_id ){
+	public function validate_save_action( $nonce_name, $nonce_action, $post_id ) {
 
 		$save = true;
 
 		// Check if nonce is set.
 		if ( ! isset( $nonce_name ) ) {
-		    $save = false;
+			$save = false;
 		}
 
 		// Check if nonce is valid.
 		if ( ! wp_verify_nonce( $nonce_name, $nonce_action ) ) {
-		    $save = false;
+			$save = false;
 		}
 
 		// Check if user has permissions to save data.
 		if ( ! current_user_can( 'edit_post', $post_id ) ) {
-		    $save = false;
+			$save = false;
 		}
 
 		// Check if not an autosave.
 		if ( wp_is_post_autosave( $post_id ) ) {
-		    $save = false;
+			$save = false;
 		}
 
 		// Check if not a revision.
 		if ( wp_is_post_revision( $post_id ) ) {
-		    $save = false;
+			$save = false;
 		}
 
 		return $save;
@@ -187,22 +194,23 @@ class LBI_Admin_Post
 
 	public static function get_formatted_number( $amount ) {
 
-	    $thou_sep 	= LBI_Settings::littlebot_get_option( 'thousand_sep', 'lbi_general');
-	    $dec_sep 	= LBI_Settings::littlebot_get_option( 'decimal_sep', 'lbi_general');;
-	    $decimals 	= LBI_Settings::littlebot_get_option( 'decimal_num', 'lbi_general');
+		$thou_sep = LBI_Settings::littlebot_get_option( 'thousand_sep', 'lbi_general' );
+		$dec_sep  = LBI_Settings::littlebot_get_option( 'decimal_sep', 'lbi_general' );
 
-	    $formatted 	= number_format( (float)$amount, (int)$decimals, $dec_sep, $thou_sep );
+		$decimals = LBI_Settings::littlebot_get_option( 'decimal_num', 'lbi_general' );
 
-	    return apply_filters( 'little_get_formatted_number', $formatted );
+		$formatted = number_format( (float) $amount, (int) $decimals, $dec_sep, $thou_sep );
+
+		return apply_filters( 'little_get_formatted_number', $formatted );
 	}
 
 	static function get_formatted_currency( $amount ) {
 
-		$symbol 	= LBI_Settings::littlebot_get_option( 'currency_symbol', 'lbi_general');
-		$position 	= LBI_Settings::littlebot_get_option( 'currency_position', 'lbi_general');
-		$amount 	= self::get_formatted_number( $amount );
+		$symbol   = LBI_Settings::littlebot_get_option( 'currency_symbol', 'lbi_general' );
+		$position = LBI_Settings::littlebot_get_option( 'currency_position', 'lbi_general' );
+		$amount   = self::get_formatted_number( $amount / 100 );
 
-		switch ($position) {
+		switch ( $position ) {
 			case 'left':
 				$formatted = $symbol . $amount;
 				break;
